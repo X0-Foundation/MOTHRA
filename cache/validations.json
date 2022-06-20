@@ -485,7 +485,7 @@
               "label": "thisNode",
               "offset": 0,
               "slot": "0",
-              "type": "t_enum(NodeType)15083",
+              "type": "t_enum(NodeType)17978",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:8"
             },
@@ -509,7 +509,7 @@
               "label": "nodes",
               "offset": 0,
               "slot": "2",
-              "type": "t_struct(Nodes)15077_storage",
+              "type": "t_struct(Nodes)17972_storage",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:13"
             },
@@ -517,7 +517,7 @@
               "label": "pairs",
               "offset": 0,
               "slot": "7",
-              "type": "t_mapping(t_address,t_struct(Pair)15063_storage)",
+              "type": "t_mapping(t_address,t_struct(Pair)17958_storage)",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:15"
             },
@@ -533,7 +533,7 @@
               "label": "feeStores",
               "offset": 0,
               "slot": "9",
-              "type": "t_struct(FeeStores)15035_storage",
+              "type": "t_struct(FeeStores)17930_storage",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:18"
             },
@@ -541,7 +541,7 @@
               "label": "feeRates",
               "offset": 0,
               "slot": "10",
-              "type": "t_mapping(t_enum(ActionType)15013,t_struct(FeeRates)15032_storage)",
+              "type": "t_mapping(t_enum(ActionType)17908,t_struct(FeeRates)17927_storage)",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:19"
             },
@@ -615,7 +615,7 @@
               "label": "bool",
               "numberOfBytes": "1"
             },
-            "t_enum(ActionType)15013": {
+            "t_enum(ActionType)17908": {
               "label": "enum ActionType",
               "members": [
                 "None",
@@ -626,7 +626,7 @@
               ],
               "numberOfBytes": "1"
             },
-            "t_enum(ListStatus)15055": {
+            "t_enum(ListStatus)17950": {
               "label": "enum ListStatus",
               "members": [
                 "None",
@@ -636,7 +636,7 @@
               ],
               "numberOfBytes": "1"
             },
-            "t_enum(NodeType)15083": {
+            "t_enum(NodeType)17978": {
               "label": "enum NodeType",
               "members": [
                 "Token",
@@ -659,15 +659,15 @@
               "label": "mapping(address => mapping(address => address))",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_address,t_struct(Pair)15063_storage)": {
+            "t_mapping(t_address,t_struct(Pair)17958_storage)": {
               "label": "mapping(address => struct Pair)",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_enum(ActionType)15013,t_struct(FeeRates)15032_storage)": {
+            "t_mapping(t_enum(ActionType)17908,t_struct(FeeRates)17927_storage)": {
               "label": "mapping(enum ActionType => struct FeeRates)",
               "numberOfBytes": "32"
             },
-            "t_struct(FeeRates)15032_storage": {
+            "t_struct(FeeRates)17927_storage": {
               "label": "struct FeeRates",
               "members": [
                 {
@@ -679,7 +679,7 @@
               ],
               "numberOfBytes": "32"
             },
-            "t_struct(FeeStores)15035_storage": {
+            "t_struct(FeeStores)17930_storage": {
               "label": "struct FeeStores",
               "members": [
                 {
@@ -691,7 +691,7 @@
               ],
               "numberOfBytes": "32"
             },
-            "t_struct(Nodes)15077_storage": {
+            "t_struct(Nodes)17972_storage": {
               "label": "struct Nodes",
               "members": [
                 {
@@ -727,7 +727,7 @@
               ],
               "numberOfBytes": "160"
             },
-            "t_struct(Pair)15063_storage": {
+            "t_struct(Pair)17958_storage": {
               "label": "struct Pair",
               "members": [
                 {
@@ -744,7 +744,7 @@
                 },
                 {
                   "label": "status",
-                  "type": "t_enum(ListStatus)15055",
+                  "type": "t_enum(ListStatus)17950",
                   "offset": 20,
                   "slot": "1"
                 }
@@ -852,7 +852,7 @@
               "label": "status",
               "offset": 0,
               "slot": "5",
-              "type": "t_enum(ListStatus)15055",
+              "type": "t_enum(ListStatus)17950",
               "contract": "XPair",
               "src": "contracts\\core\\XPair.sol:37"
             },
@@ -970,7 +970,7 @@
               "label": "bytes32",
               "numberOfBytes": "32"
             },
-            "t_enum(ListStatus)15055": {
+            "t_enum(ListStatus)17950": {
               "label": "enum ListStatus",
               "members": [
                 "None",
@@ -1212,7 +1212,7 @@
       "TGRToken": {
         "src": "contracts\\farm\\TGRToken.sol:24",
         "version": {
-          "withMetadata": "e06795b40a03520694eb7839d8d609bfefd0ea42c474265de1968196607320f6",
+          "withMetadata": "c25a6bdb22e497fb5babf976e1df4b9eae709bb3f641ec45d4cd62b5c62f1701",
           "withoutMetadata": "ac9ca46c672f66f85caff862a4a6c75e63e245d975fe960453205c63c996f291",
           "linkedWithoutMetadata": "ac9ca46c672f66f85caff862a4a6c75e63e245d975fe960453205c63c996f291"
         },
@@ -1286,7 +1286,7 @@
           {
             "kind": "constructor",
             "contract": "TGRToken",
-            "src": "contracts\\farm\\TGRToken.sol:101"
+            "src": "contracts\\farm\\TGRToken.sol:102"
           },
           {
             "kind": "external-library-linking",
@@ -1300,7 +1300,7 @@
               "label": "thisNode",
               "offset": 0,
               "slot": "0",
-              "type": "t_enum(NodeType)15083",
+              "type": "t_enum(NodeType)17978",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:8"
             },
@@ -1324,7 +1324,7 @@
               "label": "nodes",
               "offset": 0,
               "slot": "2",
-              "type": "t_struct(Nodes)15077_storage",
+              "type": "t_struct(Nodes)17972_storage",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:13"
             },
@@ -1332,7 +1332,7 @@
               "label": "pairs",
               "offset": 0,
               "slot": "7",
-              "type": "t_mapping(t_address,t_struct(Pair)15063_storage)",
+              "type": "t_mapping(t_address,t_struct(Pair)17958_storage)",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:15"
             },
@@ -1348,7 +1348,7 @@
               "label": "feeStores",
               "offset": 0,
               "slot": "9",
-              "type": "t_struct(FeeStores)15035_storage",
+              "type": "t_struct(FeeStores)17930_storage",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:18"
             },
@@ -1356,7 +1356,7 @@
               "label": "feeRates",
               "offset": 0,
               "slot": "10",
-              "type": "t_mapping(t_enum(ActionType)15013,t_struct(FeeRates)15032_storage)",
+              "type": "t_mapping(t_enum(ActionType)17908,t_struct(FeeRates)17927_storage)",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:19"
             },
@@ -1412,7 +1412,7 @@
               "label": "sessionsLastSeenBySType",
               "offset": 0,
               "slot": "14",
-              "type": "t_mapping(t_enum(ActionType)15013,t_uint256)",
+              "type": "t_mapping(t_enum(ActionType)17908,t_uint256)",
               "contract": "SessionRegistrar",
               "src": "contracts\\session\\SessionRegistrar.sol:11"
             },
@@ -1420,7 +1420,7 @@
               "label": "actionStack",
               "offset": 0,
               "slot": "15",
-              "type": "t_array(t_enum(ActionType)15013)20_storage",
+              "type": "t_array(t_enum(ActionType)17908)20_storage",
               "contract": "SessionRegistrar",
               "src": "contracts\\session\\SessionRegistrar.sol:13"
             },
@@ -1444,7 +1444,7 @@
               "label": "actionParams",
               "offset": 0,
               "slot": "18",
-              "type": "t_struct(ActionParams)15029_storage",
+              "type": "t_struct(ActionParams)17924_storage",
               "contract": "SessionManager",
               "src": "contracts\\session\\SessionManager.sol:10"
             },
@@ -1452,7 +1452,7 @@
               "label": "sessionRegistrar",
               "offset": 0,
               "slot": "22",
-              "type": "t_contract(ISessionRegistrar)15220",
+              "type": "t_contract(ISessionRegistrar)18115",
               "contract": "SessionManager",
               "src": "contracts\\session\\SessionManager.sol:11"
             },
@@ -1460,7 +1460,7 @@
               "label": "sessionFees",
               "offset": 0,
               "slot": "23",
-              "type": "t_contract(ISessionFees)15196",
+              "type": "t_contract(ISessionFees)18091",
               "contract": "SessionManager",
               "src": "contracts\\session\\SessionManager.sol:12"
             },
@@ -1470,7 +1470,7 @@
               "slot": "24",
               "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
               "contract": "TGRToken",
-              "src": "contracts\\farm\\TGRToken.sol:42"
+              "src": "contracts\\farm\\TGRToken.sol:43"
             },
             {
               "label": "_totalSupply",
@@ -1478,7 +1478,7 @@
               "slot": "25",
               "type": "t_uint256",
               "contract": "TGRToken",
-              "src": "contracts\\farm\\TGRToken.sol:43"
+              "src": "contracts\\farm\\TGRToken.sol:44"
             },
             {
               "label": "_balances",
@@ -1486,7 +1486,7 @@
               "slot": "26",
               "type": "t_mapping(t_address,t_uint256)",
               "contract": "TGRToken",
-              "src": "contracts\\farm\\TGRToken.sol:44"
+              "src": "contracts\\farm\\TGRToken.sol:45"
             },
             {
               "label": "tgrftm",
@@ -1494,7 +1494,7 @@
               "slot": "27",
               "type": "t_address",
               "contract": "TGRToken",
-              "src": "contracts\\farm\\TGRToken.sol:49"
+              "src": "contracts\\farm\\TGRToken.sol:50"
             },
             {
               "label": "tgrhtz",
@@ -1502,7 +1502,7 @@
               "slot": "28",
               "type": "t_address",
               "contract": "TGRToken",
-              "src": "contracts\\farm\\TGRToken.sol:50"
+              "src": "contracts\\farm\\TGRToken.sol:51"
             },
             {
               "label": "votes",
@@ -1510,7 +1510,7 @@
               "slot": "29",
               "type": "t_address",
               "contract": "TGRToken",
-              "src": "contracts\\farm\\TGRToken.sol:51"
+              "src": "contracts\\farm\\TGRToken.sol:52"
             },
             {
               "label": "lp_reward",
@@ -1518,7 +1518,7 @@
               "slot": "30",
               "type": "t_struct(Pulse)6484_storage",
               "contract": "TGRToken",
-              "src": "contracts\\farm\\TGRToken.sol:53"
+              "src": "contracts\\farm\\TGRToken.sol:54"
             },
             {
               "label": "vote_burn",
@@ -1526,7 +1526,7 @@
               "slot": "38",
               "type": "t_struct(Pulse)6484_storage",
               "contract": "TGRToken",
-              "src": "contracts\\farm\\TGRToken.sol:54"
+              "src": "contracts\\farm\\TGRToken.sol:55"
             },
             {
               "label": "user_burn",
@@ -1534,7 +1534,7 @@
               "slot": "46",
               "type": "t_struct(Pulse)6484_storage",
               "contract": "TGRToken",
-              "src": "contracts\\farm\\TGRToken.sol:55"
+              "src": "contracts\\farm\\TGRToken.sol:56"
             },
             {
               "label": "Users",
@@ -1542,7 +1542,7 @@
               "slot": "54",
               "type": "t_mapping(t_address,t_struct(User)6487_storage)",
               "contract": "TGRToken",
-              "src": "contracts\\farm\\TGRToken.sol:57"
+              "src": "contracts\\farm\\TGRToken.sol:58"
             },
             {
               "label": "admin",
@@ -1550,7 +1550,7 @@
               "slot": "55",
               "type": "t_address",
               "contract": "TGRToken",
-              "src": "contracts\\farm\\TGRToken.sol:60"
+              "src": "contracts\\farm\\TGRToken.sol:61"
             },
             {
               "label": "alice",
@@ -1558,7 +1558,7 @@
               "slot": "56",
               "type": "t_address",
               "contract": "TGRToken",
-              "src": "contracts\\farm\\TGRToken.sol:60"
+              "src": "contracts\\farm\\TGRToken.sol:61"
             },
             {
               "label": "bob",
@@ -1566,7 +1566,7 @@
               "slot": "57",
               "type": "t_address",
               "contract": "TGRToken",
-              "src": "contracts\\farm\\TGRToken.sol:60"
+              "src": "contracts\\farm\\TGRToken.sol:61"
             },
             {
               "label": "carol",
@@ -1574,15 +1574,15 @@
               "slot": "58",
               "type": "t_address",
               "contract": "TGRToken",
-              "src": "contracts\\farm\\TGRToken.sol:60"
+              "src": "contracts\\farm\\TGRToken.sol:61"
             },
             {
               "label": "analyticMath",
               "offset": 0,
               "slot": "59",
-              "type": "t_contract(AnalyticMath)25523",
+              "type": "t_contract(AnalyticMath)9847",
               "contract": "TGRToken",
-              "src": "contracts\\farm\\TGRToken.sol:99"
+              "src": "contracts\\farm\\TGRToken.sol:100"
             }
           ],
           "types": {
@@ -1590,7 +1590,7 @@
               "label": "address",
               "numberOfBytes": "20"
             },
-            "t_array(t_enum(ActionType)15013)20_storage": {
+            "t_array(t_enum(ActionType)17908)20_storage": {
               "label": "enum ActionType[20]",
               "numberOfBytes": "32"
             },
@@ -1598,19 +1598,19 @@
               "label": "bool",
               "numberOfBytes": "1"
             },
-            "t_contract(AnalyticMath)25523": {
+            "t_contract(AnalyticMath)9847": {
               "label": "contract AnalyticMath",
               "numberOfBytes": "20"
             },
-            "t_contract(ISessionFees)15196": {
+            "t_contract(ISessionFees)18091": {
               "label": "contract ISessionFees",
               "numberOfBytes": "20"
             },
-            "t_contract(ISessionRegistrar)15220": {
+            "t_contract(ISessionRegistrar)18115": {
               "label": "contract ISessionRegistrar",
               "numberOfBytes": "20"
             },
-            "t_enum(ActionType)15013": {
+            "t_enum(ActionType)17908": {
               "label": "enum ActionType",
               "members": [
                 "None",
@@ -1621,7 +1621,7 @@
               ],
               "numberOfBytes": "1"
             },
-            "t_enum(ListStatus)15055": {
+            "t_enum(ListStatus)17950": {
               "label": "enum ListStatus",
               "members": [
                 "None",
@@ -1631,7 +1631,7 @@
               ],
               "numberOfBytes": "1"
             },
-            "t_enum(NodeType)15083": {
+            "t_enum(NodeType)17978": {
               "label": "enum NodeType",
               "members": [
                 "Token",
@@ -1654,7 +1654,7 @@
               "label": "mapping(address => mapping(address => uint256))",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_address,t_struct(Pair)15063_storage)": {
+            "t_mapping(t_address,t_struct(Pair)17958_storage)": {
               "label": "mapping(address => struct Pair)",
               "numberOfBytes": "32"
             },
@@ -1666,20 +1666,20 @@
               "label": "mapping(address => uint256)",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_enum(ActionType)15013,t_struct(FeeRates)15032_storage)": {
+            "t_mapping(t_enum(ActionType)17908,t_struct(FeeRates)17927_storage)": {
               "label": "mapping(enum ActionType => struct FeeRates)",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_enum(ActionType)15013,t_uint256)": {
+            "t_mapping(t_enum(ActionType)17908,t_uint256)": {
               "label": "mapping(enum ActionType => uint256)",
               "numberOfBytes": "32"
             },
-            "t_struct(ActionParams)15029_storage": {
+            "t_struct(ActionParams)17924_storage": {
               "label": "struct ActionParams",
               "members": [
                 {
                   "label": "actionType",
-                  "type": "t_enum(ActionType)15013",
+                  "type": "t_enum(ActionType)17908",
                   "offset": 0,
                   "slot": "0"
                 },
@@ -1704,7 +1704,7 @@
               ],
               "numberOfBytes": "128"
             },
-            "t_struct(FeeRates)15032_storage": {
+            "t_struct(FeeRates)17927_storage": {
               "label": "struct FeeRates",
               "members": [
                 {
@@ -1716,7 +1716,7 @@
               ],
               "numberOfBytes": "32"
             },
-            "t_struct(FeeStores)15035_storage": {
+            "t_struct(FeeStores)17930_storage": {
               "label": "struct FeeStores",
               "members": [
                 {
@@ -1728,7 +1728,7 @@
               ],
               "numberOfBytes": "32"
             },
-            "t_struct(Nodes)15077_storage": {
+            "t_struct(Nodes)17972_storage": {
               "label": "struct Nodes",
               "members": [
                 {
@@ -1764,7 +1764,7 @@
               ],
               "numberOfBytes": "160"
             },
-            "t_struct(Pair)15063_storage": {
+            "t_struct(Pair)17958_storage": {
               "label": "struct Pair",
               "members": [
                 {
@@ -1781,7 +1781,7 @@
                 },
                 {
                   "label": "status",
-                  "type": "t_enum(ListStatus)15055",
+                  "type": "t_enum(ListStatus)17950",
                   "offset": 20,
                   "slot": "1"
                 }
@@ -1993,6 +1993,67 @@
           "SafeMath",
           "TransferHelper"
         ],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
+      "AnalyticMath": {
+        "src": "contracts\\libraries\\math\\AnalyticMath.sol:6",
+        "version": {
+          "withMetadata": "334c8337eabaafdb35bcaab7a04a4981b2f3d1974d7cee69b46a06a83e17e58a",
+          "withoutMetadata": "33afbc8134d61887653fcf12210920db3655c93a85020880abbd3aa4c2ec8e1f",
+          "linkedWithoutMetadata": "33afbc8134d61887653fcf12210920db3655c93a85020880abbd3aa4c2ec8e1f"
+        },
+        "inherit": [],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "init()",
+          "pow(uint256,uint256,uint256,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [
+            {
+              "label": "maxExpArray",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_array(t_uint256)128_storage",
+              "contract": "AnalyticMath",
+              "src": "contracts\\libraries\\math\\AnalyticMath.sol:21"
+            }
+          ],
+          "types": {
+            "t_array(t_uint256)128_storage": {
+              "label": "uint256[128]",
+              "numberOfBytes": "4096"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "IntegralMath": {
+        "src": "contracts\\libraries\\math\\IntegralMath.sol:6",
+        "version": {
+          "withMetadata": "18250fe1250bcf98dbd811357e9625779948cd8c67874e5b229ae0c013b004c8",
+          "withoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db",
+          "linkedWithoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db"
+        },
+        "inherit": [],
+        "libraries": [],
         "methods": [],
         "linkReferences": [],
         "errors": [],
@@ -2267,7 +2328,7 @@
               "label": "thisNode",
               "offset": 0,
               "slot": "0",
-              "type": "t_enum(NodeType)15083",
+              "type": "t_enum(NodeType)17978",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:8"
             },
@@ -2291,7 +2352,7 @@
               "label": "nodes",
               "offset": 0,
               "slot": "2",
-              "type": "t_struct(Nodes)15077_storage",
+              "type": "t_struct(Nodes)17972_storage",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:13"
             },
@@ -2299,7 +2360,7 @@
               "label": "pairs",
               "offset": 0,
               "slot": "7",
-              "type": "t_mapping(t_address,t_struct(Pair)15063_storage)",
+              "type": "t_mapping(t_address,t_struct(Pair)17958_storage)",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:15"
             },
@@ -2315,7 +2376,7 @@
               "label": "feeStores",
               "offset": 0,
               "slot": "9",
-              "type": "t_struct(FeeStores)15035_storage",
+              "type": "t_struct(FeeStores)17930_storage",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:18"
             },
@@ -2323,7 +2384,7 @@
               "label": "feeRates",
               "offset": 0,
               "slot": "10",
-              "type": "t_mapping(t_enum(ActionType)15013,t_struct(FeeRates)15032_storage)",
+              "type": "t_mapping(t_enum(ActionType)17908,t_struct(FeeRates)17927_storage)",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:19"
             },
@@ -2363,7 +2424,7 @@
               "label": "pairStateAtSessionDetect",
               "offset": 0,
               "slot": "12",
-              "type": "t_mapping(t_address,t_struct(PairStateSessionTagged)8434_storage)",
+              "type": "t_mapping(t_address,t_struct(PairStateSessionTagged)11329_storage)",
               "contract": "ControlCenter",
               "src": "contracts\\periphery\\ControlCenter.sol:29"
             },
@@ -2395,7 +2456,7 @@
               "label": "chainlinkFeeds",
               "offset": 0,
               "slot": "16",
-              "type": "t_mapping(t_address,t_struct(CLFeed)8445_storage)",
+              "type": "t_mapping(t_address,t_struct(CLFeed)11340_storage)",
               "contract": "ControlCenter",
               "src": "contracts\\periphery\\ControlCenter.sol:117"
             },
@@ -2421,7 +2482,7 @@
               "label": "bool",
               "numberOfBytes": "1"
             },
-            "t_enum(ActionType)15013": {
+            "t_enum(ActionType)17908": {
               "label": "enum ActionType",
               "members": [
                 "None",
@@ -2432,7 +2493,7 @@
               ],
               "numberOfBytes": "1"
             },
-            "t_enum(ListStatus)15055": {
+            "t_enum(ListStatus)17950": {
               "label": "enum ListStatus",
               "members": [
                 "None",
@@ -2442,7 +2503,7 @@
               ],
               "numberOfBytes": "1"
             },
-            "t_enum(NodeType)15083": {
+            "t_enum(NodeType)17978": {
               "label": "enum NodeType",
               "members": [
                 "Token",
@@ -2465,23 +2526,23 @@
               "label": "mapping(address => mapping(address => address))",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_address,t_struct(CLFeed)8445_storage)": {
+            "t_mapping(t_address,t_struct(CLFeed)11340_storage)": {
               "label": "mapping(address => struct ControlCenter.CLFeed)",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_address,t_struct(Pair)15063_storage)": {
+            "t_mapping(t_address,t_struct(Pair)17958_storage)": {
               "label": "mapping(address => struct Pair)",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_address,t_struct(PairStateSessionTagged)8434_storage)": {
+            "t_mapping(t_address,t_struct(PairStateSessionTagged)11329_storage)": {
               "label": "mapping(address => struct ControlCenter.PairStateSessionTagged)",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_enum(ActionType)15013,t_struct(FeeRates)15032_storage)": {
+            "t_mapping(t_enum(ActionType)17908,t_struct(FeeRates)17927_storage)": {
               "label": "mapping(enum ActionType => struct FeeRates)",
               "numberOfBytes": "32"
             },
-            "t_struct(CLFeed)8445_storage": {
+            "t_struct(CLFeed)11340_storage": {
               "label": "struct ControlCenter.CLFeed",
               "members": [
                 {
@@ -2517,7 +2578,7 @@
               ],
               "numberOfBytes": "64"
             },
-            "t_struct(FeeRates)15032_storage": {
+            "t_struct(FeeRates)17927_storage": {
               "label": "struct FeeRates",
               "members": [
                 {
@@ -2529,7 +2590,7 @@
               ],
               "numberOfBytes": "32"
             },
-            "t_struct(FeeStores)15035_storage": {
+            "t_struct(FeeStores)17930_storage": {
               "label": "struct FeeStores",
               "members": [
                 {
@@ -2541,7 +2602,7 @@
               ],
               "numberOfBytes": "32"
             },
-            "t_struct(Nodes)15077_storage": {
+            "t_struct(Nodes)17972_storage": {
               "label": "struct Nodes",
               "members": [
                 {
@@ -2577,7 +2638,7 @@
               ],
               "numberOfBytes": "160"
             },
-            "t_struct(Pair)15063_storage": {
+            "t_struct(Pair)17958_storage": {
               "label": "struct Pair",
               "members": [
                 {
@@ -2594,14 +2655,14 @@
                 },
                 {
                   "label": "status",
-                  "type": "t_enum(ListStatus)15055",
+                  "type": "t_enum(ListStatus)17950",
                   "offset": 20,
                   "slot": "1"
                 }
               ],
               "numberOfBytes": "64"
             },
-            "t_struct(PairStateSessionTagged)8434_storage": {
+            "t_struct(PairStateSessionTagged)11329_storage": {
               "label": "struct ControlCenter.PairStateSessionTagged",
               "members": [
                 {
@@ -2781,7 +2842,7 @@
               "label": "thisNode",
               "offset": 0,
               "slot": "0",
-              "type": "t_enum(NodeType)15083",
+              "type": "t_enum(NodeType)17978",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:8"
             },
@@ -2805,7 +2866,7 @@
               "label": "nodes",
               "offset": 0,
               "slot": "2",
-              "type": "t_struct(Nodes)15077_storage",
+              "type": "t_struct(Nodes)17972_storage",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:13"
             },
@@ -2813,7 +2874,7 @@
               "label": "pairs",
               "offset": 0,
               "slot": "7",
-              "type": "t_mapping(t_address,t_struct(Pair)15063_storage)",
+              "type": "t_mapping(t_address,t_struct(Pair)17958_storage)",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:15"
             },
@@ -2829,7 +2890,7 @@
               "label": "feeStores",
               "offset": 0,
               "slot": "9",
-              "type": "t_struct(FeeStores)15035_storage",
+              "type": "t_struct(FeeStores)17930_storage",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:18"
             },
@@ -2837,7 +2898,7 @@
               "label": "feeRates",
               "offset": 0,
               "slot": "10",
-              "type": "t_mapping(t_enum(ActionType)15013,t_struct(FeeRates)15032_storage)",
+              "type": "t_mapping(t_enum(ActionType)17908,t_struct(FeeRates)17927_storage)",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:19"
             },
@@ -2877,7 +2938,7 @@
               "label": "actionParams",
               "offset": 0,
               "slot": "12",
-              "type": "t_struct(ActionParams)15029_storage",
+              "type": "t_struct(ActionParams)17924_storage",
               "contract": "SessionManager",
               "src": "contracts\\session\\SessionManager.sol:10"
             },
@@ -2885,7 +2946,7 @@
               "label": "sessionRegistrar",
               "offset": 0,
               "slot": "16",
-              "type": "t_contract(ISessionRegistrar)15220",
+              "type": "t_contract(ISessionRegistrar)18115",
               "contract": "SessionManager",
               "src": "contracts\\session\\SessionManager.sol:11"
             },
@@ -2893,7 +2954,7 @@
               "label": "sessionFees",
               "offset": 0,
               "slot": "17",
-              "type": "t_contract(ISessionFees)15196",
+              "type": "t_contract(ISessionFees)18091",
               "contract": "SessionManager",
               "src": "contracts\\session\\SessionManager.sol:12"
             },
@@ -2963,15 +3024,15 @@
               "label": "bool",
               "numberOfBytes": "1"
             },
-            "t_contract(ISessionFees)15196": {
+            "t_contract(ISessionFees)18091": {
               "label": "contract ISessionFees",
               "numberOfBytes": "20"
             },
-            "t_contract(ISessionRegistrar)15220": {
+            "t_contract(ISessionRegistrar)18115": {
               "label": "contract ISessionRegistrar",
               "numberOfBytes": "20"
             },
-            "t_enum(ActionType)15013": {
+            "t_enum(ActionType)17908": {
               "label": "enum ActionType",
               "members": [
                 "None",
@@ -2982,7 +3043,7 @@
               ],
               "numberOfBytes": "1"
             },
-            "t_enum(ListStatus)15055": {
+            "t_enum(ListStatus)17950": {
               "label": "enum ListStatus",
               "members": [
                 "None",
@@ -2992,7 +3053,7 @@
               ],
               "numberOfBytes": "1"
             },
-            "t_enum(NodeType)15083": {
+            "t_enum(NodeType)17978": {
               "label": "enum NodeType",
               "members": [
                 "Token",
@@ -3011,11 +3072,11 @@
               "label": "mapping(address => mapping(address => address))",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_address,t_struct(Pair)15063_storage)": {
+            "t_mapping(t_address,t_struct(Pair)17958_storage)": {
               "label": "mapping(address => struct Pair)",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_enum(ActionType)15013,t_struct(FeeRates)15032_storage)": {
+            "t_mapping(t_enum(ActionType)17908,t_struct(FeeRates)17927_storage)": {
               "label": "mapping(enum ActionType => struct FeeRates)",
               "numberOfBytes": "32"
             },
@@ -3023,12 +3084,12 @@
               "label": "string",
               "numberOfBytes": "32"
             },
-            "t_struct(ActionParams)15029_storage": {
+            "t_struct(ActionParams)17924_storage": {
               "label": "struct ActionParams",
               "members": [
                 {
                   "label": "actionType",
-                  "type": "t_enum(ActionType)15013",
+                  "type": "t_enum(ActionType)17908",
                   "offset": 0,
                   "slot": "0"
                 },
@@ -3053,7 +3114,7 @@
               ],
               "numberOfBytes": "128"
             },
-            "t_struct(FeeRates)15032_storage": {
+            "t_struct(FeeRates)17927_storage": {
               "label": "struct FeeRates",
               "members": [
                 {
@@ -3065,7 +3126,7 @@
               ],
               "numberOfBytes": "32"
             },
-            "t_struct(FeeStores)15035_storage": {
+            "t_struct(FeeStores)17930_storage": {
               "label": "struct FeeStores",
               "members": [
                 {
@@ -3077,7 +3138,7 @@
               ],
               "numberOfBytes": "32"
             },
-            "t_struct(Nodes)15077_storage": {
+            "t_struct(Nodes)17972_storage": {
               "label": "struct Nodes",
               "members": [
                 {
@@ -3113,7 +3174,7 @@
               ],
               "numberOfBytes": "160"
             },
-            "t_struct(Pair)15063_storage": {
+            "t_struct(Pair)17958_storage": {
               "label": "struct Pair",
               "members": [
                 {
@@ -3130,7 +3191,7 @@
                 },
                 {
                   "label": "status",
-                  "type": "t_enum(ListStatus)15055",
+                  "type": "t_enum(ListStatus)17950",
                   "offset": 20,
                   "slot": "1"
                 }
@@ -3302,7 +3363,7 @@
               "label": "thisNode",
               "offset": 0,
               "slot": "0",
-              "type": "t_enum(NodeType)15083",
+              "type": "t_enum(NodeType)17978",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:8"
             },
@@ -3326,7 +3387,7 @@
               "label": "nodes",
               "offset": 0,
               "slot": "2",
-              "type": "t_struct(Nodes)15077_storage",
+              "type": "t_struct(Nodes)17972_storage",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:13"
             },
@@ -3334,7 +3395,7 @@
               "label": "pairs",
               "offset": 0,
               "slot": "7",
-              "type": "t_mapping(t_address,t_struct(Pair)15063_storage)",
+              "type": "t_mapping(t_address,t_struct(Pair)17958_storage)",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:15"
             },
@@ -3350,7 +3411,7 @@
               "label": "feeStores",
               "offset": 0,
               "slot": "9",
-              "type": "t_struct(FeeStores)15035_storage",
+              "type": "t_struct(FeeStores)17930_storage",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:18"
             },
@@ -3358,7 +3419,7 @@
               "label": "feeRates",
               "offset": 0,
               "slot": "10",
-              "type": "t_mapping(t_enum(ActionType)15013,t_struct(FeeRates)15032_storage)",
+              "type": "t_mapping(t_enum(ActionType)17908,t_struct(FeeRates)17927_storage)",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:19"
             },
@@ -3398,7 +3459,7 @@
               "label": "actionParams",
               "offset": 0,
               "slot": "12",
-              "type": "t_struct(ActionParams)15029_storage",
+              "type": "t_struct(ActionParams)17924_storage",
               "contract": "SessionManager",
               "src": "contracts\\session\\SessionManager.sol:10"
             },
@@ -3406,7 +3467,7 @@
               "label": "sessionRegistrar",
               "offset": 0,
               "slot": "16",
-              "type": "t_contract(ISessionRegistrar)15220",
+              "type": "t_contract(ISessionRegistrar)18115",
               "contract": "SessionManager",
               "src": "contracts\\session\\SessionManager.sol:11"
             },
@@ -3414,7 +3475,7 @@
               "label": "sessionFees",
               "offset": 0,
               "slot": "17",
-              "type": "t_contract(ISessionFees)15196",
+              "type": "t_contract(ISessionFees)18091",
               "contract": "SessionManager",
               "src": "contracts\\session\\SessionManager.sol:12"
             },
@@ -3484,15 +3545,15 @@
               "label": "bool",
               "numberOfBytes": "1"
             },
-            "t_contract(ISessionFees)15196": {
+            "t_contract(ISessionFees)18091": {
               "label": "contract ISessionFees",
               "numberOfBytes": "20"
             },
-            "t_contract(ISessionRegistrar)15220": {
+            "t_contract(ISessionRegistrar)18115": {
               "label": "contract ISessionRegistrar",
               "numberOfBytes": "20"
             },
-            "t_enum(ActionType)15013": {
+            "t_enum(ActionType)17908": {
               "label": "enum ActionType",
               "members": [
                 "None",
@@ -3503,7 +3564,7 @@
               ],
               "numberOfBytes": "1"
             },
-            "t_enum(ListStatus)15055": {
+            "t_enum(ListStatus)17950": {
               "label": "enum ListStatus",
               "members": [
                 "None",
@@ -3513,7 +3574,7 @@
               ],
               "numberOfBytes": "1"
             },
-            "t_enum(NodeType)15083": {
+            "t_enum(NodeType)17978": {
               "label": "enum NodeType",
               "members": [
                 "Token",
@@ -3532,11 +3593,11 @@
               "label": "mapping(address => mapping(address => address))",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_address,t_struct(Pair)15063_storage)": {
+            "t_mapping(t_address,t_struct(Pair)17958_storage)": {
               "label": "mapping(address => struct Pair)",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_enum(ActionType)15013,t_struct(FeeRates)15032_storage)": {
+            "t_mapping(t_enum(ActionType)17908,t_struct(FeeRates)17927_storage)": {
               "label": "mapping(enum ActionType => struct FeeRates)",
               "numberOfBytes": "32"
             },
@@ -3544,12 +3605,12 @@
               "label": "string",
               "numberOfBytes": "32"
             },
-            "t_struct(ActionParams)15029_storage": {
+            "t_struct(ActionParams)17924_storage": {
               "label": "struct ActionParams",
               "members": [
                 {
                   "label": "actionType",
-                  "type": "t_enum(ActionType)15013",
+                  "type": "t_enum(ActionType)17908",
                   "offset": 0,
                   "slot": "0"
                 },
@@ -3574,7 +3635,7 @@
               ],
               "numberOfBytes": "128"
             },
-            "t_struct(FeeRates)15032_storage": {
+            "t_struct(FeeRates)17927_storage": {
               "label": "struct FeeRates",
               "members": [
                 {
@@ -3586,7 +3647,7 @@
               ],
               "numberOfBytes": "32"
             },
-            "t_struct(FeeStores)15035_storage": {
+            "t_struct(FeeStores)17930_storage": {
               "label": "struct FeeStores",
               "members": [
                 {
@@ -3598,7 +3659,7 @@
               ],
               "numberOfBytes": "32"
             },
-            "t_struct(Nodes)15077_storage": {
+            "t_struct(Nodes)17972_storage": {
               "label": "struct Nodes",
               "members": [
                 {
@@ -3634,7 +3695,7 @@
               ],
               "numberOfBytes": "160"
             },
-            "t_struct(Pair)15063_storage": {
+            "t_struct(Pair)17958_storage": {
               "label": "struct Pair",
               "members": [
                 {
@@ -3651,7 +3712,7 @@
                 },
                 {
                   "label": "status",
-                  "type": "t_enum(ListStatus)15055",
+                  "type": "t_enum(ListStatus)17950",
                   "offset": 20,
                   "slot": "1"
                 }
@@ -3801,7 +3862,7 @@
               "label": "thisNode",
               "offset": 0,
               "slot": "0",
-              "type": "t_enum(NodeType)15083",
+              "type": "t_enum(NodeType)17978",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:8"
             },
@@ -3825,7 +3886,7 @@
               "label": "nodes",
               "offset": 0,
               "slot": "2",
-              "type": "t_struct(Nodes)15077_storage",
+              "type": "t_struct(Nodes)17972_storage",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:13"
             },
@@ -3833,7 +3894,7 @@
               "label": "pairs",
               "offset": 0,
               "slot": "7",
-              "type": "t_mapping(t_address,t_struct(Pair)15063_storage)",
+              "type": "t_mapping(t_address,t_struct(Pair)17958_storage)",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:15"
             },
@@ -3849,7 +3910,7 @@
               "label": "feeStores",
               "offset": 0,
               "slot": "9",
-              "type": "t_struct(FeeStores)15035_storage",
+              "type": "t_struct(FeeStores)17930_storage",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:18"
             },
@@ -3857,7 +3918,7 @@
               "label": "feeRates",
               "offset": 0,
               "slot": "10",
-              "type": "t_mapping(t_enum(ActionType)15013,t_struct(FeeRates)15032_storage)",
+              "type": "t_mapping(t_enum(ActionType)17908,t_struct(FeeRates)17927_storage)",
               "contract": "Node",
               "src": "contracts\\session\\Node.sol:19"
             },
@@ -3895,7 +3956,7 @@
               "label": "bool",
               "numberOfBytes": "1"
             },
-            "t_enum(ActionType)15013": {
+            "t_enum(ActionType)17908": {
               "label": "enum ActionType",
               "members": [
                 "None",
@@ -3906,7 +3967,7 @@
               ],
               "numberOfBytes": "1"
             },
-            "t_enum(ListStatus)15055": {
+            "t_enum(ListStatus)17950": {
               "label": "enum ListStatus",
               "members": [
                 "None",
@@ -3916,7 +3977,7 @@
               ],
               "numberOfBytes": "1"
             },
-            "t_enum(NodeType)15083": {
+            "t_enum(NodeType)17978": {
               "label": "enum NodeType",
               "members": [
                 "Token",
@@ -3935,15 +3996,15 @@
               "label": "mapping(address => mapping(address => address))",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_address,t_struct(Pair)15063_storage)": {
+            "t_mapping(t_address,t_struct(Pair)17958_storage)": {
               "label": "mapping(address => struct Pair)",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_enum(ActionType)15013,t_struct(FeeRates)15032_storage)": {
+            "t_mapping(t_enum(ActionType)17908,t_struct(FeeRates)17927_storage)": {
               "label": "mapping(enum ActionType => struct FeeRates)",
               "numberOfBytes": "32"
             },
-            "t_struct(FeeRates)15032_storage": {
+            "t_struct(FeeRates)17927_storage": {
               "label": "struct FeeRates",
               "members": [
                 {
@@ -3955,7 +4016,7 @@
               ],
               "numberOfBytes": "32"
             },
-            "t_struct(FeeStores)15035_storage": {
+            "t_struct(FeeStores)17930_storage": {
               "label": "struct FeeStores",
               "members": [
                 {
@@ -3967,7 +4028,7 @@
               ],
               "numberOfBytes": "32"
             },
-            "t_struct(Nodes)15077_storage": {
+            "t_struct(Nodes)17972_storage": {
               "label": "struct Nodes",
               "members": [
                 {
@@ -4003,7 +4064,7 @@
               ],
               "numberOfBytes": "160"
             },
-            "t_struct(Pair)15063_storage": {
+            "t_struct(Pair)17958_storage": {
               "label": "struct Pair",
               "members": [
                 {
@@ -4020,7 +4081,7 @@
                 },
                 {
                   "label": "status",
-                  "type": "t_enum(ListStatus)15055",
+                  "type": "t_enum(ListStatus)17950",
                   "offset": 20,
                   "slot": "1"
                 }
@@ -4069,7 +4130,7 @@
               "label": "actionParams",
               "offset": 0,
               "slot": "0",
-              "type": "t_struct(ActionParams)15029_storage",
+              "type": "t_struct(ActionParams)17924_storage",
               "contract": "SessionManager",
               "src": "contracts\\session\\SessionManager.sol:10"
             },
@@ -4077,7 +4138,7 @@
               "label": "sessionRegistrar",
               "offset": 0,
               "slot": "4",
-              "type": "t_contract(ISessionRegistrar)15220",
+              "type": "t_contract(ISessionRegistrar)18115",
               "contract": "SessionManager",
               "src": "contracts\\session\\SessionManager.sol:11"
             },
@@ -4085,7 +4146,7 @@
               "label": "sessionFees",
               "offset": 0,
               "slot": "5",
-              "type": "t_contract(ISessionFees)15196",
+              "type": "t_contract(ISessionFees)18091",
               "contract": "SessionManager",
               "src": "contracts\\session\\SessionManager.sol:12"
             }
@@ -4095,15 +4156,15 @@
               "label": "bool",
               "numberOfBytes": "1"
             },
-            "t_contract(ISessionFees)15196": {
+            "t_contract(ISessionFees)18091": {
               "label": "contract ISessionFees",
               "numberOfBytes": "20"
             },
-            "t_contract(ISessionRegistrar)15220": {
+            "t_contract(ISessionRegistrar)18115": {
               "label": "contract ISessionRegistrar",
               "numberOfBytes": "20"
             },
-            "t_enum(ActionType)15013": {
+            "t_enum(ActionType)17908": {
               "label": "enum ActionType",
               "members": [
                 "None",
@@ -4114,12 +4175,12 @@
               ],
               "numberOfBytes": "1"
             },
-            "t_struct(ActionParams)15029_storage": {
+            "t_struct(ActionParams)17924_storage": {
               "label": "struct ActionParams",
               "members": [
                 {
                   "label": "actionType",
-                  "type": "t_enum(ActionType)15013",
+                  "type": "t_enum(ActionType)17908",
                   "offset": 0,
                   "slot": "0"
                 },
@@ -4189,7 +4250,7 @@
               "label": "sessionsLastSeenBySType",
               "offset": 0,
               "slot": "2",
-              "type": "t_mapping(t_enum(ActionType)15013,t_uint256)",
+              "type": "t_mapping(t_enum(ActionType)17908,t_uint256)",
               "contract": "SessionRegistrar",
               "src": "contracts\\session\\SessionRegistrar.sol:11"
             },
@@ -4197,7 +4258,7 @@
               "label": "actionStack",
               "offset": 0,
               "slot": "3",
-              "type": "t_array(t_enum(ActionType)15013)20_storage",
+              "type": "t_array(t_enum(ActionType)17908)20_storage",
               "contract": "SessionRegistrar",
               "src": "contracts\\session\\SessionRegistrar.sol:13"
             },
@@ -4219,7 +4280,7 @@
             }
           ],
           "types": {
-            "t_array(t_enum(ActionType)15013)20_storage": {
+            "t_array(t_enum(ActionType)17908)20_storage": {
               "label": "enum ActionType[20]",
               "numberOfBytes": "32"
             },
@@ -4227,7 +4288,7 @@
               "label": "bool",
               "numberOfBytes": "1"
             },
-            "t_enum(ActionType)15013": {
+            "t_enum(ActionType)17908": {
               "label": "enum ActionType",
               "members": [
                 "None",
@@ -4238,7 +4299,7 @@
               ],
               "numberOfBytes": "1"
             },
-            "t_mapping(t_enum(ActionType)15013,t_uint256)": {
+            "t_mapping(t_enum(ActionType)17908,t_uint256)": {
               "label": "mapping(enum ActionType => uint256)",
               "numberOfBytes": "32"
             },
@@ -4337,993 +4398,6 @@
           "layoutVersion": "1.1",
           "flat": false
         }
-      },
-      "AnalyticMath": {
-        "src": "solidity-math-utils\\project\\contracts\\AnalyticMath.sol:6",
-        "version": {
-          "withMetadata": "d55981d26abf16995a01ba584680d669f67a9ccba79f4bccd7646c31b4039d56",
-          "withoutMetadata": "33afbc8134d61887653fcf12210920db3655c93a85020880abbd3aa4c2ec8e1f",
-          "linkedWithoutMetadata": "33afbc8134d61887653fcf12210920db3655c93a85020880abbd3aa4c2ec8e1f"
-        },
-        "inherit": [],
-        "libraries": [
-          "IntegralMath"
-        ],
-        "methods": [
-          "init()",
-          "pow(uint256,uint256,uint256,uint256)"
-        ],
-        "linkReferences": [],
-        "errors": [],
-        "layout": {
-          "storage": [
-            {
-              "label": "maxExpArray",
-              "offset": 0,
-              "slot": "0",
-              "type": "t_array(t_uint256)128_storage",
-              "contract": "AnalyticMath",
-              "src": "solidity-math-utils\\project\\contracts\\AnalyticMath.sol:21"
-            }
-          ],
-          "types": {
-            "t_array(t_uint256)128_storage": {
-              "label": "uint256[128]",
-              "numberOfBytes": "4096"
-            },
-            "t_uint256": {
-              "label": "uint256",
-              "numberOfBytes": "32"
-            }
-          },
-          "layoutVersion": "1.1",
-          "flat": true
-        }
-      },
-      "IntegralMath": {
-        "src": "solidity-math-utils\\project\\contracts\\IntegralMath.sol:6",
-        "version": {
-          "withMetadata": "c9f59fce3b8db0bf4b9864a6623d7cd7809470bfe94ff601d690e73e1b8195cd",
-          "withoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db",
-          "linkedWithoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db"
-        },
-        "inherit": [],
-        "libraries": [],
-        "methods": [],
-        "linkReferences": [],
-        "errors": [],
-        "layout": {
-          "storage": [],
-          "types": {},
-          "layoutVersion": "1.1",
-          "flat": false
-        }
-      }
-    },
-    {
-      "Ownable": {
-        "src": "@openzeppelin\\contracts\\access\\Ownable.sol:20",
-        "inherit": [
-          "Context"
-        ],
-        "libraries": [],
-        "methods": [
-          "owner()",
-          "renounceOwnership()",
-          "transferOwnership(address)"
-        ],
-        "linkReferences": [],
-        "errors": [
-          {
-            "kind": "constructor",
-            "contract": "Ownable",
-            "src": "@openzeppelin\\contracts\\access\\Ownable.sol:28"
-          }
-        ],
-        "layout": {
-          "storage": [
-            {
-              "label": "_owner",
-              "offset": 0,
-              "slot": "0",
-              "type": "t_address",
-              "contract": "Ownable",
-              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
-            }
-          ],
-          "types": {
-            "t_address": {
-              "label": "address",
-              "numberOfBytes": "20"
-            }
-          },
-          "layoutVersion": "1.1",
-          "flat": true
-        }
-      },
-      "IERC1822Proxiable": {
-        "src": "@openzeppelin\\contracts\\interfaces\\draft-IERC1822.sol:10",
-        "inherit": [],
-        "libraries": [],
-        "methods": [
-          "proxiableUUID()"
-        ],
-        "linkReferences": [],
-        "errors": [],
-        "layout": {
-          "storage": [],
-          "types": {},
-          "layoutVersion": "1.1",
-          "flat": false
-        }
-      },
-      "ERC1967Upgrade": {
-        "src": "@openzeppelin\\contracts\\proxy\\ERC1967\\ERC1967Upgrade.sol:19",
-        "inherit": [],
-        "libraries": [
-          "StorageSlot",
-          "Address"
-        ],
-        "methods": [],
-        "linkReferences": [],
-        "errors": [],
-        "layout": {
-          "storage": [],
-          "types": {},
-          "layoutVersion": "1.1",
-          "flat": false
-        }
-      },
-      "IBeacon": {
-        "src": "@openzeppelin\\contracts\\proxy\\beacon\\IBeacon.sol:9",
-        "inherit": [],
-        "libraries": [],
-        "methods": [
-          "implementation()"
-        ],
-        "linkReferences": [],
-        "errors": [],
-        "layout": {
-          "storage": [],
-          "types": {},
-          "layoutVersion": "1.1",
-          "flat": false
-        }
-      },
-      "Initializable": {
-        "src": "@openzeppelin\\contracts\\proxy\\utils\\Initializable.sol:57",
-        "inherit": [],
-        "libraries": [
-          "Address"
-        ],
-        "methods": [],
-        "linkReferences": [],
-        "errors": [],
-        "layout": {
-          "storage": [
-            {
-              "label": "_initialized",
-              "offset": 0,
-              "slot": "0",
-              "type": "t_uint8",
-              "contract": "Initializable",
-              "src": "@openzeppelin\\contracts\\proxy\\utils\\Initializable.sol:62",
-              "retypedFrom": "bool"
-            },
-            {
-              "label": "_initializing",
-              "offset": 1,
-              "slot": "0",
-              "type": "t_bool",
-              "contract": "Initializable",
-              "src": "@openzeppelin\\contracts\\proxy\\utils\\Initializable.sol:67"
-            }
-          ],
-          "types": {
-            "t_bool": {
-              "label": "bool",
-              "numberOfBytes": "1"
-            },
-            "t_uint8": {
-              "label": "uint8",
-              "numberOfBytes": "1"
-            }
-          },
-          "layoutVersion": "1.1",
-          "flat": true
-        }
-      },
-      "UUPSUpgradeable": {
-        "src": "@openzeppelin\\contracts\\proxy\\utils\\UUPSUpgradeable.sol:21",
-        "inherit": [
-          "ERC1967Upgrade",
-          "IERC1822Proxiable"
-        ],
-        "libraries": [],
-        "methods": [
-          "proxiableUUID()",
-          "upgradeTo(address)",
-          "upgradeToAndCall(address,bytes)"
-        ],
-        "linkReferences": [],
-        "errors": [],
-        "layout": {
-          "storage": [],
-          "types": {},
-          "layoutVersion": "1.1",
-          "flat": false
-        }
-      },
-      "IERC20": {
-        "src": "@openzeppelin\\contracts\\token\\ERC20\\IERC20.sol:9",
-        "inherit": [],
-        "libraries": [],
-        "methods": [
-          "totalSupply()",
-          "balanceOf(address)",
-          "transfer(address,uint256)",
-          "allowance(address,address)",
-          "approve(address,uint256)",
-          "transferFrom(address,address,uint256)"
-        ],
-        "linkReferences": [],
-        "errors": [],
-        "layout": {
-          "storage": [],
-          "types": {},
-          "layoutVersion": "1.1",
-          "flat": false
-        }
-      },
-      "Address": {
-        "src": "@openzeppelin\\contracts\\utils\\Address.sol:9",
-        "version": {
-          "withMetadata": "c14e740e5948185e46262620d3426425af20df495a7326a7a6a67ccc97946cc4",
-          "withoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db",
-          "linkedWithoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db"
-        },
-        "inherit": [],
-        "libraries": [],
-        "methods": [],
-        "linkReferences": [],
-        "errors": [
-          {
-            "kind": "delegatecall",
-            "src": "@openzeppelin\\contracts\\utils\\Address.sol:191"
-          }
-        ],
-        "layout": {
-          "storage": [],
-          "types": {},
-          "layoutVersion": "1.1",
-          "flat": false
-        }
-      },
-      "Context": {
-        "src": "@openzeppelin\\contracts\\utils\\Context.sol:16",
-        "inherit": [],
-        "libraries": [],
-        "methods": [],
-        "linkReferences": [],
-        "errors": [],
-        "layout": {
-          "storage": [],
-          "types": {},
-          "layoutVersion": "1.1",
-          "flat": false
-        }
-      },
-      "StorageSlot": {
-        "src": "@openzeppelin\\contracts\\utils\\StorageSlot.sol:32",
-        "version": {
-          "withMetadata": "53ac28de475ca0830e154a7ac46e8e69e1506a5c852e9b962de2d64f12cf9891",
-          "withoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db",
-          "linkedWithoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db"
-        },
-        "inherit": [],
-        "libraries": [],
-        "methods": [],
-        "linkReferences": [],
-        "errors": [],
-        "layout": {
-          "storage": [],
-          "types": {},
-          "layoutVersion": "1.1",
-          "flat": false
-        }
-      },
-      "IXdaoAgency": {
-        "src": "contracts\\farm\\XdaoAgency.sol:10",
-        "inherit": [],
-        "libraries": [],
-        "methods": [
-          "submitTask((string,string,uint256,uint256,uint8,uint8,uint8,uint8,uint8[],address,uint256,uint256))",
-          "postTask(uint256)",
-          "verifyTask(uint256)",
-          "compeletTask(uint256)",
-          "placeBid(uint256)",
-          "stake(uint256)",
-          "unStake(uint256)",
-          "enterEscrow(uint256)",
-          "getAvaliabeTasks(address)"
-        ],
-        "linkReferences": [],
-        "errors": [],
-        "layout": {
-          "storage": [],
-          "types": {},
-          "layoutVersion": "1.1",
-          "flat": false
-        }
-      },
-      "XdaoAgency": {
-        "src": "contracts\\farm\\XdaoAgency.sol:101",
-        "version": {
-          "withMetadata": "3576de5c43520313c61e822cea9e9f1a24aed9812d2cc045e93f63d1039ce1a4",
-          "withoutMetadata": "89ba1977f34e662d4c8b2bcd157d253a04a0f623d636a332a3f1bf0cdd709619",
-          "linkedWithoutMetadata": "89ba1977f34e662d4c8b2bcd157d253a04a0f623d636a332a3f1bf0cdd709619"
-        },
-        "inherit": [
-          "Initializable",
-          "Ownable",
-          "Context",
-          "UUPSUpgradeable",
-          "ERC1967Upgrade",
-          "IERC1822Proxiable",
-          "IXdaoAgency"
-        ],
-        "libraries": [],
-        "methods": [
-          "setNumVerificationsNeeded(uint256)",
-          "initialize(address)",
-          "submitTask((string,string,uint256,uint256,uint8,uint8,uint8,uint8,uint8[],address,uint256,uint256))",
-          "verifyTask(uint256)",
-          "postTask(uint256)",
-          "compeletTask(uint256)",
-          "placeBid(uint256)",
-          "assignTask(uint256,uint256[])",
-          "completeTask(uint256)",
-          "stake(uint256)",
-          "unStake(uint256)",
-          "enterEscrow(uint256)",
-          "getAvaliabeTasks(address)"
-        ],
-        "linkReferences": [],
-        "errors": [
-          {
-            "kind": "state-variable-assignment",
-            "name": "currentTaskId",
-            "src": "contracts\\farm\\XdaoAgency.sol:114"
-          },
-          {
-            "kind": "state-variable-assignment",
-            "name": "NumVerificationsNeeded",
-            "src": "contracts\\farm\\XdaoAgency.sol:115"
-          }
-        ],
-        "layout": {
-          "storage": [
-            {
-              "label": "_owner",
-              "offset": 0,
-              "slot": "0",
-              "type": "t_address",
-              "contract": "Ownable",
-              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
-            },
-            {
-              "label": "_initialized",
-              "offset": 20,
-              "slot": "0",
-              "type": "t_uint8",
-              "contract": "Initializable",
-              "src": "@openzeppelin\\contracts\\proxy\\utils\\Initializable.sol:62",
-              "retypedFrom": "bool"
-            },
-            {
-              "label": "_initializing",
-              "offset": 21,
-              "slot": "0",
-              "type": "t_bool",
-              "contract": "Initializable",
-              "src": "@openzeppelin\\contracts\\proxy\\utils\\Initializable.sol:67"
-            },
-            {
-              "label": "tgr",
-              "offset": 0,
-              "slot": "1",
-              "type": "t_contract(IERC20)778",
-              "contract": "XdaoAgency",
-              "src": "contracts\\farm\\XdaoAgency.sol:102"
-            },
-            {
-              "label": "isAgent",
-              "offset": 0,
-              "slot": "2",
-              "type": "t_mapping(t_address,t_bool)",
-              "contract": "XdaoAgency",
-              "src": "contracts\\farm\\XdaoAgency.sol:104"
-            },
-            {
-              "label": "agentInfo",
-              "offset": 0,
-              "slot": "3",
-              "type": "t_mapping(t_address,t_struct(Agent)1271_storage)",
-              "contract": "XdaoAgency",
-              "src": "contracts\\farm\\XdaoAgency.sol:105"
-            },
-            {
-              "label": "tasks",
-              "offset": 0,
-              "slot": "4",
-              "type": "t_mapping(t_uint256,t_struct(TaskDetails)1311_storage)",
-              "contract": "XdaoAgency",
-              "src": "contracts\\farm\\XdaoAgency.sol:106"
-            },
-            {
-              "label": "taskVerifiersCount",
-              "offset": 0,
-              "slot": "5",
-              "type": "t_mapping(t_uint256,t_uint256)",
-              "contract": "XdaoAgency",
-              "src": "contracts\\farm\\XdaoAgency.sol:107"
-            },
-            {
-              "label": "userTasks",
-              "offset": 0,
-              "slot": "6",
-              "type": "t_mapping(t_address,t_array(t_uint256)dyn_storage)",
-              "contract": "XdaoAgency",
-              "src": "contracts\\farm\\XdaoAgency.sol:108"
-            },
-            {
-              "label": "agentVerifiedTask",
-              "offset": 0,
-              "slot": "7",
-              "type": "t_mapping(t_address,t_mapping(t_uint256,t_bool))",
-              "contract": "XdaoAgency",
-              "src": "contracts\\farm\\XdaoAgency.sol:109"
-            },
-            {
-              "label": "doers",
-              "offset": 0,
-              "slot": "8",
-              "type": "t_mapping(t_uint256,t_array(t_address)dyn_storage)",
-              "contract": "XdaoAgency",
-              "src": "contracts\\farm\\XdaoAgency.sol:110"
-            },
-            {
-              "label": "bidders",
-              "offset": 0,
-              "slot": "9",
-              "type": "t_mapping(t_uint256,t_array(t_address)dyn_storage)",
-              "contract": "XdaoAgency",
-              "src": "contracts\\farm\\XdaoAgency.sol:111"
-            },
-            {
-              "label": "bidden",
-              "offset": 0,
-              "slot": "10",
-              "type": "t_mapping(t_uint256,t_mapping(t_address,t_bool))",
-              "contract": "XdaoAgency",
-              "src": "contracts\\farm\\XdaoAgency.sol:112"
-            },
-            {
-              "label": "currentTaskId",
-              "offset": 0,
-              "slot": "11",
-              "type": "t_uint256",
-              "contract": "XdaoAgency",
-              "src": "contracts\\farm\\XdaoAgency.sol:114"
-            },
-            {
-              "label": "NumVerificationsNeeded",
-              "offset": 0,
-              "slot": "12",
-              "type": "t_uint256",
-              "contract": "XdaoAgency",
-              "src": "contracts\\farm\\XdaoAgency.sol:115"
-            }
-          ],
-          "types": {
-            "t_address": {
-              "label": "address",
-              "numberOfBytes": "20"
-            },
-            "t_array(t_address)dyn_storage": {
-              "label": "address[]",
-              "numberOfBytes": "32"
-            },
-            "t_array(t_uint256)dyn_storage": {
-              "label": "uint256[]",
-              "numberOfBytes": "32"
-            },
-            "t_array(t_uint8)dyn_storage": {
-              "label": "uint8[]",
-              "numberOfBytes": "32"
-            },
-            "t_bool": {
-              "label": "bool",
-              "numberOfBytes": "1"
-            },
-            "t_contract(IERC20)778": {
-              "label": "contract IERC20",
-              "numberOfBytes": "20"
-            },
-            "t_enum(JobBidType)1283": {
-              "label": "enum JobBidType",
-              "members": [
-                "FirstPerson",
-                "OneWinner",
-                "MultiWinner"
-              ],
-              "numberOfBytes": "1"
-            },
-            "t_enum(TaskStatus)1279": {
-              "label": "enum TaskStatus",
-              "members": [
-                "Pending",
-                "Verified",
-                "Posted",
-                "Assigned",
-                "Complete",
-                "Incomplete",
-                "Cancelled"
-              ],
-              "numberOfBytes": "1"
-            },
-            "t_mapping(t_address,t_array(t_uint256)dyn_storage)": {
-              "label": "mapping(address => uint256[])",
-              "numberOfBytes": "32"
-            },
-            "t_mapping(t_address,t_bool)": {
-              "label": "mapping(address => bool)",
-              "numberOfBytes": "32"
-            },
-            "t_mapping(t_address,t_mapping(t_uint256,t_bool))": {
-              "label": "mapping(address => mapping(uint256 => bool))",
-              "numberOfBytes": "32"
-            },
-            "t_mapping(t_address,t_struct(Agent)1271_storage)": {
-              "label": "mapping(address => struct Agent)",
-              "numberOfBytes": "32"
-            },
-            "t_mapping(t_uint256,t_array(t_address)dyn_storage)": {
-              "label": "mapping(uint256 => address[])",
-              "numberOfBytes": "32"
-            },
-            "t_mapping(t_uint256,t_bool)": {
-              "label": "mapping(uint256 => bool)",
-              "numberOfBytes": "32"
-            },
-            "t_mapping(t_uint256,t_mapping(t_address,t_bool))": {
-              "label": "mapping(uint256 => mapping(address => bool))",
-              "numberOfBytes": "32"
-            },
-            "t_mapping(t_uint256,t_struct(TaskDetails)1311_storage)": {
-              "label": "mapping(uint256 => struct TaskDetails)",
-              "numberOfBytes": "32"
-            },
-            "t_mapping(t_uint256,t_uint256)": {
-              "label": "mapping(uint256 => uint256)",
-              "numberOfBytes": "32"
-            },
-            "t_string_storage": {
-              "label": "string",
-              "numberOfBytes": "32"
-            },
-            "t_struct(Agent)1271_storage": {
-              "label": "struct Agent",
-              "members": [
-                {
-                  "label": "account",
-                  "type": "t_address",
-                  "offset": 0,
-                  "slot": "0"
-                },
-                {
-                  "label": "level",
-                  "type": "t_uint256",
-                  "offset": 0,
-                  "slot": "1"
-                },
-                {
-                  "label": "stakedAmount",
-                  "type": "t_uint256",
-                  "offset": 0,
-                  "slot": "2"
-                }
-              ],
-              "numberOfBytes": "96"
-            },
-            "t_struct(TaskDetails)1311_storage": {
-              "label": "struct TaskDetails",
-              "members": [
-                {
-                  "label": "name",
-                  "type": "t_string_storage",
-                  "offset": 0,
-                  "slot": "0"
-                },
-                {
-                  "label": "summary",
-                  "type": "t_string_storage",
-                  "offset": 0,
-                  "slot": "1"
-                },
-                {
-                  "label": "reward",
-                  "type": "t_uint256",
-                  "offset": 0,
-                  "slot": "2"
-                },
-                {
-                  "label": "bonus",
-                  "type": "t_uint256",
-                  "offset": 0,
-                  "slot": "3"
-                },
-                {
-                  "label": "minLevel",
-                  "type": "t_uint8",
-                  "offset": 0,
-                  "slot": "4"
-                },
-                {
-                  "label": "maxCompletions",
-                  "type": "t_uint8",
-                  "offset": 1,
-                  "slot": "4"
-                },
-                {
-                  "label": "jobType",
-                  "type": "t_enum(JobBidType)1283",
-                  "offset": 2,
-                  "slot": "4"
-                },
-                {
-                  "label": "status",
-                  "type": "t_enum(TaskStatus)1279",
-                  "offset": 3,
-                  "slot": "4"
-                },
-                {
-                  "label": "skillSet",
-                  "type": "t_array(t_uint8)dyn_storage",
-                  "offset": 0,
-                  "slot": "5"
-                },
-                {
-                  "label": "owner",
-                  "type": "t_address",
-                  "offset": 0,
-                  "slot": "6"
-                },
-                {
-                  "label": "dueTime",
-                  "type": "t_uint256",
-                  "offset": 0,
-                  "slot": "7"
-                },
-                {
-                  "label": "verifiedTime",
-                  "type": "t_uint256",
-                  "offset": 0,
-                  "slot": "8"
-                }
-              ],
-              "numberOfBytes": "288"
-            },
-            "t_uint256": {
-              "label": "uint256",
-              "numberOfBytes": "32"
-            },
-            "t_uint8": {
-              "label": "uint8",
-              "numberOfBytes": "1"
-            }
-          },
-          "layoutVersion": "1.1",
-          "flat": true
-        }
-      }
-    },
-    {
-      "WBNB": {
-        "src": "contracts\\libraries\\token\\WBNB.sol:4",
-        "version": {
-          "withMetadata": "6fde02f2f9ee6567a215a7cff2cd3aa412a135dd9ecce35bb33a3d0acd09a7f5",
-          "withoutMetadata": "fcb77ab56b90e071f2d777a7dbb80067acc8829bd99d89d1ac086c784c4bb4d0",
-          "linkedWithoutMetadata": "fcb77ab56b90e071f2d777a7dbb80067acc8829bd99d89d1ac086c784c4bb4d0"
-        },
-        "inherit": [],
-        "libraries": [],
-        "methods": [
-          "a()",
-          "deposit()",
-          "withdraw(uint256)",
-          "totalSupply()",
-          "approve(address,uint256)",
-          "transfer(address,uint256)",
-          "transferFrom(address,address,uint256)"
-        ],
-        "linkReferences": [],
-        "errors": [
-          {
-            "kind": "state-variable-assignment",
-            "name": "name",
-            "src": "contracts\\libraries\\token\\WBNB.sol:5"
-          },
-          {
-            "kind": "state-variable-assignment",
-            "name": "symbol",
-            "src": "contracts\\libraries\\token\\WBNB.sol:6"
-          },
-          {
-            "kind": "state-variable-assignment",
-            "name": "decimals",
-            "src": "contracts\\libraries\\token\\WBNB.sol:7"
-          }
-        ],
-        "layout": {
-          "storage": [
-            {
-              "label": "name",
-              "offset": 0,
-              "slot": "0",
-              "type": "t_string_storage",
-              "contract": "WBNB",
-              "src": "contracts\\libraries\\token\\WBNB.sol:5"
-            },
-            {
-              "label": "symbol",
-              "offset": 0,
-              "slot": "1",
-              "type": "t_string_storage",
-              "contract": "WBNB",
-              "src": "contracts\\libraries\\token\\WBNB.sol:6"
-            },
-            {
-              "label": "decimals",
-              "offset": 0,
-              "slot": "2",
-              "type": "t_uint8",
-              "contract": "WBNB",
-              "src": "contracts\\libraries\\token\\WBNB.sol:7"
-            },
-            {
-              "label": "balanceOf",
-              "offset": 0,
-              "slot": "3",
-              "type": "t_mapping(t_address,t_uint256)",
-              "contract": "WBNB",
-              "src": "contracts\\libraries\\token\\WBNB.sol:14"
-            },
-            {
-              "label": "allowance",
-              "offset": 0,
-              "slot": "4",
-              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
-              "contract": "WBNB",
-              "src": "contracts\\libraries\\token\\WBNB.sol:15"
-            }
-          ],
-          "types": {
-            "t_address": {
-              "label": "address",
-              "numberOfBytes": "20"
-            },
-            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
-              "label": "mapping(address => mapping(address => uint256))",
-              "numberOfBytes": "32"
-            },
-            "t_mapping(t_address,t_uint256)": {
-              "label": "mapping(address => uint256)",
-              "numberOfBytes": "32"
-            },
-            "t_string_storage": {
-              "label": "string",
-              "numberOfBytes": "32"
-            },
-            "t_uint256": {
-              "label": "uint256",
-              "numberOfBytes": "32"
-            },
-            "t_uint8": {
-              "label": "uint8",
-              "numberOfBytes": "1"
-            }
-          },
-          "layoutVersion": "1.1",
-          "flat": true
-        }
-      }
-    },
-    {
-      "ICrossRouter": {
-        "src": "contracts\\periphery\\interfaces\\ICrossRouter.sol:6",
-        "inherit": [
-          "IPancakeRouter02",
-          "IPancakeRouter01"
-        ],
-        "libraries": [],
-        "methods": [
-          "getReserveOnETHPair(address)"
-        ],
-        "linkReferences": [],
-        "errors": [],
-        "layout": {
-          "storage": [],
-          "types": {},
-          "layoutVersion": "1.1",
-          "flat": false
-        }
-      },
-      "IPancakeRouter01": {
-        "src": "contracts\\periphery\\interfaces\\IPancakeRouter01.sol:4",
-        "inherit": [],
-        "libraries": [],
-        "methods": [
-          "WETH()",
-          "addLiquidity(address,address,uint256,uint256,uint256,uint256,address,uint256)",
-          "addLiquidityETH(address,uint256,uint256,uint256,address,uint256)",
-          "removeLiquidity(address,address,uint256,uint256,uint256,address,uint256)",
-          "removeLiquidityETH(address,uint256,uint256,uint256,address,uint256)",
-          "removeLiquidityWithPermit(address,address,uint256,uint256,uint256,address,uint256,bool,uint8,bytes32,bytes32)",
-          "removeLiquidityETHWithPermit(address,uint256,uint256,uint256,address,uint256,bool,uint8,bytes32,bytes32)",
-          "swapExactTokensForTokens(uint256,uint256,address[],address,uint256)",
-          "swapTokensForExactTokens(uint256,uint256,address[],address,uint256)",
-          "swapExactETHForTokens(uint256,address[],address,uint256)",
-          "swapTokensForExactETH(uint256,uint256,address[],address,uint256)",
-          "swapExactTokensForETH(uint256,uint256,address[],address,uint256)",
-          "swapETHForExactTokens(uint256,address[],address,uint256)",
-          "quote(uint256,uint256,uint256)",
-          "getAmountOut(uint256,uint256,uint256)",
-          "getAmountIn(uint256,uint256,uint256)",
-          "getAmountsOut(uint256,address[])",
-          "getAmountsIn(uint256,address[])"
-        ],
-        "linkReferences": [],
-        "errors": [],
-        "layout": {
-          "storage": [],
-          "types": {},
-          "layoutVersion": "1.1",
-          "flat": false
-        }
-      },
-      "IPancakeRouter02": {
-        "src": "contracts\\periphery\\interfaces\\IPancakeRouter02.sol:6",
-        "inherit": [
-          "IPancakeRouter01"
-        ],
-        "libraries": [],
-        "methods": [
-          "removeLiquidityETHSupportingFeeOnTransferTokens(address,uint256,uint256,uint256,address,uint256)",
-          "removeLiquidityETHWithPermitSupportingFeeOnTransferTokens(address,uint256,uint256,uint256,address,uint256,bool,uint8,bytes32,bytes32)",
-          "swapExactTokensForTokensSupportingFeeOnTransferTokens(uint256,uint256,address[],address,uint256)",
-          "swapExactETHForTokensSupportingFeeOnTransferTokens(uint256,address[],address,uint256)",
-          "swapExactTokensForETHSupportingFeeOnTransferTokens(uint256,uint256,address[],address,uint256)"
-        ],
-        "linkReferences": [],
-        "errors": [],
-        "layout": {
-          "storage": [],
-          "types": {},
-          "layoutVersion": "1.1",
-          "flat": false
-        }
-      }
-    },
-    {
-      "WBNB": {
-        "src": "contracts\\libraries\\token\\WBNB.sol:4",
-        "version": {
-          "withMetadata": "6fde02f2f9ee6567a215a7cff2cd3aa412a135dd9ecce35bb33a3d0acd09a7f5",
-          "withoutMetadata": "fcb77ab56b90e071f2d777a7dbb80067acc8829bd99d89d1ac086c784c4bb4d0",
-          "linkedWithoutMetadata": "fcb77ab56b90e071f2d777a7dbb80067acc8829bd99d89d1ac086c784c4bb4d0"
-        },
-        "inherit": [],
-        "libraries": [],
-        "methods": [
-          "a()",
-          "deposit()",
-          "withdraw(uint256)",
-          "totalSupply()",
-          "approve(address,uint256)",
-          "transfer(address,uint256)",
-          "transferFrom(address,address,uint256)"
-        ],
-        "linkReferences": [],
-        "errors": [
-          {
-            "kind": "state-variable-assignment",
-            "name": "name",
-            "src": "contracts\\libraries\\token\\WBNB.sol:5"
-          },
-          {
-            "kind": "state-variable-assignment",
-            "name": "symbol",
-            "src": "contracts\\libraries\\token\\WBNB.sol:6"
-          },
-          {
-            "kind": "state-variable-assignment",
-            "name": "decimals",
-            "src": "contracts\\libraries\\token\\WBNB.sol:7"
-          }
-        ],
-        "layout": {
-          "storage": [
-            {
-              "label": "name",
-              "offset": 0,
-              "slot": "0",
-              "type": "t_string_storage",
-              "contract": "WBNB",
-              "src": "contracts\\libraries\\token\\WBNB.sol:5"
-            },
-            {
-              "label": "symbol",
-              "offset": 0,
-              "slot": "1",
-              "type": "t_string_storage",
-              "contract": "WBNB",
-              "src": "contracts\\libraries\\token\\WBNB.sol:6"
-            },
-            {
-              "label": "decimals",
-              "offset": 0,
-              "slot": "2",
-              "type": "t_uint8",
-              "contract": "WBNB",
-              "src": "contracts\\libraries\\token\\WBNB.sol:7"
-            },
-            {
-              "label": "balanceOf",
-              "offset": 0,
-              "slot": "3",
-              "type": "t_mapping(t_address,t_uint256)",
-              "contract": "WBNB",
-              "src": "contracts\\libraries\\token\\WBNB.sol:14"
-            },
-            {
-              "label": "allowance",
-              "offset": 0,
-              "slot": "4",
-              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
-              "contract": "WBNB",
-              "src": "contracts\\libraries\\token\\WBNB.sol:15"
-            }
-          ],
-          "types": {
-            "t_address": {
-              "label": "address",
-              "numberOfBytes": "20"
-            },
-            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
-              "label": "mapping(address => mapping(address => uint256))",
-              "numberOfBytes": "32"
-            },
-            "t_mapping(t_address,t_uint256)": {
-              "label": "mapping(address => uint256)",
-              "numberOfBytes": "32"
-            },
-            "t_string_storage": {
-              "label": "string",
-              "numberOfBytes": "32"
-            },
-            "t_uint256": {
-              "label": "uint256",
-              "numberOfBytes": "32"
-            },
-            "t_uint8": {
-              "label": "uint8",
-              "numberOfBytes": "1"
-            }
-          },
-          "layoutVersion": "1.1",
-          "flat": true
-        }
       }
     },
     {
@@ -6027,6 +5101,117 @@
           "types": {},
           "layoutVersion": "1.1",
           "flat": false
+        }
+      }
+    },
+    {
+      "WBNB": {
+        "src": "contracts\\libraries\\token\\WBNB.sol:4",
+        "version": {
+          "withMetadata": "6fde02f2f9ee6567a215a7cff2cd3aa412a135dd9ecce35bb33a3d0acd09a7f5",
+          "withoutMetadata": "fcb77ab56b90e071f2d777a7dbb80067acc8829bd99d89d1ac086c784c4bb4d0",
+          "linkedWithoutMetadata": "fcb77ab56b90e071f2d777a7dbb80067acc8829bd99d89d1ac086c784c4bb4d0"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "a()",
+          "deposit()",
+          "withdraw(uint256)",
+          "totalSupply()",
+          "approve(address,uint256)",
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "state-variable-assignment",
+            "name": "name",
+            "src": "contracts\\libraries\\token\\WBNB.sol:5"
+          },
+          {
+            "kind": "state-variable-assignment",
+            "name": "symbol",
+            "src": "contracts\\libraries\\token\\WBNB.sol:6"
+          },
+          {
+            "kind": "state-variable-assignment",
+            "name": "decimals",
+            "src": "contracts\\libraries\\token\\WBNB.sol:7"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "name",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_string_storage",
+              "contract": "WBNB",
+              "src": "contracts\\libraries\\token\\WBNB.sol:5"
+            },
+            {
+              "label": "symbol",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_string_storage",
+              "contract": "WBNB",
+              "src": "contracts\\libraries\\token\\WBNB.sol:6"
+            },
+            {
+              "label": "decimals",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_uint8",
+              "contract": "WBNB",
+              "src": "contracts\\libraries\\token\\WBNB.sol:7"
+            },
+            {
+              "label": "balanceOf",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "WBNB",
+              "src": "contracts\\libraries\\token\\WBNB.sol:14"
+            },
+            {
+              "label": "allowance",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "WBNB",
+              "src": "contracts\\libraries\\token\\WBNB.sol:15"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_string_storage": {
+              "label": "string",
+              "numberOfBytes": "32"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            },
+            "t_uint8": {
+              "label": "uint8",
+              "numberOfBytes": "1"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
         }
       }
     }

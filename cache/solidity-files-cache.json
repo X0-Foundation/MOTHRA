@@ -1621,8 +1621,8 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\farm\\TGRToken.sol": {
-      "lastModificationDate": 1655548309008,
-      "contentHash": "758ed340989e7c79ef5613e54fe5adae",
+      "lastModificationDate": 1655728910756,
+      "contentHash": "ea11e845637c7bcb52f58408435146d3",
       "sourceName": "contracts/farm/TGRToken.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -1656,7 +1656,6 @@
       },
       "imports": [
         "@openzeppelin/contracts/access/Ownable.sol",
-        "solidity-math-utils/project/contracts/AnalyticMath.sol",
         "./interfaces/ITGRToken.sol",
         "../session/interfaces/IConstants.sol",
         "../session/SessionRegistrar.sol",
@@ -1669,6 +1668,7 @@
         "../core/interfaces/IXFactory.sol",
         "../core/interfaces/IXPair.sol",
         "../libraries/math/SafeMath.sol",
+        "../libraries/math/AnalyticMath.sol",
         "../libraries/GovLib.sol",
         "hardhat/console.sol"
       ],
@@ -1677,50 +1677,6 @@
       ],
       "artifacts": [
         "TGRToken"
-      ]
-    },
-    "D:\\HARDHAT\\XContracts\\node_modules\\solidity-math-utils\\project\\contracts\\AnalyticMath.sol": {
-      "lastModificationDate": 1655726912861,
-      "contentHash": "924e0f1342d25605313854890b053318",
-      "sourceName": "solidity-math-utils/project/contracts/AnalyticMath.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./IntegralMath.sol"
-      ],
-      "versionPragmas": [
-        "0.8.14"
-      ],
-      "artifacts": [
-        "AnalyticMath"
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\session\\SessionRegistrar.sol": {
@@ -1814,6 +1770,50 @@
         "SessionFees"
       ]
     },
+    "D:\\HARDHAT\\XContracts\\contracts\\libraries\\math\\AnalyticMath.sol": {
+      "lastModificationDate": 1655726912861,
+      "contentHash": "924e0f1342d25605313854890b053318",
+      "sourceName": "contracts/libraries/math/AnalyticMath.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./IntegralMath.sol"
+      ],
+      "versionPragmas": [
+        "0.8.14"
+      ],
+      "artifacts": [
+        "AnalyticMath"
+      ]
+    },
     "D:\\HARDHAT\\XContracts\\contracts\\libraries\\GovLib.sol": {
       "lastModificationDate": 1651923971104,
       "contentHash": "1031ce052f8f99478661e3a4f8d551a0",
@@ -1856,10 +1856,10 @@
         "GovLib"
       ]
     },
-    "D:\\HARDHAT\\XContracts\\node_modules\\solidity-math-utils\\project\\contracts\\IntegralMath.sol": {
+    "D:\\HARDHAT\\XContracts\\contracts\\libraries\\math\\IntegralMath.sol": {
       "lastModificationDate": 1655726674928,
       "contentHash": "803527dcc7f3c3d655a9361307d29027",
-      "sourceName": "solidity-math-utils/project/contracts/IntegralMath.sol",
+      "sourceName": "contracts/libraries/math/IntegralMath.sol",
       "solcConfig": {
         "version": "0.8.14",
         "settings": {

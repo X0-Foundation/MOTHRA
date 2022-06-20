@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "solidity-math-utils/project/contracts/AnalyticMath.sol";
 
 import "./interfaces/ITGRToken.sol";
 import "../session/interfaces/IConstants.sol";
@@ -16,13 +15,14 @@ import "../periphery/interfaces/IXTaker.sol";
 import "../core/interfaces/IXFactory.sol"; 
 import "../core/interfaces/IXPair.sol";
 import "../libraries/math/SafeMath.sol";
+import "../libraries/math/AnalyticMath.sol";
 import "../libraries/GovLib.sol";
 
 import "hardhat/console.sol";
 
 // TGRToken with Governance.
 contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, SessionManager {
-    
+
     using SafeMath for uint256;
 
     //==================== Constants ====================

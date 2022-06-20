@@ -23,6 +23,7 @@ export type { Referral } from "./Referral";
 export type { TGRToken } from "./TGRToken";
 export type { IXdaoAgency } from "./IXdaoAgency";
 export type { XdaoAgency } from "./XdaoAgency";
+export type { AnalyticMath } from "./AnalyticMath";
 export type { WBNB } from "./WBNB";
 export type { MockToken } from "./MockToken";
 export type { ControlCenter } from "./ControlCenter";
@@ -42,7 +43,6 @@ export type { ISessionRegistrar } from "./ISessionRegistrar";
 export type { Node } from "./Node";
 export type { SessionFees } from "./SessionFees";
 export type { SessionRegistrar } from "./SessionRegistrar";
-export type { AnalyticMath } from "./AnalyticMath";
 
 export { AggregatorV3Interface__factory } from "./factories/AggregatorV3Interface__factory";
 export { Ownable__factory } from "./factories/Ownable__factory";
@@ -66,6 +66,7 @@ export { Referral__factory } from "./factories/Referral__factory";
 export { TGRToken__factory } from "./factories/TGRToken__factory";
 export { IXdaoAgency__factory } from "./factories/IXdaoAgency__factory";
 export { XdaoAgency__factory } from "./factories/XdaoAgency__factory";
+export { AnalyticMath__factory } from "./factories/AnalyticMath__factory";
 export { WBNB__factory } from "./factories/WBNB__factory";
 export { MockToken__factory } from "./factories/MockToken__factory";
 export { ControlCenter__factory } from "./factories/ControlCenter__factory";
@@ -85,4 +86,3 @@ export { ISessionRegistrar__factory } from "./factories/ISessionRegistrar__facto
 export { Node__factory } from "./factories/Node__factory";
 export { SessionFees__factory } from "./factories/SessionFees__factory";
 export { SessionRegistrar__factory } from "./factories/SessionRegistrar__factory";
-export { AnalyticMath__factory } from "./factories/AnalyticMath__factory";
