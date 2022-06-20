@@ -22,6 +22,7 @@ import "hardhat/console.sol";
 
 // TGRToken with Governance.
 contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, SessionManager {
+    
     using SafeMath for uint256;
 
     //==================== Constants ====================
