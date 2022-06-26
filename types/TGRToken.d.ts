@@ -47,7 +47,7 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     "pairs(address)": FunctionFragment;
     "pause()": FunctionFragment;
     "paused()": FunctionFragment;
-    "payFeeCrssLogic(address,uint256,(uint32),bool)": FunctionFragment;
+    "payFeeTgrLogic(address,uint256,(uint32),bool)": FunctionFragment;
     "prevNode()": FunctionFragment;
     "pulse_lp_reward()": FunctionFragment;
     "pulse_user_burn()": FunctionFragment;
@@ -138,7 +138,7 @@ interface TGRTokenInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: "pause", values?: undefined): string;
   encodeFunctionData(functionFragment: "paused", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "payFeeCrssLogic",
+    functionFragment: "payFeeTgrLogic",
     values: [string, BigNumberish, { accountant: BigNumberish }, boolean]
   ): string;
   encodeFunctionData(functionFragment: "prevNode", values?: undefined): string;
@@ -257,7 +257,7 @@ interface TGRTokenInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "pause", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "paused", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "payFeeCrssLogic",
+    functionFragment: "payFeeTgrLogic",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "prevNode", data: BytesLike): Result;
@@ -574,7 +574,7 @@ export class TGRToken extends BaseContract {
 
     paused(overrides?: CallOverrides): Promise<[boolean]>;
 
-    payFeeCrssLogic(
+    payFeeTgrLogic(
       account: string,
       principal: BigNumberish,
       rates: { accountant: BigNumberish },
@@ -857,7 +857,7 @@ export class TGRToken extends BaseContract {
 
   paused(overrides?: CallOverrides): Promise<boolean>;
 
-  payFeeCrssLogic(
+  payFeeTgrLogic(
     account: string,
     principal: BigNumberish,
     rates: { accountant: BigNumberish },
@@ -1135,7 +1135,7 @@ export class TGRToken extends BaseContract {
 
     paused(overrides?: CallOverrides): Promise<boolean>;
 
-    payFeeCrssLogic(
+    payFeeTgrLogic(
       account: string,
       principal: BigNumberish,
       rates: { accountant: BigNumberish },
@@ -1511,7 +1511,7 @@ export class TGRToken extends BaseContract {
 
     paused(overrides?: CallOverrides): Promise<BigNumber>;
 
-    payFeeCrssLogic(
+    payFeeTgrLogic(
       account: string,
       principal: BigNumberish,
       rates: { accountant: BigNumberish },
@@ -1731,7 +1731,7 @@ export class TGRToken extends BaseContract {
 
     paused(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    payFeeCrssLogic(
+    payFeeTgrLogic(
       account: string,
       principal: BigNumberish,
       rates: { accountant: BigNumberish },

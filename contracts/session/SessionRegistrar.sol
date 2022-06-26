@@ -4,6 +4,8 @@ pragma solidity ^0.8.0;
 import "./interfaces/IConstants.sol";
 import "./interfaces/ISessionRegistrar.sol";
 
+import "hardhat/console.sol";
+
 abstract contract SessionRegistrar is ISessionRegistrar {
 
     uint256 public session;

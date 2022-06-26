@@ -5,6 +5,8 @@ import "./interfaces/IConstants.sol";
 import "./interfaces/ISessionRegistrar.sol";
 import "./interfaces/ISessionManager.sol";
 
+import "hardhat/console.sol";
+
 abstract contract SessionManager is ISessionManager {
 
     ActionParams actionParams;
@@ -18,7 +20,7 @@ abstract contract SessionManager is ISessionManager {
         sessionRegistrar.unregisterAction();
     }
 
-    function _payFeeCrss(address account, uint256 principal, FeeRates memory rates, bool fromAllowance ) internal virtual returns (uint256 feesPaid) {
-        feesPaid = sessionFees.payFeeCrssLogic(account, principal, rates, fromAllowance);
+    function _payFeeTgr(address account, uint256 principal, FeeRates memory rates, bool fromAllowance ) internal virtual returns (uint256 feesPaid) {
+        feesPaid = sessionFees.payFeeTgrLogic(account, principal, rates, fromAllowance);
     }
 }

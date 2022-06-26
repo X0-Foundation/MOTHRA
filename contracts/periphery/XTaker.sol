@@ -28,13 +28,13 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
 
     address public immutable override WETH;
 
-    string private sForbidden = "Taker: Forbidden";
-    string private sInvalidPath = "Taker: Invalid path";
-    string private sInsufficientOutput = "Taker: Insufficient output amount";
-    string private sInsufficientA = "Taker: Insufficient A amount";
-    string private sInsufficientB = "Taker: Insufficient B amount";
-    string private sExcessiveInput = "Taker: Excessive input amount";
-    string private sExpired = "Taker: Expired";
+    string private sForbidden = "XTaker: Forbidden";
+    string private sInvalidPath = "XTaker: Invalid path";
+    string private sInsufficientOutput = "XTaker: Insufficient output amount";
+    string private sInsufficientA = "XTaker: Insufficient A amount";
+    string private sInsufficientB = "XTaker: Insufficient B amount";
+    string private sExcessiveInput = "XTaker: Excessive input amount";
+    string private sExpired = "XTaker: Expired";
 
     modifier ensure(uint256 deadline) {
         require(deadline >= block.timestamp, sExpired);
@@ -43,7 +43,6 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
 
     constructor(address _WETH) Ownable() Node(NodeType.Taker) {
         WETH = _WETH;
-        RouterLibrary.test();
 
         trackFeeStores = true;
         trackFeeRates = true;
@@ -79,23 +78,45 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
 
     // **** SWAP ****
     // requires the initial amount to have already been sent to the first pair
+    function _swap_controlled(
+        uint256[] memory amounts,
+        address[] memory path,
+        address to
+    ) internal virtual {
+        for (uint256 i; i < path.length - 1; i++) {
+            (address input, address output) = (path[i], path[i + 1]);
+
+            (PairSnapshot memory pairSnapshot, bool isNichePair) = IControlCenter(nodes.center).captureInitialPairState(
+                actionParams, input, output
+            );
+
+            _checkEnlisted(pairFor[input][output]);
+
+            address pair = pairFor[input][output];
+            (address token0, address token1) = XLibrary.sortTokens(input, output); //pairs[address(pair)].token0;
+            uint256 amountOut = amounts[i + 1];
+            (uint256 amount0Out, uint256 amount1Out) = input == token0 ? (uint256(0), amountOut) : (amountOut, uint256(0));
+            address _to = i < path.length - 2 ? pairFor[output][path[i + 2]] : to;
+            IXPair(pair).swap(amount0Out, amount1Out, _to, new bytes(0));
+
+            if (_msgSender() != owner()) IControlCenter(nodes.center).ruleOutDeviatedPrice(isNichePair, pairSnapshot);
+        }
+    }
+
     function _swap(
         uint256[] memory amounts,
         address[] memory path,
         address to
     ) internal virtual {
         for (uint256 i; i < path.length - 1; i++) {
-            (PairSnapshot memory pairSnapshot, bool isNichePair) = IControlCenter(nodes.center).captureInitialPairState(
-                actionParams,
-                path[i],
-                path[i + 1]
-            );
+            (address input, address output) = (path[i], path[i + 1]);
+            address pair = pairFor[input][output];
+            (address token0, ) = XLibrary.sortTokens(input, output); //pairs[address(pair)].token0;
 
-            _checkEnlisted(pairFor[path[i]][path[i + 1]]);
-
-            RouterLibrary.swapStep(amounts, path, to, pairSnapshot, nodes.factory, i);
-
-            if (_msgSender() != owner()) IControlCenter(nodes.center).ruleOutDeviatedPrice(isNichePair, pairSnapshot);
+            uint256 amountOut = amounts[i + 1];
+            (uint256 amount0Out, uint256 amount1Out) = input == token0 ? (uint256(0), amountOut) : (amountOut, uint256(0));
+            address _to = i < path.length - 2 ? pairFor[output][path[i + 2]] : to;
+            IXPair(pair).swap(amount0Out, amount1Out, _to, new bytes(0));
         }
     }
 
@@ -112,7 +133,7 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
         amounts = XLibrary.getAmountsOut(nodes.factory, amountIn, path);
         require(amounts[amounts.length - 1] >= amountOutMin, sInsufficientOutput);
         XLibrary.lightTransferFrom(path[0], msg.sender, pairFor[path[0]][path[1]], amounts[0], nodes.token);
-        _swap(amounts, path, to);
+        _swap_controlled(amounts, path, to);
 
         _closeAction();
     }
@@ -149,9 +170,11 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
 
         amounts = XLibrary.getAmountsIn(nodes.factory, amountOut, path);
         require(amounts[0] <= amountInMax, sExcessiveInput);
-        amounts[0] -= _payTransactonFee(path[0], msg.sender, amounts[0], true);
         XLibrary.lightTransferFrom(path[0], msg.sender, pairFor[path[0]][path[1]], amounts[0], nodes.token);
-        _swap(amounts, path, to);
+        _swap_controlled(amounts, path, address(this));
+        uint256 last = path.length - 1;
+        amounts[last] -= _payTransactonFee(path[last], address(this), amounts[last], false);
+        XLibrary.lightTransferFrom(path[last], address(this), to, amounts[last], nodes.token);
 
         _closeAction();
     }
@@ -171,7 +194,7 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
         amounts = XLibrary.getAmountsOut(nodes.factory, amountIn, path);
         require(amounts[amounts.length - 1] >= amountOutMin, sInsufficientOutput);
         assert(IWETH(WETH).transfer(pairFor[path[0]][path[1]], amounts[0]));
-        _swap(amounts, path, to);
+        _swap_controlled(amounts, path, to);
 
         _closeAction();
     }
@@ -188,11 +211,12 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
         require(path[path.length - 1] == WETH, sInvalidPath);
         amounts = XLibrary.getAmountsIn(nodes.factory, amountOut, path);
         require(amounts[0] <= amountInMax, sExcessiveInput);
-        amounts[0] -= _payTransactonFee(path[0], msg.sender, amounts[0], true);
         XLibrary.lightTransferFrom(path[0], msg.sender, pairFor[path[0]][path[1]], amounts[0], nodes.token);
-        _swap(amounts, path, address(this));
-        IWETH(WETH).withdraw(amounts[amounts.length - 1]);
-        TransferHelper.safeTransferETH(to, amounts[amounts.length - 1]);
+        _swap_controlled(amounts, path, address(this));
+        uint256 last = path.length - 1;
+        amounts[last] -= _payTransactonFee(path[last], address(this), amounts[last], false);
+        IWETH(WETH).withdraw(amounts[last]);
+        TransferHelper.safeTransferETH(to, amounts[last]);
 
         _closeAction();
     }
@@ -211,7 +235,7 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
         amounts = XLibrary.getAmountsOut(nodes.factory, amountIn, path);
         require(amounts[amounts.length - 1] >= amountOutMin, sInsufficientOutput);
         XLibrary.lightTransferFrom(path[0], msg.sender, pairFor[path[0]][path[1]], amounts[0], nodes.token);
-        _swap(amounts, path, address(this));
+        _swap_controlled(amounts, path, address(this));
         IWETH(WETH).withdraw(amounts[amounts.length - 1]);
         TransferHelper.safeTransferETH(to, amounts[amounts.length - 1]);
 
@@ -232,12 +256,11 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
         IWETH(WETH).deposit{value: amounts[0]}();
         uint256 amountIn = amounts[0];
         assert(IWETH(WETH).transfer(pairFor[path[0]][path[1]], amounts[0]));
-        _swap(amounts, path, address(this));
-        address tokenOut = path[path.length-1];
-        amountOut -= _payTransactonFee(tokenOut, address(this), amountOut, false);
-        XLibrary.lightTransferFrom(tokenOut, address(this), to, amountOut, nodes.token);
+        _swap_controlled(amounts, path, address(this));
+        uint256 last = path.length - 1;
+        amounts[last] -= _payTransactonFee(path[path.length-1], address(this), amounts[last], false);
+        XLibrary.lightTransferFrom(path[last], address(this), to, amounts[last], nodes.token);
 
-        // refund dust eth, if any
         if (msg.value > amountIn) TransferHelper.safeTransferETH(msg.sender, msg.value - amountIn);
 
         _closeAction();
@@ -247,13 +270,27 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
     // requires the initial amount to have already been sent to the first pair
     function _swapSupportingFeeOnTransferTokens(address[] memory path, address to) internal virtual {
         for (uint256 i; i < path.length - 1; i++) {
+            (address input, address output) = (path[i], path[i + 1]);
+
             (PairSnapshot memory pairSnapshot, bool isNichePair) = IControlCenter(nodes.center).captureInitialPairState(
-                actionParams,
-                path[i],
-                path[i + 1]
+                actionParams, input, output
             );
-            _checkEnlisted(pairFor[path[i]][path[i + 1]]);
-            RouterLibrary.swapStepSupportingFee(path, to, pairSnapshot, nodes.factory, i);
+            _checkEnlisted(pairFor[input][output]);
+
+            (address token0,) = XLibrary.sortTokens(input, output);
+            IPancakePair pair = IPancakePair(pairFor[input][output]);
+            uint amountInput;
+            uint amountOutput;
+            { // scope to avoid stack too deep errors
+                (uint reserve0, uint reserve1,) = pair.getReserves();
+                (uint reserveInput, uint reserveOutput) = input == token0 ? (reserve0, reserve1) : (reserve1, reserve0);
+                amountInput = IERC20(input).balanceOf(address(pair)).sub(reserveInput);
+                amountOutput = XLibrary.getAmountOut(amountInput, reserveInput, reserveOutput);
+            }
+            (uint amount0Out, uint amount1Out) = input == token0 ? (uint(0), amountOutput) : (amountOutput, uint(0));
+            address _to = i < path.length - 2 ? pairFor[output][path[i + 2]] : to;
+            pair.swap(amount0Out, amount1Out, _to, new bytes(0));
+
             if (_msgSender() != owner()) IControlCenter(nodes.center).ruleOutDeviatedPrice(isNichePair, pairSnapshot);
         }
     }
@@ -271,7 +308,7 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
         XLibrary.lightTransferFrom(path[0], msg.sender, pairFor[path[0]][path[1]], amountIn, nodes.token);
         uint256 balanceBefore = IERC20(path[path.length - 1]).balanceOf(to);
         _swapSupportingFeeOnTransferTokens(path, to);
-        require(IERC20(path[path.length - 1]).balanceOf(to).sub(balanceBefore) >= amountOutMin, sInsufficientOutput);
+        require(IERC20(path[path.length - 1]).balanceOf(to) - balanceBefore >= amountOutMin, sInsufficientOutput);
 
         _closeAction();
     }
@@ -287,11 +324,11 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
         require(path[0] == WETH, sInvalidPath);
         uint256 amountIn = msg.value;
         IWETH(WETH).deposit{value: amountIn}();
-        amountIn -= _payTransactonFee(path[0], msg.sender, amountIn, true);
+        amountIn -= _payTransactonFee(path[0], address(this), amountIn, true);
         assert(IWETH(WETH).transfer(pairFor[path[0]][path[1]], amountIn));
         uint256 balanceBefore = IERC20(path[path.length - 1]).balanceOf(to);
         _swapSupportingFeeOnTransferTokens(path, to);
-        require(IERC20(path[path.length - 1]).balanceOf(to).sub(balanceBefore) >= amountOutMin, sInsufficientOutput);
+        require(IERC20(path[path.length - 1]).balanceOf(to) - balanceBefore >= amountOutMin, sInsufficientOutput);
 
         _closeAction();
     }
@@ -325,7 +362,7 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
     ) internal virtual returns (uint256 feesPaid) {
         if (actionParams.isUserAction && principal > 0) {
             if (payerToken == nodes.token) {
-                feesPaid = _payFeeCrss(payerAddress, principal, feeRates[actionParams.actionType], fromAllowance);
+                feesPaid = _payFeeTgr(payerAddress, principal, feeRates[actionParams.actionType], fromAllowance);
             } else {
             feesPaid = XLibrary.transferFeesFrom(
                 payerToken,

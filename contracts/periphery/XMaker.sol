@@ -16,6 +16,8 @@ import "../libraries/math/SafeMath.sol";
 import "../core/interfaces/IXFactory.sol";
 import "./interfaces/IWETH.sol";
 
+import "hardhat/console.sol";
+
 interface IBalanceLedger {
     function balanceOf(address account) external view returns (uint256);
 }
@@ -25,13 +27,13 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
 
     address public immutable override WETH;
 
-    string private sForbidden = "Taker: Forbidden";
-    string private sInvalidPath = "Taker: Invalid path";
-    string private sInsufficientOutput = "Taker: Insufficient output amount";
-    string private sInsufficientA = "Taker: Insufficient A amount";
-    string private sInsufficientB = "Taker: Insufficient B amount";
-    string private sExcessiveInput = "Taker: Excessive input amount";
-    string private sExpired = "Taker: Expired";
+    string private sForbidden = "XTaker: Forbidden";
+    string private sInvalidPath = "XTaker: Invalid path";
+    string private sInsufficientOutput = "XTaker: Insufficient output amount";
+    string private sInsufficientA = "XTaker: Insufficient A amount";
+    string private sInsufficientB = "XTaker: Insufficient B amount";
+    string private sExcessiveInput = "XTaker: Excessive input amount";
+    string private sExpired = "XTaker: Expired";
 
     modifier ensure(uint256 deadline) {
         require(deadline >= block.timestamp, sExpired);
@@ -150,12 +152,6 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
         _closeAction();
     }
 
-    function _payTransactionFeeLP(address lp, uint256 principal) internal virtual returns (uint256 feesPaid) {
-        if (actionParams.isUserAction) {
-            feesPaid = XLibrary.transferFeesFrom(lp, address(this), principal, feeRates[actionParams.actionType], feeStores, nodes.token);
-        }
-    }
-
     function wired_addLiquidity(
         address tokenA,
         address tokenB,
@@ -183,6 +179,12 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
 
         if (tokenA == nodes.token || tokenB == nodes.token) liquidity -= _payTransactionFeeLP(pair, liquidity);
         TransferHelper.safeTransfer(pair, to, liquidity);
+    }
+
+    function _payTransactionFeeLP(address lp, uint256 principal) internal virtual returns (uint256 feesPaid) {
+        if (actionParams.isUserAction) {
+            feesPaid = XLibrary.transferFeesFrom(lp, address(this), principal, feeRates[actionParams.actionType], feeStores, nodes.token);
+        }
     }
 
     function addLiquidityETH(
