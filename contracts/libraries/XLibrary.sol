@@ -34,7 +34,7 @@ library XLibrary {
                             hex"ff",
                             factory,
                             keccak256(abi.encodePacked(token0, token1)),
-                            hex"57c7f7f87dc3f8c722b9668b0e8978735230147686fa9e93cd7767ed18cbface" // init code hash
+                            hex"562e5b2650c02d5d7fa342294a3ae06efde7864de45855a7b7e97d770b2e0312" // init code hash
                         )
                     )
                 )
