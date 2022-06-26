@@ -7,6 +7,8 @@ import "../session/Node.sol";
 import "./XPair.sol";
 import "./interfaces/IXFactory.sol";
 
+import "hardhat/console.sol";
+
 contract XFactory is Node, IXFactory, Ownable {
     bytes32 public constant INIT_CODE_PAIR_HASH = keccak256(abi.encodePacked(type(XPair).creationCode));
 

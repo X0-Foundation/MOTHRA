@@ -4,6 +4,8 @@ pragma solidity ^0.8.0;
 import "./interfaces/INode.sol";
 import "../libraries/WireLibrary.sol";
 
+import "hardhat/console.sol";
+
 abstract contract Node is INode {
     NodeType thisNode;
 

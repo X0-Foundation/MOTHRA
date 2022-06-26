@@ -122,12 +122,11 @@ exports.deployMaker = async function (deployer, wbnb, wireLib) {
   return router;
 };
 
-exports.deployTaker = async function (deployer, wbnb, wireLib, routerLib) {
+exports.deployTaker = async function (deployer, wbnb, wireLib) {
   const Router = await ethers.getContractFactory("XTaker", {
     signer: deployer,
     libraries: {
       WireLibrary: wireLib,
-      RouterLibrary: routerLib,
     },
   });
 

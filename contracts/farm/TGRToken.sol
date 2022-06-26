@@ -116,6 +116,10 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         vote_burn = Pulse(block.timestamp, 2 seconds, 70, votes, 0, 0, 0, block.timestamp / (2 seconds));
         user_burn = Pulse(block.timestamp, 4 seconds, 777, zero_address, 0, 0, 0, block.timestamp / (4 seconds));
 
+        trackFeeStores = true;
+        trackFeeRates = true;
+        trackPairStatus = true;
+
         _mint(_msgSender(), 1e6 * 10 ** _decimals);
 
     }
@@ -404,6 +408,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         uint256 amount
     ) external virtual override {
         address msgSender = _msgSender();
+
         require(
         msgSender == nodes.taker 
         || msgSender == nodes.maker 

@@ -7,6 +7,8 @@ import "../farm/interfaces/ITGRToken.sol";
 import "../session/interfaces/IConstants.sol";
 import "../libraries/utils/TransferHelper.sol";
 
+import "hardhat/console.sol";
+
 library XLibrary {
     using SafeMath for uint256;
 
@@ -32,7 +34,7 @@ library XLibrary {
                             hex"ff",
                             factory,
                             keccak256(abi.encodePacked(token0, token1)),
-                            hex"7a7f762393b2fcbc8f7fe1dcbef2887d6d6fdffab074bfedadb4fd5b3c5d4e09" // init code hash
+                            hex"e868afb7b210e85b7d376e60b53dc2df8bc403bdd5cb23d4d9c3e2c1e8533c94" // init code hash
                         )
                     )
                 )
@@ -126,13 +128,13 @@ library XLibrary {
         uint256 principal,
         FeeRates memory rates,
         FeeStores memory feeStores,
-        address crssToken
+        address tgrToken
     ) internal returns (uint256 feesPaid) {
         uint256 fee;
         if (principal != 0) {
             if (rates.accountant != 0) {
                 fee = (principal * rates.accountant) / FeeMagnifier;
-                lightTransferFrom(token, payer, feeStores.accountant, fee, crssToken);
+                lightTransferFrom(token, payer, feeStores.accountant, fee, tgrToken);
                 feesPaid += fee;
             }
         }
@@ -143,9 +145,9 @@ library XLibrary {
         address sender,
         address recipient,
         uint256 amount, 
-        address crssToken
+        address tgrToken
     ) internal {
-        if (tokenTransfer == crssToken) {
+        if (tokenTransfer == tgrToken) {
             ITGRToken(tokenTransfer).transferDirectSafe(sender, recipient, amount);
         } else {
             TransferHelper.safeTransferFrom(tokenTransfer, sender, recipient, amount);
@@ -156,9 +158,9 @@ library XLibrary {
         address tokenTransfer,
         address recipient,
         uint256 amount, 
-        address crssToken
+        address tgrToken
     ) internal {
-        if (tokenTransfer == crssToken) {
+        if (tokenTransfer == tgrToken) {
             ITGRToken(tokenTransfer).transferDirectSafe(address(this), recipient, amount);
         } else {
             TransferHelper.safeTransfer(tokenTransfer, recipient, amount);
