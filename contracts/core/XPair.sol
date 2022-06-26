@@ -11,6 +11,8 @@ import "./interfaces/IXFactory.sol";
 import "./interfaces/ICallee.sol";
 import "../farm/interfaces/ITGRToken.sol";
 
+import "hardhat/console.sol";
+
 
 contract XPair is IXPair {
     using Math for uint256;
@@ -326,6 +328,10 @@ contract XPair is IXPair {
             address _token0 = token0;
             address _token1 = token1;
             require(to != _token0 && to != _token1, "XPair: Invalid feeTo");
+            
+            balance0 = IERC20(_token0).balanceOf(address(this));
+            balance1 = IERC20(_token1).balanceOf(address(this));
+
             if (amount0Out > 0) _safeTransfer(_token0, to, amount0Out); // optimistically transfer tokens
             if (amount1Out > 0) _safeTransfer(_token1, to, amount1Out); // optimistically transfer tokens
             if (data.length > 0) ICallee(to).call(msg.sender, amount0Out, amount1Out, data);
@@ -337,10 +343,10 @@ contract XPair is IXPair {
         require(amount0In > 0 || amount1In > 0, "XPair: Insufficiend input amount");
         {
             // scope for reserve{0,1}Adjusted, avoids stack too deep errors
-            uint256 balance0Adjusted = balance0.mul(10000).sub(amount0In.mul(17));
-            uint256 balance1Adjusted = balance1.mul(10000).sub(amount1In.mul(17));
+            uint256 balance0Adjusted = balance0 * 10000 - amount0In * 17;
+            uint256 balance1Adjusted = balance1 * 10000 - amount1In * 17;
             require(
-                balance0Adjusted.mul(balance1Adjusted) >= uint256(_reserve0).mul(_reserve1).mul(10000**2),
+                balance0Adjusted * balance1Adjusted >= uint256(_reserve0) * _reserve1 * 10000**2,
                 "XPair: Invalid liquidity aftre swap"
             );
         }

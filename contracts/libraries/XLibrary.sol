@@ -34,7 +34,7 @@ library XLibrary {
                             hex"ff",
                             factory,
                             keccak256(abi.encodePacked(token0, token1)),
-                            hex"e868afb7b210e85b7d376e60b53dc2df8bc403bdd5cb23d4d9c3e2c1e8533c94" // init code hash
+                            hex"57c7f7f87dc3f8c722b9668b0e8978735230147686fa9e93cd7767ed18cbface" // init code hash
                         )
                     )
                 )
@@ -73,7 +73,7 @@ library XLibrary {
     ) internal pure returns (uint256 amountOut) {
         require(amountIn > 0, "XLibrary: INSUFFICIENT_INPUT_AMOUNT");
         require(reserveIn > 0 && reserveOut > 0, "XLibrary: INSUFFICIENT_LIQUIDITY");
-        uint256 amountInWithFee = amountIn.mul(9983); // 0.17% for LP providers.
+        uint256 amountInWithFee = amountIn.mul(9983); // 0.17% for LP providers. Couples with Pair code.
         uint256 numerator = amountInWithFee.mul(reserveOut);
         uint256 denominator = reserveIn.mul(10000).add(amountInWithFee);
         amountOut = numerator / denominator;
@@ -88,7 +88,7 @@ library XLibrary {
         require(amountOut > 0, "XLibrary: INSUFFICIENT_OUTPUT_AMOUNT");
         require(reserveIn > 0 && reserveOut > 0, "XLibrary: INSUFFICIENT_LIQUIDITY");
         uint256 numerator = reserveIn.mul(amountOut).mul(10000);
-        uint256 denominator = reserveOut.sub(amountOut).mul(9983); // 0.17% for LP providers.
+        uint256 denominator = reserveOut.sub(amountOut).mul(9983); // 0.17% for LP providers. Couples with Pair code.
         amountIn = (numerator / denominator).add(1);
     }
 

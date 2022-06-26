@@ -55,3 +55,9 @@ struct Pair {
     address token1;
     ListStatus status;
 }
+
+// address constant BUSD = 0xe9e7cea3dedca5984780bafc599bd69add087d56; // BSC mainnet
+//address constant BUSD = 0xe9e7cea3dedca5984780bafc599bd69add087d56; // BSC testnet
+address constant BUSD = 0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82; // Hardhat chain, with my test script.
+address constant WBNB = 0x5FC8d32690cc91D4c39d9d3abcBD16989F875707;
+address constant HTZ = 0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e;

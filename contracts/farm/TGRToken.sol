@@ -47,8 +47,8 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     //====================== Pulse core data ============================
 
     // The non-user TGR accounts, not limited to the below items.
-    address tgrftm; // The address of TGR_FTM pool, which has TGR and WFTM balances.
-    address tgrhtz; // The address of TGR_HTZ pool, which has TGR and HTZ balances.
+    // address tgrFtm; // Decleared in node. The address of TGR_FTM pool, which has TGR and WFTM balances.
+    // address tgrHtz; // Decleared in node. The address of TGR_HTZ pool, which has TGR and HTZ balances.
     address votes;  // The address of the share-based, TGR staking account in the Agency dapp.
 
     Pulse public lp_reward;
@@ -56,6 +56,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     Pulse public user_burn;
 
     mapping(address => User) Users;
+    uint256 nonUserSumTokens;
 
     // test accounts
     address admin; address alice; address bob; address carol;
@@ -63,23 +64,19 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     //====================== Pulse internal functions ============================
 
     function _isUserAccount(address account) internal view returns (bool) {
-        return account != tgrftm && account != tgrhtz && account != votes;
+        return pairs[account].token0 == address(0) && account != votes;
     }
 
     function _pendingBurn(address account) internal view returns (uint256 pendingBurn) {
         pendingBurn = _balances[account] * user_burn.accDecayPerShare / 1e12 - Users[account].debtToPendingBurn;
-        if (pendingBurn > _balances[account]) {
-            console.log("pendingBurn exceeds _balances", pendingBurn, _balances[account]);
-        }
     }
 
     function _settleWithPendingBurn(address account) internal { // user account only
         uint256 pendingBurn = _pendingBurn(account);
-        // uint256 pendingBurn = (_balances[account] * user_burn.accDecayPerShare - Users[account].debtToPendingBurn * 1e12) / (1e12 + user_burn.accDecayPerShare);
         if (pendingBurn > 0) {
             _balances[account] -= pendingBurn; // larger than its real value
             _totalSupply -= pendingBurn; // larger than its real value
-            user_burn.sum_balances -= pendingBurn; // larger
+            user_burn.sum_tokens -= pendingBurn; // larger
             user_burn.pending_burn -= pendingBurn; // larger
             Users[account].debtToPendingBurn =  _balances[account] * user_burn.accDecayPerShare / 1e12;
         }
@@ -88,12 +85,23 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     function _changeBalance(address account, uint256 amount, bool addNotSubtract) internal {
         if (_isUserAccount(account)) {
             _settleWithPendingBurn(account);
-            _balances[account] = addNotSubtract ?  _balances[account] + amount : _balances[account] - amount;
-            user_burn.sum_balances = addNotSubtract ? user_burn.sum_balances + amount : user_burn.sum_balances - amount;
-
+            if (addNotSubtract) {
+                _balances[account] += amount;
+                user_burn.sum_tokens += amount;
+            } else {
+                _balances[account] -= amount;
+                user_burn.sum_tokens -= amount;
+            }
             Users[account].debtToPendingBurn =  _balances[account] * user_burn.accDecayPerShare / 1e12;
+
         } else {
-            _balances[account] = addNotSubtract ? _balances[account] + amount : _balances[account] - amount;
+            if (addNotSubtract) {
+                _balances[account] += amount;
+                nonUserSumTokens += amount;
+            } else {
+                _balances[account] -= amount;
+                nonUserSumTokens -= amount;
+            }
         }
     }
 
@@ -108,11 +116,9 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         bob = 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC;
         carol = 0x90F79bf6EB2c4f870365E785982E1f101E93b906;
 
-        tgrftm = 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65; // tgr_bnb
-        tgrhtz = 0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc; // tgr_mck
-        votes = 0x976EA74026E726554dB657fA54763abd0C3a0aa9; // tgr_mck2
+        votes = 0x976EA74026E726554dB657fA54763abd0C3a0aa9;
 
-        lp_reward = Pulse(block.timestamp, 2 seconds, 690, tgrftm, 0, 0, 0, block.timestamp / (2 seconds));
+        lp_reward = Pulse(block.timestamp, 2 seconds, 690, tgrFtm, 0, 0, 0, block.timestamp / (2 seconds));
         vote_burn = Pulse(block.timestamp, 2 seconds, 70, votes, 0, 0, 0, block.timestamp / (2 seconds));
         user_burn = Pulse(block.timestamp, 4 seconds, 777, zero_address, 0, 0, 0, block.timestamp / (4 seconds));
 
@@ -313,7 +319,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             pulse.latestTime = block.timestamp; // Not used.
 
             //require(missingRounds <= 30, "Beyond math library capability");
-            if (missingRounds > 30) missingRounds = 30; // for test only
+            if (missingRounds > 5) missingRounds = 5; // No trust in analyticMath.
 
             decayPer1e12 = 1e12;
             if (missingRounds <= 5) { // 5 optimized
@@ -342,7 +348,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         // then the FTM is used to buy HTZ which is added to XDAO lps airdrop rewards every 12 hours.
 
         uint256 decayPer1e12 = _getDecayPer1e12(lp_reward); // smaller than its real value.
-        // Use decayPer12 portion of tgrftm pool to obtain FTM to buy HTZ tokens at the htzftm pool, then add them to airdrop rewards.
+        // Use decayPer12 portion of tgrFtm pool to obtain FTM to buy HTZ tokens at the htzftm pool, then add them to airdrop rewards.
         // TGR/FTM price falls and HTZ/FTM price rises, at their respective pools.
 
         lp_reward.latestTime = block.timestamp;
@@ -360,15 +366,15 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
 
     function pulse_user_burn() external {
         // 0.777% of tokens(not in Cyberswap/Agency dapp) burned each 24 hours from users wallets.
-        // Interpretation: TGR tokens not in Cyberswap accounts (tgrftm and tgrhtz), and not in Agency account (votes account), 
+        // Interpretation: TGR tokens not in Cyberswap accounts (tgrFtm and tgrHtz), and not in Agency account (votes account), 
         // will be burned at the above rate and interval.
 
         uint256 decayPer1e12 = _getDecayPer1e12(user_burn); // smaller than its real value.
         if (decayPer1e12 > 0) {
-            uint256 net_value = user_burn.sum_balances - user_burn.pending_burn;
+            uint256 net_value = user_burn.sum_tokens - user_burn.pending_burn;
             uint256 new_burn = net_value * decayPer1e12 / 1e12;  // smaller than its real value
             user_burn.pending_burn += new_burn;
-            user_burn.accDecayPerShare += new_burn * 1e12 / user_burn.sum_balances;   // smaller than its real value
+            user_burn.accDecayPerShare += new_burn * 1e12 / user_burn.sum_tokens;   // smaller than its real value
 
             user_burn.latestTime = block.timestamp;
         }
@@ -377,27 +383,35 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     function checkForConsistency() external view {
 
         // Defines user_burn attributes, based on the ERC20 core data.
-        require(user_burn.sum_balances + _balances[tgrftm] + _balances[tgrhtz] + _balances[votes] == _totalSupply, 
-        "sum_balances + _bal[tgrftm] + _bal[tgrhtz + _bal[votes != _totalSupply");
-        require(_balances[admin] + _balances[alice] + _balances[bob] + _balances[carol] == user_burn.sum_balances,
-        "_bal[admin] + _bal[alice] + _bal[bob] + _bal[carol] != sum_balances");
+        require(user_burn.sum_tokens + nonUserSumTokens == _totalSupply, "sum_tokens + nonUserSumTokens != _totalSupply");
+        require(user_burn.sum_tokens - user_burn.pending_burn + nonUserSumTokens == totalSupply(), "pending_burn incorrct");
+
+        // Be careful, there are more userAccounts. Look at _isUserAccount().
+        // if (_balances[admin] + _balances[alice] + _balances[bob] + _balances[carol] != user_burn.sum_tokens) {
+        //     console.log(_balances[admin] + _balances[alice] + _balances[bob] + _balances[carol], user_burn.sum_tokens);
+        // }
+
+        // console.log(_balances[admin], _balances[alice], _balances[bob], _balances[carol]);
+        // console.log(user_burn.sum_tokens);   
+
+        // require(_balances[admin] + _balances[alice] + _balances[bob] + _balances[carol] == user_burn.sum_tokens,
+        // "_bal[admin] + _bal[alice] + _bal[bob] + _bal[carol] != sum_tokens");
 
         // This requirement cannot be met due to numerical errors.
-        // require(user_burn.sum_balances - user_burn.pending_burn == balanceOf(admin) + balanceOf(alice) + balanceOf(bob) + balanceOf(carol),
-        // "sum_balances - pending_burn != balOf(admin) + balOf(alice) + balOf(bob) + balOf(carol)");
-
+        // require(user_burn.sum_tokens - user_burn.pending_burn == balanceOf(admin) + balanceOf(alice) + balanceOf(bob) + balanceOf(carol),
+        // "sum_tokens - pending_burn != balOf(admin) + balOf(alice) + balOf(bob) + balOf(carol)");
         // Instead, 
-        uint256 net_collective = user_burn.sum_balances - user_burn.pending_burn;
-        uint256 sum_net_of_users = balanceOf(admin) + balanceOf(alice) + balanceOf(bob) + balanceOf(carol);
+        // uint256 net_collective = user_burn.sum_tokens - user_burn.pending_burn;
+        // uint256 sum_net_of_users = balanceOf(admin) + balanceOf(alice) + balanceOf(bob) + balanceOf(carol);
 
-        uint256 abs_error;
-        if (net_collective < sum_net_of_users) {
-            abs_error = sum_net_of_users - net_collective;
-        } else {
-            abs_error = net_collective - sum_net_of_users;
-        }
+        // uint256 abs_error;
+        // if (net_collective < sum_net_of_users) {
+        //     abs_error = sum_net_of_users - net_collective;
+        // } else {
+        //     abs_error = net_collective - sum_net_of_users;
+        // }
 
-        require( 1e6 * abs_error < net_collective, "Error exceeds a million-th");
+        // require( 1e6 * abs_error < net_collective, "Error exceeds a million-th");
     }
 
     //======================= DEX cooperations ===============================
