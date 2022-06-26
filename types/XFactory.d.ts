@@ -43,6 +43,9 @@ interface XFactoryInterface extends ethers.utils.Interface {
     "setFeeStores((address),address)": FunctionFragment;
     "setFeeTo(address)": FunctionFragment;
     "setNode(uint8,address,address)": FunctionFragment;
+    "tgrBusd()": FunctionFragment;
+    "tgrFtm()": FunctionFragment;
+    "tgrHtz()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
     "wire(address,address)": FunctionFragment;
   };
@@ -108,6 +111,9 @@ interface XFactoryInterface extends ethers.utils.Interface {
     functionFragment: "setNode",
     values: [BigNumberish, string, string]
   ): string;
+  encodeFunctionData(functionFragment: "tgrBusd", values?: undefined): string;
+  encodeFunctionData(functionFragment: "tgrFtm", values?: undefined): string;
+  encodeFunctionData(functionFragment: "tgrHtz", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
     values: [string]
@@ -160,6 +166,9 @@ interface XFactoryInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "setFeeTo", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "setNode", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "tgrBusd", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "tgrFtm", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "tgrHtz", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "transferOwnership",
     data: BytesLike
@@ -380,6 +389,12 @@ export class XFactory extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    tgrBusd(overrides?: CallOverrides): Promise<[string]>;
+
+    tgrFtm(overrides?: CallOverrides): Promise<[string]>;
+
+    tgrHtz(overrides?: CallOverrides): Promise<[string]>;
+
     transferOwnership(
       newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -490,6 +505,12 @@ export class XFactory extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  tgrBusd(overrides?: CallOverrides): Promise<string>;
+
+  tgrFtm(overrides?: CallOverrides): Promise<string>;
+
+  tgrHtz(overrides?: CallOverrides): Promise<string>;
+
   transferOwnership(
     newOwner: string,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -591,6 +612,12 @@ export class XFactory extends BaseContract {
       caller: string,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    tgrBusd(overrides?: CallOverrides): Promise<string>;
+
+    tgrFtm(overrides?: CallOverrides): Promise<string>;
+
+    tgrHtz(overrides?: CallOverrides): Promise<string>;
 
     transferOwnership(
       newOwner: string,
@@ -814,6 +841,12 @@ export class XFactory extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    tgrBusd(overrides?: CallOverrides): Promise<BigNumber>;
+
+    tgrFtm(overrides?: CallOverrides): Promise<BigNumber>;
+
+    tgrHtz(overrides?: CallOverrides): Promise<BigNumber>;
+
     transferOwnership(
       newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -926,6 +959,12 @@ export class XFactory extends BaseContract {
       caller: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
+
+    tgrBusd(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    tgrFtm(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    tgrHtz(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     transferOwnership(
       newOwner: string,

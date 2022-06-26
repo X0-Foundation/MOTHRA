@@ -13,6 +13,9 @@ abstract contract Node is INode {
     address public nextNode;
 
     Nodes nodes;
+    address public tgrBusd;
+    address public tgrFtm; // The address of TGR_FTM pool, which has TGR and WFTM balances.
+    address public tgrHtz; // The address of TGR_HTZ pool, which has TGR and HTZ balances.
 
     mapping(address => Pair) public pairs;
     mapping(address => mapping(address => address)) public pairFor;
@@ -72,6 +75,16 @@ abstract contract Node is INode {
                 pairs[pair] = Pair(token0, token1, status);
                 pairFor[token0][token1] = pair;
                 pairFor[token1][token0] = pair;
+
+                if (WireLibrary.isSamePair(token0, token1, nodes.token, BUSD)) {
+                    tgrBusd = pair;
+                }
+                if (WireLibrary.isSamePair(token0, token1, nodes.token, WBNB)) {
+                    tgrFtm = pair;
+                }
+                if (WireLibrary.isSamePair(token0, token1, nodes.token, HTZ)) {
+                    tgrHtz = pair;
+                }
             }
             address trueCaller = caller == address(0) ? address(this) : caller;
             INode(nextNode).changePairStatus(pair, token0, token1, status, trueCaller);

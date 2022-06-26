@@ -11,7 +11,7 @@ interface ITGRToken is IERC20 {
         uint256 decayRate;
         address account;
         uint256 accDecayPerShare;
-        uint256 sum_balances;
+        uint256 sum_tokens;
         uint256 pending_burn;
         uint256 latestRound;
     }

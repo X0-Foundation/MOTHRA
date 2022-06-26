@@ -34,7 +34,7 @@ const {
     
     let wireLib, factory, wbnb, center, crossLib, routerLib, maker, taker, tgr, mock, mock2, farm, farmLib, xCrss, referral, rCrss, rSyrup, repay;
     let crss_bnb, crss_mck, crss_mck2;
-    let owner, alice, bob, carol, tgrftm, tgrhtz, votes;
+    let owner, alice, bob, carol, tgrFtm, tgrHtz, votes;
     let tx;
     
     const FeeMagnifier = Number(1e5); // 
@@ -115,19 +115,19 @@ async function transfer(sender, recipient, amount) {
 
 describe("====================== Stage 1: ======================\n".yellow, async function () {
     it("Main contracts are deployed.\n".green, async function () {
-        // For the sake of transfer test, the pools tgrftm, tgrhtz and votes are wallet accounts.
+        // For the sake of transfer test, the pools tgrFtm, tgrHtz and votes are wallet accounts.
         // This way we can simulate a transfer from/to/between those pools.
 
-        [owner, alice, bob, carol, tgrftm, tgrhtz, votes] = await ethers.getSigners();
+        [owner, alice, bob, carol, tgrFtm, tgrHtz, votes] = await ethers.getSigners();
         owner.name = "Owner"; alice.name = "Alice"; bob.name = "Bob"; carol.name = "Carol";
-        tgrftm.name = "TgrFtm"; tgrhtz.name = "TgrHtz"; votes.name = "Votes";
+        tgrFtm.name = "tgrFtm"; tgrHtz.name = "tgrHtz"; votes.name = "Votes";
 
         console.log("\tOwner address: ".cyan, owner.address);
         console.log("\tAlice address: ".cyan, alice.address);
         console.log("\tBob address: ".cyan, bob.address);
         console.log("\tCarol address: ".cyan, carol.address);
-        console.log("\tTgrFtm address: ".cyan, tgrftm.address);
-        console.log("\tTgrHtz address: ".cyan, tgrhtz.address);
+        console.log("\ttgrFtm address: ".cyan, tgrFtm.address);
+        console.log("\ttgrHtz address: ".cyan, tgrHtz.address);
         console.log("\tVotes address: ".cyan, votes.address);
 
         wireLib = await deployWireLibrary(owner);
@@ -182,12 +182,12 @@ describe("====================== Stage 1: ======================\n".yellow, asyn
         await tgr.pulse_user_burn();
         await showVirtualBurn();
 
-        await transfer(owner, tgrftm, 100);
+        await transfer(owner, tgrFtm, 100);
         await mintBlocks(50);
         await tgr.pulse_user_burn();
         await showVirtualBurn();
 
-        await transfer(tgrftm, tgrhtz, 101);
+        await transfer(tgrFtm, tgrHtz, 101);
         await mintBlocks(50);
         await tgr.pulse_user_burn();
         await showVirtualBurn();

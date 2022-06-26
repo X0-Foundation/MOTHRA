@@ -37,7 +37,7 @@ const {
     
     let wireLib, factory, wbnb, center, crossLib, routerLib, maker, taker, tgr, mock, mock2, farm, farmLib, xTgr, referral, rTgr, rSyrup, repay;
     let tgr_bnb, tgr_mck, tgr_mck2;
-    let owner, alice, bob, carol, tgrftm, tgrhtz, votes;
+    let owner, alice, bob, carol, tgrFtm, tgrHtz, votes;
     let tx;
     
     const FeeMagnifier = Number(1e5); // 
@@ -102,27 +102,27 @@ async function setupNodeChain() {
 
     tx = tgr.connect(alice).wire(factory.address, center.address); //-------------------- expectReverted
     expectReverted(tx);
-    console.log("\tAlice couldn't wire nodes", factory.address, center.address);
+    console.log("\tAlice couldn't wire nodes", uiAddr(factory.address), uiAddr(center.address));
 
     tx = tgr.connect(owner).wire(factory.address, center.address);
     (await tx).wait();
-    console.log("\tTgr token was wired: factory - O - center", factory.address, center.address);
+    console.log("\tTgr token was wired: factory - O - center", uiAddr(factory.address), uiAddr(center.address));
 
     tx = center.connect(owner).wire(tgr.address, maker.address);
     (await tx).wait();
-    console.log("\tControlCenter was wired: tgr - O - maker", tgr.address, maker.address);
+    console.log("\tControlCenter was wired: tgr - O - maker", uiAddr(tgr.address), uiAddr(maker.address));
 
     tx = maker.connect(owner).wire(center.address, taker.address);
     (await tx).wait();
-    console.log("\tmaker was wired: center - O - taker", center.address, taker.address);
+    console.log("\tmaker was wired: center - O - taker", uiAddr(center.address), uiAddr(taker.address));
 
     tx = taker.connect(owner).wire(maker.address, factory.address);
     (await tx).wait();
-    console.log("\ttaker was wired: maker - O - factory", maker.address, factory.address);
+    console.log("\ttaker was wired: maker - O - factory", uiAddr(maker.address), uiAddr(factory.address));
 
     tx = factory.connect(owner).wire(taker.address, tgr.address);
     (await tx).wait();
-    console.log("\tfactory was wired: taker - O - tgr", taker.address, tgr.address);
+    console.log("\tfactory was wired: taker - O - tgr", uiAddr(taker.address), uiAddr(tgr.address));
 
 
     //======================= Setting contracts ==========================
@@ -261,21 +261,20 @@ async function mintTime(seconds) {
 
 async function showVirtualBurn() {
     let user_burn = await tgr.user_burn();
-    console.log("\n\tsum_balances: %s, pending_burn: %s, totalSupply: %s", 
-    user_burn.sum_balances, user_burn.pending_burn, await tgr.totalSupply());
-
-    // console.log("\towner: %s, alice: %s, bob: %s, carol: %s",
-    // await tgr.balanceOf(owner.address), await tgr.balanceOf(alice.address), await tgr.balanceOf(bob.address), await tgr.balanceOf(carol.address) );
+    console.log("\n\tuser_burn: \n\ttotalTokens: %s, tokens pending burn: %s, \n\ttotalValue: %s", 
+    user_burn.sum_tokens, user_burn.pending_burn, await tgr.totalSupply());
 
     await tgr.checkForConsistency();
-    console.log("\tConsistency checked!");
+    console.log("\tConsistency:\ttoken balances: Ok\tnet value: Ok");
 }
 
 async function transfer(sender, recipient, amount) {
+    let amountWei = ethToWei(amount);
     let balance = await tgr.balanceOf(sender.address);
-    if (ethToWei(amount) > balance) amount = weiToEth(balance);
-    console.log("\t%s is transferring %s %s TGR ...".yellow, sender.name, recipient.name, amount);
-    tx = tgr.connect(sender).transfer(recipient.address, ethToWei(amount));
+    if (amountWei > balance) amountWei = balance;
+    //console.log("\t%s is transferring %s %s TGR ...".yellow, sender.name, recipient.name, weiToEth(amountWei));
+    console.log("\t%s is transferring %s ...".yellow, sender.name, recipient.name);
+    tx = tgr.connect(sender).transfer(recipient.address, amountWei );
     (await tx).wait();
     console.log("\tTransfer done".green);
 }
@@ -517,41 +516,41 @@ async function test_swap(tokenA, amountA, tokenB, amountB, caller, to, log) {
     }
 
     if (isNewPair) {
-        console.log(`\tYou cannot swap on a non-existing pair.`);
+        console.log("\tYou cannot swap on a non-existing pair.");
     } else {
         let pairAddr = await factory.getPair(tokenA.address, tokenB.address);
         let pair = new ethers.Contract(pairAddr, XPairArtifacts.abi, caller);
         // Get last block.
         let block = await ethers.provider.getBlock("latest");
 
-        taker = taker.connect(caller);
+        console.log("\t%s is calling swap(.)...".green, caller.name);
+        taker = taker.connect(caller);       
         if (tokenA == wbnb) {
             assert(tokenB != wbnb);
-
-          if (amountA != undefined) {
-              assert(amountB == undefined);
-              //await taker.swapExactETHForTokens(0, [tokenA.address, tokenB.address], to.address, block.timestamp + 100, { value: utils.parseEther(amountA.toString()) });
-              await taker.swapExactETHForTokensSupportingFeeOnTransferTokens(0, [tokenA.address, tokenB.address], to.address, block.timestamp + 100, { value: utils.parseEther(amountA.toString()) });
-          } else {
-              assert(amountB != undefined);
-              let balanceEth = await ethers.provider.getBalance(caller.address);
-              await taker.swapETHForExactTokens(utils.parseEther(amountB.toString()), [tokenA.address, tokenB.address], to.address, block.timestamp + 100, { value: BigInt(balanceEth/2) });
-          }
+            if (amountA != undefined) {
+                assert(amountB == undefined);
+                await taker.swapExactETHForTokens(0, [tokenA.address, tokenB.address], to.address, block.timestamp + 100, { value: utils.parseEther(amountA.toString()) });
+                //await taker.swapExactETHForTokensSupportingFeeOnTransferTokens(0, [tokenA.address, tokenB.address], to.address, block.timestamp + 100, { value: utils.parseEther(amountA.toString()) });
+            } else {
+                assert(amountB != undefined);
+                let balanceEth = await ethers.provider.getBalance(caller.address);
+                await taker.swapETHForExactTokens(utils.parseEther(amountB.toString()), [tokenA.address, tokenB.address], to.address, block.timestamp + 100, { value: BigInt(balanceEth/2) });
+            }
         } else {
             tokenA = tokenA.connect(caller);
 
             if (tokenB == wbnb) {
-              if (amountA != undefined) {
-                  assert(amountB == undefined);
-                  await tokenA.approve(taker.address, utils.parseEther(amountA.toString()));
-                  await taker.swapExactTokensForETH(utils.parseEther(amountA.toString()), 0, [tokenA.address, tokenB.address], to.address, block.timestamp + 100);
-              } else {
-                  assert(amountB != undefined);
-                  let approval = 100000000000000000000; // large enough?
-                  await tokenA.approve(taker.address, utils.parseEther(approval.toString()));         
-                  await taker.swapTokensForExactETH(utils.parseEther(amountB.toString()), utils.parseEther(approval.toString()), [tokenA.address, tokenB.address], to.address, block.timestamp + 100);
-                  await tokenA.approve(taker.address, utils.parseEther((0).toString()));
-              }
+                if (amountA != undefined) {
+                    assert(amountB == undefined);
+                    await tokenA.approve(taker.address, utils.parseEther(amountA.toString()));
+                    await taker.swapExactTokensForETH(utils.parseEther(amountA.toString()), 0, [tokenA.address, tokenB.address], to.address, block.timestamp + 100);
+                } else {
+                    assert(amountB != undefined);
+                    let approval = 100000000000000000000; // large enough?
+                    await tokenA.approve(taker.address, utils.parseEther(approval.toString()));         
+                    await taker.swapTokensForExactETH(utils.parseEther(amountB.toString()), utils.parseEther(approval.toString()), [tokenA.address, tokenB.address], to.address, block.timestamp + 100);
+                    await tokenA.approve(taker.address, utils.parseEther((0).toString()));
+                }
 
             } else {
                 if (amountA != undefined) {
@@ -601,21 +600,18 @@ async function test_swap(tokenA, amountA, tokenB, amountB, caller, to, log) {
 }
 
 
-describe("====================== Stage 1: Test TGR Pulses ======================\n".yellow, async function () {
+describe("====================== Stage 1: Deploy ======================\n".yellow, async function () {
     it("Main contracts are deployed.\n".green, async function () {
-        // For the sake of transfer test, the pools tgrftm, tgrhtz and votes are wallet accounts.
+        // For the sake of transfer test, the pools tgrFtm, tgrHtz and votes are wallet accounts.
         // This way we can simulate a transfer from/to/between those pools.
 
-        [owner, alice, bob, carol, tgrftm, tgrhtz, votes] = await ethers.getSigners();
-        owner.name = "Owner"; alice.name = "Alice"; bob.name = "Bob"; carol.name = "Carol";
-        tgrftm.name = "TgrFtm"; tgrhtz.name = "TgrHtz"; votes.name = "Votes";
+        [owner, alice, bob, carol, votes] = await ethers.getSigners();
+        owner.name = "Owner"; alice.name = "Alice"; bob.name = "Bob"; carol.name = "Carol"; votes.name = "Votes";
 
         console.log("\tOwner address: ".cyan, owner.address);
         console.log("\tAlice address: ".cyan, alice.address);
         console.log("\tBob address: ".cyan, bob.address);
         console.log("\tCarol address: ".cyan, carol.address);
-        console.log("\tTgrFtm address: ".cyan, tgrftm.address);
-        console.log("\tTgrHtz address: ".cyan, tgrhtz.address);
         console.log("\tVotes address: ".cyan, votes.address);
 
         wireLib = await deployWireLibrary(owner);
@@ -623,126 +619,12 @@ describe("====================== Stage 1: Test TGR Pulses ======================
 
     		const AnalyticMath = await ethers.getContractFactory("AnalyticMath", owner);
 		    analyticMath = await AnalyticMath.deploy();
-        await analyticMath.init();
+            await analyticMath.init();
 		    console.log("\tAnalyticMath contract was deployed at: ", analyticMath.address);
 
         tgr = await deployTGR(owner, analyticMath.address, wireLib.address);
         console.log("\tTGR contract deployed at: %s", tgr.address);
         console.log("\tOwner's balance: %s", await tgr.balanceOf(owner.address));
-
-    });
-
-    it("TGR token name, symbol and decimals were checked.\n".green, async function () {
-      const name = await tgr.name();
-      console.log("\tTGR token's name: %s", name);
-      expectEqual(name, "TGR Token");
-
-      const symbol = await tgr.symbol();
-      console.log("\tTGR symbol: %s", symbol);
-      expectEqual(symbol, "TGR");
-
-      const decimals = await tgr.decimals();
-      console.log("\tTGR decimals: %s", decimals);
-      expectEqual(decimals, 18);
-    });
-
-    it("Total supply and owner balance of TGR are checked.\n".green, async function () {
-      const totalSupply = await tgr.totalSupply();
-      console.log("\tTGR total supply: %s",weiToEthEn(totalSupply));
-      expectEqual(weiToEth(totalSupply), INITIAL_SUPPLY);
-
-      console.log("\tTotal supply amount was minted to owner.");
-      const ownerTgrBalance = await tgr.balanceOf(owner.address);
-      console.log("\tTGR owner balance: %s", weiToEthEn(ownerTgrBalance));
-      expectEqual(weiToEth(ownerTgrBalance), INITIAL_SUPPLY);
-    });
-
-    it("Allowance control functions were checked.\n".green, async function () {
-      console.log("Approve owner-alice to 1000 for TGR.");
-      await tgr.connect(owner).approve(alice.address, ethToWei(1000));
-
-      let allowanceOwnerAlice = await tgr.allowance(owner.address, alice.address);
-      console.log("\tallowance[owner][alice]: %s", weiToEthEn(allowanceOwnerAlice));
-      expectEqual(weiToEth(allowanceOwnerAlice), 1000);
-
-      console.log("\tIncrease it by 1000.");
-      await tgr.connect(owner).increaseAllowance(alice.address, ethToWei(1000));
-      allowanceOwnerAlice = await tgr.allowance(owner.address, alice.address);
-      console.log("\tallowance[owner][alice]: %s", weiToEthEn(allowanceOwnerAlice));
-      expectEqual(weiToEth(allowanceOwnerAlice), 2000);
-
-      console.log("\tDecrease it by 1000.");
-      await tgr.connect(owner).decreaseAllowance(alice.address, ethToWei(1000));
-      allowanceOwnerAlice = await tgr.allowance(owner.address, alice.address);
-      console.log("\tallowance[owner][alice]: %s", weiToEthEn(allowanceOwnerAlice));
-      expectEqual(weiToEth(allowanceOwnerAlice), 1000);
-    });
-
-    it("Test Pulses.\n".green, async function () {
-        await showVirtualBurn();
-
-        await mintBlocks(50);
-        await tgr.pulse_user_burn();
-        await showVirtualBurn();
-
-        await transfer(owner, alice, 10);
-        await mintBlocks(5);
-        await tgr.pulse_user_burn();
-        await showVirtualBurn();
-
-        await transfer(owner, bob, 1000);
-        await mintBlocks(50);
-        await tgr.pulse_user_burn();
-        await showVirtualBurn();
-
-        await transfer(owner, carol, 5000);
-        await mintBlocks(50);
-        await tgr.pulse_user_burn();
-        await showVirtualBurn();
-
-        await mintBlocks(50);
-        await tgr.pulse_user_burn();
-        await showVirtualBurn();
-
-        await transfer(owner, carol, 100);
-        await mintBlocks(50);
-        await tgr.pulse_user_burn();
-        await showVirtualBurn();
-
-        await transfer(carol, carol, 100);
-        await mintBlocks(50);
-        await tgr.pulse_user_burn();
-        await showVirtualBurn();
-
-        await transfer(carol, alice, 100);
-        await mintBlocks(50);
-        await tgr.pulse_user_burn();
-        await showVirtualBurn();
-
-        await transfer(owner, tgrftm, 100);
-        await mintBlocks(50);
-        await tgr.pulse_user_burn();
-        await showVirtualBurn();
-
-        await transfer(tgrftm, tgrhtz, 101);
-        await mintBlocks(50);
-        await tgr.pulse_user_burn();
-        await showVirtualBurn();
-
-        await transfer(owner, votes, 10000);
-        await showVirtualBurn();
-        await mintBlocks(20);
-        await tgr.pulse_vote_burn();
-        await showVirtualBurn();
-
-
-    });
-
-});
-
-
-describe("====================== Stage 2: Deploy contracts ======================\n".yellow, async function () {
-    it("Main contracts are deployed.\n".green, async function () {
 
         // Factory Deployment.
         factory = await deployFactory(owner, wireLib.address);
@@ -750,7 +632,7 @@ describe("====================== Stage 2: Deploy contracts =====================
 
         console.log("\tXFactory contract was deployed at: %s", factory.address);
         console.log("\t!!! Pair's bytecode hash = \n\t", (await factory.INIT_CODE_PAIR_HASH()).substring(2));
-        console.log("\t!!! Please make sure the pairFor(...) function of XLibrary.sol file has the same hash.");
+        console.log("\t!!! Please make sure the pairFor(...) function of XLibrary.sol file has the same hash.\n\n");
 
         // WBNB Deployment.
         wbnb = await deployWBNB(owner);
@@ -799,8 +681,54 @@ describe("====================== Stage 2: Deploy contracts =====================
         // Mock Token Deployment.
         mock2 = await deployMockToken(owner, "Mock2", "MCK2");
         console.log("\tmock2 deployed at %s", mock2.address);
+
     });
 
+    it("TGR token name, symbol and decimals were checked.\n".green, async function () {
+      const name = await tgr.name();
+      console.log("\tTGR token's name: %s", name);
+      expectEqual(name, "TGR Token");
+
+      const symbol = await tgr.symbol();
+      console.log("\tTGR symbol: %s", symbol);
+      expectEqual(symbol, "TGR");
+
+      const decimals = await tgr.decimals();
+      console.log("\tTGR decimals: %s", decimals);
+      expectEqual(decimals, 18);
+    });
+
+    it("Total supply and owner balance of TGR are checked.\n".green, async function () {
+      const totalSupply = await tgr.totalSupply();
+      console.log("\tTGR total supply: %s",weiToEthEn(totalSupply));
+      expectEqual(weiToEth(totalSupply), INITIAL_SUPPLY);
+
+      console.log("\tTotal supply amount was minted to owner.");
+      const ownerTgrBalance = await tgr.balanceOf(owner.address);
+      console.log("\tTGR owner balance: %s", weiToEthEn(ownerTgrBalance));
+      expectEqual(weiToEth(ownerTgrBalance), INITIAL_SUPPLY);
+    });
+
+    it("Allowance control functions were checked.\n".green, async function () {
+      console.log("Owner approves Alice to spend 1000 Crss");
+      await tgr.connect(owner).approve(alice.address, ethToWei(1000));
+
+      let allowanceOwnerAlice = await tgr.allowance(owner.address, alice.address);
+      console.log("\tallowance[owner][alice]: %s", weiToEthEn(allowanceOwnerAlice));
+      expectEqual(weiToEth(allowanceOwnerAlice), 1000);
+
+      console.log("\tIncrease it by 1000.");
+      await tgr.connect(owner).increaseAllowance(alice.address, ethToWei(1000));
+      allowanceOwnerAlice = await tgr.allowance(owner.address, alice.address);
+      console.log("\tallowance[owner][alice]: %s", weiToEthEn(allowanceOwnerAlice));
+      expectEqual(weiToEth(allowanceOwnerAlice), 2000);
+
+      console.log("\tDecrease it by 1000.");
+      await tgr.connect(owner).decreaseAllowance(alice.address, ethToWei(1000));
+      allowanceOwnerAlice = await tgr.allowance(owner.address, alice.address);
+      console.log("\tallowance[owner][alice]: %s", weiToEthEn(allowanceOwnerAlice));
+      expectEqual(weiToEth(allowanceOwnerAlice), 1000);
+    });
 
     it("1e6 Mock(MCK) tokens were minted to owner.\n".green, async function () {
       let mockOwnerBalance = await mock.balanceOf(owner.address);
@@ -823,10 +751,61 @@ describe("====================== Stage 2: Deploy contracts =====================
     it("Setup the chain of nodes.\n".green, async function () {
       await setupNodeChain();
     });
+});
+
+
+describe("====================== Stage 2: Test pulses ======================\n".yellow, async function () {
+
+  it("Test Pulses.\n".green, async function () {
+    await showVirtualBurn();
+
+    await mintBlocks(50);
+    await tgr.pulse_user_burn();
+    await showVirtualBurn();
+
+    await transfer(owner, alice, 10);
+    await mintBlocks(5);
+    await tgr.pulse_user_burn();
+    await showVirtualBurn();
+
+    await transfer(owner, bob, 1000);
+    await mintBlocks(50);
+    await tgr.pulse_user_burn();
+    await showVirtualBurn();
+
+    await transfer(owner, carol, 5000);
+    await mintBlocks(50);
+    await tgr.pulse_user_burn();
+    await showVirtualBurn();
+
+    await mintBlocks(50);
+    await tgr.pulse_user_burn();
+    await showVirtualBurn();
+
+    await transfer(owner, carol, 100);
+    await mintBlocks(50);
+    await tgr.pulse_user_burn();
+    await showVirtualBurn();
+
+    await transfer(carol, carol, 100);
+    await mintBlocks(50);
+    await tgr.pulse_user_burn();
+    await showVirtualBurn();
+
+    await transfer(carol, alice, 100);
+    await mintBlocks(50);
+    await tgr.pulse_user_burn();
+    await showVirtualBurn();
 
 });
 
-describe("====================== Stage 3: Test XFactory ======================\n".yellow, async function () {
+
+});
+
+
+describe("====================== Stage 4: Test Dex ======================\n".yellow,
+  async function () {
+
     it("\tInitial values were checked.\n".green, async function () {
         let feeTo = await factory.feeTo();
         expectEqual(feeTo, zero_address);
@@ -841,7 +820,7 @@ describe("====================== Stage 3: Test XFactory ======================\n
         expectEqual(factoryOwner, owner.address);
         console.log("\tOwner address: %s", factoryOwner.address);
     });
-  
+
     it("\tsetFeeTo function was checked.\n".green, async function () {
         let tx = factory.connect(alice).setFeeTo(bob.address);
         await expectRevertedWith(tx, "Caller != owner");
@@ -850,72 +829,163 @@ describe("====================== Stage 3: Test XFactory ======================\n
         tx = factory.setFeeTo(owner.address);
         await expectNotReverted(tx);
         console.log("\tThe current owner could set feeTo to Bob.");
-      });     
-});
-
-describe("====================== Stage 4: Test Dex functionalities. ======================\n".yellow,
-  async function () {
+    });  
 
     // --------------------------------- Liquidity -------------------------------
 
     it("Add liquidity and remove liquidity were checked.\n".green, async function () {
-      //======================================== Tokenomic parameters =======================================
-      let initialTgrPrice = 1;
-      let initialTgrBnbValue = 140000;
-      let initialTgrMckValue = 140000;
-      let bnbPrice = 500, mckPrice = 1;
+        //======================================== Tokenomic parameters =======================================
+        let initialTgrPrice = 1;
+        let initialTgrBnbValue = 140000;
+        let initialTgrMckValue = 140000;
+        let bnbPrice = 500, mckPrice = 1;
 
-      console.log("\t==========================================================================================================".yellow);
-      console.log("\tAssuming the following tokenomics parameters:".yellow);
-      console.log("\tTgr/USD price initially targeted: %s".cyan.bold, initialTgrPrice);
-      console.log("\tTgr/Bnb pool's assets value in USD, initially targeted: %s".cyan.bold, initialTgrBnbValue);
-      console.log("\tTgr/Mck pool's assets value in USD, initially targeted: %s".cyan.bold, initialTgrMckValue);
-      console.log("\tBnb/USD price at the time of Tgr/Bnb pool deployment: %s".cyan.bold, bnbPrice);
-      console.log("\tMck/USD price at the time of Tgr/Mck pool deployment: %s".cyan.bold, mckPrice);
-      console.log("\t==========================================================================================================".yellow);
+        console.log("\t==========================================================================================================".yellow);
+        console.log("\tAssuming the following tokenomics parameters:".yellow);
+        console.log("\tTgr/USD price initially targeted: %s".cyan.bold, initialTgrPrice);
+        console.log("\tTgr/Bnb pool's assets value in USD, initially targeted: %s".cyan.bold, initialTgrBnbValue);
+        console.log("\tTgr/Mck pool's assets value in USD, initially targeted: %s".cyan.bold, initialTgrMckValue);
+        console.log("\tBnb/USD price at the time of Tgr/Bnb pool deployment: %s".cyan.bold, bnbPrice);
+        console.log("\tMck/USD price at the time of Tgr/Mck pool deployment: %s".cyan.bold, mckPrice);
+        console.log("\t==========================================================================================================".yellow);
 
-      console.log("\tTransferring...");
-      await tgr.connect(owner).transfer(alice.address, ethToWei(15000));
-      await mock2.connect(owner).transfer(alice.address, ethToWei(15000));
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
 
-      let poolValue = initialTgrBnbValue;
-      let tgrAmount = poolValue / 2 / initialTgrPrice;
-      let bnbAmount = poolValue / 2 / bnbPrice;
-      [tgr_bnb, report] = await test_addLiquidity(tgr, tgrAmount / 3, wbnb, bnbAmount / 3, owner, alice, true);
-      [tgr_bnb, report] = await test_addLiquidity(tgr, tgrAmount / 3, wbnb, bnbAmount / 3, owner, bob, true);
-      [tgr_bnb, report] = await test_addLiquidity(tgr, tgrAmount / 3, wbnb, bnbAmount / 3, owner, carol, true);
+        console.log("\n\tOwner transferring to alice... 15000 Tgr");
+        await tgr.connect(owner).transfer(alice.address, ethToWei(15000));
+        console.log("\n\tOwner transferring to alice... 15000 Mck2");
+        await mock2.connect(owner).transfer(alice.address, ethToWei(15000));
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
 
-      [report, tgrAmount] = await test_swap(wbnb, 1, tgr, undefined, alice, bob, true);
-      [report, bnbAmount] = await test_swap(tgr, tgrAmount * 0.99, wbnb, undefined, bob, alice, true);
-      [report, tgrAmount] = await test_swap(tgr, undefined, wbnb, bnbAmount * 0.99, alice, bob, true); //----------------------------
-      let liquidityAmount = 0.001;
-      report = await test_removeLiquidity(tgr, wbnb, liquidityAmount, alice, alice, true);
+        let poolValue = initialTgrBnbValue;
+        let tgrAmount = poolValue / 2 / initialTgrPrice;
+        let bnbAmount = poolValue / 2 / bnbPrice;
+        [tgr_bnb, report] = await test_addLiquidity(tgr, tgrAmount / 3, wbnb, bnbAmount / 3, owner, alice, true);
 
-      poolValue = initialTgrMckValue;
-      tgrAmount = poolValue / 10 / initialTgrPrice;
-      let mckAmount = poolValue / 10 / mckPrice;
-      [tgr_mck, report] = await test_addLiquidity(tgr, tgrAmount, mock, mckAmount, owner, alice, true);
-      [tgr_mck, report] = await test_addLiquidity(tgr, tgrAmount, mock, mckAmount, owner, bob, true);
-      [tgr_mck, report] = await test_addLiquidity(tgr, tgrAmount, mock, mckAmount, owner, carol, true);
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
 
-      [tgr_mck2, report] = await test_addLiquidity(tgr, tgrAmount, mock2, mckAmount, owner, alice, true);
-      [tgr_mck2, report] = await test_addLiquidity(tgr, tgrAmount, mock2, mckAmount, owner, bob, true);
-      [tgr_mck2, report] = await test_addLiquidity(tgr, tgrAmount, mock2, mckAmount, owner, carol, true);
-      [report, tgrAmount] = await test_swap(mock2, undefined, tgr, 100, alice, bob, true); //----------------------------------
+        [tgr_bnb, report] = await test_addLiquidity(tgr, tgrAmount / 3, wbnb, bnbAmount / 3, owner, bob, true);
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
 
+        [tgr_bnb, report] = await test_addLiquidity(tgr, tgrAmount / 3, wbnb, bnbAmount / 3, owner, carol, true);
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
 
-      await tgr.connect(owner).transfer(alice.address, ethToWei(15000));
-      [report, mockAmount] = await test_swap(tgr, 10, mock, undefined, alice, alice, true);
-      [report, tgrAmount] = await test_swap(mock, mockAmount * 0.99, tgr, undefined, alice, bob, true);
-      liquidityAmount = 0.001;
-      report = await test_removeLiquidity(tgr, mock, liquidityAmount, alice, alice, true);
+        [report, tgrAmount] = await test_swap(wbnb, 1, tgr, undefined, alice, bob, true);
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
 
-      console.log("\tTransferring...");
-      await tgr.connect(owner).transfer(alice.address, ethToWei(15000));
-      [report, mockAmount] = await test_swap(tgr, 10, mock2, undefined, alice, alice, true);
-      [report, tgrAmount] = await test_swap(mock2, mockAmount * 0.99, tgr, undefined, alice, bob, true);
-      liquidityAmount = 0.001;
-      report = await test_removeLiquidity(tgr, mock2, liquidityAmount, alice, alice, true);
+        [report, bnbAmount] = await test_swap(tgr, tgrAmount * 0.99, wbnb, undefined, bob, alice, true);
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        [report, tgrAmount] = await test_swap(tgr, undefined, wbnb, bnbAmount * 0.99, alice, bob, true); //----------------------------
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        let liquidityAmount = 0.001;
+        report = await test_removeLiquidity(tgr, wbnb, liquidityAmount, alice, alice, true);
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        poolValue = initialTgrMckValue;
+        tgrAmount = poolValue / 10 / initialTgrPrice;
+        let mckAmount = poolValue / 10 / mckPrice;
+        [tgr_mck, report] = await test_addLiquidity(tgr, tgrAmount, mock, mckAmount, owner, alice, true);
+
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        [tgr_mck, report] = await test_addLiquidity(tgr, tgrAmount, mock, mckAmount, owner, bob, true);
+        
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        [tgr_mck, report] = await test_addLiquidity(tgr, tgrAmount, mock, mckAmount, owner, carol, true);
+
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        [tgr_mck2, report] = await test_addLiquidity(tgr, tgrAmount, mock2, mckAmount, owner, alice, true); // ===========
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        [tgr_mck2, report] = await test_addLiquidity(tgr, tgrAmount, mock2, mckAmount, owner, bob, true);
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        [tgr_mck2, report] = await test_addLiquidity(tgr, tgrAmount, mock2, mckAmount, owner, carol, true);
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        let balances = await tgr_mck2.connect(owner).getReserves();
+        [report, tgrAmount] = await test_swap(mock2, undefined, tgr, 100, alice, bob, true); //----------------------------------
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        console.log("\n\tOwner transferring to alice... 15000 Tgr");
+        await tgr.connect(owner).transfer(alice.address, ethToWei(15000));
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        [report, mockAmount] = await test_swap(tgr, 10, mock, undefined, alice, alice, true);
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        [report, tgrAmount] = await test_swap(mock, mockAmount * 0.99, tgr, undefined, alice, bob, true);
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        liquidityAmount = 0.001;
+        report = await test_removeLiquidity(tgr, mock, liquidityAmount, alice, alice, true);
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        console.log("\n\tOwner transferring to alice... 15000 Trg");
+        await tgr.connect(owner).transfer(alice.address, ethToWei(15000));
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        [report, mockAmount] = await test_swap(tgr, 10, mock2, undefined, alice, alice, true);
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        [report, tgrAmount] = await test_swap(mock2, mockAmount * 0.99, tgr, undefined, alice, bob, true);
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        liquidityAmount = 0.001;
+        report = await test_removeLiquidity(tgr, mock2, liquidityAmount, alice, alice, true);
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
     });
 
     //     it("Transfer function was checked.\n".green, async function () {
@@ -999,5 +1069,63 @@ describe("====================== Stage 4: Test Dex functionalities. ============
     //       console.log("\tIt would be reduced by transfer amount.");
     //       expectEqual(allowance.sub(afterAllowance), maxTransferAmount.sub(ethToWei(100)));
     //     });
-  }
-);
+
+    it ("Test Pulses, extended.\n".green, async function () {
+        await showVirtualBurn();
+
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        await transfer(owner, alice, 10);
+        await mintBlocks(5);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        await transfer(owner, bob, 1000);
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        await transfer(owner, carol, 5000);
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        await transfer(owner, carol, 100);
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        await transfer(carol, carol, 100);
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        await transfer(carol, alice, 100);
+        await mintBlocks(50);
+        await tgr.pulse_user_burn();
+        await showVirtualBurn();
+
+        // tgr_bnb.name = "_tgrFtm";
+        // console.log("tgr_bnb", tgr_bnb.address, tgr_bnb.name);
+        // await transfer(owner, tgr_bnb, 100);
+        // await mintBlocks(50);
+        // await tgr.pulse_user_burn();
+        // await showVirtualBurn();
+
+        // tgr_mck.name = "_tgrHtz";
+        // console.log("tgr_mck", tgr_mck.address, tgr_mck.name);
+        // await transfer(tgr_bnb, tgr_mck, 101);
+        // await mintBlocks(50);
+        // await tgr.pulse_user_burn();
+        // await showVirtualBurn();
+
+        // await transfer(owner, votes, 100);
+        // await mintBlocks(20);
+        // await tgr.pulse_vote_burn();
+        // await showVirtualBurn();
+
+    });
+
+});

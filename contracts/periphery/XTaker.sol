@@ -93,7 +93,7 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
             _checkEnlisted(pairFor[input][output]);
 
             address pair = pairFor[input][output];
-            (address token0, address token1) = XLibrary.sortTokens(input, output); //pairs[address(pair)].token0;
+            (address token0, ) = XLibrary.sortTokens(input, output); //pairs[address(pair)].token0;
             uint256 amountOut = amounts[i + 1];
             (uint256 amount0Out, uint256 amount1Out) = input == token0 ? (uint256(0), amountOut) : (amountOut, uint256(0));
             address _to = i < path.length - 2 ? pairFor[output][path[i + 2]] : to;
@@ -170,6 +170,7 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
 
         amounts = XLibrary.getAmountsIn(nodes.factory, amountOut, path);
         require(amounts[0] <= amountInMax, sExcessiveInput);
+        uint b0 = IERC20(path[0]).balanceOf(pairFor[path[0]][path[1]]);
         XLibrary.lightTransferFrom(path[0], msg.sender, pairFor[path[0]][path[1]], amounts[0], nodes.token);
         _swap_controlled(amounts, path, address(this));
         uint256 last = path.length - 1;

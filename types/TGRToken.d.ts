@@ -61,6 +61,9 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     "setFeeStores((address),address)": FunctionFragment;
     "setNode(uint8,address,address)": FunctionFragment;
     "symbol()": FunctionFragment;
+    "tgrBusd()": FunctionFragment;
+    "tgrFtm()": FunctionFragment;
+    "tgrHtz()": FunctionFragment;
     "totalSupply()": FunctionFragment;
     "transfer(address,uint256)": FunctionFragment;
     "transferDirectSafe(address,address,uint256)": FunctionFragment;
@@ -181,6 +184,9 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     values: [BigNumberish, string, string]
   ): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
+  encodeFunctionData(functionFragment: "tgrBusd", values?: undefined): string;
+  encodeFunctionData(functionFragment: "tgrFtm", values?: undefined): string;
+  encodeFunctionData(functionFragment: "tgrHtz", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "totalSupply",
     values?: undefined
@@ -297,6 +303,9 @@ interface TGRTokenInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "setNode", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "tgrBusd", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "tgrFtm", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "tgrHtz", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "totalSupply",
     data: BytesLike
@@ -531,7 +540,7 @@ export class TGRToken extends BaseContract {
         decayRate: BigNumber;
         account: string;
         accDecayPerShare: BigNumber;
-        sum_balances: BigNumber;
+        sum_tokens: BigNumber;
         pending_burn: BigNumber;
         latestRound: BigNumber;
       }
@@ -639,6 +648,12 @@ export class TGRToken extends BaseContract {
 
     symbol(overrides?: CallOverrides): Promise<[string]>;
 
+    tgrBusd(overrides?: CallOverrides): Promise<[string]>;
+
+    tgrFtm(overrides?: CallOverrides): Promise<[string]>;
+
+    tgrHtz(overrides?: CallOverrides): Promise<[string]>;
+
     totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     transfer(
@@ -688,7 +703,7 @@ export class TGRToken extends BaseContract {
         decayRate: BigNumber;
         account: string;
         accDecayPerShare: BigNumber;
-        sum_balances: BigNumber;
+        sum_tokens: BigNumber;
         pending_burn: BigNumber;
         latestRound: BigNumber;
       }
@@ -712,7 +727,7 @@ export class TGRToken extends BaseContract {
         decayRate: BigNumber;
         account: string;
         accDecayPerShare: BigNumber;
-        sum_balances: BigNumber;
+        sum_tokens: BigNumber;
         pending_burn: BigNumber;
         latestRound: BigNumber;
       }
@@ -814,7 +829,7 @@ export class TGRToken extends BaseContract {
       decayRate: BigNumber;
       account: string;
       accDecayPerShare: BigNumber;
-      sum_balances: BigNumber;
+      sum_tokens: BigNumber;
       pending_burn: BigNumber;
       latestRound: BigNumber;
     }
@@ -922,6 +937,12 @@ export class TGRToken extends BaseContract {
 
   symbol(overrides?: CallOverrides): Promise<string>;
 
+  tgrBusd(overrides?: CallOverrides): Promise<string>;
+
+  tgrFtm(overrides?: CallOverrides): Promise<string>;
+
+  tgrHtz(overrides?: CallOverrides): Promise<string>;
+
   totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
   transfer(
@@ -971,7 +992,7 @@ export class TGRToken extends BaseContract {
       decayRate: BigNumber;
       account: string;
       accDecayPerShare: BigNumber;
-      sum_balances: BigNumber;
+      sum_tokens: BigNumber;
       pending_burn: BigNumber;
       latestRound: BigNumber;
     }
@@ -995,7 +1016,7 @@ export class TGRToken extends BaseContract {
       decayRate: BigNumber;
       account: string;
       accDecayPerShare: BigNumber;
-      sum_balances: BigNumber;
+      sum_tokens: BigNumber;
       pending_burn: BigNumber;
       latestRound: BigNumber;
     }
@@ -1094,7 +1115,7 @@ export class TGRToken extends BaseContract {
         decayRate: BigNumber;
         account: string;
         accDecayPerShare: BigNumber;
-        sum_balances: BigNumber;
+        sum_tokens: BigNumber;
         pending_burn: BigNumber;
         latestRound: BigNumber;
       }
@@ -1197,6 +1218,12 @@ export class TGRToken extends BaseContract {
 
     symbol(overrides?: CallOverrides): Promise<string>;
 
+    tgrBusd(overrides?: CallOverrides): Promise<string>;
+
+    tgrFtm(overrides?: CallOverrides): Promise<string>;
+
+    tgrHtz(overrides?: CallOverrides): Promise<string>;
+
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
     transfer(
@@ -1244,7 +1271,7 @@ export class TGRToken extends BaseContract {
         decayRate: BigNumber;
         account: string;
         accDecayPerShare: BigNumber;
-        sum_balances: BigNumber;
+        sum_tokens: BigNumber;
         pending_burn: BigNumber;
         latestRound: BigNumber;
       }
@@ -1268,7 +1295,7 @@ export class TGRToken extends BaseContract {
         decayRate: BigNumber;
         account: string;
         accDecayPerShare: BigNumber;
-        sum_balances: BigNumber;
+        sum_tokens: BigNumber;
         pending_burn: BigNumber;
         latestRound: BigNumber;
       }
@@ -1576,6 +1603,12 @@ export class TGRToken extends BaseContract {
 
     symbol(overrides?: CallOverrides): Promise<BigNumber>;
 
+    tgrBusd(overrides?: CallOverrides): Promise<BigNumber>;
+
+    tgrFtm(overrides?: CallOverrides): Promise<BigNumber>;
+
+    tgrHtz(overrides?: CallOverrides): Promise<BigNumber>;
+
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
     transfer(
@@ -1795,6 +1828,12 @@ export class TGRToken extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    tgrBusd(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    tgrFtm(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    tgrHtz(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

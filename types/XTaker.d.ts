@@ -52,6 +52,9 @@ interface XTakerInterface extends ethers.utils.Interface {
     "swapExactTokensForTokensSupportingFeeOnTransferTokens(uint256,uint256,address[],address,uint256)": FunctionFragment;
     "swapTokensForExactETH(uint256,uint256,address[],address,uint256)": FunctionFragment;
     "swapTokensForExactTokens(uint256,uint256,address[],address,uint256)": FunctionFragment;
+    "tgrBusd()": FunctionFragment;
+    "tgrFtm()": FunctionFragment;
+    "tgrHtz()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
     "wire(address,address)": FunctionFragment;
     "wired_swapExactTokensForTokens(uint256,uint256,address[],address)": FunctionFragment;
@@ -153,6 +156,9 @@ interface XTakerInterface extends ethers.utils.Interface {
     functionFragment: "swapTokensForExactTokens",
     values: [BigNumberish, BigNumberish, string[], string, BigNumberish]
   ): string;
+  encodeFunctionData(functionFragment: "tgrBusd", values?: undefined): string;
+  encodeFunctionData(functionFragment: "tgrFtm", values?: undefined): string;
+  encodeFunctionData(functionFragment: "tgrHtz", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
     values: [string]
@@ -250,6 +256,9 @@ interface XTakerInterface extends ethers.utils.Interface {
     functionFragment: "swapTokensForExactTokens",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "tgrBusd", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "tgrFtm", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "tgrHtz", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "transferOwnership",
     data: BytesLike
@@ -550,6 +559,12 @@ export class XTaker extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    tgrBusd(overrides?: CallOverrides): Promise<[string]>;
+
+    tgrFtm(overrides?: CallOverrides): Promise<[string]>;
+
+    tgrHtz(overrides?: CallOverrides): Promise<[string]>;
+
     transferOwnership(
       newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -756,6 +771,12 @@ export class XTaker extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  tgrBusd(overrides?: CallOverrides): Promise<string>;
+
+  tgrFtm(overrides?: CallOverrides): Promise<string>;
+
+  tgrHtz(overrides?: CallOverrides): Promise<string>;
+
   transferOwnership(
     newOwner: string,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -956,6 +977,12 @@ export class XTaker extends BaseContract {
       deadline: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
+
+    tgrBusd(overrides?: CallOverrides): Promise<string>;
+
+    tgrFtm(overrides?: CallOverrides): Promise<string>;
+
+    tgrHtz(overrides?: CallOverrides): Promise<string>;
 
     transferOwnership(
       newOwner: string,
@@ -1247,6 +1274,12 @@ export class XTaker extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    tgrBusd(overrides?: CallOverrides): Promise<BigNumber>;
+
+    tgrFtm(overrides?: CallOverrides): Promise<BigNumber>;
+
+    tgrHtz(overrides?: CallOverrides): Promise<BigNumber>;
+
     transferOwnership(
       newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -1450,6 +1483,12 @@ export class XTaker extends BaseContract {
       deadline: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
+
+    tgrBusd(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    tgrFtm(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    tgrHtz(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     transferOwnership(
       newOwner: string,
