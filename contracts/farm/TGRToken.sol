@@ -387,13 +387,12 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         require(user_burn.sum_tokens - user_burn.pending_burn + nonUserSumTokens == totalSupply(), "pending_burn incorrct");
 
         // Be careful, there are more userAccounts. Look at _isUserAccount().
-        // if (_balances[admin] + _balances[alice] + _balances[bob] + _balances[carol] != user_burn.sum_tokens) {
-        //     console.log(_balances[admin] + _balances[alice] + _balances[bob] + _balances[carol], user_burn.sum_tokens);
-        // }
+        if (_balances[admin] + _balances[alice] + _balances[bob] + _balances[carol] != user_burn.sum_tokens) {
+            console.log(_balances[admin] + _balances[alice] + _balances[bob] + _balances[carol], user_burn.sum_tokens);
+        }
 
         // console.log(_balances[admin], _balances[alice], _balances[bob], _balances[carol]);
         // console.log(user_burn.sum_tokens);   
-
         // require(_balances[admin] + _balances[alice] + _balances[bob] + _balances[carol] == user_burn.sum_tokens,
         // "_bal[admin] + _bal[alice] + _bal[bob] + _bal[carol] != sum_tokens");
 
@@ -401,17 +400,16 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         // require(user_burn.sum_tokens - user_burn.pending_burn == balanceOf(admin) + balanceOf(alice) + balanceOf(bob) + balanceOf(carol),
         // "sum_tokens - pending_burn != balOf(admin) + balOf(alice) + balOf(bob) + balOf(carol)");
         // Instead, 
-        // uint256 net_collective = user_burn.sum_tokens - user_burn.pending_burn;
-        // uint256 sum_net_of_users = balanceOf(admin) + balanceOf(alice) + balanceOf(bob) + balanceOf(carol);
 
-        // uint256 abs_error;
-        // if (net_collective < sum_net_of_users) {
-        //     abs_error = sum_net_of_users - net_collective;
-        // } else {
-        //     abs_error = net_collective - sum_net_of_users;
-        // }
-
-        // require( 1e6 * abs_error < net_collective, "Error exceeds a million-th");
+        uint256 net_collective = user_burn.sum_tokens - user_burn.pending_burn;
+        uint256 sum_net_of_users = balanceOf(admin) + balanceOf(alice) + balanceOf(bob) + balanceOf(carol);
+        uint256 abs_error;
+        if (net_collective < sum_net_of_users) {
+            abs_error = sum_net_of_users - net_collective;
+        } else {
+            abs_error = net_collective - sum_net_of_users;
+        }
+        require( 1e6 * abs_error < net_collective, "Error exceeds a million-th");
     }
 
     //======================= DEX cooperations ===============================
