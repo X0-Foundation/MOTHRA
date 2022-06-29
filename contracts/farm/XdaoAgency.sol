@@ -7,39 +7,6 @@ import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-interface IXdaoAgency {
-    event NewAgent(address indexed agent);
-    event TaskCreated(address indexed agent, uint taskId);
-    event TaskValidated(uint taskId);
-    event BidPlaced(uint taskId, address indexed carrer);
-    event BidAccepted(uint taskId, address indexed carrer);
-    event Slashed(address indexed agent);
-    event Stake(address indexed agent, uint amount);
-    event UnStake(address indexed agent, uint amount);
-    event LevelUpdate(address indexed agent, uint level);
-    event TgrBonus(address indexed agent, uint taskId);
-
-    function submitTask(
-        TaskDetails memory
-    ) external returns (uint taskId);
-
-    function postTask(uint taskId) external;
-
-    function verifyTask(uint taskId) external;
-
-    function compeletTask(uint taskId) external;
-
-    function placeBid(uint taskId) external;
-
-    function stake(uint amount) external;
-
-    function unStake(uint amount) external;
-
-    function enterEscrow(uint taskId) external;
-
-    function getAvaliabeTasks(address agent) external view;
-}
-
 struct Agent {
     address account;
     uint level;
@@ -51,6 +18,7 @@ enum TaskStatus {
     Verified,
     Posted,
     Assigned,
+    Delivered,
     Complete,
     Incomplete,
     Cancelled
@@ -68,7 +36,7 @@ struct TaskDetails {
     uint reward;
     uint bonus;
     uint8 minLevel;
-    uint8 maxCompletions;
+    uint8 minCompletions;
     JobBidType jobType;
     TaskStatus status;
     uint8[] skillSet;
@@ -77,28 +45,7 @@ struct TaskDetails {
     uint verifiedTime;
 }
 
-struct Task {
-    string title;
-    string description;
-    uint price;
-    Agent agent;
-    Agent[] validators;
-    address[] carriers;
-    /** Status
-    0: agent submitted jobs where they choose someone to complete
-    1: continuous “faucet” jobs where anyone can complete them all the time up to an amount of accounts per block
-    2: jobs where multiple people are selected but split the money evenly
-    3: jobs where multiple people complete the job but only one wins
-     */
-    uint8 submission;
-    uint8[] skillSet;
-    uint bonus;
-    bool requireValidate;
-    uint maxCarriers;
-    uint expiredTime;
-}
-
-contract XdaoAgency is IXdaoAgency, UUPSUpgradeable, Ownable, Initializable {
+contract XdaoAgency is UUPSUpgradeable, Ownable, Initializable {
     IERC20 public tgr;
 
     mapping(address => bool) public isAgent;
@@ -108,16 +55,27 @@ contract XdaoAgency is IXdaoAgency, UUPSUpgradeable, Ownable, Initializable {
     mapping(address => uint[]) private userTasks;
     mapping(address => mapping(uint => bool)) public agentVerifiedTask;
     mapping(uint => address[]) public doers;
+
     mapping(uint => address[]) public bidders;
     mapping(uint => mapping(address => bool)) public bidden;
 
+    mapping(uint => address[]) public taskCompleters;
+
+    mapping(uint => address[]) public taskEndVerifiers;
+
+    mapping(address => uint) public agentLastSlashTime;
+
     uint currentTaskId = 0;
     uint NumVerificationsNeeded = 11;
+    uint SlashImpactPeriod = 7 days; // The time period of being level 0 after you get slashed
 
     event TaskCreated(uint id, string name, uint reward, uint status, uint minLevel, address creator);
     event TaskVerified(uint id);
     event TaskPosted(uint id);
     event TaskAssigned(uint id, address doer);
+    event TaskDone(uint id, address doer);
+    event TaskDelivered(uint id);
+    event TaskEndVerified(uint id);
 
     modifier onlyAgent() {
         require(isAgent[msg.sender], "No Agent");
@@ -126,6 +84,10 @@ contract XdaoAgency is IXdaoAgency, UUPSUpgradeable, Ownable, Initializable {
 
     function setNumVerificationsNeeded(uint _num) external onlyOwner {
         NumVerificationsNeeded = _num;
+    }
+
+    function setSlashImpactPeriod(uint _time) external onlyOwner {
+        SlashImpactPeriod = _time;
     }
 
     function initialize(IERC20 _tgr) public initializer {
@@ -138,7 +100,7 @@ contract XdaoAgency is IXdaoAgency, UUPSUpgradeable, Ownable, Initializable {
 
     function submitTask(
         TaskDetails memory _task
-    ) external override onlyAgent returns (uint taskId) {
+    ) external onlyAgent returns (uint taskId) {
 
         currentTaskId++;
         _task.status = TaskStatus.Pending;
@@ -150,7 +112,7 @@ contract XdaoAgency is IXdaoAgency, UUPSUpgradeable, Ownable, Initializable {
         return 0;
     }
 
-    function verifyTask(uint _taskId) external override onlyAgent {
+    function verifyTask(uint _taskId) external onlyAgent {
         require (_isTask(_taskId), "V: Invalid ID");
         require (agentInfo[msg.sender].level >= tasks[_taskId].minLevel, "V: Level!");
         require (!agentVerifiedTask[msg.sender][_taskId], "V: Already");
@@ -159,14 +121,18 @@ contract XdaoAgency is IXdaoAgency, UUPSUpgradeable, Ownable, Initializable {
         agentVerifiedTask[msg.sender][_taskId] = true;
         taskVerifiersCount[_taskId] += 1;
 
-        if (taskVerifiersCount[_taskId] >= 11) {
+        if (taskVerifiersCount[_taskId] >= NumVerificationsNeeded) {
             tasks[_taskId].status = TaskStatus.Verified;
             tasks[_taskId].verifiedTime = block.timestamp;
             emit TaskVerified(_taskId);
         }
     }
 
-    function postTask(uint _id) external override {
+    function requestRevalidation(uint _id, string memory _evidence) external onlyAgent {
+
+    }
+
+    function postTask(uint _id) external {
         require (tasks[_id].owner == msg.sender, "P: Access denied");
         require (tasks[_id].status == TaskStatus.Verified, "P: Invalid status");
         require (block.timestamp >= tasks[_id].verifiedTime + 24 hours, "P: Wait pls");
@@ -175,14 +141,7 @@ contract XdaoAgency is IXdaoAgency, UUPSUpgradeable, Ownable, Initializable {
         emit TaskPosted(_id);
     }
 
-    function compeletTask(uint _id) external override onlyAgent {
-
-    }
-
-    function placeBid(uint _id)
-        external
-        override
-    {
+    function placeBid(uint _id) external {
         require (tasks[_id].status == TaskStatus.Posted, "B: Not verified");
         require (agentInfo[msg.sender].level >= tasks[_id].minLevel, "B: No level");
 
@@ -214,17 +173,87 @@ contract XdaoAgency is IXdaoAgency, UUPSUpgradeable, Ownable, Initializable {
         tasks[_id].status = TaskStatus.Assigned;
     }
 
-    function completeTask(uint _id) external {
-
+    function _isTaskCompletedByUser(uint _id, address user) public view returns (bool) {
+        uint i;
+        for (i = 0; i < taskCompleters[_id].length; i+=1) {
+            if (taskCompleters[_id][i] == user) return true;
+        }
+        return false;
     }
 
-    function stake(uint amount) external override onlyAgent {}
+    function compeletTask(uint _id) external onlyAgent {
+        require (tasks[_id].status == TaskStatus.Assigned, "C: Invalid status");
+        require (!_isTaskCompletedByUser(_id, msg.sender), "C: Already done!");
+        require (bidden[_id][msg.sender], "C: Not bidder!");
+        
+        taskCompleters[_id].push(msg.sender);
 
-    function unStake(uint amount) external override onlyAgent {}
+        emit TaskDone(_id, msg.sender);
+        if (taskCompleters[_id].length >= tasks[_id].minCompletions) {
+            emit TaskDelivered(_id);
+            tasks[_id].status = TaskStatus.Delivered;
+        }
+    }
 
-    function enterEscrow(uint taskId) external override onlyAgent {}
+    function _isTaskEndVerifiedByUser(uint _id, address user) public view returns (bool) {
+        uint i;
+        for (i = 0; i < taskEndVerifiers[_id].length; i+=1) {
+            if (taskEndVerifiers[_id][i] == user) return true;
+        }
+        return false;
+    }
 
-    function getAvaliabeTasks(address agent) external view override {}
+    function verifyTaskCompletion(uint _id) external onlyAgent {
+        require (tasks[_id].status == TaskStatus.Delivered, "VC: Invalid status");
+        require (agentVerifiedTask[msg.sender][_id], "VC: Access denied!");
+        require (!_isTaskEndVerifiedByUser(_id, msg.sender), "VC: Already done!");
+        
+        taskEndVerifiers[_id].push(msg.sender);
+
+        if (taskEndVerifiers[_id].length >= NumVerificationsNeeded) {
+            emit TaskEndVerified(_id);
+            tasks[_id].status = TaskStatus.Complete;
+        }
+    }
+
+    function stake(uint amount) external onlyAgent {
+        require (amount > 0, "Invalid amount");
+
+        tgr.transferFrom(msg.sender, address(this), amount);
+        agentInfo[msg.sender].stakedAmount += amount;
+        updateAgentLevel(msg.sender);
+    }
+
+    function updateAgentLevel(address _agent) public {
+        Agent storage agent = agentInfo[_agent];
+
+        if (agentLastSlashTime[_agent] + SlashImpactPeriod > block.timestamp) {
+            agent.level = 0;
+            return;
+        }
+
+        if (agent.stakedAmount >= 50000) {
+            agent.level = 5;
+        } else if (agent.stakedAmount >= 5000) {
+            agent.level = 4;
+        } else if (agent.stakedAmount >= 500) {
+            agent.level = 3;
+        } else if (agent.stakedAmount >= 100) {
+            agent.level = 2;
+        } else if (agent.stakedAmount >= 10) {
+            agent.level = 1;
+        } else {
+            agent.level = 0;
+        }
+    }
+
+    function unStake(uint amount) external onlyAgent {
+        require (amount <= agentInfo[msg.sender].stakedAmount, "Invalid amount");
+
+        tgr.transfer(msg.sender, amount);
+        agentInfo[msg.sender].stakedAmount -= amount;
+        updateAgentLevel(msg.sender);
+    }
 
     function _authorizeUpgrade(address) internal override onlyOwner {}
 }
