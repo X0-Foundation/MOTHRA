@@ -1626,8 +1626,8 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\farm\\TGRToken.sol": {
-      "lastModificationDate": 1656418904750,
-      "contentHash": "5578255dfcc0b8a08bcfa0846d878cb7",
+      "lastModificationDate": 1656524493166,
+      "contentHash": "e0616ccdc0060a27ca14c6eaaeb55d8f",
       "sourceName": "contracts/farm/TGRToken.sol",
       "solcConfig": {
         "version": "0.8.14",
