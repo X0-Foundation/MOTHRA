@@ -139,6 +139,23 @@ interface IXMaker {
         bytes32 s
     ) external returns (uint256 amountETH);
 
+    function diluteLiquidityETH(
+        address token,
+        uint liquidity,
+        uint amountTokenMin,
+        uint amountETHMin,
+        address to,
+        uint deadline
+    ) external returns (uint amountToken, uint amountETH);
+
+    function diluteLiquidityForETH(
+        address token,
+        uint liquidity,
+        uint amountETHMin,
+        address to,
+        uint deadline
+    ) external returns (uint amountWETH);
+
     function quote(
         uint256 amountA,
         uint256 reserveA,

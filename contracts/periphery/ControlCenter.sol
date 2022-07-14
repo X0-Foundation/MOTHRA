@@ -36,7 +36,7 @@ contract ControlCenter is IControlCenter, Node, Ownable {
 
     constructor() Ownable() Node(NodeType.Center) {
         _initializeBnbMainNetCLFeeds(); 
-        sessionPriceChangeLimit = 5000; // 5%
+        sessionPriceChangeLimit = 50000; // 50%
 
         trackPairStatus = true;
     }

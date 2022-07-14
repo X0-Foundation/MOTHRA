@@ -30,6 +30,7 @@ interface XPairInterface extends ethers.utils.Interface {
     "burn(address)": FunctionFragment;
     "changeStatus(uint8)": FunctionFragment;
     "decimals()": FunctionFragment;
+    "dilute(uint256,address)": FunctionFragment;
     "factory()": FunctionFragment;
     "getReserves()": FunctionFragment;
     "initialize(address,address)": FunctionFragment;
@@ -81,6 +82,10 @@ interface XPairInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "dilute",
+    values: [BigNumberish, string]
+  ): string;
   encodeFunctionData(functionFragment: "factory", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "getReserves",
@@ -166,6 +171,7 @@ interface XPairInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "dilute", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "factory", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getReserves",
@@ -207,6 +213,7 @@ interface XPairInterface extends ethers.utils.Interface {
   events: {
     "Approval(address,address,uint256)": EventFragment;
     "Burn(address,uint256,uint256,address)": EventFragment;
+    "Dilute(address,uint256,uint256,address)": EventFragment;
     "Mint(address,uint256,uint256)": EventFragment;
     "Swap(address,uint256,uint256,uint256,uint256,address)": EventFragment;
     "Sync(uint112,uint112)": EventFragment;
@@ -215,6 +222,7 @@ interface XPairInterface extends ethers.utils.Interface {
 
   getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Burn"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Dilute"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Mint"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Swap"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Sync"): EventFragment;
@@ -230,6 +238,15 @@ export type ApprovalEvent = TypedEvent<
 >;
 
 export type BurnEvent = TypedEvent<
+  [string, BigNumber, BigNumber, string] & {
+    sender: string;
+    amount0: BigNumber;
+    amount1: BigNumber;
+    to: string;
+  }
+>;
+
+export type DiluteEvent = TypedEvent<
   [string, BigNumber, BigNumber, string] & {
     sender: string;
     amount0: BigNumber;
@@ -340,6 +357,12 @@ export class XPair extends BaseContract {
     ): Promise<ContractTransaction>;
 
     decimals(overrides?: CallOverrides): Promise<[number]>;
+
+    dilute(
+      liquidity: BigNumberish,
+      to: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     factory(overrides?: CallOverrides): Promise<[string]>;
 
@@ -471,6 +494,12 @@ export class XPair extends BaseContract {
   ): Promise<ContractTransaction>;
 
   decimals(overrides?: CallOverrides): Promise<number>;
+
+  dilute(
+    liquidity: BigNumberish,
+    to: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   factory(overrides?: CallOverrides): Promise<string>;
 
@@ -605,6 +634,14 @@ export class XPair extends BaseContract {
 
     decimals(overrides?: CallOverrides): Promise<number>;
 
+    dilute(
+      liquidity: BigNumberish,
+      to: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & { amount0: BigNumber; amount1: BigNumber }
+    >;
+
     factory(overrides?: CallOverrides): Promise<string>;
 
     getReserves(
@@ -726,6 +763,26 @@ export class XPair extends BaseContract {
     >;
 
     Burn(
+      sender?: string | null,
+      amount0?: null,
+      amount1?: null,
+      to?: string | null
+    ): TypedEventFilter<
+      [string, BigNumber, BigNumber, string],
+      { sender: string; amount0: BigNumber; amount1: BigNumber; to: string }
+    >;
+
+    "Dilute(address,uint256,uint256,address)"(
+      sender?: string | null,
+      amount0?: null,
+      amount1?: null,
+      to?: string | null
+    ): TypedEventFilter<
+      [string, BigNumber, BigNumber, string],
+      { sender: string; amount0: BigNumber; amount1: BigNumber; to: string }
+    >;
+
+    Dilute(
       sender?: string | null,
       amount0?: null,
       amount1?: null,
@@ -859,6 +916,12 @@ export class XPair extends BaseContract {
 
     decimals(overrides?: CallOverrides): Promise<BigNumber>;
 
+    dilute(
+      liquidity: BigNumberish,
+      to: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     factory(overrides?: CallOverrides): Promise<BigNumber>;
 
     getReserves(overrides?: CallOverrides): Promise<BigNumber>;
@@ -983,6 +1046,12 @@ export class XPair extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    dilute(
+      liquidity: BigNumberish,
+      to: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
     factory(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

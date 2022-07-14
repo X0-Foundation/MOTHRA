@@ -25,6 +25,8 @@ interface IXMakerInterface extends ethers.utils.Interface {
     "WETH()": FunctionFragment;
     "addLiquidity(address,address,uint256,uint256,uint256,uint256,address,uint256)": FunctionFragment;
     "addLiquidityETH(address,uint256,uint256,uint256,address,uint256)": FunctionFragment;
+    "diluteLiquidityETH(address,uint256,uint256,uint256,address,uint256)": FunctionFragment;
+    "diluteLiquidityForETH(address,uint256,uint256,address,uint256)": FunctionFragment;
     "getPair(address,address)": FunctionFragment;
     "getReserveOnETHPair(address)": FunctionFragment;
     "quote(uint256,uint256,uint256)": FunctionFragment;
@@ -63,6 +65,21 @@ interface IXMakerInterface extends ethers.utils.Interface {
       string,
       BigNumberish
     ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "diluteLiquidityETH",
+    values: [
+      string,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      string,
+      BigNumberish
+    ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "diluteLiquidityForETH",
+    values: [string, BigNumberish, BigNumberish, string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getPair",
@@ -195,6 +212,14 @@ interface IXMakerInterface extends ethers.utils.Interface {
     functionFragment: "addLiquidityETH",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "diluteLiquidityETH",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "diluteLiquidityForETH",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "getPair", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getReserveOnETHPair",
@@ -307,6 +332,25 @@ export class IXMaker extends BaseContract {
       to: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    diluteLiquidityETH(
+      token: string,
+      liquidity: BigNumberish,
+      amountTokenMin: BigNumberish,
+      amountETHMin: BigNumberish,
+      to: string,
+      deadline: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    diluteLiquidityForETH(
+      token: string,
+      liquidity: BigNumberish,
+      amountETHMin: BigNumberish,
+      to: string,
+      deadline: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     getPair(
@@ -456,6 +500,25 @@ export class IXMaker extends BaseContract {
     to: string,
     deadline: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  diluteLiquidityETH(
+    token: string,
+    liquidity: BigNumberish,
+    amountTokenMin: BigNumberish,
+    amountETHMin: BigNumberish,
+    to: string,
+    deadline: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  diluteLiquidityForETH(
+    token: string,
+    liquidity: BigNumberish,
+    amountETHMin: BigNumberish,
+    to: string,
+    deadline: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   getPair(
@@ -618,6 +681,27 @@ export class IXMaker extends BaseContract {
         liquidity: BigNumber;
       }
     >;
+
+    diluteLiquidityETH(
+      token: string,
+      liquidity: BigNumberish,
+      amountTokenMin: BigNumberish,
+      amountETHMin: BigNumberish,
+      to: string,
+      deadline: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & { amountToken: BigNumber; amountETH: BigNumber }
+    >;
+
+    diluteLiquidityForETH(
+      token: string,
+      liquidity: BigNumberish,
+      amountETHMin: BigNumberish,
+      to: string,
+      deadline: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     getPair(
       tokenA: string,
@@ -787,6 +871,25 @@ export class IXMaker extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    diluteLiquidityETH(
+      token: string,
+      liquidity: BigNumberish,
+      amountTokenMin: BigNumberish,
+      amountETHMin: BigNumberish,
+      to: string,
+      deadline: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    diluteLiquidityForETH(
+      token: string,
+      liquidity: BigNumberish,
+      amountETHMin: BigNumberish,
+      to: string,
+      deadline: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     getPair(
       tokenA: string,
       tokenB: string,
@@ -933,6 +1036,25 @@ export class IXMaker extends BaseContract {
       to: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    diluteLiquidityETH(
+      token: string,
+      liquidity: BigNumberish,
+      amountTokenMin: BigNumberish,
+      amountETHMin: BigNumberish,
+      to: string,
+      deadline: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    diluteLiquidityForETH(
+      token: string,
+      liquidity: BigNumberish,
+      amountETHMin: BigNumberish,
+      to: string,
+      deadline: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     getPair(

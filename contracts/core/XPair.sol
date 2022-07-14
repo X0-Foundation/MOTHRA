@@ -355,6 +355,28 @@ contract XPair is IXPair {
         emit Swap(msg.sender, amount0In, amount1In, amount0Out, amount1Out, to);
     }
 
+    function dilute(uint liquidity, address to) external virtual override lock returns (uint amount0, uint amount1) {
+        require(msg.sender == maker, "X: CALLER IS NOT X ROUTER");
+        address _token0 = token0; address _token1 = token1; // gas saving
+        uint balance0 = IERC20(_token0).balanceOf(address(this));
+        uint balance1 = IERC20(_token1).balanceOf(address(this));
+        uint _totalSupply = totalSupply; // gas savings, must be defined here since totalSupply can update in _mintFee
+        require(liquidity <= _totalSupply, "Exceeds totalSupply");
+        amount0 = liquidity.mul(balance0) / _totalSupply; // using balances ensures pro-rata distribution
+        amount1 = liquidity.mul(balance1) / _totalSupply; // using balances ensures pro-rata distribution
+        require(amount0 > 0 && amount1 > 0, 'XDAO: INSUFFICIENT_LIQUIDITY_BURNED');
+        _safeTransfer(_token0, to, amount0);
+        _safeTransfer(_token1, to, amount1);
+        balance0 = IERC20(_token0).balanceOf(address(this));
+        balance1 = IERC20(_token1).balanceOf(address(this));
+
+        (uint112 _reserve0, uint112 _reserve1,) = getReserves();
+        _update(balance0, balance1, _reserve0, _reserve1);
+        address feeTo = IXFactory(factory).feeTo();
+        if (feeTo != address(0)) kLast = uint(reserve0).mul(reserve1); // reserve0 and reserve1 are up-to-date
+        emit Dilute(msg.sender, amount0, amount1, to);
+    }
+
     // force balances to match reserves
     function skim(address to) external override lock {
         address _token0 = token0; // gas savings

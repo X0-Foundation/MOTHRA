@@ -190,11 +190,12 @@ async function setupNodeChain() {
 
     const FeeRates = [
         //(Accountant). Order is critical.
-        [FeeMagnifier], // None. (A tool to let them pay 100% fee if they are suspicious.)
-        [100], // Transfer: 0.04%, 0.03%, 0.03%
-        [100], // Swap:
-        [100], // AddLiquidity
-        [100] // RemoveLiquidity
+        [FeeMagnifier], // None. (Let them pay 100% fee if they are suspicious.)
+        [100],  // Transfer
+        [100],  // Swap
+        [100],  // AddLiquidity
+        [100],  // RemoveLiquidity
+        [0]     // Dilute
         // [100], // Deposit
         // [100], // Withdraw
         // [100], // CompoundAccumulated
@@ -999,37 +1000,37 @@ describe("====================== Stage 4: Test Dex ======================\n".yel
         await showVirtualBurn();
 
         await mintBlocks(50);
-        await tgr.pulse_user_burn();
+        (await tgr.pulse_user_burn()).wait();
         await showVirtualBurn();
 
         await transfer(owner, alice, 10);
         await mintBlocks(5);
-        await tgr.pulse_user_burn();
+        (await tgr.pulse_user_burn()).wait();
         await showVirtualBurn();
 
         await transfer(owner, bob, 1000);
         await mintBlocks(50);
-        await tgr.pulse_user_burn();
+        (await tgr.pulse_user_burn()).wait();
         await showVirtualBurn();
 
         await transfer(owner, carol, 5000);
         await mintBlocks(50);
-        await tgr.pulse_user_burn();
+        (await tgr.pulse_user_burn()).wait();
         await showVirtualBurn();
 
         await transfer(owner, carol, 100);
         await mintBlocks(50);
-        await tgr.pulse_user_burn();
+        (await tgr.pulse_user_burn()).wait();
         await showVirtualBurn();
 
         await transfer(carol, carol, 100);
         await mintBlocks(50);
-        await tgr.pulse_user_burn();
+        (await tgr.pulse_user_burn()).wait();
         await showVirtualBurn();
 
         await transfer(carol, alice, 100);
         await mintBlocks(50);
-        await tgr.pulse_user_burn();
+        (await tgr.pulse_user_burn()).wait();
         await showVirtualBurn();
 
         // await transfer(owner, tgr_bnb, 100);
@@ -1046,8 +1047,10 @@ describe("====================== Stage 4: Test Dex ======================\n".yel
 
         await transfer(owner, votes, 100);
         await mintBlocks(20);
-        await tgr.pulse_vote_burn();
+        (await tgr.pulse_vote_burn()).wait();
         await showVirtualBurn();
+
+        (await tgr.pulse_lp_reward()).wait();
 
     });
 

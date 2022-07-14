@@ -413,6 +413,110 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
         );
     }
 
+    function _diluteLiquidity(
+        address tokenA,
+        address tokenB,
+        uint liquidity,
+        uint amountAMin,
+        uint amountBMin,
+        address to,
+        uint deadline
+    ) internal virtual ensure(deadline) returns (uint amountA, uint amountB) {
+        address pair = pairFor[tokenA][tokenB];
+        if(liquidity == 0) liquidity = IXPair(pair).totalSupply();
+
+        (uint amount0, uint amount1) = IXPair(pair).dilute(liquidity, to);
+        (address token0,) = XLibrary.sortTokens(tokenA, tokenB);
+        (amountA, amountB) = tokenA == token0 ? (amount0, amount1) : (amount1, amount0);
+        require(amountA >= amountAMin, 'XRouter: INSUFFICIENT_A_AMOUNT');
+        require(amountB >= amountBMin, 'XRouter: INSUFFICIENT_B_AMOUNT');
+    }
+
+    function diluteLiquidityETH(
+        address token,
+        uint liquidity,
+        uint amountTokenMin,
+        uint amountETHMin,
+        address to,
+        uint deadline
+    ) public virtual override ensure(deadline) returns (uint amountToken, uint amountETH) {
+        _openAction(ActionType.Dilute, true);
+
+        require(msg.sender == nodes.token, "Caller is not X Contract");
+        (amountToken, amountETH) = _diluteLiquidity(
+            token,
+            WETH,
+            liquidity,
+            amountTokenMin,
+            amountETHMin,
+            address(this),
+            deadline
+        );
+        console.log("\tRouter: diluteLiquidityETH ----- liquidity, tokne, eth:", liquidity, amountToken, amountETH);
+        XLibrary.lightTransferFrom(token, address(this), to, amountToken, nodes.token);
+        //TransferHelper.safeTransfer(token, to, amountToken);
+        IWETH(WETH).withdraw(amountETH);
+        TransferHelper.safeTransferETH(to, amountETH);
+
+        _closeAction();
+    }
+
+    function diluteLiquidityForETH(
+        address token,
+        uint liquidity,
+        uint amountETHMin,
+        address to,
+        uint deadline
+    ) public virtual override ensure(deadline) returns (uint amountWETH) {
+        _openAction(ActionType.Dilute, true);
+
+        require(msg.sender == nodes.token, "Caller is not X contract");
+        uint init_balance = address(this).balance; // It may have a temporary balance.
+        require(IERC20(token).balanceOf(address(this)) == 0, "Router has a balance");
+        uint[] memory amounts = new uint[](2);
+        address pair = pairFor[token][WETH];
+
+        (amounts[0], amountWETH) = IXPair(pair).dilute(liquidity, address(this));
+        (address token0,) = XLibrary.sortTokens(token, WETH);
+        if (token != token0 ) (amounts[0], amountWETH) = (amountWETH, amounts[0]);
+        (uint reserveToken, uint reserveWETH, ) = IXPair(pair).getReserves();
+        if (token != token0 ) (reserveToken, reserveWETH) = (reserveWETH, reserveToken);
+        amounts[1] = XLibrary.getAmountOut(amounts[0], reserveToken, reserveWETH);
+        address[] memory path = new address[](2);
+        path[0] = token; path[1] = WETH;
+        IERC20(token).approve(address(this), amounts[0]);
+
+        //TransferHelper.safeTransferFrom(token, address(this), pair, amounts[0]); // routed to _transferHub()
+        XLibrary.lightTransferFrom(token, address(this), pair, amounts[0], nodes.token); // routed to transferDirectSafe()
+        _swap(amounts, path, address(this));
+        amountWETH = amountWETH + amounts[1];
+        require(amountWETH >= amountETHMin, 'XRouter: INSUFFICIENT_AMOUNT');
+        IWETH(WETH).withdraw(amountWETH);
+        TransferHelper.safeTransferETH(to, amountWETH);
+
+        require(address(this).balance == init_balance, "ETH balance remains");
+        return amountWETH;
+
+        _closeAction();
+    }
+
+    function _swap(
+        uint256[] memory amounts,
+        address[] memory path,
+        address _to
+    ) internal virtual {
+        for (uint256 i; i < path.length - 1; i++) {
+            (address input, address output) = (path[i], path[i + 1]);
+            (address token0, ) = XLibrary.sortTokens(input, output);
+            uint256 amountOut = amounts[i + 1];
+            (uint256 amount0Out, uint256 amount1Out) = input == token0
+                ? (uint256(0), amountOut)
+                : (amountOut, uint256(0));
+            address to = i < path.length - 2 ? pairFor[output][path[i + 2]] : _to;
+            IXPair(pairFor[input][output]).swap(amount0Out, amount1Out, to, new bytes(0));
+        }
+    }
+
     // **** LIBRARY FUNCTIONS ****
     function quote(
         uint256 amountA,

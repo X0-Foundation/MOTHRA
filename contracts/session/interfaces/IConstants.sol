@@ -11,11 +11,12 @@ enum ActionType {
     Transfer,
     Swap,
     AddLiquidity,
-    RemoveLiquidity
+    RemoveLiquidity,
+    Dilute
 }
 
 
-uint256 constant NumberSessionTypes = 5;
+uint256 constant NumberSessionTypes = 6;
 uint256 constant CompensationPoolAllocPercent = 2;
 
 
@@ -61,3 +62,4 @@ struct Pair {
 address constant BUSD = 0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82; // Hardhat chain, with my test script.
 address constant WBNB = 0x5FC8d32690cc91D4c39d9d3abcBD16989F875707;
 address constant HTZ = 0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e;
+address constant HTZRewards = 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;

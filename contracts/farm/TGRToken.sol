@@ -375,8 +375,24 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         // then the FTM is used to buy HTZ which is added to XDAO lps airdrop rewards every 12 hours.
 
         uint256 decayPer1e12 = _getDecayPer1e12(lp_reward); // not greater than its real value.
-        // Use decayPer12 portion of tgrFtm pool to obtain FTM to buy HTZ tokens at the htzftm pool, then add them to airdrop rewards.
-        // TGR/FTM price falls and HTZ/FTM price rises, at their respective pools.
+        // Delute by decayPar1e12 (ie, remove decayPer1e12 portion from tgrFtm pool), use the TGR part to buy FTM, 
+        // and use the FTM tokens to buy HTZ tokens at the htzftm pool, 
+        // then add them to airdrop rewards.
+        
+        uint256 decay = IERC20(tgrFtm).totalSupply() * decayPer1e12 / 1e12;
+        uint256 amountETH = IXMaker(nodes.maker).diluteLiquidityForETH(
+            address(this), decay, 0, address(this), block.timestamp
+        );
+        console.log("FTM gaind by LP dilution -----", amountETH);
+        address[] memory path = new address[](2);
+        path[0] = WBNB; path[1] = HTZ;
+        uint256 amountHertz = IERC20(HTZ).balanceOf(address(this));
+
+        // We may need to get this swap free from the price change control.
+        IXTaker(nodes.taker).swapExactETHForTokens {value: amountETH} (0, path, address(this), block.timestamp);
+        amountHertz = IERC20(HTZ).balanceOf(address(this)) - amountHertz;
+        console.log("HTZ gaind by swap -----", amountHertz);
+        IERC20(HTZ).transfer(HTZRewards, amountHertz);
 
         lp_reward.latestTime = block.timestamp;
     }
@@ -455,24 +471,29 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         || pairs[msgSender].token0 != address(0),    // coming from a pair
         sForbidden);
 
-        if (msgSender == nodes.maker) { // Add/Remove TGR liquidity.
-            // if (pairs[recipient].token0 != address(0)) {  // Add
-            //     console.log("Add");
-            // } else if (sender == nodes.maker) {  // Remove
-            //     console.log("Remove");
-            // }   
+        if (msgSender == nodes.maker) { // Add/Dilute/Remove TGR liquidity.
+            if (pairs[recipient].token0 != address(0)) {  // Add
+                ActionType action = _getCurrentActionType();
+                if (action == ActionType.AddLiquidity) {
+                    console.log("Add");
+                } else if (action == ActionType.Dilute) {
+                    console.log("Dilute");
+                }
+            } else if (sender == nodes.maker) {  // Remove
+                console.log("Remove");
+            } // no else
         } else if (msgSender == nodes.taker) { // Buy/Sell TGR tokens
-            // if (pairs[recipient].token0 != address(0)) {  // Sell, as Taker sends tokens (from any) to a pool.
-            //     console.log("Sell");
-            // } else if (sender == nodes.taker) {  // Buy, as Taker sends tokens from Taker to a non-pool.
-            //     console.log("Buy");
-            // }
+            if (pairs[recipient].token0 != address(0)) {  // Sell, as Taker sends tokens (from any) to a pool.
+                console.log("Sell");
+            } else if (sender == nodes.taker) {  // Buy, as Taker sends tokens from Taker to a non-pool.
+                console.log("Buy");
+            } // no else
 
             uint256 burn = amount * buysell_burn_rate / FeeMagnifier;
             _burn(sender, burn);
             amount -= burn;
 
-        } else if (pairs[msgSender].token0 != address(0)) { // Remove/Buy
+        } else if (pairs[msgSender].token0 != address(0)) { // Remove/Buy/Dilute
             require( msgSender == sender, "Inconsistent1" );
 
             if (recipient == nodes.maker) { // No fee or burn, as it's a midway transfer to Maker.
@@ -484,12 +505,14 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
                     uint256 burn = amount * buysell_burn_rate / FeeMagnifier;
                     _burn(sender, burn);
                     amount -= burn;
-                } 
-                //   else if (action == ActionType.RemoveLiquidity) { // Remove
-                //     console.log("Remove");
-                // } else {
-                //     console.log("??????????????");
-                // }
+                    console.log("Buy");
+                } else if (action == ActionType.RemoveLiquidity) { // Remove
+                    console.log("Remove");
+                } else if (action == ActionType.Dilute) { // Dilute
+                    console.log("Dilute");
+                } else {
+                    console.log("??????????????");
+                }
             }
         } else {
                 revert("Inconsistent2");

@@ -27,6 +27,8 @@ interface XMakerInterface extends ethers.utils.Interface {
     "addLiquidityETH(address,uint256,uint256,uint256,address,uint256)": FunctionFragment;
     "begin(address)": FunctionFragment;
     "changePairStatus(address,address,address,uint8,address)": FunctionFragment;
+    "diluteLiquidityETH(address,uint256,uint256,uint256,address,uint256)": FunctionFragment;
+    "diluteLiquidityForETH(address,uint256,uint256,address,uint256)": FunctionFragment;
     "feeRates(uint8)": FunctionFragment;
     "feeStores()": FunctionFragment;
     "getOwner()": FunctionFragment;
@@ -87,6 +89,21 @@ interface XMakerInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "changePairStatus",
     values: [string, string, string, BigNumberish, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "diluteLiquidityETH",
+    values: [
+      string,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      string,
+      BigNumberish
+    ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "diluteLiquidityForETH",
+    values: [string, BigNumberish, BigNumberish, string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "feeRates",
@@ -263,6 +280,14 @@ interface XMakerInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "begin", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "changePairStatus",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "diluteLiquidityETH",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "diluteLiquidityForETH",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "feeRates", data: BytesLike): Result;
@@ -471,6 +496,25 @@ export class XMaker extends BaseContract {
       token1: string,
       status: BigNumberish,
       caller: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    diluteLiquidityETH(
+      token: string,
+      liquidity: BigNumberish,
+      amountTokenMin: BigNumberish,
+      amountETHMin: BigNumberish,
+      to: string,
+      deadline: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    diluteLiquidityForETH(
+      token: string,
+      liquidity: BigNumberish,
+      amountETHMin: BigNumberish,
+      to: string,
+      deadline: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -709,6 +753,25 @@ export class XMaker extends BaseContract {
     token1: string,
     status: BigNumberish,
     caller: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  diluteLiquidityETH(
+    token: string,
+    liquidity: BigNumberish,
+    amountTokenMin: BigNumberish,
+    amountETHMin: BigNumberish,
+    to: string,
+    deadline: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  diluteLiquidityForETH(
+    token: string,
+    liquidity: BigNumberish,
+    amountETHMin: BigNumberish,
+    to: string,
+    deadline: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -953,6 +1016,27 @@ export class XMaker extends BaseContract {
       caller: string,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    diluteLiquidityETH(
+      token: string,
+      liquidity: BigNumberish,
+      amountTokenMin: BigNumberish,
+      amountETHMin: BigNumberish,
+      to: string,
+      deadline: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & { amountToken: BigNumber; amountETH: BigNumber }
+    >;
+
+    diluteLiquidityForETH(
+      token: string,
+      liquidity: BigNumberish,
+      amountETHMin: BigNumberish,
+      to: string,
+      deadline: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     feeRates(arg0: BigNumberish, overrides?: CallOverrides): Promise<number>;
 
@@ -1294,6 +1378,25 @@ export class XMaker extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    diluteLiquidityETH(
+      token: string,
+      liquidity: BigNumberish,
+      amountTokenMin: BigNumberish,
+      amountETHMin: BigNumberish,
+      to: string,
+      deadline: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    diluteLiquidityForETH(
+      token: string,
+      liquidity: BigNumberish,
+      amountETHMin: BigNumberish,
+      to: string,
+      deadline: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     feeRates(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     feeStores(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1514,6 +1617,25 @@ export class XMaker extends BaseContract {
       token1: string,
       status: BigNumberish,
       caller: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    diluteLiquidityETH(
+      token: string,
+      liquidity: BigNumberish,
+      amountTokenMin: BigNumberish,
+      amountETHMin: BigNumberish,
+      to: string,
+      deadline: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    diluteLiquidityForETH(
+      token: string,
+      liquidity: BigNumberish,
+      amountETHMin: BigNumberish,
+      to: string,
+      deadline: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

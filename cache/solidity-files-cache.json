@@ -44,8 +44,8 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\core\\XPair.sol": {
-      "lastModificationDate": 1656271838182,
-      "contentHash": "bb26295b08694d97913549818cf6cde5",
+      "lastModificationDate": 1657834300139,
+      "contentHash": "ba6c6f2826fc07fba4f61ea612267f6f",
       "sourceName": "contracts/core/XPair.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -264,8 +264,8 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\core\\interfaces\\IXPair.sol": {
-      "lastModificationDate": 1655547709414,
-      "contentHash": "10aaab16e24e9b04314031d875c8a984",
+      "lastModificationDate": 1657831485624,
+      "contentHash": "8c62c6dc057b2f9ee692609beb350701",
       "sourceName": "contracts/core/interfaces/IXPair.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -439,8 +439,8 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\session\\interfaces\\IConstants.sol": {
-      "lastModificationDate": 1657806769621,
-      "contentHash": "4412d6c8831f3386deff25e4d315e61c",
+      "lastModificationDate": 1657831963821,
+      "contentHash": "e9d42cbd599c95add49f8d64108ebe0e",
       "sourceName": "contracts/session/interfaces/IConstants.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -479,8 +479,8 @@
       "artifacts": []
     },
     "D:\\HARDHAT\\XContracts\\contracts\\libraries\\XLibrary.sol": {
-      "lastModificationDate": 1656271838182,
-      "contentHash": "3deeb0b6d9e5468374827f68ac6e9fea",
+      "lastModificationDate": 1657832368134,
+      "contentHash": "7a36a467c43e01718f71efab20c80351",
       "sourceName": "contracts/libraries/XLibrary.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -570,7 +570,7 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\periphery\\XTaker.sol": {
-      "lastModificationDate": 1657822488560,
+      "lastModificationDate": 1657834476587,
       "contentHash": "acd258a7db77af7b22b57cdcf5f7c43b",
       "sourceName": "contracts/periphery/XTaker.sol",
       "solcConfig": {
@@ -1387,8 +1387,8 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\periphery\\ControlCenter.sol": {
-      "lastModificationDate": 1655296859137,
-      "contentHash": "cc584b1b2ba3637b23a4532251d13055",
+      "lastModificationDate": 1657833564667,
+      "contentHash": "267daac44ae21e78c72ee9b8bf20d54d",
       "sourceName": "contracts/periphery/ControlCenter.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -1480,8 +1480,8 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\periphery\\XMaker.sol": {
-      "lastModificationDate": 1657809257261,
-      "contentHash": "eb4f76d9d7064444db00aca81299fd1e",
+      "lastModificationDate": 1657834763899,
+      "contentHash": "82e7a092d8049b0eabcfaea1fdf05037",
       "sourceName": "contracts/periphery/XMaker.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -1538,8 +1538,8 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\periphery\\interfaces\\IXMaker.sol": {
-      "lastModificationDate": 1655547951327,
-      "contentHash": "6bb58cb05eebed4efc63f6dc94b8aaa0",
+      "lastModificationDate": 1657826988858,
+      "contentHash": "345051b7f2c30273a7ececa8e47621ec",
       "sourceName": "contracts/periphery/interfaces/IXMaker.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -1626,8 +1626,8 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\farm\\TGRToken.sol": {
-      "lastModificationDate": 1657820331751,
-      "contentHash": "7759858a892c9e7e7d4a29020cb4e238",
+      "lastModificationDate": 1657835306488,
+      "contentHash": "f800a8754aedb2dbef815c2df4c99c9e",
       "sourceName": "contracts/farm/TGRToken.sol",
       "solcConfig": {
         "version": "0.8.14",
