@@ -44,7 +44,7 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\core\\XPair.sol": {
-      "lastModificationDate": 1657834300139,
+      "lastModificationDate": 1657835609188,
       "contentHash": "ba6c6f2826fc07fba4f61ea612267f6f",
       "sourceName": "contracts/core/XPair.sol",
       "solcConfig": {
@@ -264,8 +264,8 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\core\\interfaces\\IXPair.sol": {
-      "lastModificationDate": 1657831485624,
-      "contentHash": "8c62c6dc057b2f9ee692609beb350701",
+      "lastModificationDate": 1657835609188,
+      "contentHash": "eac46bc212ee8808c2a05b5f9777fe37",
       "sourceName": "contracts/core/interfaces/IXPair.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -439,7 +439,7 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\session\\interfaces\\IConstants.sol": {
-      "lastModificationDate": 1657831963821,
+      "lastModificationDate": 1657835609204,
       "contentHash": "e9d42cbd599c95add49f8d64108ebe0e",
       "sourceName": "contracts/session/interfaces/IConstants.sol",
       "solcConfig": {
@@ -479,7 +479,7 @@
       "artifacts": []
     },
     "D:\\HARDHAT\\XContracts\\contracts\\libraries\\XLibrary.sol": {
-      "lastModificationDate": 1657832368134,
+      "lastModificationDate": 1657835609188,
       "contentHash": "7a36a467c43e01718f71efab20c80351",
       "sourceName": "contracts/libraries/XLibrary.sol",
       "solcConfig": {
@@ -570,7 +570,7 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\periphery\\XTaker.sol": {
-      "lastModificationDate": 1657834476587,
+      "lastModificationDate": 1657835609204,
       "contentHash": "acd258a7db77af7b22b57cdcf5f7c43b",
       "sourceName": "contracts/periphery/XTaker.sol",
       "solcConfig": {
@@ -717,7 +717,7 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\session\\Node.sol": {
-      "lastModificationDate": 1657825289624,
+      "lastModificationDate": 1657835609204,
       "contentHash": "a240cef26fc4204c2168a68174696db6",
       "sourceName": "contracts/session/Node.sol",
       "solcConfig": {
@@ -851,7 +851,7 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\session\\SessionManager.sol": {
-      "lastModificationDate": 1657819467171,
+      "lastModificationDate": 1657835609204,
       "contentHash": "f4caf1348d40911badea1dbe92a5eeaa",
       "sourceName": "contracts/session/SessionManager.sol",
       "solcConfig": {
@@ -1166,8 +1166,8 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\session\\interfaces\\ISessionRegistrar.sol": {
-      "lastModificationDate": 1657819341829,
-      "contentHash": "101484fd77b3f8e4fffad40f4dd74b1f",
+      "lastModificationDate": 1657835609204,
+      "contentHash": "ac04dac3aae073c48c898d415c94f903",
       "sourceName": "contracts/session/interfaces/ISessionRegistrar.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -1387,8 +1387,8 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\periphery\\ControlCenter.sol": {
-      "lastModificationDate": 1657833564667,
-      "contentHash": "267daac44ae21e78c72ee9b8bf20d54d",
+      "lastModificationDate": 1657835609188,
+      "contentHash": "442fa89eb85243a11a3c5bc4004cd186",
       "sourceName": "contracts/periphery/ControlCenter.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -1480,7 +1480,7 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\periphery\\XMaker.sol": {
-      "lastModificationDate": 1657834763899,
+      "lastModificationDate": 1657835609204,
       "contentHash": "82e7a092d8049b0eabcfaea1fdf05037",
       "sourceName": "contracts/periphery/XMaker.sol",
       "solcConfig": {
@@ -1538,8 +1538,8 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\periphery\\interfaces\\IXMaker.sol": {
-      "lastModificationDate": 1657826988858,
-      "contentHash": "345051b7f2c30273a7ececa8e47621ec",
+      "lastModificationDate": 1657835609204,
+      "contentHash": "4053457a1d8323c93584f3a3e120bb96",
       "sourceName": "contracts/periphery/interfaces/IXMaker.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -1626,8 +1626,8 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\farm\\TGRToken.sol": {
-      "lastModificationDate": 1657835306488,
-      "contentHash": "f800a8754aedb2dbef815c2df4c99c9e",
+      "lastModificationDate": 1657835609188,
+      "contentHash": "b86d771ebf7951173dedd60b9c2d34ed",
       "sourceName": "contracts/farm/TGRToken.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -1685,7 +1685,7 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\session\\SessionRegistrar.sol": {
-      "lastModificationDate": 1657819320052,
+      "lastModificationDate": 1657835609204,
       "contentHash": "67f83bd49f6af794f79262e6db63ff5d",
       "sourceName": "contracts/session/SessionRegistrar.sol",
       "solcConfig": {
@@ -1905,7 +1905,7 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\core\\XFactory.sol": {
-      "lastModificationDate": 1657809323420,
+      "lastModificationDate": 1657835609188,
       "contentHash": "94ee4c32df680d95875dfe1985be9eec",
       "sourceName": "contracts/core/XFactory.sol",
       "solcConfig": {
