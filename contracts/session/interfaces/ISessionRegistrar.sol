@@ -6,4 +6,5 @@ interface ISessionRegistrar {
 
     function registerAction(ActionType actionType,  bool blockReentry) external returns (ActionParams memory actionParams);
     function unregisterAction() external;
+    function getCurrentActionType() external returns( ActionType );
 }

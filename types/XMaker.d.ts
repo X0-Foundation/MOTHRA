@@ -32,6 +32,7 @@ interface XMakerInterface extends ethers.utils.Interface {
     "getOwner()": FunctionFragment;
     "getPair(address,address)": FunctionFragment;
     "getReserveOnETHPair(address)": FunctionFragment;
+    "htzFtm()": FunctionFragment;
     "nextNode()": FunctionFragment;
     "owner()": FunctionFragment;
     "pairFor(address,address)": FunctionFragment;
@@ -51,7 +52,6 @@ interface XMakerInterface extends ethers.utils.Interface {
     "sim_removeLiquidity(address,address,uint256)": FunctionFragment;
     "tgrBusd()": FunctionFragment;
     "tgrFtm()": FunctionFragment;
-    "tgrHtz()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
     "wire(address,address)": FunctionFragment;
     "wired_addLiquidity(address,address,uint256,uint256,uint256,uint256,address,uint256)": FunctionFragment;
@@ -102,6 +102,7 @@ interface XMakerInterface extends ethers.utils.Interface {
     functionFragment: "getReserveOnETHPair",
     values: [string]
   ): string;
+  encodeFunctionData(functionFragment: "htzFtm", values?: undefined): string;
   encodeFunctionData(functionFragment: "nextNode", values?: undefined): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
@@ -216,7 +217,6 @@ interface XMakerInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "tgrBusd", values?: undefined): string;
   encodeFunctionData(functionFragment: "tgrFtm", values?: undefined): string;
-  encodeFunctionData(functionFragment: "tgrHtz", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
     values: [string]
@@ -273,6 +273,7 @@ interface XMakerInterface extends ethers.utils.Interface {
     functionFragment: "getReserveOnETHPair",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "htzFtm", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "nextNode", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "pairFor", data: BytesLike): Result;
@@ -322,7 +323,6 @@ interface XMakerInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "tgrBusd", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "tgrFtm", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "tgrHtz", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "transferOwnership",
     data: BytesLike
@@ -496,6 +496,8 @@ export class XMaker extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { reserve: BigNumber }>;
 
+    htzFtm(overrides?: CallOverrides): Promise<[string]>;
+
     nextNode(overrides?: CallOverrides): Promise<[string]>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
@@ -637,8 +639,6 @@ export class XMaker extends BaseContract {
 
     tgrFtm(overrides?: CallOverrides): Promise<[string]>;
 
-    tgrHtz(overrides?: CallOverrides): Promise<[string]>;
-
     transferOwnership(
       newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -728,6 +728,8 @@ export class XMaker extends BaseContract {
     _token: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
+
+  htzFtm(overrides?: CallOverrides): Promise<string>;
 
   nextNode(overrides?: CallOverrides): Promise<string>;
 
@@ -870,8 +872,6 @@ export class XMaker extends BaseContract {
 
   tgrFtm(overrides?: CallOverrides): Promise<string>;
 
-  tgrHtz(overrides?: CallOverrides): Promise<string>;
-
   transferOwnership(
     newOwner: string,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -970,6 +970,8 @@ export class XMaker extends BaseContract {
       _token: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    htzFtm(overrides?: CallOverrides): Promise<string>;
 
     nextNode(overrides?: CallOverrides): Promise<string>;
 
@@ -1117,8 +1119,6 @@ export class XMaker extends BaseContract {
     tgrBusd(overrides?: CallOverrides): Promise<string>;
 
     tgrFtm(overrides?: CallOverrides): Promise<string>;
-
-    tgrHtz(overrides?: CallOverrides): Promise<string>;
 
     transferOwnership(
       newOwner: string,
@@ -1311,6 +1311,8 @@ export class XMaker extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    htzFtm(overrides?: CallOverrides): Promise<BigNumber>;
+
     nextNode(overrides?: CallOverrides): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1441,8 +1443,6 @@ export class XMaker extends BaseContract {
 
     tgrFtm(overrides?: CallOverrides): Promise<BigNumber>;
 
-    tgrHtz(overrides?: CallOverrides): Promise<BigNumber>;
-
     transferOwnership(
       newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -1536,6 +1536,8 @@ export class XMaker extends BaseContract {
       _token: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
+
+    htzFtm(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     nextNode(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1669,8 +1671,6 @@ export class XMaker extends BaseContract {
     tgrBusd(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     tgrFtm(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    tgrHtz(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     transferOwnership(
       newOwner: string,

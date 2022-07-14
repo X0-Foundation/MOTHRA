@@ -26,6 +26,7 @@ interface NodeInterface extends ethers.utils.Interface {
     "feeRates(uint8)": FunctionFragment;
     "feeStores()": FunctionFragment;
     "getOwner()": FunctionFragment;
+    "htzFtm()": FunctionFragment;
     "nextNode()": FunctionFragment;
     "pairFor(address,address)": FunctionFragment;
     "pairs(address)": FunctionFragment;
@@ -35,7 +36,6 @@ interface NodeInterface extends ethers.utils.Interface {
     "setNode(uint8,address,address)": FunctionFragment;
     "tgrBusd()": FunctionFragment;
     "tgrFtm()": FunctionFragment;
-    "tgrHtz()": FunctionFragment;
     "wire(address,address)": FunctionFragment;
   };
 
@@ -50,6 +50,7 @@ interface NodeInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "feeStores", values?: undefined): string;
   encodeFunctionData(functionFragment: "getOwner", values?: undefined): string;
+  encodeFunctionData(functionFragment: "htzFtm", values?: undefined): string;
   encodeFunctionData(functionFragment: "nextNode", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "pairFor",
@@ -71,7 +72,6 @@ interface NodeInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "tgrBusd", values?: undefined): string;
   encodeFunctionData(functionFragment: "tgrFtm", values?: undefined): string;
-  encodeFunctionData(functionFragment: "tgrHtz", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "wire",
     values: [string, string]
@@ -85,6 +85,7 @@ interface NodeInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "feeRates", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "feeStores", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getOwner", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "htzFtm", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "nextNode", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "pairFor", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "pairs", data: BytesLike): Result;
@@ -100,7 +101,6 @@ interface NodeInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "setNode", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "tgrBusd", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "tgrFtm", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "tgrHtz", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "wire", data: BytesLike): Result;
 
   events: {
@@ -223,6 +223,8 @@ export class Node extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    htzFtm(overrides?: CallOverrides): Promise<[string]>;
+
     nextNode(overrides?: CallOverrides): Promise<[string]>;
 
     pairFor(
@@ -268,8 +270,6 @@ export class Node extends BaseContract {
 
     tgrFtm(overrides?: CallOverrides): Promise<[string]>;
 
-    tgrHtz(overrides?: CallOverrides): Promise<[string]>;
-
     wire(
       _prevNode: string,
       _nextNode: string,
@@ -298,6 +298,8 @@ export class Node extends BaseContract {
   getOwner(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
+
+  htzFtm(overrides?: CallOverrides): Promise<string>;
 
   nextNode(overrides?: CallOverrides): Promise<string>;
 
@@ -344,8 +346,6 @@ export class Node extends BaseContract {
 
   tgrFtm(overrides?: CallOverrides): Promise<string>;
 
-  tgrHtz(overrides?: CallOverrides): Promise<string>;
-
   wire(
     _prevNode: string,
     _nextNode: string,
@@ -369,6 +369,8 @@ export class Node extends BaseContract {
     feeStores(overrides?: CallOverrides): Promise<string>;
 
     getOwner(overrides?: CallOverrides): Promise<string>;
+
+    htzFtm(overrides?: CallOverrides): Promise<string>;
 
     nextNode(overrides?: CallOverrides): Promise<string>;
 
@@ -414,8 +416,6 @@ export class Node extends BaseContract {
     tgrBusd(overrides?: CallOverrides): Promise<string>;
 
     tgrFtm(overrides?: CallOverrides): Promise<string>;
-
-    tgrHtz(overrides?: CallOverrides): Promise<string>;
 
     wire(
       _prevNode: string,
@@ -523,6 +523,8 @@ export class Node extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    htzFtm(overrides?: CallOverrides): Promise<BigNumber>;
+
     nextNode(overrides?: CallOverrides): Promise<BigNumber>;
 
     pairFor(
@@ -559,8 +561,6 @@ export class Node extends BaseContract {
 
     tgrFtm(overrides?: CallOverrides): Promise<BigNumber>;
 
-    tgrHtz(overrides?: CallOverrides): Promise<BigNumber>;
-
     wire(
       _prevNode: string,
       _nextNode: string,
@@ -593,6 +593,8 @@ export class Node extends BaseContract {
     getOwner(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
+
+    htzFtm(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     nextNode(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -632,8 +634,6 @@ export class Node extends BaseContract {
     tgrBusd(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     tgrFtm(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    tgrHtz(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     wire(
       _prevNode: string,

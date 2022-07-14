@@ -32,6 +32,7 @@ interface XTakerInterface extends ethers.utils.Interface {
     "getAmountsIn(uint256,address[])": FunctionFragment;
     "getAmountsOut(uint256,address[])": FunctionFragment;
     "getOwner()": FunctionFragment;
+    "htzFtm()": FunctionFragment;
     "nextNode()": FunctionFragment;
     "owner()": FunctionFragment;
     "pairFor(address,address)": FunctionFragment;
@@ -54,7 +55,6 @@ interface XTakerInterface extends ethers.utils.Interface {
     "swapTokensForExactTokens(uint256,uint256,address[],address,uint256)": FunctionFragment;
     "tgrBusd()": FunctionFragment;
     "tgrFtm()": FunctionFragment;
-    "tgrHtz()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
     "wire(address,address)": FunctionFragment;
     "wired_swapExactTokensForTokens(uint256,uint256,address[],address)": FunctionFragment;
@@ -88,6 +88,7 @@ interface XTakerInterface extends ethers.utils.Interface {
     values: [BigNumberish, string[]]
   ): string;
   encodeFunctionData(functionFragment: "getOwner", values?: undefined): string;
+  encodeFunctionData(functionFragment: "htzFtm", values?: undefined): string;
   encodeFunctionData(functionFragment: "nextNode", values?: undefined): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
@@ -158,7 +159,6 @@ interface XTakerInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "tgrBusd", values?: undefined): string;
   encodeFunctionData(functionFragment: "tgrFtm", values?: undefined): string;
-  encodeFunctionData(functionFragment: "tgrHtz", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
     values: [string]
@@ -197,6 +197,7 @@ interface XTakerInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "getOwner", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "htzFtm", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "nextNode", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "pairFor", data: BytesLike): Result;
@@ -258,7 +259,6 @@ interface XTakerInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "tgrBusd", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "tgrFtm", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "tgrHtz", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "transferOwnership",
     data: BytesLike
@@ -421,6 +421,8 @@ export class XTaker extends BaseContract {
 
     getOwner(overrides?: CallOverrides): Promise<[string]>;
 
+    htzFtm(overrides?: CallOverrides): Promise<[string]>;
+
     nextNode(overrides?: CallOverrides): Promise<[string]>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
@@ -563,8 +565,6 @@ export class XTaker extends BaseContract {
 
     tgrFtm(overrides?: CallOverrides): Promise<[string]>;
 
-    tgrHtz(overrides?: CallOverrides): Promise<[string]>;
-
     transferOwnership(
       newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -632,6 +632,8 @@ export class XTaker extends BaseContract {
   ): Promise<BigNumber[]>;
 
   getOwner(overrides?: CallOverrides): Promise<string>;
+
+  htzFtm(overrides?: CallOverrides): Promise<string>;
 
   nextNode(overrides?: CallOverrides): Promise<string>;
 
@@ -775,8 +777,6 @@ export class XTaker extends BaseContract {
 
   tgrFtm(overrides?: CallOverrides): Promise<string>;
 
-  tgrHtz(overrides?: CallOverrides): Promise<string>;
-
   transferOwnership(
     newOwner: string,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -841,6 +841,8 @@ export class XTaker extends BaseContract {
     ): Promise<BigNumber[]>;
 
     getOwner(overrides?: CallOverrides): Promise<string>;
+
+    htzFtm(overrides?: CallOverrides): Promise<string>;
 
     nextNode(overrides?: CallOverrides): Promise<string>;
 
@@ -981,8 +983,6 @@ export class XTaker extends BaseContract {
     tgrBusd(overrides?: CallOverrides): Promise<string>;
 
     tgrFtm(overrides?: CallOverrides): Promise<string>;
-
-    tgrHtz(overrides?: CallOverrides): Promise<string>;
 
     transferOwnership(
       newOwner: string,
@@ -1145,6 +1145,8 @@ export class XTaker extends BaseContract {
 
     getOwner(overrides?: CallOverrides): Promise<BigNumber>;
 
+    htzFtm(overrides?: CallOverrides): Promise<BigNumber>;
+
     nextNode(overrides?: CallOverrides): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1278,8 +1280,6 @@ export class XTaker extends BaseContract {
 
     tgrFtm(overrides?: CallOverrides): Promise<BigNumber>;
 
-    tgrHtz(overrides?: CallOverrides): Promise<BigNumber>;
-
     transferOwnership(
       newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -1351,6 +1351,8 @@ export class XTaker extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     getOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    htzFtm(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     nextNode(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1487,8 +1489,6 @@ export class XTaker extends BaseContract {
     tgrBusd(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     tgrFtm(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    tgrHtz(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     transferOwnership(
       newOwner: string,

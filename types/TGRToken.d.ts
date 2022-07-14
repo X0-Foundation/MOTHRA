@@ -28,13 +28,16 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     "begin(address)": FunctionFragment;
     "burn(address,uint256)": FunctionFragment;
     "bury(address,uint256)": FunctionFragment;
+    "changeBurnRates(uint256,uint256)": FunctionFragment;
     "changePairStatus(address,address,address,uint8,address)": FunctionFragment;
     "checkForConsistency()": FunctionFragment;
     "decimals()": FunctionFragment;
     "decreaseAllowance(address,uint256)": FunctionFragment;
     "feeRates(uint8)": FunctionFragment;
     "feeStores()": FunctionFragment;
+    "getCurrentActionType()": FunctionFragment;
     "getOwner()": FunctionFragment;
+    "htzFtm()": FunctionFragment;
     "increaseAllowance(address,uint256)": FunctionFragment;
     "lastSession()": FunctionFragment;
     "lp_reward()": FunctionFragment;
@@ -63,7 +66,6 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     "symbol()": FunctionFragment;
     "tgrBusd()": FunctionFragment;
     "tgrFtm()": FunctionFragment;
-    "tgrHtz()": FunctionFragment;
     "totalSupply()": FunctionFragment;
     "transfer(address,uint256)": FunctionFragment;
     "transferDirectSafe(address,address,uint256)": FunctionFragment;
@@ -98,6 +100,10 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
+    functionFragment: "changeBurnRates",
+    values: [BigNumberish, BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "changePairStatus",
     values: [string, string, string, BigNumberish, string]
   ): string;
@@ -115,7 +121,12 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "feeStores", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "getCurrentActionType",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "getOwner", values?: undefined): string;
+  encodeFunctionData(functionFragment: "htzFtm", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "increaseAllowance",
     values: [string, BigNumberish]
@@ -186,7 +197,6 @@ interface TGRTokenInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
   encodeFunctionData(functionFragment: "tgrBusd", values?: undefined): string;
   encodeFunctionData(functionFragment: "tgrFtm", values?: undefined): string;
-  encodeFunctionData(functionFragment: "tgrHtz", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "totalSupply",
     values?: undefined
@@ -229,6 +239,10 @@ interface TGRTokenInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "bury", data: BytesLike): Result;
   decodeFunctionResult(
+    functionFragment: "changeBurnRates",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "changePairStatus",
     data: BytesLike
   ): Result;
@@ -243,7 +257,12 @@ interface TGRTokenInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "feeRates", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "feeStores", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getCurrentActionType",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "getOwner", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "htzFtm", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "increaseAllowance",
     data: BytesLike
@@ -305,7 +324,6 @@ interface TGRTokenInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "tgrBusd", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "tgrFtm", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "tgrHtz", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "totalSupply",
     data: BytesLike
@@ -484,6 +502,12 @@ export class TGRToken extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    changeBurnRates(
+      _buysell_burn_rate: BigNumberish,
+      _shift_burn_rate: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     changePairStatus(
       pair: string,
       token0: string,
@@ -512,7 +536,13 @@ export class TGRToken extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string] & { accountant: string }>;
 
+    getCurrentActionType(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     getOwner(overrides?: CallOverrides): Promise<[string]>;
+
+    htzFtm(overrides?: CallOverrides): Promise<[string]>;
 
     increaseAllowance(
       spender: string,
@@ -652,8 +682,6 @@ export class TGRToken extends BaseContract {
 
     tgrFtm(overrides?: CallOverrides): Promise<[string]>;
 
-    tgrHtz(overrides?: CallOverrides): Promise<[string]>;
-
     totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     transfer(
@@ -778,6 +806,12 @@ export class TGRToken extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  changeBurnRates(
+    _buysell_burn_rate: BigNumberish,
+    _shift_burn_rate: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   changePairStatus(
     pair: string,
     token0: string,
@@ -801,7 +835,13 @@ export class TGRToken extends BaseContract {
 
   feeStores(overrides?: CallOverrides): Promise<string>;
 
+  getCurrentActionType(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   getOwner(overrides?: CallOverrides): Promise<string>;
+
+  htzFtm(overrides?: CallOverrides): Promise<string>;
 
   increaseAllowance(
     spender: string,
@@ -941,8 +981,6 @@ export class TGRToken extends BaseContract {
 
   tgrFtm(overrides?: CallOverrides): Promise<string>;
 
-  tgrHtz(overrides?: CallOverrides): Promise<string>;
-
   totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
   transfer(
@@ -1064,6 +1102,12 @@ export class TGRToken extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    changeBurnRates(
+      _buysell_burn_rate: BigNumberish,
+      _shift_burn_rate: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     changePairStatus(
       pair: string,
       token0: string,
@@ -1087,7 +1131,11 @@ export class TGRToken extends BaseContract {
 
     feeStores(overrides?: CallOverrides): Promise<string>;
 
+    getCurrentActionType(overrides?: CallOverrides): Promise<number>;
+
     getOwner(overrides?: CallOverrides): Promise<string>;
+
+    htzFtm(overrides?: CallOverrides): Promise<string>;
 
     increaseAllowance(
       spender: string,
@@ -1221,8 +1269,6 @@ export class TGRToken extends BaseContract {
     tgrBusd(overrides?: CallOverrides): Promise<string>;
 
     tgrFtm(overrides?: CallOverrides): Promise<string>;
-
-    tgrHtz(overrides?: CallOverrides): Promise<string>;
 
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1475,6 +1521,12 @@ export class TGRToken extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    changeBurnRates(
+      _buysell_burn_rate: BigNumberish,
+      _shift_burn_rate: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     changePairStatus(
       pair: string,
       token0: string,
@@ -1498,7 +1550,13 @@ export class TGRToken extends BaseContract {
 
     feeStores(overrides?: CallOverrides): Promise<BigNumber>;
 
+    getCurrentActionType(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     getOwner(overrides?: CallOverrides): Promise<BigNumber>;
+
+    htzFtm(overrides?: CallOverrides): Promise<BigNumber>;
 
     increaseAllowance(
       spender: string,
@@ -1607,8 +1665,6 @@ export class TGRToken extends BaseContract {
 
     tgrFtm(overrides?: CallOverrides): Promise<BigNumber>;
 
-    tgrHtz(overrides?: CallOverrides): Promise<BigNumber>;
-
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
     transfer(
@@ -1693,6 +1749,12 @@ export class TGRToken extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    changeBurnRates(
+      _buysell_burn_rate: BigNumberish,
+      _shift_burn_rate: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
     changePairStatus(
       pair: string,
       token0: string,
@@ -1721,7 +1783,13 @@ export class TGRToken extends BaseContract {
 
     feeStores(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    getCurrentActionType(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
     getOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    htzFtm(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     increaseAllowance(
       spender: string,
@@ -1832,8 +1900,6 @@ export class TGRToken extends BaseContract {
     tgrBusd(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     tgrFtm(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    tgrHtz(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

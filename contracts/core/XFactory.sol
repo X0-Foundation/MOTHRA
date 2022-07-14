@@ -29,17 +29,11 @@ contract XFactory is Node, IXFactory, Ownable {
     }
 
     function setNode(NodeType nodeType, address node, address caller) public override {
-        if (caller != address(this)) {  // let caller be address(0) when an actor initiats this loop
-            WireLibrary.setNode(nodeType, node, nodes);
-            if (nodeType == NodeType.Token || nodeType == NodeType.Maker || nodeType == NodeType.Taker) {
-                for (uint256 i = 0; i < allPairs.length; i++) {
-                    IXPair(allPairs[i]).setNodes(nodes.token, nodes.maker, nodes.taker);
-                }
+        super.setNode(nodeType, node, caller);
+        if (nodeType == NodeType.Token || nodeType == NodeType.Maker || nodeType == NodeType.Taker) {
+            for (uint256 i = 0; i < allPairs.length; i++) {
+                IXPair(allPairs[i]).setNodes(nodes.token, nodes.maker, nodes.taker);
             }
-            address trueCaller = caller == address(0) ? address(this) : caller;
-            INode(nextNode).setNode(nodeType, node, trueCaller);
-        } else {
-            emit SetNode(nodeType, node);
         }
     }
 

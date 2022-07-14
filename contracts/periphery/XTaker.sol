@@ -62,17 +62,10 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
         address node,
         address caller
     ) public virtual override wired {
-        if (caller != address(this)) {
-            // let caller be address(0) when an actor initiats this loop.
-            WireLibrary.setNode(nodeType, node, nodes);
-            if (nodeType == NodeType.Token) {
-                sessionRegistrar = ISessionRegistrar(node);
-                sessionFees = ISessionFees(node);
-            }
-            address trueCaller = caller == address(0) ? address(this) : caller;
-            INode(nextNode).setNode(nodeType, node, trueCaller);
-        } else {
-            emit SetNode(nodeType, node);
+        super.setNode(nodeType, node, caller);
+        if (nodeType == NodeType.Token) {
+            sessionRegistrar = ISessionRegistrar(node);
+            sessionFees = ISessionFees(node);
         }
     }
 

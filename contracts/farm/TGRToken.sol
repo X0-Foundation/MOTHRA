@@ -58,6 +58,9 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     mapping(address => User) Users;
     uint256 nonUserSumTokens;
 
+    uint256 buysell_burn_rate;
+    uint256 shift_burn_rate;
+
     // test accounts
     address admin; address alice; address bob; address carol;
 
@@ -119,8 +122,22 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         votes = 0x976EA74026E726554dB657fA54763abd0C3a0aa9;
 
         lp_reward = Pulse(block.timestamp, 2 seconds, 690, tgrFtm, 0, 0, 0, block.timestamp / (2 seconds));
+        // 0.69% of XDAO/FTM LP has the XDAO side sold for FTM, 
+        // then the FTM is used to buy HTZ which is added to XDAO lps airdrop rewards every 12 hours.        
+        
         vote_burn = Pulse(block.timestamp, 2 seconds, 70, votes, 0, 0, 0, block.timestamp / (2 seconds));
+        // 0.07% of tokens in the Agency dapp actively being used for voting burned every 12 hours.
+
         user_burn = Pulse(block.timestamp, 4 seconds, 777, zero_address, 0, 0, 0, block.timestamp / (4 seconds));
+        // 0.777% of tokens(not in Cyberswap/Agency dapp) burned each 24 hours from users wallets. 
+
+        // ------------ What to do with this requirement ?
+        // 1–55% Fee sold to HTZ and added to XDAO lps airdrop rewards depending on how much you are purchasing or selling. 
+        // This is to punish large buyers/sellers but add large rewards for our dedicated DAO members.
+
+
+        buysell_burn_rate = 31415; // 31.4159265359% Fee burned on buys and sells.
+        shift_burn_rate = 13374; // 13.37420% fee on transfers burned.
 
         trackFeeStores = true;
         trackFeeRates = true;
@@ -206,9 +223,18 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     }
 
     function _transferHub(address sender, address recipient, uint256 amount) internal virtual {
+        _openAction(ActionType.Transfer, true);
+
         if (amount > 0) {
+            if (actionParams.isUserAction) {  // Shift transfer
+                uint256 burn = amount * buysell_burn_rate / FeeMagnifier;
+                _burn(sender, burn);
+                amount -= burn;
+            }
             _transfer(sender, recipient, amount);
         }
+
+        _closeAction();
     }
 
     function _approve(
@@ -415,6 +441,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
 
     //======================= DEX cooperations ===============================
 
+
     function transferDirectSafe(
         address sender,
         address recipient,
@@ -428,12 +455,60 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         || pairs[msgSender].token0 != address(0),    // coming from a pair
         sForbidden);
 
+        if (msgSender == nodes.maker) { // Add/Remove TGR liquidity.
+            // if (pairs[recipient].token0 != address(0)) {  // Add
+            //     console.log("Add");
+            // } else if (sender == nodes.maker) {  // Remove
+            //     console.log("Remove");
+            // }   
+        } else if (msgSender == nodes.taker) { // Buy/Sell TGR tokens
+            // if (pairs[recipient].token0 != address(0)) {  // Sell, as Taker sends tokens (from any) to a pool.
+            //     console.log("Sell");
+            // } else if (sender == nodes.taker) {  // Buy, as Taker sends tokens from Taker to a non-pool.
+            //     console.log("Buy");
+            // }
+
+            uint256 burn = amount * buysell_burn_rate / FeeMagnifier;
+            _burn(sender, burn);
+            amount -= burn;
+
+        } else if (pairs[msgSender].token0 != address(0)) { // Remove/Buy
+            require( msgSender == sender, "Inconsistent1" );
+
+            if (recipient == nodes.maker) { // No fee or burn, as it's a midway transfer to Maker.
+            } else if (recipient == nodes.taker) { // No fee or burn, as it's a midway transfer to Taker.
+            } else {
+                ActionType action = _getCurrentActionType();
+
+                if(action == ActionType.Swap) { // Buy
+                    uint256 burn = amount * buysell_burn_rate / FeeMagnifier;
+                    _burn(sender, burn);
+                    amount -= burn;
+                } 
+                //   else if (action == ActionType.RemoveLiquidity) { // Remove
+                //     console.log("Remove");
+                // } else {
+                //     console.log("??????????????");
+                // }
+            }
+        } else {
+                revert("Inconsistent2");
+        }
+
         if (amount > _balances[sender]) amount = _balances[sender];
         if (amount > 0) {
             _transfer(sender, recipient, amount);
             //_moveDelegates(_delegates[sender], _delegates[recipient], amount);
         }
     }
+
+    function changeBurnRates(uint256 _buysell_burn_rate, uint256 _shift_burn_rate) external onlyOwner {
+        require(_buysell_burn_rate <= FeeMagnifier && _shift_burn_rate <= FeeMagnifier, "Invalid burn rates");
+        buysell_burn_rate = _buysell_burn_rate;
+        shift_burn_rate = _shift_burn_rate;
+    }
+
+    //==================== Base contracts ====================
 
     modifier onlySessionManager() virtual override(SessionFees, SessionRegistrar) {
         address msgSender = _msgSender();
@@ -455,4 +530,15 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         return owner();
     }
 
+    function setNode(
+        NodeType nodeType,
+        address node,
+        address caller
+    ) public virtual override wired {
+        super.setNode(nodeType, node, caller);
+        if (nodeType == NodeType.Token) {
+            sessionRegistrar = ISessionRegistrar(node);
+            sessionFees = ISessionFees(node);
+        }
+    }
 }

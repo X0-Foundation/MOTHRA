@@ -12,6 +12,19 @@ import type {
 const _abi = [
   {
     inputs: [],
+    name: "getCurrentActionType",
+    outputs: [
+      {
+        internalType: "enum ActionType",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "lastSession",
     outputs: [
       {

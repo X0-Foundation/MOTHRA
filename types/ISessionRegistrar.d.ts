@@ -21,10 +21,15 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface ISessionRegistrarInterface extends ethers.utils.Interface {
   functions: {
+    "getCurrentActionType()": FunctionFragment;
     "registerAction(uint8,bool)": FunctionFragment;
     "unregisterAction()": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "getCurrentActionType",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "registerAction",
     values: [BigNumberish, boolean]
@@ -34,6 +39,10 @@ interface ISessionRegistrarInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
 
+  decodeFunctionResult(
+    functionFragment: "getCurrentActionType",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "registerAction",
     data: BytesLike
@@ -90,6 +99,10 @@ export class ISessionRegistrar extends BaseContract {
   interface: ISessionRegistrarInterface;
 
   functions: {
+    getCurrentActionType(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     registerAction(
       actionType: BigNumberish,
       blockReentry: boolean,
@@ -100,6 +113,10 @@ export class ISessionRegistrar extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
+
+  getCurrentActionType(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   registerAction(
     actionType: BigNumberish,
@@ -112,6 +129,8 @@ export class ISessionRegistrar extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    getCurrentActionType(overrides?: CallOverrides): Promise<number>;
+
     registerAction(
       actionType: BigNumberish,
       blockReentry: boolean,
@@ -131,6 +150,10 @@ export class ISessionRegistrar extends BaseContract {
   filters: {};
 
   estimateGas: {
+    getCurrentActionType(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     registerAction(
       actionType: BigNumberish,
       blockReentry: boolean,
@@ -143,6 +166,10 @@ export class ISessionRegistrar extends BaseContract {
   };
 
   populateTransaction: {
+    getCurrentActionType(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
     registerAction(
       actionType: BigNumberish,
       blockReentry: boolean,

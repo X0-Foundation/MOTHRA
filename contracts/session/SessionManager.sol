@@ -20,6 +20,10 @@ abstract contract SessionManager is ISessionManager {
         sessionRegistrar.unregisterAction();
     }
 
+    function _getCurrentActionType() internal returns( ActionType ) {
+        return sessionRegistrar.getCurrentActionType();
+    }
+
     function _payFeeTgr(address account, uint256 principal, FeeRates memory rates, bool fromAllowance ) internal virtual returns (uint256 feesPaid) {
         feesPaid = sessionFees.payFeeTgrLogic(account, principal, rates, fromAllowance);
     }

@@ -221,6 +221,19 @@ const _abi = [
   },
   {
     inputs: [],
+    name: "htzFtm",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "nextNode",
     outputs: [
       {
@@ -392,19 +405,6 @@ const _abi = [
   {
     inputs: [],
     name: "tgrFtm",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "tgrHtz",
     outputs: [
       {
         internalType: "address",

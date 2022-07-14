@@ -21,6 +21,7 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface SessionRegistrarInterface extends ethers.utils.Interface {
   functions: {
+    "getCurrentActionType()": FunctionFragment;
     "lastSession()": FunctionFragment;
     "pause()": FunctionFragment;
     "paused()": FunctionFragment;
@@ -31,6 +32,10 @@ interface SessionRegistrarInterface extends ethers.utils.Interface {
     "unregisterAction()": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "getCurrentActionType",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "lastSession",
     values?: undefined
@@ -52,6 +57,10 @@ interface SessionRegistrarInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
 
+  decodeFunctionResult(
+    functionFragment: "getCurrentActionType",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "lastSession",
     data: BytesLike
@@ -120,6 +129,10 @@ export class SessionRegistrar extends BaseContract {
   interface: SessionRegistrarInterface;
 
   functions: {
+    getCurrentActionType(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     lastSession(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     pause(
@@ -149,6 +162,10 @@ export class SessionRegistrar extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
+
+  getCurrentActionType(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   lastSession(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -180,6 +197,8 @@ export class SessionRegistrar extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    getCurrentActionType(overrides?: CallOverrides): Promise<number>;
+
     lastSession(overrides?: CallOverrides): Promise<BigNumber>;
 
     pause(overrides?: CallOverrides): Promise<void>;
@@ -214,6 +233,10 @@ export class SessionRegistrar extends BaseContract {
   filters: {};
 
   estimateGas: {
+    getCurrentActionType(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     lastSession(overrides?: CallOverrides): Promise<BigNumber>;
 
     pause(
@@ -245,6 +268,10 @@ export class SessionRegistrar extends BaseContract {
   };
 
   populateTransaction: {
+    getCurrentActionType(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
     lastSession(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     pause(

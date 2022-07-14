@@ -36,7 +36,7 @@ const {
     const zero_address = "0x0000000000000000000000000000000000000000";
     
     let wireLib, factory, wbnb, center, crossLib, routerLib, maker, taker, tgr, mock, mock2, farm, farmLib, xTgr, referral, rTgr, rSyrup, repay;
-    let tgr_bnb, tgr_mck, tgr_mck2;
+    let tgr_bnb, mck_bnb, tgr_mck, tgr_mck2;
     let owner, alice, bob, carol, tgrFtm, tgrHtz, votes;
     let tx;
     
@@ -273,7 +273,10 @@ async function transfer(sender, recipient, amount) {
     let balance = await tgr.balanceOf(sender.address);
     if (amountWei > balance) amountWei = balance;
     //console.log("\t%s is transferring %s %s TGR ...".yellow, sender.name, recipient.name, weiToEth(amountWei));
-    console.log("\t%s is transferring %s ...".yellow, sender.name, recipient.name);
+    console.log("\t%s is transferring to %s ...".yellow, 
+    sender.name == undefined ? "undefined" : sender.name,
+    recipient.hasOwnProperty("name") ? (recipient.name == undefined ? "undefined" : recipient.name) : "NoName" );
+
     tx = tgr.connect(sender).transfer(recipient.address, amountWei );
     (await tx).wait();
     console.log("\tTransfer done".green);
@@ -543,7 +546,7 @@ async function test_swap(tokenA, amountA, tokenB, amountB, caller, to, log) {
                 if (amountA != undefined) {
                     assert(amountB == undefined);
                     await tokenA.approve(taker.address, utils.parseEther(amountA.toString()));
-                    await taker.swapExactTokensForETH(utils.parseEther(amountA.toString()), 0, [tokenA.address, tokenB.address], to.address, block.timestamp + 100);
+                    await taker.swapExactTokensForETHSupportingFeeOnTransferTokens(utils.parseEther(amountA.toString()), 0, [tokenA.address, tokenB.address], to.address, block.timestamp + 100);
                 } else {
                     assert(amountB != undefined);
                     let approval = 100000000000000000000; // large enough?
@@ -556,7 +559,7 @@ async function test_swap(tokenA, amountA, tokenB, amountB, caller, to, log) {
                 if (amountA != undefined) {
                     assert(amountB == undefined);
                     await tokenA.approve(taker.address, utils.parseEther(amountA.toString()));
-                    await taker.swapExactTokensForTokens(utils.parseEther(amountA.toString()), 0, [tokenA.address, tokenB.address], to.address, block.timestamp + 100);
+                    await taker.swapExactTokensForTokensSupportingFeeOnTransferTokens(utils.parseEther(amountA.toString()), 0, [tokenA.address, tokenB.address], to.address, block.timestamp + 100);
                 } else {
                     assert(amountB != undefined);
                     let approval = 100000000000000000000; // large enough?
@@ -880,6 +883,9 @@ describe("====================== Stage 4: Test Dex ======================\n".yel
         await tgr.pulse_user_burn();
         await showVirtualBurn();
 
+        [mck_bnb, report] = await test_addLiquidity(mock, tgrAmount / 3, wbnb, bnbAmount / 3, owner, carol, true); // ------------ mck_bnb
+        await mintBlocks(50);
+
         [report, tgrAmount] = await test_swap(wbnb, 1, tgr, undefined, alice, bob, true);
         await mintBlocks(50);
         await tgr.pulse_user_burn();
@@ -890,10 +896,11 @@ describe("====================== Stage 4: Test Dex ======================\n".yel
         await tgr.pulse_user_burn();
         await showVirtualBurn();
 
-        [report, tgrAmount] = await test_swap(tgr, undefined, wbnb, bnbAmount * 0.99, alice, bob, true); //----------------------------
-        await mintBlocks(50);
-        await tgr.pulse_user_burn();
-        await showVirtualBurn();
+        // ------------------------ This doesn't work for TGR contract which collect fees.        
+        // [report, tgrAmount] = await test_swap(tgr, undefined, wbnb, bnbAmount * 0.99, alice, bob, true); //----------------------------
+        // await mintBlocks(50);
+        // await tgr.pulse_user_burn();
+        // await showVirtualBurn();
 
         let liquidityAmount = 0.001;
         report = await test_removeLiquidity(tgr, wbnb, liquidityAmount, alice, alice, true);
@@ -988,88 +995,6 @@ describe("====================== Stage 4: Test Dex ======================\n".yel
         await showVirtualBurn();
     });
 
-    //     it("Transfer function was checked.\n".green, async function () {
-    //       // consoleLogWithTab("Transfer 1000 tokens from owner to Alice should be failed with <Exceed MaxTransferAmount>.");
-    //       // let tx = tgr.transfer(alice.address, ethToWei(1000));
-    //       // await expectRevertedWith(tx, "Exceed MaxTransferAmount");
-
-    //       let maxTransferAmount = await tgr.maxTransferAmount();
-    //       console.log("\tBecause maxTransferAmount value is ${weiToEth(await tgr.maxTransferAmount())}.");
-
-    //       consoleLogWithTab("Transfer 100 tokens from owner to Alice.");
-    //       let transferAmount = 100;
-    //       let ownerTgrBalance = await getTokenBalanceOfAddress(tgr, owner.address);
-    //       console.log("\tBefore transfer, owner has ${weiToEthEn(ownerTgrBalance)} TGR tokens.");
-    //       let aliceTgrBalance = await getTokenBalanceOfAddress(tgr, alice.address);
-    //       console.log("\tBefore transfer, alice has ${weiToEthEn(aliceTgrBalance)} TGR tokens.");
-
-    //       tx = tgr.transfer(alice.address, ethToWei(transferAmount));
-    //       await expectNotReverted(tx);
-
-    //       let afterOwnerTgrBalance = await getTokenBalanceOfAddress(tgr, owner.address);
-    //       console.log("\tAfter transfer, owner has ${weiToEthEn(ownerTgrBalance)} TGR tokens.");
-    //       let afterAliceTgrBalance = await getTokenBalanceOfAddress(tgr, alice.address);
-    //       console.log("\tAfter transfer, alice has ${weiToEthEn(aliceTgrBalance)} TGR tokens.");
-
-    //       console.log("\tOwner TGR balance is reduced by ${transferAmount}.");
-    //       expectEqual(ownerTgrBalance.sub(afterOwnerTgrBalance), ethToWei(transferAmount));
-
-    //       let transferAmountWithOutFee = getTransferAmountWithOutFee(transferAmount);
-    //       consoleLogWithTab(
-    //         "Alice TGR balance is increased by ${weiToEthEn(
-    //           transferAmountWithOutFee
-    //         )} expect tranfer fee from ${transferAmount}."
-    //       );
-    //       expectEqual(afterAliceTgrBalance.sub(aliceTgrBalance), transferAmountWithOutFee);
-
-    //       console.log("\tCannot transfer over its balance.");
-    //       tx = tgr.connect(alice).transfer(bob.address, afterAliceTgrBalance.add(ethToWei(1)));
-    //       await expectRevertedWith(tx, "Exceeds balance");
-    //     });
-
-    //     it("TransferFrom function was checked.\n".green, async function () {
-    //       const maxTransferAmount = await tgr.maxTransferAmount();
-    //       console.log("\tMax transfer amount is ${weiToEthEn(maxTransferAmount)}");
-
-    //       console.log("\tApprove for bob to tranfer from owner as maxTransferAmount + 100.");
-    //       let tx = tgr.approve(bob.address, maxTransferAmount.add(ethToWei(100)));
-    //       await expectNotReverted(tx);
-
-    //       let allowance = await tgr.allowance(owner.address, bob.address);
-    //       console.log("\tallowance[owner][bob] is ${weiToEthEn(allowance)}");
-
-    //       tx = tgr.connect(bob).transferFrom(owner.address, carol.address, allowance.add(ethToWei(1)));
-    //       await expectRevertedWith(tx, "Transfer exceeds allowance");
-    //       consoleLogWithTab(
-    //         "TransferFrom-ing over allowance amount reverted with <Transfer exceeds allowance>."
-    //       );
-
-
-    //       tx = tgr.connect(bob).transferFrom(owner.address, carol.address, allowance.sub(ethToWei(1)));
-    //       await expectRevertedWith(tx, "Exceed MaxTransferAmount");
-    //       consoleLogWithTab(
-    //         "Transfer-ring over maxTransferAmount reverted with <Exceed MaxTransferAmount>."
-    //       );
-    //       let ownerTgrBalance = await getTokenBalanceOfAddress(tgr, owner.address);
-    //       console.log("\tOwner TGR balance before transfer: ${weiToEthEn(ownerTgrBalance)}");
-    //       let carolTgrBalance = await getTokenBalanceOfAddress(tgr, carol.address);
-    //       console.log("\tCarol's TGR balance before transfer: ${weiToEthEn(carolTgrBalance)}");
-    //       consoleLogWithTab("Transfer from less than allowance and maxTransferAmount will be succeed.");
-
-    //       tx = tgr.connect(bob).transferFrom(owner.address, carol.address, maxTransferAmount.sub(ethToWei(100)));
-    //       await expectNotReverted(tx);
-
-    //       ownerTgrBalance = await getTokenBalanceOfAddress(tgr, owner.address);
-    //       console.log("\tOwner TGR balance after transfer: ${weiToEthEn(ownerTgrBalance)}");
-    //       carolTgrBalance = await getTokenBalanceOfAddress(tgr, carol.address);
-    //       console.log("\tCarol's TGR balance after transfer: ${weiToEthEn(carolTgrBalance)}");
-
-    //       let afterAllowance = await tgr.allowance(owner.address, bob.address);
-    //       console.log("\tallowance[owner][bob] after transfer is ${weiToEthEn(afterAllowance)}");
-    //       console.log("\tIt would be reduced by transfer amount.");
-    //       expectEqual(allowance.sub(afterAllowance), maxTransferAmount.sub(ethToWei(100)));
-    //     });
-
     it ("Test Pulses, extended.\n".green, async function () {
         await showVirtualBurn();
 
@@ -1107,8 +1032,6 @@ describe("====================== Stage 4: Test Dex ======================\n".yel
         await tgr.pulse_user_burn();
         await showVirtualBurn();
 
-        // tgr_bnb.name = "_tgrFtm";
-        // console.log("tgr_bnb", tgr_bnb.address, tgr_bnb.name);
         // await transfer(owner, tgr_bnb, 100);
         // await mintBlocks(50);
         // await tgr.pulse_user_burn();
@@ -1121,10 +1044,10 @@ describe("====================== Stage 4: Test Dex ======================\n".yel
         // await tgr.pulse_user_burn();
         // await showVirtualBurn();
 
-        // await transfer(owner, votes, 100);
-        // await mintBlocks(20);
-        // await tgr.pulse_vote_burn();
-        // await showVirtualBurn();
+        await transfer(owner, votes, 100);
+        await mintBlocks(20);
+        await tgr.pulse_vote_burn();
+        await showVirtualBurn();
 
     });
 
