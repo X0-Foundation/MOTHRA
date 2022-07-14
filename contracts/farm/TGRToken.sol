@@ -564,4 +564,6 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             sessionFees = ISessionFees(node);
         }
     }
+
+    //================== Agency-related ====================
 }
