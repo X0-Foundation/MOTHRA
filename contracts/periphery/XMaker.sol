@@ -479,17 +479,19 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
         (amounts[0], amountWETH) = IXPair(pair).dilute(liquidity, address(this));
         (address token0,) = XLibrary.sortTokens(token, WETH);
         if (token != token0 ) (amounts[0], amountWETH) = (amountWETH, amounts[0]);
-        (uint reserveToken, uint reserveWETH, ) = IXPair(pair).getReserves();
-        if (token != token0 ) (reserveToken, reserveWETH) = (reserveWETH, reserveToken);
-        amounts[1] = XLibrary.getAmountOut(amounts[0], reserveToken, reserveWETH);
-        address[] memory path = new address[](2);
-        path[0] = token; path[1] = WETH;
-        IERC20(token).approve(address(this), amounts[0]);
 
-        //TransferHelper.safeTransferFrom(token, address(this), pair, amounts[0]); // routed to _transferHub()
-        XLibrary.lightTransferFrom(token, address(this), pair, amounts[0], nodes.token); // routed to transferDirectSafe()
-        _swap(amounts, path, address(this));
-        amountWETH = amountWETH + amounts[1];
+        // ----------- Commented out, because of requirement change.
+        // Swap amounts[0] tokens for additional WETH tokens.
+        // (uint reserveToken, uint reserveWETH, ) = IXPair(pair).getReserves();
+        // if (token != token0 ) (reserveToken, reserveWETH) = (reserveWETH, reserveToken);
+        // amounts[1] = XLibrary.getAmountOut(amounts[0], reserveToken, reserveWETH);
+        // address[] memory path = new address[](2);
+        // path[0] = token; path[1] = WETH;
+        // IERC20(token).approve(address(this), amounts[0]);
+        // XLibrary.lightTransferFrom(token, address(this), pair, amounts[0], nodes.token); // routed to transferDirectSafe()
+        // _swap(amounts, path, address(this));
+        // amountWETH = amountWETH + amounts[1];
+
         require(amountWETH >= amountETHMin, 'XRouter: INSUFFICIENT_AMOUNT');
         IWETH(WETH).withdraw(amountWETH);
         TransferHelper.safeTransferETH(to, amountWETH);
