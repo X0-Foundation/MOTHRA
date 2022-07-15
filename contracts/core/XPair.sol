@@ -99,7 +99,6 @@ contract XPair is IXPair {
         address to,
         uint256 value
     ) private {
-
         if (tokenToTransfer == token) {
             ITGRToken(tokenToTransfer).transferDirectSafe(address(this), to, value);
         } else {

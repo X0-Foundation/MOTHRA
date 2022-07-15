@@ -44,8 +44,8 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\core\\XPair.sol": {
-      "lastModificationDate": 1657835609188,
-      "contentHash": "ba6c6f2826fc07fba4f61ea612267f6f",
+      "lastModificationDate": 1657897661407,
+      "contentHash": "4cb28fb46d75193799359c646ed1ce98",
       "sourceName": "contracts/core/XPair.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -479,8 +479,8 @@
       "artifacts": []
     },
     "D:\\HARDHAT\\XContracts\\contracts\\libraries\\XLibrary.sol": {
-      "lastModificationDate": 1657838274971,
-      "contentHash": "4a54e420c2819ad851c498e509a18978",
+      "lastModificationDate": 1657897853873,
+      "contentHash": "c73574491dba1b52bc321763bbcfbd67",
       "sourceName": "contracts/libraries/XLibrary.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -1480,7 +1480,7 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\periphery\\XMaker.sol": {
-      "lastModificationDate": 1657892506933,
+      "lastModificationDate": 1657894994258,
       "contentHash": "a0e067d2f89b372efb9e99211408d0c0",
       "sourceName": "contracts/periphery/XMaker.sol",
       "solcConfig": {
@@ -1626,8 +1626,8 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\farm\\TGRToken.sol": {
-      "lastModificationDate": 1657835609188,
-      "contentHash": "b86d771ebf7951173dedd60b9c2d34ed",
+      "lastModificationDate": 1657898102248,
+      "contentHash": "79d012af0fc91a56c920ae29b5a47b23",
       "sourceName": "contracts/farm/TGRToken.sol",
       "solcConfig": {
         "version": "0.8.14",

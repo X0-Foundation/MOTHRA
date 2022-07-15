@@ -644,7 +644,7 @@ describe("====================== Stage 1: Deploy ======================\n".yello
 
         center = await deployCenter(owner, wireLib.address);
         center.address = center.address;
-        console.log("\tContralCenter deployed at %s", center.address);
+        console.log("\tControlCenter deployed at %s", center.address);
 
         crossLib = await deployXLibrary(owner);
         console.log("\tXLibrary deployed at %s", crossLib.address);

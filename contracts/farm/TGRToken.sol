@@ -383,7 +383,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         uint256 amountETH = IXMaker(nodes.maker).diluteLiquidityForETH(
             address(this), decay, 0, address(this), block.timestamp
         );
-        console.log("FTM gaind by LP dilution -----", amountETH);
+        console.log("FTM gained by LP dilution -----", amountETH);
         address[] memory path = new address[](2);
         path[0] = WBNB; path[1] = HTZ;
         uint256 amountHertz = IERC20(HTZ).balanceOf(address(this));
@@ -391,7 +391,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         // We may need to get this swap free from the price change control.
         IXTaker(nodes.taker).swapExactETHForTokens {value: amountETH} (0, path, address(this), block.timestamp);
         amountHertz = IERC20(HTZ).balanceOf(address(this)) - amountHertz;
-        console.log("HTZ gaind by swap -----", amountHertz);
+        console.log("HTZ gained by swap -----", amountHertz);
         IERC20(HTZ).transfer(HTZRewards, amountHertz);
 
         lp_reward.latestTime = block.timestamp;
@@ -471,51 +471,55 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         || pairs[msgSender].token0 != address(0),    // coming from a pair
         sForbidden);
 
-        if (msgSender == nodes.maker) { // Add/Dilute/Remove TGR liquidity.
-            if (pairs[recipient].token0 != address(0)) {  // Add
+        if (msgSender == nodes.maker) { // Add/Remove TGR liquidity. 'Dilute' removed, as requirement changed.
+            if (pairs[recipient].token0 != address(0)) {
                 ActionType action = _getCurrentActionType();
-                if (action == ActionType.AddLiquidity) {
+                if (action == ActionType.AddLiquidity) {    // Add
                     console.log("Add");
-                } else if (action == ActionType.Dilute) {
-                    console.log("Dilute");
+                // } else if (action == ActionType.Dilute) {    // Dilute
+                //     console.log("Dilute");
+                } else {
+                    console.log("Inconsistency found 0");
                 }
             } else if (sender == nodes.maker) {  // Remove
                 console.log("Remove");
-            } // no else
+            } else {
+                revert("Inconsistency found 1");
+            }
+
         } else if (msgSender == nodes.taker) { // Buy/Sell TGR tokens
             if (pairs[recipient].token0 != address(0)) {  // Sell, as Taker sends tokens (from any) to a pool.
                 console.log("Sell");
             } else if (sender == nodes.taker) {  // Buy, as Taker sends tokens from Taker to a non-pool.
                 console.log("Buy");
-            } // no else
+            } else {
+                revert("Inconsistency found 2");
+            }
 
             uint256 burn = amount * buysell_burn_rate / FeeMagnifier;
             _burn(sender, burn);
             amount -= burn;
 
         } else if (pairs[msgSender].token0 != address(0)) { // Remove/Buy/Dilute
+
             require( msgSender == sender, "Inconsistent1" );
 
-            if (recipient == nodes.maker) { // No fee or burn, as it's a midway transfer to Maker.
-            } else if (recipient == nodes.taker) { // No fee or burn, as it's a midway transfer to Taker.
+            ActionType action = _getCurrentActionType();
+            if(action == ActionType.Swap) { // Buy
+                uint256 burn = amount * buysell_burn_rate / FeeMagnifier;
+                _burn(sender, burn);
+                amount -= burn;
+                console.log("Buy");
+            } else if (action == ActionType.RemoveLiquidity) { // Remove
+                console.log("Remove");
+            } else if (action == ActionType.Dilute) { // Dilute
+                console.log("Dilute");
             } else {
-                ActionType action = _getCurrentActionType();
-
-                if(action == ActionType.Swap) { // Buy
-                    uint256 burn = amount * buysell_burn_rate / FeeMagnifier;
-                    _burn(sender, burn);
-                    amount -= burn;
-                    console.log("Buy");
-                } else if (action == ActionType.RemoveLiquidity) { // Remove
-                    console.log("Remove");
-                } else if (action == ActionType.Dilute) { // Dilute
-                    console.log("Dilute");
-                } else {
-                    console.log("??????????????");
-                }
+                revert("Inconsistency found 3");
             }
+
         } else {
-                revert("Inconsistent2");
+                revert("Inconsistency found 3");
         }
 
         if (amount > _balances[sender]) amount = _balances[sender];
