@@ -387,7 +387,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         tgrAmount = _balanceOf(address(this)) - tgrAmount;
         _burn(address(this), tgrAmount);
 
-        console.log("FTM gained by LP dilution -----", amountETH);
+        console.log("FTM and TGR gained by LP dilution -----", amountETH, tgrAmount);
         address[] memory path = new address[](2);
         path[0] = WBNB; path[1] = HTZ;
         uint256 amountHertz = IERC20(HTZ).balanceOf(address(this));

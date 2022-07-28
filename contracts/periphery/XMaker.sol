@@ -475,7 +475,7 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
         require(msg.sender == nodes.token, "Caller is not X contract");
         uint init_balance = address(this).balance; // It may have a temporary balance.
         require(IERC20(token).balanceOf(address(this)) == 0, "Router has a balance");
-        uint[] memory amounts = new uint[](2);
+        uint[] memory amounts = new uint256[](2);
         address pair = pairFor[token][WETH];
 
         (amounts[0], amountWETH) = IXPair(pair).dilute(liquidity, address(this));
@@ -493,6 +493,9 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
         // XLibrary.lightTransferFrom(token, address(this), pair, amounts[0], nodes.token); // routed to transferDirectSafe()
         // _swap(amounts, path, address(this));
         // amountWETH = amountWETH + amounts[1];
+        
+        // instead:
+        XLibrary.lightTransferFrom(token, address(this), to, amounts[0], nodes.token);
 
         require(amountWETH >= amountETHMin, 'XRouter: INSUFFICIENT_AMOUNT');
         IWETH(WETH).withdraw(amountWETH);
