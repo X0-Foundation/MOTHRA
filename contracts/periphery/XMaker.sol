@@ -423,7 +423,9 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
         uint deadline
     ) internal virtual ensure(deadline) returns (uint amountA, uint amountB) {
         address pair = pairFor[tokenA][tokenB];
-        if(liquidity == 0) liquidity = IXPair(pair).totalSupply();
+        uint256 total = IXPair(pair).totalSupply();
+        // if(liquidity == 0) liquidity = total;
+        require(liquidity <= total, "XRouter: invalid liquidity");
 
         (uint amount0, uint amount1) = IXPair(pair).dilute(liquidity, to);
         (address token0,) = XLibrary.sortTokens(tokenA, tokenB);

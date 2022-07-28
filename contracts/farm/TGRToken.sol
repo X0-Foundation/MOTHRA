@@ -379,10 +379,14 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         // and use the FTM tokens to buy HTZ tokens at the htzftm pool, 
         // then add them to airdrop rewards.
         
+        uint256 tgrAmount = _balanceOf(address(this));
         uint256 decay = IERC20(tgrFtm).totalSupply() * decayPer1e12 / 1e12;
         uint256 amountETH = IXMaker(nodes.maker).diluteLiquidityForETH(
             address(this), decay, 0, address(this), block.timestamp
         );
+        tgrAmount = _balanceOf(address(this)) - tgrAmount;
+        _burn(address(this), tgrAmount);
+
         console.log("FTM gained by LP dilution -----", amountETH);
         address[] memory path = new address[](2);
         path[0] = WBNB; path[1] = HTZ;
@@ -465,12 +469,6 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     ) external virtual override {
         address msgSender = _msgSender();
 
-        require(
-        msgSender == nodes.taker 
-        || msgSender == nodes.maker 
-        || pairs[msgSender].token0 != address(0),    // coming from a pair
-        sForbidden);
-
         if (msgSender == nodes.maker) { // Add/Remove TGR liquidity. 'Dilute' removed, as requirement changed.
             if (pairs[recipient].token0 != address(0)) {
                 ActionType action = _getCurrentActionType();
@@ -519,7 +517,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             }
 
         } else {
-                revert("Inconsistency found 3");
+                revert("Wrong msgSender");
         }
 
         if (amount > _balances[sender]) amount = _balances[sender];
