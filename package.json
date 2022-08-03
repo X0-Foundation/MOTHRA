@@ -9,6 +9,7 @@
     "@chainlink/contracts": "^0.4.0",
     "@openzeppelin/contracts": "^4.4.2",
     "@openzeppelin/contracts-upgradeable": "^4.4.2",
+    "@uniswap/v3-periphery": "^1.4.1",
     "colors": "^1.4.0",
     "solidity-math-utils": "^1.7.0"
   },
