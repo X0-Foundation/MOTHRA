@@ -20,7 +20,7 @@ const _abi = [
         type: "uint8",
       },
     ],
-    stateMutability: "nonpayable",
+    stateMutability: "view",
     type: "function",
   },
   {

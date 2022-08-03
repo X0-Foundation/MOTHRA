@@ -66,7 +66,7 @@ abstract contract SessionRegistrar is ISessionRegistrar {
         if (stackPointer > 0) stackPointer --;      
     }
 
-    function getCurrentActionType() external override returns( ActionType ) {
+    function getCurrentActionType() external view override returns( ActionType ) {
         return actionStack[stackPointer];
     }
 }

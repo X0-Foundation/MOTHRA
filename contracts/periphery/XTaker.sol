@@ -163,7 +163,7 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
 
         amounts = XLibrary.getAmountsIn(nodes.factory, amountOut, path);
         require(amounts[0] <= amountInMax, sExcessiveInput);
-        uint b0 = IERC20(path[0]).balanceOf(pairFor[path[0]][path[1]]);
+        //uint b0 = IERC20(path[0]).balanceOf(pairFor[path[0]][path[1]]);
         XLibrary.lightTransferFrom(path[0], msg.sender, pairFor[path[0]][path[1]], amounts[0], nodes.token);
         _swap_controlled(amounts, path, address(this));
         uint256 last = path.length - 1;

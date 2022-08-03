@@ -129,9 +129,7 @@ export class SessionRegistrar extends BaseContract {
   interface: SessionRegistrarInterface;
 
   functions: {
-    getCurrentActionType(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    getCurrentActionType(overrides?: CallOverrides): Promise<[number]>;
 
     lastSession(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -163,9 +161,7 @@ export class SessionRegistrar extends BaseContract {
     ): Promise<ContractTransaction>;
   };
 
-  getCurrentActionType(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  getCurrentActionType(overrides?: CallOverrides): Promise<number>;
 
   lastSession(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -233,9 +229,7 @@ export class SessionRegistrar extends BaseContract {
   filters: {};
 
   estimateGas: {
-    getCurrentActionType(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    getCurrentActionType(overrides?: CallOverrides): Promise<BigNumber>;
 
     lastSession(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -269,7 +263,7 @@ export class SessionRegistrar extends BaseContract {
 
   populateTransaction: {
     getCurrentActionType(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     lastSession(overrides?: CallOverrides): Promise<PopulatedTransaction>;

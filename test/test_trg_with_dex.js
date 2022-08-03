@@ -1052,6 +1052,10 @@ describe("====================== Stage 4: Test Dex ======================\n".yel
 
         (await tgr.pulse_lp_reward()).wait();
 
+        await mintBlocks(5);
+        (await tgr.pulse_user_burn()).wait();
+        await showVirtualBurn();
+
     });
 
 });

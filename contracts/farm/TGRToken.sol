@@ -227,9 +227,9 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
 
         if (amount > 0) {
             if (actionParams.isUserAction) {  // Shift transfer
-                uint256 burn = amount * buysell_burn_rate / FeeMagnifier;
-                _burn(sender, burn);
-                amount -= burn;
+                uint256 burnAmount = amount * buysell_burn_rate / FeeMagnifier;
+                _burn(sender, burnAmount);
+                amount -= burnAmount;
             }
             _transfer(sender, recipient, amount);
         }
@@ -494,9 +494,9 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
                 revert("Inconsistency found 2");
             }
 
-            uint256 burn = amount * buysell_burn_rate / FeeMagnifier;
-            _burn(sender, burn);
-            amount -= burn;
+            uint256 burnAmount = amount * buysell_burn_rate / FeeMagnifier;
+            _burn(sender, burnAmount);
+            amount -= burnAmount;
 
         } else if (pairs[msgSender].token0 != address(0)) { // Remove/Buy/Dilute
 
@@ -504,9 +504,9 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
 
             ActionType action = _getCurrentActionType();
             if(action == ActionType.Swap) { // Buy
-                uint256 burn = amount * buysell_burn_rate / FeeMagnifier;
-                _burn(sender, burn);
-                amount -= burn;
+                uint256 burnAmount = amount * buysell_burn_rate / FeeMagnifier;
+                _burn(sender, burnAmount);
+                amount -= burnAmount;
                 console.log("Buy");
             } else if (action == ActionType.RemoveLiquidity) { // Remove
                 console.log("Remove");

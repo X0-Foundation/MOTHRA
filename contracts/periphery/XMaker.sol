@@ -502,7 +502,6 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
         TransferHelper.safeTransferETH(to, amountWETH);
 
         require(address(this).balance == init_balance, "ETH balance remains");
-        return amountWETH;
 
         _closeAction();
     }

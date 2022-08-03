@@ -48,7 +48,7 @@ library WireLibrary {
     }
 
     function isSamePair(address tokenA, address tokenB, address _tokenA, address _tokenB
-    ) external returns (bool) {
+    ) external pure returns (bool) {
         return (tokenA == _tokenA && tokenB == _tokenB) || (tokenA == _tokenB && tokenB == _tokenA);
     }
 }

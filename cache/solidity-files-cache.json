@@ -396,6 +396,48 @@
         "ITGRToken"
       ]
     },
+    "D:\\HARDHAT\\XContracts\\node_modules\\hardhat\\console.sol": {
+      "lastModificationDate": 1655726344234,
+      "contentHash": "cc4777addd464ea56fa35b1c45df0591",
+      "sourceName": "hardhat/console.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.4.22 <0.9.0"
+      ],
+      "artifacts": [
+        "console"
+      ]
+    },
     "D:\\HARDHAT\\XContracts\\contracts\\core\\interfaces\\IPancakePair.sol": {
       "lastModificationDate": 1651857162598,
       "contentHash": "1c48659f03071916b39d7c60b4b6e69a",
@@ -478,100 +520,9 @@
       ],
       "artifacts": []
     },
-    "D:\\HARDHAT\\XContracts\\contracts\\libraries\\XLibrary.sol": {
-      "lastModificationDate": 1658977397520,
-      "contentHash": "0e1a7a1417b6bd3dd2313d804aed302d",
-      "sourceName": "contracts/libraries/XLibrary.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./math/SafeMath.sol",
-        "../core/interfaces/IXPair.sol",
-        "../farm/interfaces/ITGRToken.sol",
-        "../session/interfaces/IConstants.sol",
-        "../libraries/utils/TransferHelper.sol",
-        "hardhat/console.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "XLibrary"
-      ]
-    },
-    "D:\\HARDHAT\\XContracts\\contracts\\libraries\\utils\\TransferHelper.sol": {
-      "lastModificationDate": 1649486874924,
-      "contentHash": "3f689c53b6b2725eb1b054b95ceec083",
-      "sourceName": "contracts/libraries/utils/TransferHelper.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "TransferHelper"
-      ]
-    },
     "D:\\HARDHAT\\XContracts\\contracts\\periphery\\XTaker.sol": {
-      "lastModificationDate": 1657835609204,
-      "contentHash": "acd258a7db77af7b22b57cdcf5f7c43b",
+      "lastModificationDate": 1659559224066,
+      "contentHash": "d12be0018fcffb27036a55f370d691db",
       "sourceName": "contracts/periphery/XTaker.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -763,8 +714,8 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\libraries\\WireLibrary.sol": {
-      "lastModificationDate": 1656271838182,
-      "contentHash": "8c2413f52d6e5698b72effc34fa379f9",
+      "lastModificationDate": 1659559246925,
+      "contentHash": "6f3576ab905bfba8b7e7b9df11aa9fe0",
       "sourceName": "contracts/libraries/WireLibrary.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -941,6 +892,97 @@
         "IControlCenter"
       ]
     },
+    "D:\\HARDHAT\\XContracts\\contracts\\libraries\\utils\\TransferHelper.sol": {
+      "lastModificationDate": 1649486874924,
+      "contentHash": "3f689c53b6b2725eb1b054b95ceec083",
+      "sourceName": "contracts/libraries/utils/TransferHelper.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "TransferHelper"
+      ]
+    },
+    "D:\\HARDHAT\\XContracts\\contracts\\libraries\\XLibrary.sol": {
+      "lastModificationDate": 1658977397520,
+      "contentHash": "0e1a7a1417b6bd3dd2313d804aed302d",
+      "sourceName": "contracts/libraries/XLibrary.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./math/SafeMath.sol",
+        "../core/interfaces/IXPair.sol",
+        "../farm/interfaces/ITGRToken.sol",
+        "../session/interfaces/IConstants.sol",
+        "../libraries/utils/TransferHelper.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "XLibrary"
+      ]
+    },
     "D:\\HARDHAT\\XContracts\\contracts\\libraries\\RouterLibrary.sol": {
       "lastModificationDate": 1655296881266,
       "contentHash": "569183d4530b2ed985a16bf5c0745c5f",
@@ -1035,48 +1077,6 @@
       ],
       "artifacts": [
         "IWETH"
-      ]
-    },
-    "D:\\HARDHAT\\XContracts\\node_modules\\hardhat\\console.sol": {
-      "lastModificationDate": 1655726344234,
-      "contentHash": "cc4777addd464ea56fa35b1c45df0591",
-      "sourceName": "hardhat/console.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.4.22 <0.9.0"
-      ],
-      "artifacts": [
-        "console"
       ]
     },
     "D:\\HARDHAT\\XContracts\\node_modules\\@openzeppelin\\contracts\\utils\\Context.sol": {
@@ -1386,102 +1386,9 @@
         "Address"
       ]
     },
-    "D:\\HARDHAT\\XContracts\\contracts\\periphery\\ControlCenter.sol": {
-      "lastModificationDate": 1657835609188,
-      "contentHash": "442fa89eb85243a11a3c5bc4004cd186",
-      "sourceName": "contracts/periphery/ControlCenter.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol",
-        "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol",
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "../session/interfaces/IConstants.sol",
-        "../core/interfaces/IXPair.sol",
-        "./interfaces/IControlCenter.sol",
-        "../session/Node.sol",
-        "hardhat/console.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ControlCenter"
-      ]
-    },
-    "D:\\HARDHAT\\XContracts\\node_modules\\@chainlink\\contracts\\src\\v0.8\\interfaces\\AggregatorV3Interface.sol": {
-      "lastModificationDate": 1655724504528,
-      "contentHash": "611f626b2447ccff9ba5332460fd217f",
-      "sourceName": "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "AggregatorV3Interface"
-      ]
-    },
     "D:\\HARDHAT\\XContracts\\contracts\\periphery\\XMaker.sol": {
-      "lastModificationDate": 1658978516767,
-      "contentHash": "35cbed010ccd166af35454e8a59e98ab",
+      "lastModificationDate": 1659559359379,
+      "contentHash": "3f5ff31b308840cc3eaa3de81fc0cc0b",
       "sourceName": "contracts/periphery/XMaker.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -1581,10 +1488,10 @@
         "IXMaker"
       ]
     },
-    "D:\\HARDHAT\\XContracts\\contracts\\libraries\\utils\\FixedPoint.sol": {
-      "lastModificationDate": 1649486874924,
-      "contentHash": "4706fa25fc5aad1141f4069bfe77c164",
-      "sourceName": "contracts/libraries/utils/FixedPoint.sol",
+    "D:\\HARDHAT\\XContracts\\contracts\\periphery\\ControlCenter.sol": {
+      "lastModificationDate": 1657835609188,
+      "contentHash": "442fa89eb85243a11a3c5bc4004cd186",
+      "sourceName": "contracts/periphery/ControlCenter.sol",
       "solcConfig": {
         "version": "0.8.14",
         "settings": {
@@ -1616,18 +1523,67 @@
         }
       },
       "imports": [
-        "../math/SafeMath.sol"
+        "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol",
+        "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol",
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../session/interfaces/IConstants.sol",
+        "../core/interfaces/IXPair.sol",
+        "./interfaces/IControlCenter.sol",
+        "../session/Node.sol",
+        "hardhat/console.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "FixedPoint"
+        "ControlCenter"
+      ]
+    },
+    "D:\\HARDHAT\\XContracts\\node_modules\\@chainlink\\contracts\\src\\v0.8\\interfaces\\AggregatorV3Interface.sol": {
+      "lastModificationDate": 1655724504528,
+      "contentHash": "611f626b2447ccff9ba5332460fd217f",
+      "sourceName": "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "AggregatorV3Interface"
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\farm\\TGRToken.sol": {
-      "lastModificationDate": 1658977648447,
-      "contentHash": "87a63760470604710dc9deda20d586bf",
+      "lastModificationDate": 1659559162143,
+      "contentHash": "d5eeeb11d332da7e5b6a264ff363ac9f",
       "sourceName": "contracts/farm/TGRToken.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -1685,8 +1641,8 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\session\\SessionRegistrar.sol": {
-      "lastModificationDate": 1657835609204,
-      "contentHash": "67f83bd49f6af794f79262e6db63ff5d",
+      "lastModificationDate": 1659559261244,
+      "contentHash": "3f118f3761fa8b2753ada4ef7d9b69f2",
       "sourceName": "contracts/session/SessionRegistrar.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -1904,58 +1860,10 @@
         "IntegralMath"
       ]
     },
-    "D:\\HARDHAT\\XContracts\\contracts\\core\\XFactory.sol": {
-      "lastModificationDate": 1657835609188,
-      "contentHash": "94ee4c32df680d95875dfe1985be9eec",
-      "sourceName": "contracts/core/XFactory.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "../session/Node.sol",
-        "./XPair.sol",
-        "./interfaces/IXFactory.sol",
-        "hardhat/console.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "XFactory"
-      ]
-    },
-    "D:\\HARDHAT\\XContracts\\contracts\\mock\\MockToken.sol": {
+    "D:\\HARDHAT\\XContracts\\contracts\\libraries\\utils\\FixedPoint.sol": {
       "lastModificationDate": 1649486874924,
-      "contentHash": "86d72635fccc304d3376868f45c8a232",
-      "sourceName": "contracts/mock/MockToken.sol",
+      "contentHash": "4706fa25fc5aad1141f4069bfe77c164",
+      "sourceName": "contracts/libraries/utils/FixedPoint.sol",
       "solcConfig": {
         "version": "0.8.14",
         "settings": {
@@ -1987,14 +1895,13 @@
         }
       },
       "imports": [
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "@openzeppelin/contracts/token/ERC20/ERC20.sol"
+        "../math/SafeMath.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "MockToken"
+        "FixedPoint"
       ]
     },
     "D:\\HARDHAT\\XContracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\ERC20.sol": {
@@ -2043,6 +1950,51 @@
         "ERC20"
       ]
     },
+    "D:\\HARDHAT\\XContracts\\contracts\\mock\\MockToken.sol": {
+      "lastModificationDate": 1649486874924,
+      "contentHash": "86d72635fccc304d3376868f45c8a232",
+      "sourceName": "contracts/mock/MockToken.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "MockToken"
+      ]
+    },
     "D:\\HARDHAT\\XContracts\\node_modules\\@openzeppelin\\contracts\\proxy\\utils\\Initializable.sol": {
       "lastModificationDate": 1655724272065,
       "contentHash": "f0c92df5bfd98a90d0eda04719bafda5",
@@ -2085,93 +2037,6 @@
       ],
       "artifacts": [
         "Initializable"
-      ]
-    },
-    "D:\\HARDHAT\\XContracts\\node_modules\\@openzeppelin\\contracts\\proxy\\utils\\UUPSUpgradeable.sol": {
-      "lastModificationDate": 1655724309986,
-      "contentHash": "5e95368c9b763cfa31ba0fe1309acc60",
-      "sourceName": "@openzeppelin/contracts/proxy/utils/UUPSUpgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../../interfaces/draft-IERC1822.sol",
-        "../ERC1967/ERC1967Upgrade.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "UUPSUpgradeable"
-      ]
-    },
-    "D:\\HARDHAT\\XContracts\\node_modules\\@openzeppelin\\contracts\\interfaces\\draft-IERC1822.sol": {
-      "lastModificationDate": 1655724169902,
-      "contentHash": "2858d98e74e67987ec81b39605230b74",
-      "sourceName": "@openzeppelin/contracts/interfaces/draft-IERC1822.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "IERC1822Proxiable"
       ]
     },
     "D:\\HARDHAT\\XContracts\\node_modules\\@openzeppelin\\contracts\\proxy\\ERC1967\\ERC1967Upgrade.sol": {
@@ -2263,6 +2128,48 @@
         "IBeacon"
       ]
     },
+    "D:\\HARDHAT\\XContracts\\node_modules\\@openzeppelin\\contracts\\interfaces\\draft-IERC1822.sol": {
+      "lastModificationDate": 1655724169902,
+      "contentHash": "2858d98e74e67987ec81b39605230b74",
+      "sourceName": "@openzeppelin/contracts/interfaces/draft-IERC1822.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC1822Proxiable"
+      ]
+    },
     "D:\\HARDHAT\\XContracts\\node_modules\\@openzeppelin\\contracts\\utils\\StorageSlot.sol": {
       "lastModificationDate": 1655724306041,
       "contentHash": "187a01c1e4e638014509dfee3ac6faa9",
@@ -2303,6 +2210,51 @@
       ],
       "artifacts": [
         "StorageSlot"
+      ]
+    },
+    "D:\\HARDHAT\\XContracts\\node_modules\\@openzeppelin\\contracts\\proxy\\utils\\UUPSUpgradeable.sol": {
+      "lastModificationDate": 1655724309986,
+      "contentHash": "5e95368c9b763cfa31ba0fe1309acc60",
+      "sourceName": "@openzeppelin/contracts/proxy/utils/UUPSUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../../interfaces/draft-IERC1822.sol",
+        "../ERC1967/ERC1967Upgrade.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "UUPSUpgradeable"
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\farm\\Referral.sol": {
@@ -2392,6 +2344,54 @@
         "IReferral"
       ]
     },
+    "D:\\HARDHAT\\XContracts\\contracts\\core\\XFactory.sol": {
+      "lastModificationDate": 1657835609188,
+      "contentHash": "94ee4c32df680d95875dfe1985be9eec",
+      "sourceName": "contracts/core/XFactory.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../session/Node.sol",
+        "./XPair.sol",
+        "./interfaces/IXFactory.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "XFactory"
+      ]
+    },
     "D:\\HARDHAT\\XContracts\\contracts\\libraries\\token\\WBNB.sol": {
       "lastModificationDate": 1655426268556,
       "contentHash": "1f041edde9a2bbeb01703494b8ac5a74",
@@ -2435,7 +2435,7 @@
       ]
     },
     "D:\\HARDHAT\\XContracts\\contracts\\periphery\\interfaces\\ICrossRouter.sol": {
-      "lastModificationDate": 1656218050673,
+      "lastModificationDate": 1656271838182,
       "contentHash": "99fae702402dc53c636de7fd4628d357",
       "sourceName": "contracts/periphery/interfaces/ICrossRouter.sol",
       "solcConfig": {

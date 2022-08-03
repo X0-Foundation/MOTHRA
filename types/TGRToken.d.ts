@@ -536,9 +536,7 @@ export class TGRToken extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string] & { accountant: string }>;
 
-    getCurrentActionType(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    getCurrentActionType(overrides?: CallOverrides): Promise<[number]>;
 
     getOwner(overrides?: CallOverrides): Promise<[string]>;
 
@@ -835,9 +833,7 @@ export class TGRToken extends BaseContract {
 
   feeStores(overrides?: CallOverrides): Promise<string>;
 
-  getCurrentActionType(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  getCurrentActionType(overrides?: CallOverrides): Promise<number>;
 
   getOwner(overrides?: CallOverrides): Promise<string>;
 
@@ -1550,9 +1546,7 @@ export class TGRToken extends BaseContract {
 
     feeStores(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getCurrentActionType(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    getCurrentActionType(overrides?: CallOverrides): Promise<BigNumber>;
 
     getOwner(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1784,7 +1778,7 @@ export class TGRToken extends BaseContract {
     feeStores(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getCurrentActionType(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
