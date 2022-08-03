@@ -22,16 +22,16 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface XdaoAgencyInterface extends ethers.utils.Interface {
   functions: {
+    "_isTaskCompletedByUser(uint256,address)": FunctionFragment;
+    "_isTaskEndVerifiedByUser(uint256,address)": FunctionFragment;
     "agentInfo(address)": FunctionFragment;
+    "agentLastSlashTime(address)": FunctionFragment;
     "agentVerifiedTask(address,uint256)": FunctionFragment;
     "assignTask(uint256,uint256[])": FunctionFragment;
     "bidden(uint256,address)": FunctionFragment;
     "bidders(uint256,uint256)": FunctionFragment;
     "compeletTask(uint256)": FunctionFragment;
-    "completeTask(uint256)": FunctionFragment;
     "doers(uint256,uint256)": FunctionFragment;
-    "enterEscrow(uint256)": FunctionFragment;
-    "getAvaliabeTasks(address)": FunctionFragment;
     "initialize(address)": FunctionFragment;
     "isAgent(address)": FunctionFragment;
     "owner()": FunctionFragment;
@@ -39,20 +39,38 @@ interface XdaoAgencyInterface extends ethers.utils.Interface {
     "postTask(uint256)": FunctionFragment;
     "proxiableUUID()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
+    "requestRevalidation(uint256,string)": FunctionFragment;
     "setNumVerificationsNeeded(uint256)": FunctionFragment;
+    "setSlashImpactPeriod(uint256)": FunctionFragment;
     "stake(uint256)": FunctionFragment;
     "submitTask((string,string,uint256,uint256,uint8,uint8,uint8,uint8,uint8[],address,uint256,uint256))": FunctionFragment;
+    "taskCompleters(uint256,uint256)": FunctionFragment;
+    "taskEndVerifiers(uint256,uint256)": FunctionFragment;
     "taskVerifiersCount(uint256)": FunctionFragment;
     "tasks(uint256)": FunctionFragment;
     "tgr()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
     "unStake(uint256)": FunctionFragment;
+    "updateAgentLevel(address)": FunctionFragment;
     "upgradeTo(address)": FunctionFragment;
     "upgradeToAndCall(address,bytes)": FunctionFragment;
     "verifyTask(uint256)": FunctionFragment;
+    "verifyTaskCompletion(uint256)": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "_isTaskCompletedByUser",
+    values: [BigNumberish, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "_isTaskEndVerifiedByUser",
+    values: [BigNumberish, string]
+  ): string;
   encodeFunctionData(functionFragment: "agentInfo", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "agentLastSlashTime",
+    values: [string]
+  ): string;
   encodeFunctionData(
     functionFragment: "agentVerifiedTask",
     values: [string, BigNumberish]
@@ -74,20 +92,8 @@ interface XdaoAgencyInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "completeTask",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
     functionFragment: "doers",
     values: [BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "enterEscrow",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getAvaliabeTasks",
-    values: [string]
   ): string;
   encodeFunctionData(functionFragment: "initialize", values: [string]): string;
   encodeFunctionData(functionFragment: "isAgent", values: [string]): string;
@@ -109,7 +115,15 @@ interface XdaoAgencyInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "requestRevalidation",
+    values: [BigNumberish, string]
+  ): string;
+  encodeFunctionData(
     functionFragment: "setNumVerificationsNeeded",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setSlashImpactPeriod",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "stake", values: [BigNumberish]): string;
@@ -122,7 +136,7 @@ interface XdaoAgencyInterface extends ethers.utils.Interface {
         reward: BigNumberish;
         bonus: BigNumberish;
         minLevel: BigNumberish;
-        maxCompletions: BigNumberish;
+        minCompletions: BigNumberish;
         jobType: BigNumberish;
         status: BigNumberish;
         skillSet: BigNumberish[];
@@ -131,6 +145,14 @@ interface XdaoAgencyInterface extends ethers.utils.Interface {
         verifiedTime: BigNumberish;
       }
     ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "taskCompleters",
+    values: [BigNumberish, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "taskEndVerifiers",
+    values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "taskVerifiersCount",
@@ -146,6 +168,10 @@ interface XdaoAgencyInterface extends ethers.utils.Interface {
     functionFragment: "unStake",
     values: [BigNumberish]
   ): string;
+  encodeFunctionData(
+    functionFragment: "updateAgentLevel",
+    values: [string]
+  ): string;
   encodeFunctionData(functionFragment: "upgradeTo", values: [string]): string;
   encodeFunctionData(
     functionFragment: "upgradeToAndCall",
@@ -155,8 +181,24 @@ interface XdaoAgencyInterface extends ethers.utils.Interface {
     functionFragment: "verifyTask",
     values: [BigNumberish]
   ): string;
+  encodeFunctionData(
+    functionFragment: "verifyTaskCompletion",
+    values: [BigNumberish]
+  ): string;
 
+  decodeFunctionResult(
+    functionFragment: "_isTaskCompletedByUser",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "_isTaskEndVerifiedByUser",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "agentInfo", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "agentLastSlashTime",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "agentVerifiedTask",
     data: BytesLike
@@ -168,19 +210,7 @@ interface XdaoAgencyInterface extends ethers.utils.Interface {
     functionFragment: "compeletTask",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "completeTask",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "doers", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "enterEscrow",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getAvaliabeTasks",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "isAgent", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
@@ -195,11 +225,27 @@ interface XdaoAgencyInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "requestRevalidation",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "setNumVerificationsNeeded",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setSlashImpactPeriod",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "stake", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "submitTask", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "taskCompleters",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "taskEndVerifiers",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "taskVerifiersCount",
     data: BytesLike
@@ -211,51 +257,47 @@ interface XdaoAgencyInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "unStake", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "updateAgentLevel",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "upgradeTo", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "upgradeToAndCall",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "verifyTask", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "verifyTaskCompletion",
+    data: BytesLike
+  ): Result;
 
   events: {
     "AdminChanged(address,address)": EventFragment;
     "BeaconUpgraded(address)": EventFragment;
-    "BidAccepted(uint256,address)": EventFragment;
-    "BidPlaced(uint256,address)": EventFragment;
     "Initialized(uint8)": EventFragment;
-    "LevelUpdate(address,uint256)": EventFragment;
-    "NewAgent(address)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
-    "Slashed(address)": EventFragment;
-    "Stake(address,uint256)": EventFragment;
     "TaskAssigned(uint256,address)": EventFragment;
     "TaskCreated(uint256,string,uint256,uint256,uint256,address)": EventFragment;
+    "TaskDelivered(uint256)": EventFragment;
+    "TaskDone(uint256,address)": EventFragment;
+    "TaskEndVerified(uint256)": EventFragment;
     "TaskPosted(uint256)": EventFragment;
-    "TaskValidated(uint256)": EventFragment;
     "TaskVerified(uint256)": EventFragment;
-    "TgrBonus(address,uint256)": EventFragment;
-    "UnStake(address,uint256)": EventFragment;
     "Upgraded(address)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "AdminChanged"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "BeaconUpgraded"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "BidAccepted"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "BidPlaced"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Initialized"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LevelUpdate"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "NewAgent"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Slashed"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Stake"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TaskAssigned"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TaskCreated"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "TaskDelivered"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "TaskDone"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "TaskEndVerified"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TaskPosted"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "TaskValidated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TaskVerified"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "TgrBonus"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "UnStake"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Upgraded"): EventFragment;
 }
 
@@ -265,67 +307,38 @@ export type AdminChangedEvent = TypedEvent<
 
 export type BeaconUpgradedEvent = TypedEvent<[string] & { beacon: string }>;
 
-export type BidAcceptedEvent = TypedEvent<
-  [BigNumber, string] & { taskId: BigNumber; carrer: string }
->;
-
-export type BidPlacedEvent = TypedEvent<
-  [BigNumber, string] & { taskId: BigNumber; carrer: string }
->;
-
 export type InitializedEvent = TypedEvent<[number] & { version: number }>;
-
-export type LevelUpdateEvent = TypedEvent<
-  [string, BigNumber] & { agent: string; level: BigNumber }
->;
-
-export type NewAgentEvent = TypedEvent<[string] & { agent: string }>;
 
 export type OwnershipTransferredEvent = TypedEvent<
   [string, string] & { previousOwner: string; newOwner: string }
->;
-
-export type SlashedEvent = TypedEvent<[string] & { agent: string }>;
-
-export type StakeEvent = TypedEvent<
-  [string, BigNumber] & { agent: string; amount: BigNumber }
 >;
 
 export type TaskAssignedEvent = TypedEvent<
   [BigNumber, string] & { id: BigNumber; doer: string }
 >;
 
-export type TaskCreated_uint256_string_uint256_uint256_uint256_address_Event =
-  TypedEvent<
-    [BigNumber, string, BigNumber, BigNumber, BigNumber, string] & {
-      id: BigNumber;
-      name: string;
-      reward: BigNumber;
-      status: BigNumber;
-      minLevel: BigNumber;
-      creator: string;
-    }
-  >;
-
-export type TaskCreated_address_uint256_Event = TypedEvent<
-  [string, BigNumber] & { agent: string; taskId: BigNumber }
+export type TaskCreatedEvent = TypedEvent<
+  [BigNumber, string, BigNumber, BigNumber, BigNumber, string] & {
+    id: BigNumber;
+    name: string;
+    reward: BigNumber;
+    status: BigNumber;
+    minLevel: BigNumber;
+    creator: string;
+  }
 >;
+
+export type TaskDeliveredEvent = TypedEvent<[BigNumber] & { id: BigNumber }>;
+
+export type TaskDoneEvent = TypedEvent<
+  [BigNumber, string] & { id: BigNumber; doer: string }
+>;
+
+export type TaskEndVerifiedEvent = TypedEvent<[BigNumber] & { id: BigNumber }>;
 
 export type TaskPostedEvent = TypedEvent<[BigNumber] & { id: BigNumber }>;
 
-export type TaskValidatedEvent = TypedEvent<
-  [BigNumber] & { taskId: BigNumber }
->;
-
 export type TaskVerifiedEvent = TypedEvent<[BigNumber] & { id: BigNumber }>;
-
-export type TgrBonusEvent = TypedEvent<
-  [string, BigNumber] & { agent: string; taskId: BigNumber }
->;
-
-export type UnStakeEvent = TypedEvent<
-  [string, BigNumber] & { agent: string; amount: BigNumber }
->;
 
 export type UpgradedEvent = TypedEvent<[string] & { implementation: string }>;
 
@@ -373,6 +386,18 @@ export class XdaoAgency extends BaseContract {
   interface: XdaoAgencyInterface;
 
   functions: {
+    _isTaskCompletedByUser(
+      _id: BigNumberish,
+      user: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
+    _isTaskEndVerifiedByUser(
+      _id: BigNumberish,
+      user: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
     agentInfo(
       arg0: string,
       overrides?: CallOverrides
@@ -383,6 +408,11 @@ export class XdaoAgency extends BaseContract {
         stakedAmount: BigNumber;
       }
     >;
+
+    agentLastSlashTime(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
     agentVerifiedTask(
       arg0: string,
@@ -413,23 +443,11 @@ export class XdaoAgency extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    completeTask(
-      _id: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     doers(
       arg0: BigNumberish,
       arg1: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[string]>;
-
-    enterEscrow(
-      taskId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    getAvaliabeTasks(agent: string, overrides?: CallOverrides): Promise<[void]>;
 
     initialize(
       _tgr: string,
@@ -456,8 +474,19 @@ export class XdaoAgency extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    requestRevalidation(
+      _id: BigNumberish,
+      _evidence: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     setNumVerificationsNeeded(
       _num: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    setSlashImpactPeriod(
+      _time: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -473,7 +502,7 @@ export class XdaoAgency extends BaseContract {
         reward: BigNumberish;
         bonus: BigNumberish;
         minLevel: BigNumberish;
-        maxCompletions: BigNumberish;
+        minCompletions: BigNumberish;
         jobType: BigNumberish;
         status: BigNumberish;
         skillSet: BigNumberish[];
@@ -483,6 +512,18 @@ export class XdaoAgency extends BaseContract {
       },
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    taskCompleters(
+      arg0: BigNumberish,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    taskEndVerifiers(
+      arg0: BigNumberish,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
 
     taskVerifiersCount(
       arg0: BigNumberish,
@@ -511,7 +552,7 @@ export class XdaoAgency extends BaseContract {
         reward: BigNumber;
         bonus: BigNumber;
         minLevel: number;
-        maxCompletions: number;
+        minCompletions: number;
         jobType: number;
         status: number;
         owner: string;
@@ -532,6 +573,11 @@ export class XdaoAgency extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    updateAgentLevel(
+      _agent: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     upgradeTo(
       newImplementation: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -547,7 +593,24 @@ export class XdaoAgency extends BaseContract {
       _taskId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    verifyTaskCompletion(
+      _id: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
   };
+
+  _isTaskCompletedByUser(
+    _id: BigNumberish,
+    user: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
+  _isTaskEndVerifiedByUser(
+    _id: BigNumberish,
+    user: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
   agentInfo(
     arg0: string,
@@ -559,6 +622,11 @@ export class XdaoAgency extends BaseContract {
       stakedAmount: BigNumber;
     }
   >;
+
+  agentLastSlashTime(
+    arg0: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   agentVerifiedTask(
     arg0: string,
@@ -589,23 +657,11 @@ export class XdaoAgency extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  completeTask(
-    _id: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   doers(
     arg0: BigNumberish,
     arg1: BigNumberish,
     overrides?: CallOverrides
   ): Promise<string>;
-
-  enterEscrow(
-    taskId: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  getAvaliabeTasks(agent: string, overrides?: CallOverrides): Promise<void>;
 
   initialize(
     _tgr: string,
@@ -632,8 +688,19 @@ export class XdaoAgency extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  requestRevalidation(
+    _id: BigNumberish,
+    _evidence: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   setNumVerificationsNeeded(
     _num: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  setSlashImpactPeriod(
+    _time: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -649,7 +716,7 @@ export class XdaoAgency extends BaseContract {
       reward: BigNumberish;
       bonus: BigNumberish;
       minLevel: BigNumberish;
-      maxCompletions: BigNumberish;
+      minCompletions: BigNumberish;
       jobType: BigNumberish;
       status: BigNumberish;
       skillSet: BigNumberish[];
@@ -659,6 +726,18 @@ export class XdaoAgency extends BaseContract {
     },
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
+
+  taskCompleters(
+    arg0: BigNumberish,
+    arg1: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  taskEndVerifiers(
+    arg0: BigNumberish,
+    arg1: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<string>;
 
   taskVerifiersCount(
     arg0: BigNumberish,
@@ -687,7 +766,7 @@ export class XdaoAgency extends BaseContract {
       reward: BigNumber;
       bonus: BigNumber;
       minLevel: number;
-      maxCompletions: number;
+      minCompletions: number;
       jobType: number;
       status: number;
       owner: string;
@@ -708,6 +787,11 @@ export class XdaoAgency extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  updateAgentLevel(
+    _agent: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   upgradeTo(
     newImplementation: string,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -724,7 +808,24 @@ export class XdaoAgency extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  verifyTaskCompletion(
+    _id: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   callStatic: {
+    _isTaskCompletedByUser(
+      _id: BigNumberish,
+      user: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
+    _isTaskEndVerifiedByUser(
+      _id: BigNumberish,
+      user: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
     agentInfo(
       arg0: string,
       overrides?: CallOverrides
@@ -735,6 +836,11 @@ export class XdaoAgency extends BaseContract {
         stakedAmount: BigNumber;
       }
     >;
+
+    agentLastSlashTime(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     agentVerifiedTask(
       arg0: string,
@@ -762,17 +868,11 @@ export class XdaoAgency extends BaseContract {
 
     compeletTask(_id: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
-    completeTask(_id: BigNumberish, overrides?: CallOverrides): Promise<void>;
-
     doers(
       arg0: BigNumberish,
       arg1: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
-
-    enterEscrow(taskId: BigNumberish, overrides?: CallOverrides): Promise<void>;
-
-    getAvaliabeTasks(agent: string, overrides?: CallOverrides): Promise<void>;
 
     initialize(_tgr: string, overrides?: CallOverrides): Promise<void>;
 
@@ -788,8 +888,19 @@ export class XdaoAgency extends BaseContract {
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
+    requestRevalidation(
+      _id: BigNumberish,
+      _evidence: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     setNumVerificationsNeeded(
       _num: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    setSlashImpactPeriod(
+      _time: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -802,7 +913,7 @@ export class XdaoAgency extends BaseContract {
         reward: BigNumberish;
         bonus: BigNumberish;
         minLevel: BigNumberish;
-        maxCompletions: BigNumberish;
+        minCompletions: BigNumberish;
         jobType: BigNumberish;
         status: BigNumberish;
         skillSet: BigNumberish[];
@@ -812,6 +923,18 @@ export class XdaoAgency extends BaseContract {
       },
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    taskCompleters(
+      arg0: BigNumberish,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    taskEndVerifiers(
+      arg0: BigNumberish,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
 
     taskVerifiersCount(
       arg0: BigNumberish,
@@ -840,7 +963,7 @@ export class XdaoAgency extends BaseContract {
         reward: BigNumber;
         bonus: BigNumber;
         minLevel: number;
-        maxCompletions: number;
+        minCompletions: number;
         jobType: number;
         status: number;
         owner: string;
@@ -858,6 +981,8 @@ export class XdaoAgency extends BaseContract {
 
     unStake(amount: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
+    updateAgentLevel(_agent: string, overrides?: CallOverrides): Promise<void>;
+
     upgradeTo(
       newImplementation: string,
       overrides?: CallOverrides
@@ -870,6 +995,11 @@ export class XdaoAgency extends BaseContract {
     ): Promise<void>;
 
     verifyTask(_taskId: BigNumberish, overrides?: CallOverrides): Promise<void>;
+
+    verifyTaskCompletion(
+      _id: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
   };
 
   filters: {
@@ -897,38 +1027,6 @@ export class XdaoAgency extends BaseContract {
       beacon?: string | null
     ): TypedEventFilter<[string], { beacon: string }>;
 
-    "BidAccepted(uint256,address)"(
-      taskId?: null,
-      carrer?: string | null
-    ): TypedEventFilter<
-      [BigNumber, string],
-      { taskId: BigNumber; carrer: string }
-    >;
-
-    BidAccepted(
-      taskId?: null,
-      carrer?: string | null
-    ): TypedEventFilter<
-      [BigNumber, string],
-      { taskId: BigNumber; carrer: string }
-    >;
-
-    "BidPlaced(uint256,address)"(
-      taskId?: null,
-      carrer?: string | null
-    ): TypedEventFilter<
-      [BigNumber, string],
-      { taskId: BigNumber; carrer: string }
-    >;
-
-    BidPlaced(
-      taskId?: null,
-      carrer?: string | null
-    ): TypedEventFilter<
-      [BigNumber, string],
-      { taskId: BigNumber; carrer: string }
-    >;
-
     "Initialized(uint8)"(
       version?: null
     ): TypedEventFilter<[number], { version: number }>;
@@ -936,30 +1034,6 @@ export class XdaoAgency extends BaseContract {
     Initialized(
       version?: null
     ): TypedEventFilter<[number], { version: number }>;
-
-    "LevelUpdate(address,uint256)"(
-      agent?: string | null,
-      level?: null
-    ): TypedEventFilter<
-      [string, BigNumber],
-      { agent: string; level: BigNumber }
-    >;
-
-    LevelUpdate(
-      agent?: string | null,
-      level?: null
-    ): TypedEventFilter<
-      [string, BigNumber],
-      { agent: string; level: BigNumber }
-    >;
-
-    "NewAgent(address)"(
-      agent?: string | null
-    ): TypedEventFilter<[string], { agent: string }>;
-
-    NewAgent(
-      agent?: string | null
-    ): TypedEventFilter<[string], { agent: string }>;
 
     "OwnershipTransferred(address,address)"(
       previousOwner?: string | null,
@@ -975,30 +1049,6 @@ export class XdaoAgency extends BaseContract {
     ): TypedEventFilter<
       [string, string],
       { previousOwner: string; newOwner: string }
-    >;
-
-    "Slashed(address)"(
-      agent?: string | null
-    ): TypedEventFilter<[string], { agent: string }>;
-
-    Slashed(
-      agent?: string | null
-    ): TypedEventFilter<[string], { agent: string }>;
-
-    "Stake(address,uint256)"(
-      agent?: string | null,
-      amount?: null
-    ): TypedEventFilter<
-      [string, BigNumber],
-      { agent: string; amount: BigNumber }
-    >;
-
-    Stake(
-      agent?: string | null,
-      amount?: null
-    ): TypedEventFilter<
-      [string, BigNumber],
-      { agent: string; amount: BigNumber }
     >;
 
     "TaskAssigned(uint256,address)"(
@@ -1030,13 +1080,48 @@ export class XdaoAgency extends BaseContract {
       }
     >;
 
-    "TaskCreated(address,uint256)"(
-      agent?: string | null,
-      taskId?: null
+    TaskCreated(
+      id?: null,
+      name?: null,
+      reward?: null,
+      status?: null,
+      minLevel?: null,
+      creator?: null
     ): TypedEventFilter<
-      [string, BigNumber],
-      { agent: string; taskId: BigNumber }
+      [BigNumber, string, BigNumber, BigNumber, BigNumber, string],
+      {
+        id: BigNumber;
+        name: string;
+        reward: BigNumber;
+        status: BigNumber;
+        minLevel: BigNumber;
+        creator: string;
+      }
     >;
+
+    "TaskDelivered(uint256)"(
+      id?: null
+    ): TypedEventFilter<[BigNumber], { id: BigNumber }>;
+
+    TaskDelivered(id?: null): TypedEventFilter<[BigNumber], { id: BigNumber }>;
+
+    "TaskDone(uint256,address)"(
+      id?: null,
+      doer?: null
+    ): TypedEventFilter<[BigNumber, string], { id: BigNumber; doer: string }>;
+
+    TaskDone(
+      id?: null,
+      doer?: null
+    ): TypedEventFilter<[BigNumber, string], { id: BigNumber; doer: string }>;
+
+    "TaskEndVerified(uint256)"(
+      id?: null
+    ): TypedEventFilter<[BigNumber], { id: BigNumber }>;
+
+    TaskEndVerified(
+      id?: null
+    ): TypedEventFilter<[BigNumber], { id: BigNumber }>;
 
     "TaskPosted(uint256)"(
       id?: null
@@ -1044,51 +1129,11 @@ export class XdaoAgency extends BaseContract {
 
     TaskPosted(id?: null): TypedEventFilter<[BigNumber], { id: BigNumber }>;
 
-    "TaskValidated(uint256)"(
-      taskId?: null
-    ): TypedEventFilter<[BigNumber], { taskId: BigNumber }>;
-
-    TaskValidated(
-      taskId?: null
-    ): TypedEventFilter<[BigNumber], { taskId: BigNumber }>;
-
     "TaskVerified(uint256)"(
       id?: null
     ): TypedEventFilter<[BigNumber], { id: BigNumber }>;
 
     TaskVerified(id?: null): TypedEventFilter<[BigNumber], { id: BigNumber }>;
-
-    "TgrBonus(address,uint256)"(
-      agent?: string | null,
-      taskId?: null
-    ): TypedEventFilter<
-      [string, BigNumber],
-      { agent: string; taskId: BigNumber }
-    >;
-
-    TgrBonus(
-      agent?: string | null,
-      taskId?: null
-    ): TypedEventFilter<
-      [string, BigNumber],
-      { agent: string; taskId: BigNumber }
-    >;
-
-    "UnStake(address,uint256)"(
-      agent?: string | null,
-      amount?: null
-    ): TypedEventFilter<
-      [string, BigNumber],
-      { agent: string; amount: BigNumber }
-    >;
-
-    UnStake(
-      agent?: string | null,
-      amount?: null
-    ): TypedEventFilter<
-      [string, BigNumber],
-      { agent: string; amount: BigNumber }
-    >;
 
     "Upgraded(address)"(
       implementation?: string | null
@@ -1100,7 +1145,24 @@ export class XdaoAgency extends BaseContract {
   };
 
   estimateGas: {
+    _isTaskCompletedByUser(
+      _id: BigNumberish,
+      user: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    _isTaskEndVerifiedByUser(
+      _id: BigNumberish,
+      user: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     agentInfo(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    agentLastSlashTime(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     agentVerifiedTask(
       arg0: string,
@@ -1131,24 +1193,9 @@ export class XdaoAgency extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    completeTask(
-      _id: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     doers(
       arg0: BigNumberish,
       arg1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    enterEscrow(
-      taskId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    getAvaliabeTasks(
-      agent: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1177,8 +1224,19 @@ export class XdaoAgency extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    requestRevalidation(
+      _id: BigNumberish,
+      _evidence: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     setNumVerificationsNeeded(
       _num: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    setSlashImpactPeriod(
+      _time: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1194,7 +1252,7 @@ export class XdaoAgency extends BaseContract {
         reward: BigNumberish;
         bonus: BigNumberish;
         minLevel: BigNumberish;
-        maxCompletions: BigNumberish;
+        minCompletions: BigNumberish;
         jobType: BigNumberish;
         status: BigNumberish;
         skillSet: BigNumberish[];
@@ -1203,6 +1261,18 @@ export class XdaoAgency extends BaseContract {
         verifiedTime: BigNumberish;
       },
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    taskCompleters(
+      arg0: BigNumberish,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    taskEndVerifiers(
+      arg0: BigNumberish,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     taskVerifiersCount(
@@ -1224,6 +1294,11 @@ export class XdaoAgency extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    updateAgentLevel(
+      _agent: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     upgradeTo(
       newImplementation: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -1239,10 +1314,32 @@ export class XdaoAgency extends BaseContract {
       _taskId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    verifyTaskCompletion(
+      _id: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
+    _isTaskCompletedByUser(
+      _id: BigNumberish,
+      user: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    _isTaskEndVerifiedByUser(
+      _id: BigNumberish,
+      user: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     agentInfo(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    agentLastSlashTime(
       arg0: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
@@ -1276,24 +1373,9 @@ export class XdaoAgency extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    completeTask(
-      _id: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
     doers(
       arg0: BigNumberish,
       arg1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    enterEscrow(
-      taskId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    getAvaliabeTasks(
-      agent: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1325,8 +1407,19 @@ export class XdaoAgency extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    requestRevalidation(
+      _id: BigNumberish,
+      _evidence: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
     setNumVerificationsNeeded(
       _num: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setSlashImpactPeriod(
+      _time: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1342,7 +1435,7 @@ export class XdaoAgency extends BaseContract {
         reward: BigNumberish;
         bonus: BigNumberish;
         minLevel: BigNumberish;
-        maxCompletions: BigNumberish;
+        minCompletions: BigNumberish;
         jobType: BigNumberish;
         status: BigNumberish;
         skillSet: BigNumberish[];
@@ -1351,6 +1444,18 @@ export class XdaoAgency extends BaseContract {
         verifiedTime: BigNumberish;
       },
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    taskCompleters(
+      arg0: BigNumberish,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    taskEndVerifiers(
+      arg0: BigNumberish,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     taskVerifiersCount(
@@ -1375,6 +1480,11 @@ export class XdaoAgency extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    updateAgentLevel(
+      _agent: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
     upgradeTo(
       newImplementation: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -1388,6 +1498,11 @@ export class XdaoAgency extends BaseContract {
 
     verifyTask(
       _taskId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    verifyTaskCompletion(
+      _id: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };

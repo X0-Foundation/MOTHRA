@@ -2,7 +2,7 @@
 pragma solidity >=0.8.4 <0.9.0;
 
 import './IPairManager.sol';
-import '../contracts/libraries/PoolAddress.sol';
+import '../agency/libraries/PoolAddress.sol';
 import '@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol';
 import './peripherals/IGovernable.sol';
 
