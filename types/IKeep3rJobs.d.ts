@@ -24,36 +24,20 @@ interface IKeep3rJobsInterface extends ethers.utils.Interface {
     "acceptJobMigration(address,address)": FunctionFragment;
     "acceptJobOwnership(address)": FunctionFragment;
     "addJob(address)": FunctionFragment;
-    "addLiquidityToJob(address,address,uint256)": FunctionFragment;
     "addTokenCreditsToJob(address,address,uint256)": FunctionFragment;
-    "approveLiquidity(address)": FunctionFragment;
-    "approvedLiquidities()": FunctionFragment;
     "bondedPayment(address,uint256)": FunctionFragment;
     "changeJobOwnership(address,address)": FunctionFragment;
     "directTokenPayment(address,address,uint256)": FunctionFragment;
-    "forceLiquidityCreditsToJob(address,uint256)": FunctionFragment;
     "isBondedKeeper(address,address,uint256,uint256,uint256)": FunctionFragment;
     "isKeeper(address)": FunctionFragment;
-    "jobLiquidityCredits(address)": FunctionFragment;
     "jobOwner(address)": FunctionFragment;
     "jobPendingOwner(address)": FunctionFragment;
-    "jobPeriodCredits(address)": FunctionFragment;
     "jobTokenCreditsAddedAt(address,address)": FunctionFragment;
-    "liquidityAmount(address,address)": FunctionFragment;
     "migrateJob(address,address)": FunctionFragment;
-    "observeLiquidity(address)": FunctionFragment;
     "pendingJobMigrations(address)": FunctionFragment;
-    "quoteLiquidity(address,uint256)": FunctionFragment;
-    "revokeLiquidity(address)": FunctionFragment;
-    "rewardedAt(address)": FunctionFragment;
-    "slashLiquidityFromJob(address,address,uint256)": FunctionFragment;
     "slashTokenFromJob(address,address,uint256)": FunctionFragment;
-    "totalJobCredits(address)": FunctionFragment;
-    "unbondLiquidityFromJob(address,address,uint256)": FunctionFragment;
-    "withdrawLiquidityFromJob(address,address,address)": FunctionFragment;
     "withdrawTokenCreditsFromJob(address,address,uint256,address)": FunctionFragment;
     "worked(address)": FunctionFragment;
-    "workedAt(address)": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -66,20 +50,8 @@ interface IKeep3rJobsInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "addJob", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "addLiquidityToJob",
-    values: [string, string, BigNumberish]
-  ): string;
-  encodeFunctionData(
     functionFragment: "addTokenCreditsToJob",
     values: [string, string, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "approveLiquidity",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "approvedLiquidities",
-    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "bondedPayment",
@@ -94,25 +66,13 @@ interface IKeep3rJobsInterface extends ethers.utils.Interface {
     values: [string, string, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "forceLiquidityCreditsToJob",
-    values: [string, BigNumberish]
-  ): string;
-  encodeFunctionData(
     functionFragment: "isBondedKeeper",
     values: [string, string, BigNumberish, BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "isKeeper", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "jobLiquidityCredits",
-    values: [string]
-  ): string;
   encodeFunctionData(functionFragment: "jobOwner", values: [string]): string;
   encodeFunctionData(
     functionFragment: "jobPendingOwner",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "jobPeriodCredits",
     values: [string]
   ): string;
   encodeFunctionData(
@@ -120,56 +80,22 @@ interface IKeep3rJobsInterface extends ethers.utils.Interface {
     values: [string, string]
   ): string;
   encodeFunctionData(
-    functionFragment: "liquidityAmount",
-    values: [string, string]
-  ): string;
-  encodeFunctionData(
     functionFragment: "migrateJob",
     values: [string, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "observeLiquidity",
-    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "pendingJobMigrations",
     values: [string]
   ): string;
   encodeFunctionData(
-    functionFragment: "quoteLiquidity",
-    values: [string, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "revokeLiquidity",
-    values: [string]
-  ): string;
-  encodeFunctionData(functionFragment: "rewardedAt", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "slashLiquidityFromJob",
-    values: [string, string, BigNumberish]
-  ): string;
-  encodeFunctionData(
     functionFragment: "slashTokenFromJob",
     values: [string, string, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "totalJobCredits",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "unbondLiquidityFromJob",
-    values: [string, string, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "withdrawLiquidityFromJob",
-    values: [string, string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "withdrawTokenCreditsFromJob",
     values: [string, string, BigNumberish, string]
   ): string;
   encodeFunctionData(functionFragment: "worked", values: [string]): string;
-  encodeFunctionData(functionFragment: "workedAt", values: [string]): string;
 
   decodeFunctionResult(
     functionFragment: "acceptJobMigration",
@@ -181,19 +107,7 @@ interface IKeep3rJobsInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "addJob", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "addLiquidityToJob",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "addTokenCreditsToJob",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "approveLiquidity",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "approvedLiquidities",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -209,55 +123,22 @@ interface IKeep3rJobsInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "forceLiquidityCreditsToJob",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "isBondedKeeper",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "isKeeper", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "jobLiquidityCredits",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "jobOwner", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "jobPendingOwner",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "jobPeriodCredits",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "jobTokenCreditsAddedAt",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "liquidityAmount",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "migrateJob", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "observeLiquidity",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "pendingJobMigrations",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "quoteLiquidity",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "revokeLiquidity",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "rewardedAt", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "slashLiquidityFromJob",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -265,23 +146,10 @@ interface IKeep3rJobsInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "totalJobCredits",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "unbondLiquidityFromJob",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "withdrawLiquidityFromJob",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "withdrawTokenCreditsFromJob",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "worked", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "workedAt", data: BytesLike): Result;
 
   events: {
     "JobAddition(address,address)": EventFragment;
@@ -293,12 +161,6 @@ interface IKeep3rJobsInterface extends ethers.utils.Interface {
     "JobSlashToken(address,address,address,uint256)": EventFragment;
     "KeeperValidation(uint256)": EventFragment;
     "KeeperWork(address,address,address,uint256,uint256)": EventFragment;
-    "LiquidityAddition(address,address,address,uint256)": EventFragment;
-    "LiquidityApproval(address)": EventFragment;
-    "LiquidityCreditsForced(address,uint256,uint256)": EventFragment;
-    "LiquidityCreditsReward(address,uint256,uint256,uint256)": EventFragment;
-    "LiquidityRevocation(address)": EventFragment;
-    "LiquidityWithdrawal(address,address,address,uint256)": EventFragment;
     "TokenCreditAddition(address,address,address,uint256)": EventFragment;
     "TokenCreditWithdrawal(address,address,address,uint256)": EventFragment;
   };
@@ -312,12 +174,6 @@ interface IKeep3rJobsInterface extends ethers.utils.Interface {
   getEvent(nameOrSignatureOrTopic: "JobSlashToken"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "KeeperValidation"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "KeeperWork"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LiquidityAddition"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LiquidityApproval"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LiquidityCreditsForced"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LiquidityCreditsReward"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LiquidityRevocation"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LiquidityWithdrawal"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TokenCreditAddition"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TokenCreditWithdrawal"): EventFragment;
 }
@@ -379,49 +235,6 @@ export type KeeperWorkEvent = TypedEvent<
     _keeper: string;
     _payment: BigNumber;
     _gasLeft: BigNumber;
-  }
->;
-
-export type LiquidityAdditionEvent = TypedEvent<
-  [string, string, string, BigNumber] & {
-    _job: string;
-    _liquidity: string;
-    _provider: string;
-    _amount: BigNumber;
-  }
->;
-
-export type LiquidityApprovalEvent = TypedEvent<
-  [string] & { _liquidity: string }
->;
-
-export type LiquidityCreditsForcedEvent = TypedEvent<
-  [string, BigNumber, BigNumber] & {
-    _job: string;
-    _rewardedAt: BigNumber;
-    _currentCredits: BigNumber;
-  }
->;
-
-export type LiquidityCreditsRewardEvent = TypedEvent<
-  [string, BigNumber, BigNumber, BigNumber] & {
-    _job: string;
-    _rewardedAt: BigNumber;
-    _currentCredits: BigNumber;
-    _periodCredits: BigNumber;
-  }
->;
-
-export type LiquidityRevocationEvent = TypedEvent<
-  [string] & { _liquidity: string }
->;
-
-export type LiquidityWithdrawalEvent = TypedEvent<
-  [string, string, string, BigNumber] & {
-    _job: string;
-    _liquidity: string;
-    _receiver: string;
-    _amount: BigNumber;
   }
 >;
 
@@ -503,28 +316,12 @@ export class IKeep3rJobs extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    addLiquidityToJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     addTokenCreditsToJob(
       _job: string,
       _token: string,
       _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
-
-    approveLiquidity(
-      _liquidity: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    approvedLiquidities(
-      overrides?: CallOverrides
-    ): Promise<[string[]] & { _list: string[] }>;
 
     bondedPayment(
       _keeper: string,
@@ -545,12 +342,6 @@ export class IKeep3rJobs extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    forceLiquidityCreditsToJob(
-      _job: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     isBondedKeeper(
       _keeper: string,
       _bond: string,
@@ -565,11 +356,6 @@ export class IKeep3rJobs extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    jobLiquidityCredits(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { _amount: BigNumber }>;
-
     jobOwner(
       _job: string,
       overrides?: CallOverrides
@@ -580,22 +366,11 @@ export class IKeep3rJobs extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string] & { _pendingOwner: string }>;
 
-    jobPeriodCredits(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { _amount: BigNumber }>;
-
     jobTokenCreditsAddedAt(
       _job: string,
       _token: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { _timestamp: BigNumber }>;
-
-    liquidityAmount(
-      _job: string,
-      _liquidity: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { _amount: BigNumber }>;
 
     migrateJob(
       _fromJob: string,
@@ -603,76 +378,15 @@ export class IKeep3rJobs extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    observeLiquidity(
-      _liquidity: string,
-      overrides?: CallOverrides
-    ): Promise<
-      [
-        [BigNumber, BigNumber, BigNumber] & {
-          current: BigNumber;
-          difference: BigNumber;
-          period: BigNumber;
-        }
-      ] & {
-        _tickCache: [BigNumber, BigNumber, BigNumber] & {
-          current: BigNumber;
-          difference: BigNumber;
-          period: BigNumber;
-        };
-      }
-    >;
-
     pendingJobMigrations(
       _fromJob: string,
       overrides?: CallOverrides
     ): Promise<[string] & { _toJob: string }>;
 
-    quoteLiquidity(
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { _periodCredits: BigNumber }>;
-
-    revokeLiquidity(
-      _liquidity: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    rewardedAt(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { _timestamp: BigNumber }>;
-
-    slashLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     slashTokenFromJob(
       _job: string,
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    totalJobCredits(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { _amount: BigNumber }>;
-
-    unbondLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    withdrawLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _receiver: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -688,11 +402,6 @@ export class IKeep3rJobs extends BaseContract {
       _keeper: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
-
-    workedAt(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { _timestamp: BigNumber }>;
   };
 
   acceptJobMigration(
@@ -711,26 +420,12 @@ export class IKeep3rJobs extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  addLiquidityToJob(
-    _job: string,
-    _liquidity: string,
-    _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   addTokenCreditsToJob(
     _job: string,
     _token: string,
     _amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
-
-  approveLiquidity(
-    _liquidity: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  approvedLiquidities(overrides?: CallOverrides): Promise<string[]>;
 
   bondedPayment(
     _keeper: string,
@@ -751,12 +446,6 @@ export class IKeep3rJobs extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  forceLiquidityCreditsToJob(
-    _job: string,
-    _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   isBondedKeeper(
     _keeper: string,
     _bond: string,
@@ -771,26 +460,13 @@ export class IKeep3rJobs extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  jobLiquidityCredits(
-    _job: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
   jobOwner(_job: string, overrides?: CallOverrides): Promise<string>;
 
   jobPendingOwner(_job: string, overrides?: CallOverrides): Promise<string>;
 
-  jobPeriodCredits(_job: string, overrides?: CallOverrides): Promise<BigNumber>;
-
   jobTokenCreditsAddedAt(
     _job: string,
     _token: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  liquidityAmount(
-    _job: string,
-    _liquidity: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -800,62 +476,15 @@ export class IKeep3rJobs extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  observeLiquidity(
-    _liquidity: string,
-    overrides?: CallOverrides
-  ): Promise<
-    [BigNumber, BigNumber, BigNumber] & {
-      current: BigNumber;
-      difference: BigNumber;
-      period: BigNumber;
-    }
-  >;
-
   pendingJobMigrations(
     _fromJob: string,
     overrides?: CallOverrides
   ): Promise<string>;
 
-  quoteLiquidity(
-    _liquidity: string,
-    _amount: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  revokeLiquidity(
-    _liquidity: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  rewardedAt(_job: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-  slashLiquidityFromJob(
-    _job: string,
-    _liquidity: string,
-    _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   slashTokenFromJob(
     _job: string,
     _token: string,
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  totalJobCredits(_job: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-  unbondLiquidityFromJob(
-    _job: string,
-    _liquidity: string,
-    _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  withdrawLiquidityFromJob(
-    _job: string,
-    _liquidity: string,
-    _receiver: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -872,8 +501,6 @@ export class IKeep3rJobs extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  workedAt(_job: string, overrides?: CallOverrides): Promise<BigNumber>;
-
   callStatic: {
     acceptJobMigration(
       _fromJob: string,
@@ -885,26 +512,12 @@ export class IKeep3rJobs extends BaseContract {
 
     addJob(_job: string, overrides?: CallOverrides): Promise<void>;
 
-    addLiquidityToJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     addTokenCreditsToJob(
       _job: string,
       _token: string,
       _amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
-
-    approveLiquidity(
-      _liquidity: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    approvedLiquidities(overrides?: CallOverrides): Promise<string[]>;
 
     bondedPayment(
       _keeper: string,
@@ -925,12 +538,6 @@ export class IKeep3rJobs extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    forceLiquidityCreditsToJob(
-      _job: string,
-      _amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     isBondedKeeper(
       _keeper: string,
       _bond: string,
@@ -942,29 +549,13 @@ export class IKeep3rJobs extends BaseContract {
 
     isKeeper(_keeper: string, overrides?: CallOverrides): Promise<boolean>;
 
-    jobLiquidityCredits(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     jobOwner(_job: string, overrides?: CallOverrides): Promise<string>;
 
     jobPendingOwner(_job: string, overrides?: CallOverrides): Promise<string>;
 
-    jobPeriodCredits(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     jobTokenCreditsAddedAt(
       _job: string,
       _token: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    liquidityAmount(
-      _job: string,
-      _liquidity: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -974,65 +565,15 @@ export class IKeep3rJobs extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    observeLiquidity(
-      _liquidity: string,
-      overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber, BigNumber] & {
-        current: BigNumber;
-        difference: BigNumber;
-        period: BigNumber;
-      }
-    >;
-
     pendingJobMigrations(
       _fromJob: string,
       overrides?: CallOverrides
     ): Promise<string>;
 
-    quoteLiquidity(
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    revokeLiquidity(
-      _liquidity: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    rewardedAt(_job: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    slashLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     slashTokenFromJob(
       _job: string,
       _token: string,
       _amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    totalJobCredits(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    unbondLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    withdrawLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _receiver: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1045,8 +586,6 @@ export class IKeep3rJobs extends BaseContract {
     ): Promise<void>;
 
     worked(_keeper: string, overrides?: CallOverrides): Promise<void>;
-
-    workedAt(_job: string, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   filters: {
@@ -1198,130 +737,6 @@ export class IKeep3rJobs extends BaseContract {
       }
     >;
 
-    "LiquidityAddition(address,address,address,uint256)"(
-      _job?: string | null,
-      _liquidity?: string | null,
-      _provider?: string | null,
-      _amount?: null
-    ): TypedEventFilter<
-      [string, string, string, BigNumber],
-      {
-        _job: string;
-        _liquidity: string;
-        _provider: string;
-        _amount: BigNumber;
-      }
-    >;
-
-    LiquidityAddition(
-      _job?: string | null,
-      _liquidity?: string | null,
-      _provider?: string | null,
-      _amount?: null
-    ): TypedEventFilter<
-      [string, string, string, BigNumber],
-      {
-        _job: string;
-        _liquidity: string;
-        _provider: string;
-        _amount: BigNumber;
-      }
-    >;
-
-    "LiquidityApproval(address)"(
-      _liquidity?: null
-    ): TypedEventFilter<[string], { _liquidity: string }>;
-
-    LiquidityApproval(
-      _liquidity?: null
-    ): TypedEventFilter<[string], { _liquidity: string }>;
-
-    "LiquidityCreditsForced(address,uint256,uint256)"(
-      _job?: string | null,
-      _rewardedAt?: null,
-      _currentCredits?: null
-    ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
-      { _job: string; _rewardedAt: BigNumber; _currentCredits: BigNumber }
-    >;
-
-    LiquidityCreditsForced(
-      _job?: string | null,
-      _rewardedAt?: null,
-      _currentCredits?: null
-    ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
-      { _job: string; _rewardedAt: BigNumber; _currentCredits: BigNumber }
-    >;
-
-    "LiquidityCreditsReward(address,uint256,uint256,uint256)"(
-      _job?: string | null,
-      _rewardedAt?: null,
-      _currentCredits?: null,
-      _periodCredits?: null
-    ): TypedEventFilter<
-      [string, BigNumber, BigNumber, BigNumber],
-      {
-        _job: string;
-        _rewardedAt: BigNumber;
-        _currentCredits: BigNumber;
-        _periodCredits: BigNumber;
-      }
-    >;
-
-    LiquidityCreditsReward(
-      _job?: string | null,
-      _rewardedAt?: null,
-      _currentCredits?: null,
-      _periodCredits?: null
-    ): TypedEventFilter<
-      [string, BigNumber, BigNumber, BigNumber],
-      {
-        _job: string;
-        _rewardedAt: BigNumber;
-        _currentCredits: BigNumber;
-        _periodCredits: BigNumber;
-      }
-    >;
-
-    "LiquidityRevocation(address)"(
-      _liquidity?: null
-    ): TypedEventFilter<[string], { _liquidity: string }>;
-
-    LiquidityRevocation(
-      _liquidity?: null
-    ): TypedEventFilter<[string], { _liquidity: string }>;
-
-    "LiquidityWithdrawal(address,address,address,uint256)"(
-      _job?: string | null,
-      _liquidity?: string | null,
-      _receiver?: string | null,
-      _amount?: null
-    ): TypedEventFilter<
-      [string, string, string, BigNumber],
-      {
-        _job: string;
-        _liquidity: string;
-        _receiver: string;
-        _amount: BigNumber;
-      }
-    >;
-
-    LiquidityWithdrawal(
-      _job?: string | null,
-      _liquidity?: string | null,
-      _receiver?: string | null,
-      _amount?: null
-    ): TypedEventFilter<
-      [string, string, string, BigNumber],
-      {
-        _job: string;
-        _liquidity: string;
-        _receiver: string;
-        _amount: BigNumber;
-      }
-    >;
-
     "TokenCreditAddition(address,address,address,uint256)"(
       _job?: string | null,
       _token?: string | null,
@@ -1380,26 +795,12 @@ export class IKeep3rJobs extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    addLiquidityToJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     addTokenCreditsToJob(
       _job: string,
       _token: string,
       _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
-
-    approveLiquidity(
-      _liquidity: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    approvedLiquidities(overrides?: CallOverrides): Promise<BigNumber>;
 
     bondedPayment(
       _keeper: string,
@@ -1420,12 +821,6 @@ export class IKeep3rJobs extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    forceLiquidityCreditsToJob(
-      _job: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     isBondedKeeper(
       _keeper: string,
       _bond: string,
@@ -1440,19 +835,9 @@ export class IKeep3rJobs extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    jobLiquidityCredits(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     jobOwner(_job: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     jobPendingOwner(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    jobPeriodCredits(
       _job: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
@@ -1463,21 +848,10 @@ export class IKeep3rJobs extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    liquidityAmount(
-      _job: string,
-      _liquidity: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     migrateJob(
       _fromJob: string,
       _toJob: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    observeLiquidity(
-      _liquidity: string,
-      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     pendingJobMigrations(
@@ -1485,49 +859,10 @@ export class IKeep3rJobs extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    quoteLiquidity(
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    revokeLiquidity(
-      _liquidity: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    rewardedAt(_job: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    slashLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     slashTokenFromJob(
       _job: string,
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    totalJobCredits(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    unbondLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    withdrawLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _receiver: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1543,8 +878,6 @@ export class IKeep3rJobs extends BaseContract {
       _keeper: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
-
-    workedAt(_job: string, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -1564,27 +897,11 @@ export class IKeep3rJobs extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    addLiquidityToJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
     addTokenCreditsToJob(
       _job: string,
       _token: string,
       _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    approveLiquidity(
-      _liquidity: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    approvedLiquidities(
-      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     bondedPayment(
@@ -1606,12 +923,6 @@ export class IKeep3rJobs extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    forceLiquidityCreditsToJob(
-      _job: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
     isBondedKeeper(
       _keeper: string,
       _bond: string,
@@ -1626,11 +937,6 @@ export class IKeep3rJobs extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    jobLiquidityCredits(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     jobOwner(
       _job: string,
       overrides?: CallOverrides
@@ -1641,20 +947,9 @@ export class IKeep3rJobs extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    jobPeriodCredits(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     jobTokenCreditsAddedAt(
       _job: string,
       _token: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    liquidityAmount(
-      _job: string,
-      _liquidity: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1664,62 +959,15 @@ export class IKeep3rJobs extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    observeLiquidity(
-      _liquidity: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     pendingJobMigrations(
       _fromJob: string,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    quoteLiquidity(
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    revokeLiquidity(
-      _liquidity: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    rewardedAt(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    slashLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     slashTokenFromJob(
       _job: string,
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    totalJobCredits(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    unbondLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    withdrawLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _receiver: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1734,11 +982,6 @@ export class IKeep3rJobs extends BaseContract {
     worked(
       _keeper: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    workedAt(
-      _job: string,
-      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };
 }

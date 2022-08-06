@@ -38,7 +38,6 @@ interface Keep3rJobFundableCreditsForTestInterface
     "firstSeen(address)": FunctionFragment;
     "governance()": FunctionFragment;
     "hasBonded(address)": FunctionFragment;
-    "inflationPeriod()": FunctionFragment;
     "isJobToken(address,address)": FunctionFragment;
     "jobOwner(address)": FunctionFragment;
     "jobPendingOwner(address)": FunctionFragment;
@@ -50,25 +49,20 @@ interface Keep3rJobFundableCreditsForTestInterface
     "keep3rV1Proxy()": FunctionFragment;
     "keepers()": FunctionFragment;
     "kp3rWethPool()": FunctionFragment;
-    "liquidityMinimum()": FunctionFragment;
     "pendingBonds(address,address)": FunctionFragment;
     "pendingGovernance()": FunctionFragment;
     "pendingUnbonds(address,address)": FunctionFragment;
     "removeDisputer(address)": FunctionFragment;
     "removeSlasher(address)": FunctionFragment;
-    "rewardPeriodTime()": FunctionFragment;
     "setBondTime(uint256)": FunctionFragment;
     "setFee(uint256)": FunctionFragment;
     "setGovernance(address)": FunctionFragment;
-    "setInflationPeriod(uint256)": FunctionFragment;
     "setJob(address,address)": FunctionFragment;
     "setJobToken(address,address)": FunctionFragment;
     "setKeep3rHelper(address)": FunctionFragment;
     "setKeep3rV1(address)": FunctionFragment;
     "setKeep3rV1Proxy(address)": FunctionFragment;
     "setKp3rWethPool(address)": FunctionFragment;
-    "setLiquidityMinimum(uint256)": FunctionFragment;
-    "setRewardPeriodTime(uint256)": FunctionFragment;
     "setUnbondTime(uint256)": FunctionFragment;
     "slashers(address)": FunctionFragment;
     "unbondTime()": FunctionFragment;
@@ -117,10 +111,6 @@ interface Keep3rJobFundableCreditsForTestInterface
   ): string;
   encodeFunctionData(functionFragment: "hasBonded", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "inflationPeriod",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "isJobToken",
     values: [string, string]
   ): string;
@@ -153,10 +143,6 @@ interface Keep3rJobFundableCreditsForTestInterface
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "liquidityMinimum",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "pendingBonds",
     values: [string, string]
   ): string;
@@ -177,10 +163,6 @@ interface Keep3rJobFundableCreditsForTestInterface
     values: [string]
   ): string;
   encodeFunctionData(
-    functionFragment: "rewardPeriodTime",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "setBondTime",
     values: [BigNumberish]
   ): string;
@@ -191,10 +173,6 @@ interface Keep3rJobFundableCreditsForTestInterface
   encodeFunctionData(
     functionFragment: "setGovernance",
     values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setInflationPeriod",
-    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "setJob",
@@ -216,14 +194,6 @@ interface Keep3rJobFundableCreditsForTestInterface
   encodeFunctionData(
     functionFragment: "setKp3rWethPool",
     values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setLiquidityMinimum",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setRewardPeriodTime",
-    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "setUnbondTime",
@@ -280,10 +250,6 @@ interface Keep3rJobFundableCreditsForTestInterface
   decodeFunctionResult(functionFragment: "firstSeen", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "governance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "hasBonded", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "inflationPeriod",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "isJobToken", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "jobOwner", data: BytesLike): Result;
   decodeFunctionResult(
@@ -314,10 +280,6 @@ interface Keep3rJobFundableCreditsForTestInterface
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "liquidityMinimum",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "pendingBonds",
     data: BytesLike
   ): Result;
@@ -338,20 +300,12 @@ interface Keep3rJobFundableCreditsForTestInterface
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "rewardPeriodTime",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "setBondTime",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "setFee", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setGovernance",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setInflationPeriod",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "setJob", data: BytesLike): Result;
@@ -373,14 +327,6 @@ interface Keep3rJobFundableCreditsForTestInterface
   ): Result;
   decodeFunctionResult(
     functionFragment: "setKp3rWethPool",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setLiquidityMinimum",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setRewardPeriodTime",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -655,8 +601,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
 
     hasBonded(arg0: string, overrides?: CallOverrides): Promise<[boolean]>;
 
-    inflationPeriod(overrides?: CallOverrides): Promise<[BigNumber]>;
-
     isJobToken(
       _job: string,
       _token: string,
@@ -693,8 +637,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
 
     kp3rWethPool(overrides?: CallOverrides): Promise<[string]>;
 
-    liquidityMinimum(overrides?: CallOverrides): Promise<[BigNumber]>;
-
     pendingBonds(
       arg0: string,
       arg1: string,
@@ -719,8 +661,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    rewardPeriodTime(overrides?: CallOverrides): Promise<[BigNumber]>;
-
     setBondTime(
       _bondTime: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -733,11 +673,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
 
     setGovernance(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    setInflationPeriod(
-      _inflationPeriod: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -770,16 +705,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
 
     setKp3rWethPool(
       _kp3rWethPool: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    setLiquidityMinimum(
-      _liquidityMinimum: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    setRewardPeriodTime(
-      _rewardPeriodTime: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -870,8 +795,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
 
   hasBonded(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
-  inflationPeriod(overrides?: CallOverrides): Promise<BigNumber>;
-
   isJobToken(
     _job: string,
     _token: string,
@@ -906,8 +829,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
 
   kp3rWethPool(overrides?: CallOverrides): Promise<string>;
 
-  liquidityMinimum(overrides?: CallOverrides): Promise<BigNumber>;
-
   pendingBonds(
     arg0: string,
     arg1: string,
@@ -932,8 +853,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  rewardPeriodTime(overrides?: CallOverrides): Promise<BigNumber>;
-
   setBondTime(
     _bondTime: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -946,11 +865,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
 
   setGovernance(
     _governance: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  setInflationPeriod(
-    _inflationPeriod: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -983,16 +897,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
 
   setKp3rWethPool(
     _kp3rWethPool: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  setLiquidityMinimum(
-    _liquidityMinimum: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  setRewardPeriodTime(
-    _rewardPeriodTime: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -1069,8 +973,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
 
     hasBonded(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
-    inflationPeriod(overrides?: CallOverrides): Promise<BigNumber>;
-
     isJobToken(
       _job: string,
       _token: string,
@@ -1105,8 +1007,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
 
     kp3rWethPool(overrides?: CallOverrides): Promise<string>;
 
-    liquidityMinimum(overrides?: CallOverrides): Promise<BigNumber>;
-
     pendingBonds(
       arg0: string,
       arg1: string,
@@ -1125,8 +1025,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
 
     removeSlasher(_slasher: string, overrides?: CallOverrides): Promise<void>;
 
-    rewardPeriodTime(overrides?: CallOverrides): Promise<BigNumber>;
-
     setBondTime(
       _bondTime: BigNumberish,
       overrides?: CallOverrides
@@ -1136,11 +1034,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
 
     setGovernance(
       _governance: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setInflationPeriod(
-      _inflationPeriod: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1170,16 +1063,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
 
     setKp3rWethPool(
       _kp3rWethPool: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setLiquidityMinimum(
-      _liquidityMinimum: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setRewardPeriodTime(
-      _rewardPeriodTime: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1508,8 +1391,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
 
     hasBonded(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    inflationPeriod(overrides?: CallOverrides): Promise<BigNumber>;
-
     isJobToken(
       _job: string,
       _token: string,
@@ -1547,8 +1428,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
 
     kp3rWethPool(overrides?: CallOverrides): Promise<BigNumber>;
 
-    liquidityMinimum(overrides?: CallOverrides): Promise<BigNumber>;
-
     pendingBonds(
       arg0: string,
       arg1: string,
@@ -1573,8 +1452,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    rewardPeriodTime(overrides?: CallOverrides): Promise<BigNumber>;
-
     setBondTime(
       _bondTime: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -1587,11 +1464,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
 
     setGovernance(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    setInflationPeriod(
-      _inflationPeriod: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1624,16 +1496,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
 
     setKp3rWethPool(
       _kp3rWethPool: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    setLiquidityMinimum(
-      _liquidityMinimum: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    setRewardPeriodTime(
-      _rewardPeriodTime: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1734,8 +1596,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    inflationPeriod(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     isJobToken(
       _job: string,
       _token: string,
@@ -1776,8 +1636,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
 
     kp3rWethPool(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    liquidityMinimum(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     pendingBonds(
       arg0: string,
       arg1: string,
@@ -1802,8 +1660,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    rewardPeriodTime(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     setBondTime(
       _bondTime: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -1816,11 +1672,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
 
     setGovernance(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setInflationPeriod(
-      _inflationPeriod: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1853,16 +1704,6 @@ export class Keep3rJobFundableCreditsForTest extends BaseContract {
 
     setKp3rWethPool(
       _kp3rWethPool: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setLiquidityMinimum(
-      _liquidityMinimum: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setRewardPeriodTime(
-      _rewardPeriodTime: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

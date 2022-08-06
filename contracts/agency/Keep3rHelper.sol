@@ -31,12 +31,14 @@ contract Keep3rHelper is IKeep3rHelper, Keep3rHelperParameters {
 
   /// @inheritdoc IKeep3rHelper
   function quote(uint256 _eth) public view override returns (uint256 _amountOut) {
-    uint32[] memory _secondsAgos = new uint32[](2);
-    _secondsAgos[1] = quoteTwapTime;
+    // MODIFY
 
-    (int56[] memory _tickCumulatives, ) = IUniswapV3Pool(kp3rWethPool.poolAddress).observe(_secondsAgos);
-    int56 _difference = _tickCumulatives[0] - _tickCumulatives[1];
-    _amountOut = getQuoteAtTick(uint128(_eth), kp3rWethPool.isKP3RToken0 ? _difference : -_difference, quoteTwapTime);
+    // uint32[] memory _secondsAgos = new uint32[](2);
+    // _secondsAgos[1] = quoteTwapTime;
+
+    // (int56[] memory _tickCumulatives, ) = IUniswapV3Pool(kp3rWethPool.poolAddress).observe(_secondsAgos);
+    // int56 _difference = _tickCumulatives[0] - _tickCumulatives[1];
+    // _amountOut = getQuoteAtTick(uint128(_eth), kp3rWethPool.isKP3RToken0 ? _difference : -_difference, quoteTwapTime);
   }
 
   /// @inheritdoc IKeep3rHelper
@@ -81,24 +83,24 @@ contract Keep3rHelper is IKeep3rHelper, Keep3rHelperParameters {
   }
 
   /// @inheritdoc IKeep3rHelper
-  function observe(address _pool, uint32[] memory _secondsAgo)
-    public
-    view
-    override
-    returns (
-      int56 _tickCumulative1,
-      int56 _tickCumulative2,
-      bool _success
-    )
-  {
-    try IUniswapV3Pool(_pool).observe(_secondsAgo) returns (int56[] memory _uniswapResponse, uint160[] memory) {
-      _tickCumulative1 = _uniswapResponse[0];
-      if (_uniswapResponse.length > 1) {
-        _tickCumulative2 = _uniswapResponse[1];
-      }
-      _success = true;
-    } catch (bytes memory) {}
-  }
+  // function observe(address _pool, uint32[] memory _secondsAgo)
+  //   public
+  //   view
+  //   override
+  //   returns (
+  //     int56 _tickCumulative1,
+  //     int56 _tickCumulative2,
+  //     bool _success
+  //   )
+  // {
+  //   try IUniswapV3Pool(_pool).observe(_secondsAgo) returns (int56[] memory _uniswapResponse, uint160[] memory) {
+  //     _tickCumulative1 = _uniswapResponse[0];
+  //     if (_uniswapResponse.length > 1) {
+  //       _tickCumulative2 = _uniswapResponse[1];
+  //     }
+  //     _success = true;
+  //   } catch (bytes memory) {}
+  // }
 
   /// @inheritdoc IKeep3rHelper
   function getPaymentParams(uint256 _bonds)
@@ -117,31 +119,31 @@ contract Keep3rHelper is IKeep3rHelper, Keep3rHelperParameters {
   }
 
   /// @inheritdoc IKeep3rHelper
-  function getKP3RsAtTick(
-    uint256 _liquidityAmount,
-    int56 _tickDifference,
-    uint256 _timeInterval
-  ) public pure override returns (uint256 _kp3rAmount) {
-    uint160 sqrtRatioX96 = TickMath.getSqrtRatioAtTick(int24(_tickDifference / int256(_timeInterval)));
-    _kp3rAmount = FullMath.mulDiv(1 << 96, _liquidityAmount, sqrtRatioX96); // Mike: so, kp3r is X token and not Y token of ratio. Y/X.
-  }
+  // function getKP3RsAtTick(
+  //   uint256 _liquidityAmount,
+  //   int56 _tickDifference,
+  //   uint256 _timeInterval
+  // ) public pure override returns (uint256 _kp3rAmount) {
+  //   uint160 sqrtRatioX96 = TickMath.getSqrtRatioAtTick(int24(_tickDifference / int256(_timeInterval)));
+  //   _kp3rAmount = FullMath.mulDiv(1 << 96, _liquidityAmount, sqrtRatioX96); // Mike: so, kp3r is X token and not Y token of ratio. Y/X.
+  // }
 
-  /// @inheritdoc IKeep3rHelper
-  function getQuoteAtTick(
-    uint128 _baseAmount,
-    int56 _tickDifference,
-    uint256 _timeInterval
-  ) public pure override returns (uint256 _quoteAmount) {
-    uint160 sqrtRatioX96 = TickMath.getSqrtRatioAtTick(int24(_tickDifference / int256(_timeInterval)));
+  // /// @inheritdoc IKeep3rHelper
+  // function getQuoteAtTick(
+  //   uint128 _baseAmount,
+  //   int56 _tickDifference,
+  //   uint256 _timeInterval
+  // ) public pure override returns (uint256 _quoteAmount) {
+  //   uint160 sqrtRatioX96 = TickMath.getSqrtRatioAtTick(int24(_tickDifference / int256(_timeInterval)));
 
-    if (sqrtRatioX96 <= type(uint128).max) { // Mike: in case sqrtRatioX96 * sqrtRatioX96 > type(uint256).max
-      uint256 ratioX192 = uint256(sqrtRatioX96) * sqrtRatioX96;
-      _quoteAmount = FullMath.mulDiv(1 << 192, _baseAmount, ratioX192); // Mike: so, _baseAmount refers to Y token, and quiteAmount to X token.
-    } else {
-      uint256 ratioX128 = FullMath.mulDiv(sqrtRatioX96, sqrtRatioX96, 1 << 64);
-      _quoteAmount = FullMath.mulDiv(1 << 128, _baseAmount, ratioX128);
-    }
-  }
+  //   if (sqrtRatioX96 <= type(uint128).max) { // Mike: in case sqrtRatioX96 * sqrtRatioX96 > type(uint256).max
+  //     uint256 ratioX192 = uint256(sqrtRatioX96) * sqrtRatioX96;
+  //     _quoteAmount = FullMath.mulDiv(1 << 192, _baseAmount, ratioX192); // Mike: so, _baseAmount refers to Y token, and quiteAmount to X token.
+  //   } else {
+  //     uint256 ratioX128 = FullMath.mulDiv(sqrtRatioX96, sqrtRatioX96, 1 << 64);
+  //     _quoteAmount = FullMath.mulDiv(1 << 128, _baseAmount, ratioX128);
+  //   }
+  // }
 
   /// @notice Gets the block's base fee
   /// @return _baseFee The block's basefee

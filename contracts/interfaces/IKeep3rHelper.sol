@@ -57,14 +57,14 @@ interface IKeep3rHelper {
   /// @return _tickCumulative1 Cummulative sum of ticks until first time reference
   /// @return _tickCumulative2 Cummulative sum of ticks until second time reference
   /// @return _success Boolean indicating if the observe call was succesfull
-  function observe(address _pool, uint32[] memory _secondsAgo)
-    external
-    view
-    returns (
-      int56 _tickCumulative1,
-      int56 _tickCumulative2,
-      bool _success
-    );
+  // function observe(address _pool, uint32[] memory _secondsAgo)
+  //   external
+  //   view
+  //   returns (
+  //     int56 _tickCumulative1,
+  //     int56 _tickCumulative2,
+  //     bool _success
+  //   );
 
   /// @notice Get multiplier, quote, and extra, in order to calculate keeper payment
   /// @param _bonds Amount of bonded KP3R owned by the keeper
@@ -85,20 +85,20 @@ interface IKeep3rHelper {
   /// @param _tickDifference Tick value used to calculate the quote
   /// @param _timeInterval Time value used to calculate the quote
   /// @return _kp3rAmount Amount of KP3R tokens underlying on the given liquidity
-  function getKP3RsAtTick(
-    uint256 _liquidityAmount,
-    int56 _tickDifference,
-    uint256 _timeInterval
-  ) external pure returns (uint256 _kp3rAmount);
+  // function getKP3RsAtTick(
+  //   uint256 _liquidityAmount,
+  //   int56 _tickDifference,
+  //   uint256 _timeInterval
+  // ) external pure returns (uint256 _kp3rAmount);
 
   /// @notice Given a tick and a token amount, calculates the output in correspondant token
   /// @param _baseAmount Amount of token to be converted
   /// @param _tickDifference Tick value used to calculate the quote
   /// @param _timeInterval Time value used to calculate the quote
   /// @return _quoteAmount Amount of credits deserved for the baseAmount at the tick value
-  function getQuoteAtTick(
-    uint128 _baseAmount,
-    int56 _tickDifference,
-    uint256 _timeInterval
-  ) external pure returns (uint256 _quoteAmount);
+  // function getQuoteAtTick(
+  //   uint128 _baseAmount,
+  //   int56 _tickDifference,
+  //   uint256 _timeInterval
+  // ) external pure returns (uint256 _quoteAmount);
 }

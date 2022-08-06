@@ -3,9 +3,10 @@ pragma solidity >=0.8.4 <0.9.0;
 
 import '../../../interfaces/peripherals/IKeep3rJobs.sol';
 import './Keep3rJobFundableCredits.sol';
-import './Keep3rJobFundableLiquidity.sol';
+//import './Keep3rJobFundableLiquidity.sol';
 
-abstract contract Keep3rJobMigration is IKeep3rJobMigration, Keep3rJobFundableCredits, Keep3rJobFundableLiquidity {
+//abstract contract Keep3rJobMigration is IKeep3rJobMigration, Keep3rJobFundableCredits, Keep3rJobFundableLiquidity {
+abstract contract Keep3rJobMigration is IKeep3rJobMigration, Keep3rJobFundableCredits {
   using EnumerableSet for EnumerableSet.AddressSet;
 
   uint256 internal constant _MIGRATION_COOLDOWN = 1 minutes;
@@ -31,8 +32,10 @@ abstract contract Keep3rJobMigration is IKeep3rJobMigration, Keep3rJobFundableCr
     if (block.timestamp < _migrationCreatedAt[_fromJob][_toJob] + _MIGRATION_COOLDOWN) revert JobMigrationLocked();
 
     // force job credits update for both jobs
-    _settleJobAccountance(_fromJob);
-    _settleJobAccountance(_toJob);
+
+    // MODIFY
+    // _settleJobAccountance(_fromJob);
+    // _settleJobAccountance(_toJob);
 
     // migrate tokens
     while (_jobTokens[_fromJob].length() > 0) {
@@ -44,25 +47,25 @@ abstract contract Keep3rJobMigration is IKeep3rJobMigration, Keep3rJobFundableCr
     }
 
     // migrate liquidities
-    while (_jobLiquidities[_fromJob].length() > 0) {
-      address _liquidity = _jobLiquidities[_fromJob].at(0);
+    // while (_jobLiquidities[_fromJob].length() > 0) {
+    //   address _liquidity = _jobLiquidities[_fromJob].at(0);
 
-      liquidityAmount[_toJob][_liquidity] += liquidityAmount[_fromJob][_liquidity];
-      delete liquidityAmount[_fromJob][_liquidity];
+    //   liquidityAmount[_toJob][_liquidity] += liquidityAmount[_fromJob][_liquidity];
+    //   delete liquidityAmount[_fromJob][_liquidity];
 
-      _jobLiquidities[_toJob].add(_liquidity);
-      _jobLiquidities[_fromJob].remove(_liquidity);
-    }
+    //   _jobLiquidities[_toJob].add(_liquidity);
+    //   _jobLiquidities[_fromJob].remove(_liquidity);
+    // }
 
     // migrate job balances
-    _jobPeriodCredits[_toJob] += _jobPeriodCredits[_fromJob];
-    delete _jobPeriodCredits[_fromJob];
+    // _jobPeriodCredits[_toJob] += _jobPeriodCredits[_fromJob];
+    // delete _jobPeriodCredits[_fromJob];
 
-    _jobLiquidityCredits[_toJob] += _jobLiquidityCredits[_fromJob];
-    delete _jobLiquidityCredits[_fromJob];
+    // _jobLiquidityCredits[_toJob] += _jobLiquidityCredits[_fromJob];
+    // delete _jobLiquidityCredits[_fromJob];
 
     // stop _fromJob from being a job
-    delete rewardedAt[_fromJob];
+    // delete rewardedAt[_fromJob];
     _jobs.remove(_fromJob);
 
     // delete unused data slots

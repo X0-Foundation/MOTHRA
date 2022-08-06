@@ -13,29 +13,29 @@ contract Keep3rJobDisputableForTest is Keep3rJobDisputable {
     address _kp3rWethPool
   ) Keep3rParameters(_kph, _keep3rV1, _keep3rV1Proxy, _kp3rWethPool) Keep3rRoles(msg.sender) {}
 
-  function setJobLiquidity(address _job, address _liquidity) external {
-    _jobLiquidities[_job].add(_liquidity);
-  }
+  // function setJobLiquidity(address _job, address _liquidity) external {
+  //   _jobLiquidities[_job].add(_liquidity);
+  // }
 
   function setJobToken(address _job, address _token) external {
     _jobTokens[_job].add(_token);
   }
 
-  function setApprovedLiquidity(address _liquidity) external {
-    _approvedLiquidities.add(_liquidity);
-  }
+  // function setApprovedLiquidity(address _liquidity) external {
+  //   _approvedLiquidities.add(_liquidity);
+  // }
 
-  function setRevokedLiquidity(address _liquidity) external {
-    _approvedLiquidities.remove(_liquidity);
-  }
+  // function setRevokedLiquidity(address _liquidity) external {
+  //   _approvedLiquidities.remove(_liquidity);
+  // }
 
-  function internalJobLiquidityCredits(address _job) external view returns (uint256 _credits) {
-    _credits = _jobLiquidityCredits[_job];
-  }
+  // function internalJobLiquidityCredits(address _job) external view returns (uint256 _credits) {
+  //   _credits = _jobLiquidityCredits[_job];
+  // }
 
-  function internalJobPeriodCredits(address _job) external view returns (uint256 _credits) {
-    _credits = _jobPeriodCredits[_job];
-  }
+  // function internalJobPeriodCredits(address _job) external view returns (uint256 _credits) {
+  //   _credits = _jobPeriodCredits[_job];
+  // }
 
   function internalJobTokens(address _job) external view returns (address[] memory _tokens) {
     _tokens = new address[](_jobTokens[_job].length());
@@ -44,10 +44,10 @@ contract Keep3rJobDisputableForTest is Keep3rJobDisputable {
     }
   }
 
-  function internalJobLiquidities(address _job) external view returns (address[] memory _tokens) {
-    _tokens = new address[](_jobLiquidities[_job].length());
-    for (uint256 i; i < _jobLiquidities[_job].length(); i++) {
-      _tokens[i] = _jobLiquidities[_job].at(i);
-    }
-  }
+  // function internalJobLiquidities(address _job) external view returns (address[] memory _tokens) {
+  //   _tokens = new address[](_jobLiquidities[_job].length());
+  //   for (uint256 i; i < _jobLiquidities[_job].length(); i++) {
+  //     _tokens[i] = _jobLiquidities[_job].at(i);
+  //   }
+  // }
 }

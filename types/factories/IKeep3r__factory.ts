@@ -59,21 +59,6 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "JobLiquidityInsufficient",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "JobLiquidityLessThanMin",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "JobLiquidityUnexistent",
-    type: "error",
-  },
-  {
-    inputs: [],
     name: "JobMigrationImpossible",
     type: "error",
   },
@@ -110,21 +95,6 @@ const _abi = [
   {
     inputs: [],
     name: "JobUnavailable",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "LiquidityPairApproved",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "LiquidityPairUnapproved",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "LiquidityPairUnexistent",
     type: "error",
   },
   {
@@ -591,106 +561,6 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
-        indexed: true,
-        internalType: "address",
-        name: "_job",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "_liquidity",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "_provider",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "_amount",
-        type: "uint256",
-      },
-    ],
-    name: "LiquidityAddition",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "_liquidity",
-        type: "address",
-      },
-    ],
-    name: "LiquidityApproval",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "_job",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "_rewardedAt",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "_currentCredits",
-        type: "uint256",
-      },
-    ],
-    name: "LiquidityCreditsForced",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "_job",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "_rewardedAt",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "_currentCredits",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "_periodCredits",
-        type: "uint256",
-      },
-    ],
-    name: "LiquidityCreditsReward",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
         indexed: false,
         internalType: "uint256",
         name: "_liquidityMinimum",
@@ -698,50 +568,6 @@ const _abi = [
       },
     ],
     name: "LiquidityMinimumChange",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "_liquidity",
-        type: "address",
-      },
-    ],
-    name: "LiquidityRevocation",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "_job",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "_liquidity",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "_receiver",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "_amount",
-        type: "uint256",
-      },
-    ],
-    name: "LiquidityWithdrawal",
     type: "event",
   },
   {
@@ -944,29 +770,6 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "_job",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_liquidity",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "_amount",
-        type: "uint256",
-      },
-    ],
-    name: "addLiquidityToJob",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
         name: "_slasher",
         type: "address",
       },
@@ -997,32 +800,6 @@ const _abi = [
     name: "addTokenCreditsToJob",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_liquidity",
-        type: "address",
-      },
-    ],
-    name: "approveLiquidity",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "approvedLiquidities",
-    outputs: [
-      {
-        internalType: "address[]",
-        name: "_list",
-        type: "address[]",
-      },
-    ],
-    stateMutability: "view",
     type: "function",
   },
   {
@@ -1243,24 +1020,6 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "_job",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "_amount",
-        type: "uint256",
-      },
-    ],
-    name: "forceLiquidityCreditsToJob",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
         name: "_keeper",
         type: "address",
       },
@@ -1271,19 +1030,6 @@ const _abi = [
         internalType: "bool",
         name: "_hasBonded",
         type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "inflationPeriod",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "_period",
-        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -1355,25 +1101,6 @@ const _abi = [
         type: "address",
       },
     ],
-    name: "jobLiquidityCredits",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "_amount",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_job",
-        type: "address",
-      },
-    ],
     name: "jobOwner",
     outputs: [
       {
@@ -1399,25 +1126,6 @@ const _abi = [
         internalType: "address",
         name: "_pendingOwner",
         type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_job",
-        type: "address",
-      },
-    ],
-    name: "jobPeriodCredits",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "_amount",
-        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -1553,43 +1261,6 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "_job",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_liquidity",
-        type: "address",
-      },
-    ],
-    name: "liquidityAmount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "_amount",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "liquidityMinimum",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "_amount",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
         name: "_fromJob",
         type: "address",
       },
@@ -1602,42 +1273,6 @@ const _abi = [
     name: "migrateJob",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_liquidity",
-        type: "address",
-      },
-    ],
-    name: "observeLiquidity",
-    outputs: [
-      {
-        components: [
-          {
-            internalType: "int56",
-            name: "current",
-            type: "int56",
-          },
-          {
-            internalType: "int56",
-            name: "difference",
-            type: "int56",
-          },
-          {
-            internalType: "uint256",
-            name: "period",
-            type: "uint256",
-          },
-        ],
-        internalType: "struct IKeep3rJobFundableLiquidity.TickCache",
-        name: "_tickCache",
-        type: "tuple",
-      },
-    ],
-    stateMutability: "view",
     type: "function",
   },
   {
@@ -1711,30 +1346,6 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "_liquidity",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "_amount",
-        type: "uint256",
-      },
-    ],
-    name: "quoteLiquidity",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "_periodCredits",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
         name: "_disputer",
         type: "address",
       },
@@ -1773,51 +1384,6 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_liquidity",
-        type: "address",
-      },
-    ],
-    name: "revokeLiquidity",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "rewardPeriodTime",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "_days",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_job",
-        type: "address",
-      },
-    ],
-    name: "rewardedAt",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "_timestamp",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
         internalType: "uint256",
         name: "_bond",
         type: "uint256",
@@ -1837,19 +1403,6 @@ const _abi = [
       },
     ],
     name: "setFee",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_inflationPeriod",
-        type: "uint256",
-      },
-    ],
-    name: "setInflationPeriod",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -1910,32 +1463,6 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "_liquidityMinimum",
-        type: "uint256",
-      },
-    ],
-    name: "setLiquidityMinimum",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_rewardPeriodTime",
-        type: "uint256",
-      },
-    ],
-    name: "setRewardPeriodTime",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
         name: "_unbond",
         type: "uint256",
       },
@@ -1969,29 +1496,6 @@ const _abi = [
       },
     ],
     name: "slash",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_job",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_liquidity",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "_amount",
-        type: "uint256",
-      },
-    ],
-    name: "slashLiquidityFromJob",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -2039,48 +1543,6 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_job",
-        type: "address",
-      },
-    ],
-    name: "totalJobCredits",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "_amount",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_job",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_liquidity",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "_amount",
-        type: "uint256",
-      },
-    ],
-    name: "unbondLiquidityFromJob",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     inputs: [],
     name: "unbondTime",
     outputs: [
@@ -2091,29 +1553,6 @@ const _abi = [
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_job",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_liquidity",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_receiver",
-        type: "address",
-      },
-    ],
-    name: "withdrawLiquidityFromJob",
-    outputs: [],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -2174,25 +1613,6 @@ const _abi = [
     name: "worked",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_job",
-        type: "address",
-      },
-    ],
-    name: "workedAt",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "_timestamp",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
     type: "function",
   },
 ];

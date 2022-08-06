@@ -2,7 +2,7 @@
 pragma solidity >=0.8.4 <0.9.0;
 
 import './Keep3rJobMigration.sol';
-import '../../../interfaces/IKeep3rHelper.sol';
+//import '../../../interfaces/IKeep3rHelper.sol';
 import '../../../interfaces/peripherals/IKeep3rJobs.sol';
 
 import '@openzeppelin/contracts/token/ERC20/IERC20.sol';
@@ -49,24 +49,24 @@ abstract contract Keep3rJobWorkable is IKeep3rJobWorkable, Keep3rJobMigration {
     if (disputes[_job]) revert JobDisputed();
     if (!_jobs.contains(_job)) revert JobUnapproved();
 
-    if (_updateJobCreditsIfNeeded(_job)) {
-      emit LiquidityCreditsReward(_job, rewardedAt[_job], _jobLiquidityCredits[_job], _jobPeriodCredits[_job]);
-    }
+    // if (_updateJobCreditsIfNeeded(_job)) {
+    //   emit LiquidityCreditsReward(_job, rewardedAt[_job], _jobLiquidityCredits[_job], _jobPeriodCredits[_job]);
+    // }
 
     (uint256 _boost, uint256 _oneEthQuote, uint256 _extraGas) = IKeep3rHelper(keep3rHelper).getPaymentParams(bonds[_keeper][keep3rV1]);
 
     uint256 _gasLeft = _getGasLeft();
     uint256 _payment = _calculatePayment(_gasLeft, _extraGas, _oneEthQuote, _boost);
 
-    if (_payment > _jobLiquidityCredits[_job]) {
-      _rewardJobCredits(_job);
-        // _jobLiquidityCredits[_job] += _phase(block.timestamp - rewardedAt[_job], _jobPeriodCredits[_job]);
-        // rewardedAt[_job] = block.timestamp;
-      emit LiquidityCreditsReward(_job, rewardedAt[_job], _jobLiquidityCredits[_job], _jobPeriodCredits[_job]);
+    // if (_payment > _jobLiquidityCredits[_job]) {
+    //   _rewardJobCredits(_job);
+    //     // _jobLiquidityCredits[_job] += _phase(block.timestamp - rewardedAt[_job], _jobPeriodCredits[_job]);
+    //     // rewardedAt[_job] = block.timestamp;
+    //   emit LiquidityCreditsReward(_job, rewardedAt[_job], _jobLiquidityCredits[_job], _jobPeriodCredits[_job]);
 
-      _gasLeft = _getGasLeft();
-      _payment = _calculatePayment(_gasLeft, _extraGas, _oneEthQuote, _boost);
-    }
+    //   _gasLeft = _getGasLeft();
+    //   _payment = _calculatePayment(_gasLeft, _extraGas, _oneEthQuote, _boost);
+    // }
 
     _bondedPayment(_job, _keeper, _payment);
     emit KeeperWork(keep3rV1, _job, _keeper, _payment, _gasLeft);
@@ -79,16 +79,16 @@ abstract contract Keep3rJobWorkable is IKeep3rJobWorkable, Keep3rJobMigration {
     if (disputes[_job]) revert JobDisputed();
     if (!_jobs.contains(_job)) revert JobUnapproved();
 
-    if (_updateJobCreditsIfNeeded(_job)) {
-      emit LiquidityCreditsReward(_job, rewardedAt[_job], _jobLiquidityCredits[_job], _jobPeriodCredits[_job]);
-    }
+    // if (_updateJobCreditsIfNeeded(_job)) {
+    //   emit LiquidityCreditsReward(_job, rewardedAt[_job], _jobLiquidityCredits[_job], _jobPeriodCredits[_job]);
+    // }
 
-    if (_payment > _jobLiquidityCredits[_job]) {
-      _rewardJobCredits(_job);
-        // _jobLiquidityCredits[_job] += _phase(block.timestamp - rewardedAt[_job], _jobPeriodCredits[_job]);
-        // rewardedAt[_job] = block.timestamp;
-      emit LiquidityCreditsReward(_job, rewardedAt[_job], _jobLiquidityCredits[_job], _jobPeriodCredits[_job]);
-    }
+    // if (_payment > _jobLiquidityCredits[_job]) {
+    //   _rewardJobCredits(_job);
+    //     // _jobLiquidityCredits[_job] += _phase(block.timestamp - rewardedAt[_job], _jobPeriodCredits[_job]);
+    //     // rewardedAt[_job] = block.timestamp;
+    //   emit LiquidityCreditsReward(_job, rewardedAt[_job], _jobLiquidityCredits[_job], _jobPeriodCredits[_job]);
+    // }
 
     _bondedPayment(_job, _keeper, _payment);
     emit KeeperWork(keep3rV1, _job, _keeper, _payment, _getGasLeft());
@@ -118,8 +118,9 @@ abstract contract Keep3rJobWorkable is IKeep3rJobWorkable, Keep3rJobMigration {
   ) internal {
     if (_payment > _jobLiquidityCredits[_job]) revert InsufficientFunds();
 
-    workedAt[_job] = block.timestamp;
-    _jobLiquidityCredits[_job] -= _payment;
+    // MODIFY
+    // workedAt[_job] = block.timestamp;
+    // _jobLiquidityCredits[_job] -= _payment;
     bonds[_keeper][keep3rV1] += _payment;
     workCompleted[_keeper] += _payment;
   }

@@ -77,15 +77,15 @@ interface IKeep3rParameters is IBaseErrors {
 
   /// @notice The minimum amount of liquidity required to fund a job per liquidity
   /// @return _amount The minimum amount of liquidity in KP3R
-  function liquidityMinimum() external view returns (uint256 _amount);
+  // function liquidityMinimum() external view returns (uint256 _amount);
 
   /// @notice The amount of time between each scheduled credits reward given to a job
   /// @return _days The reward period in days
-  function rewardPeriodTime() external view returns (uint256 _days);
+  // function rewardPeriodTime() external view returns (uint256 _days);
 
   /// @notice The inflation period is the denominator used to regulate the emission of KP3R
   /// @return _period The denominator used to regulate the emission of KP3R
-  function inflationPeriod() external view returns (uint256 _period);
+  // function inflationPeriod() external view returns (uint256 _period);
 
   /// @notice The fee to be sent to governance when a user adds liquidity to a job
   /// @return _amount The fee amount to be sent to governance when a user adds liquidity to a job
@@ -139,15 +139,15 @@ interface IKeep3rParameters is IBaseErrors {
 
   /// @notice Sets the minimum amount of liquidity required to fund a job
   /// @param _liquidityMinimum The new minimum amount of liquidity
-  function setLiquidityMinimum(uint256 _liquidityMinimum) external;
+  // function setLiquidityMinimum(uint256 _liquidityMinimum) external;
 
   /// @notice Sets the time required to pass between rewards for jobs
   /// @param _rewardPeriodTime The new amount of time required to pass between rewards
-  function setRewardPeriodTime(uint256 _rewardPeriodTime) external;
+  // function setRewardPeriodTime(uint256 _rewardPeriodTime) external;
 
   /// @notice Sets the new inflation period
   /// @param _inflationPeriod The new inflation period
-  function setInflationPeriod(uint256 _inflationPeriod) external;
+  // function setInflationPeriod(uint256 _inflationPeriod) external;
 
   /// @notice Sets the new fee
   /// @param _fee The new fee

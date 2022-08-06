@@ -21,23 +21,16 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 interface IKeep3rHelperInterface extends ethers.utils.Interface {
   functions: {
     "bonds(address)": FunctionFragment;
-    "getKP3RsAtTick(uint256,int56,uint256)": FunctionFragment;
     "getPaymentParams(uint256)": FunctionFragment;
     "getPoolTokens(address)": FunctionFragment;
-    "getQuoteAtTick(uint128,int56,uint256)": FunctionFragment;
     "getRewardAmount(uint256)": FunctionFragment;
     "getRewardAmountFor(address,uint256)": FunctionFragment;
     "getRewardBoostFor(uint256)": FunctionFragment;
     "isKP3RToken0(address)": FunctionFragment;
-    "observe(address,uint32[])": FunctionFragment;
     "quote(uint256)": FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: "bonds", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "getKP3RsAtTick",
-    values: [BigNumberish, BigNumberish, BigNumberish]
-  ): string;
   encodeFunctionData(
     functionFragment: "getPaymentParams",
     values: [BigNumberish]
@@ -45,10 +38,6 @@ interface IKeep3rHelperInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "getPoolTokens",
     values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getQuoteAtTick",
-    values: [BigNumberish, BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getRewardAmount",
@@ -66,27 +55,15 @@ interface IKeep3rHelperInterface extends ethers.utils.Interface {
     functionFragment: "isKP3RToken0",
     values: [string]
   ): string;
-  encodeFunctionData(
-    functionFragment: "observe",
-    values: [string, BigNumberish[]]
-  ): string;
   encodeFunctionData(functionFragment: "quote", values: [BigNumberish]): string;
 
   decodeFunctionResult(functionFragment: "bonds", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "getKP3RsAtTick",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "getPaymentParams",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getPoolTokens",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getQuoteAtTick",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -105,7 +82,6 @@ interface IKeep3rHelperInterface extends ethers.utils.Interface {
     functionFragment: "isKP3RToken0",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "observe", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "quote", data: BytesLike): Result;
 
   events: {};
@@ -160,13 +136,6 @@ export class IKeep3rHelper extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { _amountBonded: BigNumber }>;
 
-    getKP3RsAtTick(
-      _liquidityAmount: BigNumberish,
-      _tickDifference: BigNumberish,
-      _timeInterval: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { _kp3rAmount: BigNumber }>;
-
     getPaymentParams(
       _bonds: BigNumberish,
       overrides?: CallOverrides
@@ -182,13 +151,6 @@ export class IKeep3rHelper extends BaseContract {
       _pool: string,
       overrides?: CallOverrides
     ): Promise<[string, string] & { _token0: string; _token1: string }>;
-
-    getQuoteAtTick(
-      _baseAmount: BigNumberish,
-      _tickDifference: BigNumberish,
-      _timeInterval: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { _quoteAmount: BigNumber }>;
 
     getRewardAmount(
       _gasUsed: BigNumberish,
@@ -211,18 +173,6 @@ export class IKeep3rHelper extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean] & { _isKP3RToken0: boolean }>;
 
-    observe(
-      _pool: string,
-      _secondsAgo: BigNumberish[],
-      overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber, boolean] & {
-        _tickCumulative1: BigNumber;
-        _tickCumulative2: BigNumber;
-        _success: boolean;
-      }
-    >;
-
     quote(
       _eth: BigNumberish,
       overrides?: CallOverrides
@@ -230,13 +180,6 @@ export class IKeep3rHelper extends BaseContract {
   };
 
   bonds(_keeper: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-  getKP3RsAtTick(
-    _liquidityAmount: BigNumberish,
-    _tickDifference: BigNumberish,
-    _timeInterval: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
 
   getPaymentParams(
     _bonds: BigNumberish,
@@ -253,13 +196,6 @@ export class IKeep3rHelper extends BaseContract {
     _pool: string,
     overrides?: CallOverrides
   ): Promise<[string, string] & { _token0: string; _token1: string }>;
-
-  getQuoteAtTick(
-    _baseAmount: BigNumberish,
-    _tickDifference: BigNumberish,
-    _timeInterval: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
 
   getRewardAmount(
     _gasUsed: BigNumberish,
@@ -279,29 +215,10 @@ export class IKeep3rHelper extends BaseContract {
 
   isKP3RToken0(_pool: string, overrides?: CallOverrides): Promise<boolean>;
 
-  observe(
-    _pool: string,
-    _secondsAgo: BigNumberish[],
-    overrides?: CallOverrides
-  ): Promise<
-    [BigNumber, BigNumber, boolean] & {
-      _tickCumulative1: BigNumber;
-      _tickCumulative2: BigNumber;
-      _success: boolean;
-    }
-  >;
-
   quote(_eth: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
   callStatic: {
     bonds(_keeper: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    getKP3RsAtTick(
-      _liquidityAmount: BigNumberish,
-      _tickDifference: BigNumberish,
-      _timeInterval: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
 
     getPaymentParams(
       _bonds: BigNumberish,
@@ -318,13 +235,6 @@ export class IKeep3rHelper extends BaseContract {
       _pool: string,
       overrides?: CallOverrides
     ): Promise<[string, string] & { _token0: string; _token1: string }>;
-
-    getQuoteAtTick(
-      _baseAmount: BigNumberish,
-      _tickDifference: BigNumberish,
-      _timeInterval: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
 
     getRewardAmount(
       _gasUsed: BigNumberish,
@@ -344,18 +254,6 @@ export class IKeep3rHelper extends BaseContract {
 
     isKP3RToken0(_pool: string, overrides?: CallOverrides): Promise<boolean>;
 
-    observe(
-      _pool: string,
-      _secondsAgo: BigNumberish[],
-      overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber, boolean] & {
-        _tickCumulative1: BigNumber;
-        _tickCumulative2: BigNumber;
-        _success: boolean;
-      }
-    >;
-
     quote(_eth: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
@@ -364,26 +262,12 @@ export class IKeep3rHelper extends BaseContract {
   estimateGas: {
     bonds(_keeper: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    getKP3RsAtTick(
-      _liquidityAmount: BigNumberish,
-      _tickDifference: BigNumberish,
-      _timeInterval: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     getPaymentParams(
       _bonds: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getPoolTokens(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    getQuoteAtTick(
-      _baseAmount: BigNumberish,
-      _tickDifference: BigNumberish,
-      _timeInterval: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
 
     getRewardAmount(
       _gasUsed: BigNumberish,
@@ -403,25 +287,12 @@ export class IKeep3rHelper extends BaseContract {
 
     isKP3RToken0(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    observe(
-      _pool: string,
-      _secondsAgo: BigNumberish[],
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     quote(_eth: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
     bonds(
       _keeper: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    getKP3RsAtTick(
-      _liquidityAmount: BigNumberish,
-      _tickDifference: BigNumberish,
-      _timeInterval: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -432,13 +303,6 @@ export class IKeep3rHelper extends BaseContract {
 
     getPoolTokens(
       _pool: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    getQuoteAtTick(
-      _baseAmount: BigNumberish,
-      _tickDifference: BigNumberish,
-      _timeInterval: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -460,12 +324,6 @@ export class IKeep3rHelper extends BaseContract {
 
     isKP3RToken0(
       _pool: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    observe(
-      _pool: string,
-      _secondsAgo: BigNumberish[],
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

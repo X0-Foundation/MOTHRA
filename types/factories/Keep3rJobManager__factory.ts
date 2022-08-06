@@ -712,19 +712,6 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "inflationPeriod",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "address",
@@ -865,19 +852,6 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "liquidityMinimum",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "address",
@@ -965,19 +939,6 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "rewardPeriodTime",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "uint256",
@@ -1012,19 +973,6 @@ const _abi = [
       },
     ],
     name: "setGovernance",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_inflationPeriod",
-        type: "uint256",
-      },
-    ],
-    name: "setInflationPeriod",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -1077,32 +1025,6 @@ const _abi = [
       },
     ],
     name: "setKp3rWethPool",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_liquidityMinimum",
-        type: "uint256",
-      },
-    ],
-    name: "setLiquidityMinimum",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_rewardPeriodTime",
-        type: "uint256",
-      },
-    ],
-    name: "setRewardPeriodTime",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

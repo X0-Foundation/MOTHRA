@@ -78,19 +78,6 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        internalType: "uint32",
-        name: "_quoteTwapTime",
-        type: "uint32",
-      },
-    ],
-    name: "QuoteTwapTimeChange",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
         internalType: "uint256",
         name: "_targetBond",
         type: "uint256",
@@ -196,19 +183,6 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "quoteTwapTime",
-    outputs: [
-      {
-        internalType: "uint32",
-        name: "_quoteTwapTime",
-        type: "uint32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "address",
@@ -256,19 +230,6 @@ const _abi = [
       },
     ],
     name: "setMinBoost",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint32",
-        name: "_quoteTwapTime",
-        type: "uint32",
-      },
-    ],
-    name: "setQuoteTwapTime",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

@@ -26,13 +26,13 @@ abstract contract Keep3rParameters is IKeep3rParameters, Keep3rAccountance, Keep
   uint256 public override unbondTime = 14 days;
 
   /// @inheritdoc IKeep3rParameters
-  uint256 public override liquidityMinimum = 3 ether;
+  // uint256 public override liquidityMinimum = 3 ether;
 
   /// @inheritdoc IKeep3rParameters
-  uint256 public override rewardPeriodTime = 5 days;
+  // uint256 public override rewardPeriodTime = 5 days;
 
   /// @inheritdoc IKeep3rParameters
-  uint256 public override inflationPeriod = 34 days;
+  // uint256 public override inflationPeriod = 34 days;
 
   /// @inheritdoc IKeep3rParameters
   uint256 public override fee = 30;
@@ -100,24 +100,24 @@ abstract contract Keep3rParameters is IKeep3rParameters, Keep3rAccountance, Keep
   }
 
   /// @inheritdoc IKeep3rParameters
-  function setLiquidityMinimum(uint256 _liquidityMinimum) external override onlyGovernance {
-    liquidityMinimum = _liquidityMinimum;
-    emit LiquidityMinimumChange(_liquidityMinimum);
-  }
+  // function setLiquidityMinimum(uint256 _liquidityMinimum) external override onlyGovernance {
+  //   liquidityMinimum = _liquidityMinimum;
+  //   emit LiquidityMinimumChange(_liquidityMinimum);
+  // }
 
   /// @inheritdoc IKeep3rParameters
   // TODO: check what happens to credit minting when changing this. Shouldn't we update the cached ticks?
-  function setRewardPeriodTime(uint256 _rewardPeriodTime) external override onlyGovernance {
-    if (_rewardPeriodTime < _MIN_REWARD_PERIOD_TIME) revert MinRewardPeriod();
-    rewardPeriodTime = _rewardPeriodTime;
-    emit RewardPeriodTimeChange(_rewardPeriodTime);
-  }
+  // function setRewardPeriodTime(uint256 _rewardPeriodTime) external override onlyGovernance {
+  //   if (_rewardPeriodTime < _MIN_REWARD_PERIOD_TIME) revert MinRewardPeriod();
+  //   rewardPeriodTime = _rewardPeriodTime;
+  //   emit RewardPeriodTimeChange(_rewardPeriodTime);
+  // }
 
   /// @inheritdoc IKeep3rParameters
-  function setInflationPeriod(uint256 _inflationPeriod) external override onlyGovernance {
-    inflationPeriod = _inflationPeriod;
-    emit InflationPeriodChange(_inflationPeriod);
-  }
+  // function setInflationPeriod(uint256 _inflationPeriod) external override onlyGovernance {
+  //   inflationPeriod = _inflationPeriod;
+  //   emit InflationPeriodChange(_inflationPeriod);
+  // }
 
   /// @inheritdoc IKeep3rParameters
   function setFee(uint256 _fee) external override onlyGovernance {

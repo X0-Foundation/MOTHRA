@@ -24,11 +24,8 @@ interface Keep3rJobDisputableInterface extends ethers.utils.Interface {
     "acceptGovernance()": FunctionFragment;
     "acceptJobOwnership(address)": FunctionFragment;
     "addDisputer(address)": FunctionFragment;
-    "addLiquidityToJob(address,address,uint256)": FunctionFragment;
     "addSlasher(address)": FunctionFragment;
     "addTokenCreditsToJob(address,address,uint256)": FunctionFragment;
-    "approveLiquidity(address)": FunctionFragment;
-    "approvedLiquidities()": FunctionFragment;
     "bondTime()": FunctionFragment;
     "bonds(address,address)": FunctionFragment;
     "canActivateAfter(address,address)": FunctionFragment;
@@ -39,14 +36,10 @@ interface Keep3rJobDisputableInterface extends ethers.utils.Interface {
     "disputes(address)": FunctionFragment;
     "fee()": FunctionFragment;
     "firstSeen(address)": FunctionFragment;
-    "forceLiquidityCreditsToJob(address,uint256)": FunctionFragment;
     "governance()": FunctionFragment;
     "hasBonded(address)": FunctionFragment;
-    "inflationPeriod()": FunctionFragment;
-    "jobLiquidityCredits(address)": FunctionFragment;
     "jobOwner(address)": FunctionFragment;
     "jobPendingOwner(address)": FunctionFragment;
-    "jobPeriodCredits(address)": FunctionFragment;
     "jobTokenCredits(address,address)": FunctionFragment;
     "jobTokenCreditsAddedAt(address,address)": FunctionFragment;
     "jobs()": FunctionFragment;
@@ -55,40 +48,25 @@ interface Keep3rJobDisputableInterface extends ethers.utils.Interface {
     "keep3rV1Proxy()": FunctionFragment;
     "keepers()": FunctionFragment;
     "kp3rWethPool()": FunctionFragment;
-    "liquidityAmount(address,address)": FunctionFragment;
-    "liquidityMinimum()": FunctionFragment;
-    "observeLiquidity(address)": FunctionFragment;
     "pendingBonds(address,address)": FunctionFragment;
     "pendingGovernance()": FunctionFragment;
     "pendingUnbonds(address,address)": FunctionFragment;
-    "quoteLiquidity(address,uint256)": FunctionFragment;
     "removeDisputer(address)": FunctionFragment;
     "removeSlasher(address)": FunctionFragment;
     "resolve(address)": FunctionFragment;
-    "revokeLiquidity(address)": FunctionFragment;
-    "rewardPeriodTime()": FunctionFragment;
-    "rewardedAt(address)": FunctionFragment;
     "setBondTime(uint256)": FunctionFragment;
     "setFee(uint256)": FunctionFragment;
     "setGovernance(address)": FunctionFragment;
-    "setInflationPeriod(uint256)": FunctionFragment;
     "setKeep3rHelper(address)": FunctionFragment;
     "setKeep3rV1(address)": FunctionFragment;
     "setKeep3rV1Proxy(address)": FunctionFragment;
     "setKp3rWethPool(address)": FunctionFragment;
-    "setLiquidityMinimum(uint256)": FunctionFragment;
-    "setRewardPeriodTime(uint256)": FunctionFragment;
     "setUnbondTime(uint256)": FunctionFragment;
-    "slashLiquidityFromJob(address,address,uint256)": FunctionFragment;
     "slashTokenFromJob(address,address,uint256)": FunctionFragment;
     "slashers(address)": FunctionFragment;
-    "totalJobCredits(address)": FunctionFragment;
-    "unbondLiquidityFromJob(address,address,uint256)": FunctionFragment;
     "unbondTime()": FunctionFragment;
-    "withdrawLiquidityFromJob(address,address,address)": FunctionFragment;
     "withdrawTokenCreditsFromJob(address,address,uint256,address)": FunctionFragment;
     "workCompleted(address)": FunctionFragment;
-    "workedAt(address)": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -100,22 +78,10 @@ interface Keep3rJobDisputableInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
   encodeFunctionData(functionFragment: "addDisputer", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "addLiquidityToJob",
-    values: [string, string, BigNumberish]
-  ): string;
   encodeFunctionData(functionFragment: "addSlasher", values: [string]): string;
   encodeFunctionData(
     functionFragment: "addTokenCreditsToJob",
     values: [string, string, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "approveLiquidity",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "approvedLiquidities",
-    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "bondTime", values?: undefined): string;
   encodeFunctionData(
@@ -140,29 +106,13 @@ interface Keep3rJobDisputableInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: "fee", values?: undefined): string;
   encodeFunctionData(functionFragment: "firstSeen", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "forceLiquidityCreditsToJob",
-    values: [string, BigNumberish]
-  ): string;
-  encodeFunctionData(
     functionFragment: "governance",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "hasBonded", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "inflationPeriod",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "jobLiquidityCredits",
-    values: [string]
-  ): string;
   encodeFunctionData(functionFragment: "jobOwner", values: [string]): string;
   encodeFunctionData(
     functionFragment: "jobPendingOwner",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "jobPeriodCredits",
     values: [string]
   ): string;
   encodeFunctionData(
@@ -189,18 +139,6 @@ interface Keep3rJobDisputableInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "liquidityAmount",
-    values: [string, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "liquidityMinimum",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "observeLiquidity",
-    values: [string]
-  ): string;
-  encodeFunctionData(
     functionFragment: "pendingBonds",
     values: [string, string]
   ): string;
@@ -213,10 +151,6 @@ interface Keep3rJobDisputableInterface extends ethers.utils.Interface {
     values: [string, string]
   ): string;
   encodeFunctionData(
-    functionFragment: "quoteLiquidity",
-    values: [string, BigNumberish]
-  ): string;
-  encodeFunctionData(
     functionFragment: "removeDisputer",
     values: [string]
   ): string;
@@ -225,15 +159,6 @@ interface Keep3rJobDisputableInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
   encodeFunctionData(functionFragment: "resolve", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "revokeLiquidity",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "rewardPeriodTime",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "rewardedAt", values: [string]): string;
   encodeFunctionData(
     functionFragment: "setBondTime",
     values: [BigNumberish]
@@ -245,10 +170,6 @@ interface Keep3rJobDisputableInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "setGovernance",
     values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setInflationPeriod",
-    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "setKeep3rHelper",
@@ -264,20 +185,8 @@ interface Keep3rJobDisputableInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
   encodeFunctionData(
-    functionFragment: "setLiquidityMinimum",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setRewardPeriodTime",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
     functionFragment: "setUnbondTime",
     values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "slashLiquidityFromJob",
-    values: [string, string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "slashTokenFromJob",
@@ -285,20 +194,8 @@ interface Keep3rJobDisputableInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "slashers", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "totalJobCredits",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "unbondLiquidityFromJob",
-    values: [string, string, BigNumberish]
-  ): string;
-  encodeFunctionData(
     functionFragment: "unbondTime",
     values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "withdrawLiquidityFromJob",
-    values: [string, string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "withdrawTokenCreditsFromJob",
@@ -308,7 +205,6 @@ interface Keep3rJobDisputableInterface extends ethers.utils.Interface {
     functionFragment: "workCompleted",
     values: [string]
   ): string;
-  encodeFunctionData(functionFragment: "workedAt", values: [string]): string;
 
   decodeFunctionResult(
     functionFragment: "acceptGovernance",
@@ -322,21 +218,9 @@ interface Keep3rJobDisputableInterface extends ethers.utils.Interface {
     functionFragment: "addDisputer",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "addLiquidityToJob",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "addSlasher", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "addTokenCreditsToJob",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "approveLiquidity",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "approvedLiquidities",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "bondTime", data: BytesLike): Result;
@@ -358,27 +242,11 @@ interface Keep3rJobDisputableInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "disputes", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "fee", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "firstSeen", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "forceLiquidityCreditsToJob",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "governance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "hasBonded", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "inflationPeriod",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "jobLiquidityCredits",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "jobOwner", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "jobPendingOwner",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "jobPeriodCredits",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -405,18 +273,6 @@ interface Keep3rJobDisputableInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "liquidityAmount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "liquidityMinimum",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "observeLiquidity",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "pendingBonds",
     data: BytesLike
   ): Result;
@@ -429,10 +285,6 @@ interface Keep3rJobDisputableInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "quoteLiquidity",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "removeDisputer",
     data: BytesLike
   ): Result;
@@ -442,25 +294,12 @@ interface Keep3rJobDisputableInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "resolve", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "revokeLiquidity",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "rewardPeriodTime",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "rewardedAt", data: BytesLike): Result;
-  decodeFunctionResult(
     functionFragment: "setBondTime",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "setFee", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setGovernance",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setInflationPeriod",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -480,19 +319,7 @@ interface Keep3rJobDisputableInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "setLiquidityMinimum",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setRewardPeriodTime",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "setUnbondTime",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "slashLiquidityFromJob",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -500,19 +327,7 @@ interface Keep3rJobDisputableInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "slashers", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "totalJobCredits",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "unbondLiquidityFromJob",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "unbondTime", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "withdrawLiquidityFromJob",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "withdrawTokenCreditsFromJob",
     data: BytesLike
@@ -521,7 +336,6 @@ interface Keep3rJobDisputableInterface extends ethers.utils.Interface {
     functionFragment: "workCompleted",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "workedAt", data: BytesLike): Result;
 
   events: {
     "BondTimeChange(uint256)": EventFragment;
@@ -541,13 +355,7 @@ interface Keep3rJobDisputableInterface extends ethers.utils.Interface {
     "Keep3rV1Change(address)": EventFragment;
     "Keep3rV1ProxyChange(address)": EventFragment;
     "Kp3rWethPoolChange(address)": EventFragment;
-    "LiquidityAddition(address,address,address,uint256)": EventFragment;
-    "LiquidityApproval(address)": EventFragment;
-    "LiquidityCreditsForced(address,uint256,uint256)": EventFragment;
-    "LiquidityCreditsReward(address,uint256,uint256,uint256)": EventFragment;
     "LiquidityMinimumChange(uint256)": EventFragment;
-    "LiquidityRevocation(address)": EventFragment;
-    "LiquidityWithdrawal(address,address,address,uint256)": EventFragment;
     "Resolve(address,address)": EventFragment;
     "RewardPeriodTimeChange(uint256)": EventFragment;
     "SlasherAdded(address)": EventFragment;
@@ -575,13 +383,7 @@ interface Keep3rJobDisputableInterface extends ethers.utils.Interface {
   getEvent(nameOrSignatureOrTopic: "Keep3rV1Change"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Keep3rV1ProxyChange"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Kp3rWethPoolChange"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LiquidityAddition"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LiquidityApproval"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LiquidityCreditsForced"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LiquidityCreditsReward"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "LiquidityMinimumChange"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LiquidityRevocation"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LiquidityWithdrawal"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Resolve"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RewardPeriodTimeChange"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "SlasherAdded"): EventFragment;
@@ -672,51 +474,8 @@ export type Kp3rWethPoolChangeEvent = TypedEvent<
   [string] & { _kp3rWethPool: string }
 >;
 
-export type LiquidityAdditionEvent = TypedEvent<
-  [string, string, string, BigNumber] & {
-    _job: string;
-    _liquidity: string;
-    _provider: string;
-    _amount: BigNumber;
-  }
->;
-
-export type LiquidityApprovalEvent = TypedEvent<
-  [string] & { _liquidity: string }
->;
-
-export type LiquidityCreditsForcedEvent = TypedEvent<
-  [string, BigNumber, BigNumber] & {
-    _job: string;
-    _rewardedAt: BigNumber;
-    _currentCredits: BigNumber;
-  }
->;
-
-export type LiquidityCreditsRewardEvent = TypedEvent<
-  [string, BigNumber, BigNumber, BigNumber] & {
-    _job: string;
-    _rewardedAt: BigNumber;
-    _currentCredits: BigNumber;
-    _periodCredits: BigNumber;
-  }
->;
-
 export type LiquidityMinimumChangeEvent = TypedEvent<
   [BigNumber] & { _liquidityMinimum: BigNumber }
->;
-
-export type LiquidityRevocationEvent = TypedEvent<
-  [string] & { _liquidity: string }
->;
-
-export type LiquidityWithdrawalEvent = TypedEvent<
-  [string, string, string, BigNumber] & {
-    _job: string;
-    _liquidity: string;
-    _receiver: string;
-    _amount: BigNumber;
-  }
 >;
 
 export type ResolveEvent = TypedEvent<
@@ -819,13 +578,6 @@ export class Keep3rJobDisputable extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    addLiquidityToJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     addSlasher(
       _slasher: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -837,15 +589,6 @@ export class Keep3rJobDisputable extends BaseContract {
       _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
-
-    approveLiquidity(
-      _liquidity: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    approvedLiquidities(
-      overrides?: CallOverrides
-    ): Promise<[string[]] & { _list: string[] }>;
 
     bondTime(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -886,31 +629,13 @@ export class Keep3rJobDisputable extends BaseContract {
 
     firstSeen(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    forceLiquidityCreditsToJob(
-      _job: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     governance(overrides?: CallOverrides): Promise<[string]>;
 
     hasBonded(arg0: string, overrides?: CallOverrides): Promise<[boolean]>;
 
-    inflationPeriod(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    jobLiquidityCredits(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { _liquidityCredits: BigNumber }>;
-
     jobOwner(arg0: string, overrides?: CallOverrides): Promise<[string]>;
 
     jobPendingOwner(arg0: string, overrides?: CallOverrides): Promise<[string]>;
-
-    jobPeriodCredits(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { _periodCredits: BigNumber }>;
 
     jobTokenCredits(
       arg0: string,
@@ -938,33 +663,6 @@ export class Keep3rJobDisputable extends BaseContract {
 
     kp3rWethPool(overrides?: CallOverrides): Promise<[string]>;
 
-    liquidityAmount(
-      arg0: string,
-      arg1: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
-    liquidityMinimum(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    observeLiquidity(
-      _liquidity: string,
-      overrides?: CallOverrides
-    ): Promise<
-      [
-        [BigNumber, BigNumber, BigNumber] & {
-          current: BigNumber;
-          difference: BigNumber;
-          period: BigNumber;
-        }
-      ] & {
-        _tickCache: [BigNumber, BigNumber, BigNumber] & {
-          current: BigNumber;
-          difference: BigNumber;
-          period: BigNumber;
-        };
-      }
-    >;
-
     pendingBonds(
       arg0: string,
       arg1: string,
@@ -978,12 +676,6 @@ export class Keep3rJobDisputable extends BaseContract {
       arg1: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
-
-    quoteLiquidity(
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { _periodCredits: BigNumber }>;
 
     removeDisputer(
       _disputer: string,
@@ -1000,15 +692,6 @@ export class Keep3rJobDisputable extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    revokeLiquidity(
-      _liquidity: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    rewardPeriodTime(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    rewardedAt(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
-
     setBondTime(
       _bondTime: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -1021,11 +704,6 @@ export class Keep3rJobDisputable extends BaseContract {
 
     setGovernance(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    setInflationPeriod(
-      _inflationPeriod: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -1049,25 +727,8 @@ export class Keep3rJobDisputable extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    setLiquidityMinimum(
-      _liquidityMinimum: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    setRewardPeriodTime(
-      _rewardPeriodTime: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     setUnbondTime(
       _unbondTime: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    slashLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -1080,26 +741,7 @@ export class Keep3rJobDisputable extends BaseContract {
 
     slashers(arg0: string, overrides?: CallOverrides): Promise<[boolean]>;
 
-    totalJobCredits(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { _credits: BigNumber }>;
-
-    unbondLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     unbondTime(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    withdrawLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _receiver: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
 
     withdrawTokenCreditsFromJob(
       _job: string,
@@ -1113,8 +755,6 @@ export class Keep3rJobDisputable extends BaseContract {
       arg0: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
-
-    workedAt(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
   };
 
   acceptGovernance(
@@ -1131,13 +771,6 @@ export class Keep3rJobDisputable extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  addLiquidityToJob(
-    _job: string,
-    _liquidity: string,
-    _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   addSlasher(
     _slasher: string,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -1149,13 +782,6 @@ export class Keep3rJobDisputable extends BaseContract {
     _amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
-
-  approveLiquidity(
-    _liquidity: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  approvedLiquidities(overrides?: CallOverrides): Promise<string[]>;
 
   bondTime(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1196,28 +822,13 @@ export class Keep3rJobDisputable extends BaseContract {
 
   firstSeen(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-  forceLiquidityCreditsToJob(
-    _job: string,
-    _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   governance(overrides?: CallOverrides): Promise<string>;
 
   hasBonded(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
-  inflationPeriod(overrides?: CallOverrides): Promise<BigNumber>;
-
-  jobLiquidityCredits(
-    _job: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
   jobOwner(arg0: string, overrides?: CallOverrides): Promise<string>;
 
   jobPendingOwner(arg0: string, overrides?: CallOverrides): Promise<string>;
-
-  jobPeriodCredits(_job: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   jobTokenCredits(
     arg0: string,
@@ -1243,25 +854,6 @@ export class Keep3rJobDisputable extends BaseContract {
 
   kp3rWethPool(overrides?: CallOverrides): Promise<string>;
 
-  liquidityAmount(
-    arg0: string,
-    arg1: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  liquidityMinimum(overrides?: CallOverrides): Promise<BigNumber>;
-
-  observeLiquidity(
-    _liquidity: string,
-    overrides?: CallOverrides
-  ): Promise<
-    [BigNumber, BigNumber, BigNumber] & {
-      current: BigNumber;
-      difference: BigNumber;
-      period: BigNumber;
-    }
-  >;
-
   pendingBonds(
     arg0: string,
     arg1: string,
@@ -1273,12 +865,6 @@ export class Keep3rJobDisputable extends BaseContract {
   pendingUnbonds(
     arg0: string,
     arg1: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  quoteLiquidity(
-    _liquidity: string,
-    _amount: BigNumberish,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -1297,15 +883,6 @@ export class Keep3rJobDisputable extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  revokeLiquidity(
-    _liquidity: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  rewardPeriodTime(overrides?: CallOverrides): Promise<BigNumber>;
-
-  rewardedAt(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
-
   setBondTime(
     _bondTime: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -1318,11 +895,6 @@ export class Keep3rJobDisputable extends BaseContract {
 
   setGovernance(
     _governance: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  setInflationPeriod(
-    _inflationPeriod: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -1346,25 +918,8 @@ export class Keep3rJobDisputable extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  setLiquidityMinimum(
-    _liquidityMinimum: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  setRewardPeriodTime(
-    _rewardPeriodTime: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   setUnbondTime(
     _unbondTime: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  slashLiquidityFromJob(
-    _job: string,
-    _liquidity: string,
-    _amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -1377,23 +932,7 @@ export class Keep3rJobDisputable extends BaseContract {
 
   slashers(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
-  totalJobCredits(_job: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-  unbondLiquidityFromJob(
-    _job: string,
-    _liquidity: string,
-    _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   unbondTime(overrides?: CallOverrides): Promise<BigNumber>;
-
-  withdrawLiquidityFromJob(
-    _job: string,
-    _liquidity: string,
-    _receiver: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
 
   withdrawTokenCreditsFromJob(
     _job: string,
@@ -1405,21 +944,12 @@ export class Keep3rJobDisputable extends BaseContract {
 
   workCompleted(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-  workedAt(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
-
   callStatic: {
     acceptGovernance(overrides?: CallOverrides): Promise<void>;
 
     acceptJobOwnership(_job: string, overrides?: CallOverrides): Promise<void>;
 
     addDisputer(_disputer: string, overrides?: CallOverrides): Promise<void>;
-
-    addLiquidityToJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
 
     addSlasher(_slasher: string, overrides?: CallOverrides): Promise<void>;
 
@@ -1429,13 +959,6 @@ export class Keep3rJobDisputable extends BaseContract {
       _amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
-
-    approveLiquidity(
-      _liquidity: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    approvedLiquidities(overrides?: CallOverrides): Promise<string[]>;
 
     bondTime(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1473,31 +996,13 @@ export class Keep3rJobDisputable extends BaseContract {
 
     firstSeen(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    forceLiquidityCreditsToJob(
-      _job: string,
-      _amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     governance(overrides?: CallOverrides): Promise<string>;
 
     hasBonded(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
-    inflationPeriod(overrides?: CallOverrides): Promise<BigNumber>;
-
-    jobLiquidityCredits(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     jobOwner(arg0: string, overrides?: CallOverrides): Promise<string>;
 
     jobPendingOwner(arg0: string, overrides?: CallOverrides): Promise<string>;
-
-    jobPeriodCredits(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
 
     jobTokenCredits(
       arg0: string,
@@ -1523,25 +1028,6 @@ export class Keep3rJobDisputable extends BaseContract {
 
     kp3rWethPool(overrides?: CallOverrides): Promise<string>;
 
-    liquidityAmount(
-      arg0: string,
-      arg1: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    liquidityMinimum(overrides?: CallOverrides): Promise<BigNumber>;
-
-    observeLiquidity(
-      _liquidity: string,
-      overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber, BigNumber] & {
-        current: BigNumber;
-        difference: BigNumber;
-        period: BigNumber;
-      }
-    >;
-
     pendingBonds(
       arg0: string,
       arg1: string,
@@ -1556,26 +1042,11 @@ export class Keep3rJobDisputable extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    quoteLiquidity(
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     removeDisputer(_disputer: string, overrides?: CallOverrides): Promise<void>;
 
     removeSlasher(_slasher: string, overrides?: CallOverrides): Promise<void>;
 
     resolve(_jobOrKeeper: string, overrides?: CallOverrides): Promise<void>;
-
-    revokeLiquidity(
-      _liquidity: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    rewardPeriodTime(overrides?: CallOverrides): Promise<BigNumber>;
-
-    rewardedAt(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     setBondTime(
       _bondTime: BigNumberish,
@@ -1586,11 +1057,6 @@ export class Keep3rJobDisputable extends BaseContract {
 
     setGovernance(
       _governance: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setInflationPeriod(
-      _inflationPeriod: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1611,25 +1077,8 @@ export class Keep3rJobDisputable extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setLiquidityMinimum(
-      _liquidityMinimum: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setRewardPeriodTime(
-      _rewardPeriodTime: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     setUnbondTime(
       _unbondTime: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    slashLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1642,26 +1091,7 @@ export class Keep3rJobDisputable extends BaseContract {
 
     slashers(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
-    totalJobCredits(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    unbondLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     unbondTime(overrides?: CallOverrides): Promise<BigNumber>;
-
-    withdrawLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _receiver: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
 
     withdrawTokenCreditsFromJob(
       _job: string,
@@ -1672,8 +1102,6 @@ export class Keep3rJobDisputable extends BaseContract {
     ): Promise<void>;
 
     workCompleted(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    workedAt(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   filters: {
@@ -1873,92 +1301,6 @@ export class Keep3rJobDisputable extends BaseContract {
       _kp3rWethPool?: null
     ): TypedEventFilter<[string], { _kp3rWethPool: string }>;
 
-    "LiquidityAddition(address,address,address,uint256)"(
-      _job?: string | null,
-      _liquidity?: string | null,
-      _provider?: string | null,
-      _amount?: null
-    ): TypedEventFilter<
-      [string, string, string, BigNumber],
-      {
-        _job: string;
-        _liquidity: string;
-        _provider: string;
-        _amount: BigNumber;
-      }
-    >;
-
-    LiquidityAddition(
-      _job?: string | null,
-      _liquidity?: string | null,
-      _provider?: string | null,
-      _amount?: null
-    ): TypedEventFilter<
-      [string, string, string, BigNumber],
-      {
-        _job: string;
-        _liquidity: string;
-        _provider: string;
-        _amount: BigNumber;
-      }
-    >;
-
-    "LiquidityApproval(address)"(
-      _liquidity?: null
-    ): TypedEventFilter<[string], { _liquidity: string }>;
-
-    LiquidityApproval(
-      _liquidity?: null
-    ): TypedEventFilter<[string], { _liquidity: string }>;
-
-    "LiquidityCreditsForced(address,uint256,uint256)"(
-      _job?: string | null,
-      _rewardedAt?: null,
-      _currentCredits?: null
-    ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
-      { _job: string; _rewardedAt: BigNumber; _currentCredits: BigNumber }
-    >;
-
-    LiquidityCreditsForced(
-      _job?: string | null,
-      _rewardedAt?: null,
-      _currentCredits?: null
-    ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
-      { _job: string; _rewardedAt: BigNumber; _currentCredits: BigNumber }
-    >;
-
-    "LiquidityCreditsReward(address,uint256,uint256,uint256)"(
-      _job?: string | null,
-      _rewardedAt?: null,
-      _currentCredits?: null,
-      _periodCredits?: null
-    ): TypedEventFilter<
-      [string, BigNumber, BigNumber, BigNumber],
-      {
-        _job: string;
-        _rewardedAt: BigNumber;
-        _currentCredits: BigNumber;
-        _periodCredits: BigNumber;
-      }
-    >;
-
-    LiquidityCreditsReward(
-      _job?: string | null,
-      _rewardedAt?: null,
-      _currentCredits?: null,
-      _periodCredits?: null
-    ): TypedEventFilter<
-      [string, BigNumber, BigNumber, BigNumber],
-      {
-        _job: string;
-        _rewardedAt: BigNumber;
-        _currentCredits: BigNumber;
-        _periodCredits: BigNumber;
-      }
-    >;
-
     "LiquidityMinimumChange(uint256)"(
       _liquidityMinimum?: null
     ): TypedEventFilter<[BigNumber], { _liquidityMinimum: BigNumber }>;
@@ -1966,44 +1308,6 @@ export class Keep3rJobDisputable extends BaseContract {
     LiquidityMinimumChange(
       _liquidityMinimum?: null
     ): TypedEventFilter<[BigNumber], { _liquidityMinimum: BigNumber }>;
-
-    "LiquidityRevocation(address)"(
-      _liquidity?: null
-    ): TypedEventFilter<[string], { _liquidity: string }>;
-
-    LiquidityRevocation(
-      _liquidity?: null
-    ): TypedEventFilter<[string], { _liquidity: string }>;
-
-    "LiquidityWithdrawal(address,address,address,uint256)"(
-      _job?: string | null,
-      _liquidity?: string | null,
-      _receiver?: string | null,
-      _amount?: null
-    ): TypedEventFilter<
-      [string, string, string, BigNumber],
-      {
-        _job: string;
-        _liquidity: string;
-        _receiver: string;
-        _amount: BigNumber;
-      }
-    >;
-
-    LiquidityWithdrawal(
-      _job?: string | null,
-      _liquidity?: string | null,
-      _receiver?: string | null,
-      _amount?: null
-    ): TypedEventFilter<
-      [string, string, string, BigNumber],
-      {
-        _job: string;
-        _liquidity: string;
-        _receiver: string;
-        _amount: BigNumber;
-      }
-    >;
 
     "Resolve(address,address)"(
       _jobOrKeeper?: string | null,
@@ -2127,13 +1431,6 @@ export class Keep3rJobDisputable extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    addLiquidityToJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     addSlasher(
       _slasher: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -2145,13 +1442,6 @@ export class Keep3rJobDisputable extends BaseContract {
       _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
-
-    approveLiquidity(
-      _liquidity: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    approvedLiquidities(overrides?: CallOverrides): Promise<BigNumber>;
 
     bondTime(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -2192,32 +1482,14 @@ export class Keep3rJobDisputable extends BaseContract {
 
     firstSeen(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    forceLiquidityCreditsToJob(
-      _job: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     governance(overrides?: CallOverrides): Promise<BigNumber>;
 
     hasBonded(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    inflationPeriod(overrides?: CallOverrides): Promise<BigNumber>;
-
-    jobLiquidityCredits(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
 
     jobOwner(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     jobPendingOwner(
       arg0: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    jobPeriodCredits(
-      _job: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -2245,19 +1517,6 @@ export class Keep3rJobDisputable extends BaseContract {
 
     kp3rWethPool(overrides?: CallOverrides): Promise<BigNumber>;
 
-    liquidityAmount(
-      arg0: string,
-      arg1: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    liquidityMinimum(overrides?: CallOverrides): Promise<BigNumber>;
-
-    observeLiquidity(
-      _liquidity: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     pendingBonds(
       arg0: string,
       arg1: string,
@@ -2269,12 +1528,6 @@ export class Keep3rJobDisputable extends BaseContract {
     pendingUnbonds(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    quoteLiquidity(
-      _liquidity: string,
-      _amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -2293,15 +1546,6 @@ export class Keep3rJobDisputable extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    revokeLiquidity(
-      _liquidity: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    rewardPeriodTime(overrides?: CallOverrides): Promise<BigNumber>;
-
-    rewardedAt(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
-
     setBondTime(
       _bondTime: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -2314,11 +1558,6 @@ export class Keep3rJobDisputable extends BaseContract {
 
     setGovernance(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    setInflationPeriod(
-      _inflationPeriod: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -2342,25 +1581,8 @@ export class Keep3rJobDisputable extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    setLiquidityMinimum(
-      _liquidityMinimum: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    setRewardPeriodTime(
-      _rewardPeriodTime: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     setUnbondTime(
       _unbondTime: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    slashLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -2373,26 +1595,7 @@ export class Keep3rJobDisputable extends BaseContract {
 
     slashers(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    totalJobCredits(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    unbondLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     unbondTime(overrides?: CallOverrides): Promise<BigNumber>;
-
-    withdrawLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _receiver: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
 
     withdrawTokenCreditsFromJob(
       _job: string,
@@ -2403,8 +1606,6 @@ export class Keep3rJobDisputable extends BaseContract {
     ): Promise<BigNumber>;
 
     workCompleted(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    workedAt(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -2422,13 +1623,6 @@ export class Keep3rJobDisputable extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    addLiquidityToJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
     addSlasher(
       _slasher: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -2439,15 +1633,6 @@ export class Keep3rJobDisputable extends BaseContract {
       _token: string,
       _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    approveLiquidity(
-      _liquidity: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    approvedLiquidities(
-      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     bondTime(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2498,23 +1683,10 @@ export class Keep3rJobDisputable extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    forceLiquidityCreditsToJob(
-      _job: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
     governance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     hasBonded(
       arg0: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    inflationPeriod(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    jobLiquidityCredits(
-      _job: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -2525,11 +1697,6 @@ export class Keep3rJobDisputable extends BaseContract {
 
     jobPendingOwner(
       arg0: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    jobPeriodCredits(
-      _job: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -2557,19 +1724,6 @@ export class Keep3rJobDisputable extends BaseContract {
 
     kp3rWethPool(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    liquidityAmount(
-      arg0: string,
-      arg1: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    liquidityMinimum(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    observeLiquidity(
-      _liquidity: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     pendingBonds(
       arg0: string,
       arg1: string,
@@ -2581,12 +1735,6 @@ export class Keep3rJobDisputable extends BaseContract {
     pendingUnbonds(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    quoteLiquidity(
-      _liquidity: string,
-      _amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -2605,18 +1753,6 @@ export class Keep3rJobDisputable extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    revokeLiquidity(
-      _liquidity: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    rewardPeriodTime(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    rewardedAt(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     setBondTime(
       _bondTime: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -2629,11 +1765,6 @@ export class Keep3rJobDisputable extends BaseContract {
 
     setGovernance(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setInflationPeriod(
-      _inflationPeriod: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -2657,25 +1788,8 @@ export class Keep3rJobDisputable extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    setLiquidityMinimum(
-      _liquidityMinimum: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setRewardPeriodTime(
-      _rewardPeriodTime: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
     setUnbondTime(
       _unbondTime: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    slashLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -2691,26 +1805,7 @@ export class Keep3rJobDisputable extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    totalJobCredits(
-      _job: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    unbondLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
     unbondTime(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    withdrawLiquidityFromJob(
-      _job: string,
-      _liquidity: string,
-      _receiver: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
 
     withdrawTokenCreditsFromJob(
       _job: string,
@@ -2721,11 +1816,6 @@ export class Keep3rJobDisputable extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     workCompleted(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    workedAt(
       arg0: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;

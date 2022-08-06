@@ -2,10 +2,11 @@
 pragma solidity >=0.8.4 <0.9.0;
 
 import './Keep3rJobFundableCredits.sol';
-import './Keep3rJobFundableLiquidity.sol';
+//import './Keep3rJobFundableLiquidity.sol';
 import '../Keep3rDisputable.sol';
 
-abstract contract Keep3rJobDisputable is IKeep3rJobDisputable, Keep3rDisputable, Keep3rJobFundableCredits, Keep3rJobFundableLiquidity {
+//abstract contract Keep3rJobDisputable is IKeep3rJobDisputable, Keep3rDisputable, Keep3rJobFundableCredits, Keep3rJobFundableLiquidity {
+abstract contract Keep3rJobDisputable is IKeep3rJobDisputable, Keep3rDisputable, Keep3rJobFundableCredits {
   using EnumerableSet for EnumerableSet.AddressSet;
   using SafeERC20 for IERC20;
 
@@ -29,15 +30,15 @@ abstract contract Keep3rJobDisputable is IKeep3rJobDisputable, Keep3rDisputable,
   }
 
   /// @inheritdoc IKeep3rJobDisputable
-  function slashLiquidityFromJob(
-    address _job,
-    address _liquidity,
-    uint256 _amount
-  ) external override onlySlasher {
-    if (!disputes[_job]) revert NotDisputed();
+  // function slashLiquidityFromJob(
+  //   address _job,
+  //   address _liquidity,
+  //   uint256 _amount
+  // ) external override onlySlasher {
+  //   if (!disputes[_job]) revert NotDisputed();
 
-    _unbondLiquidityFromJob(_job, _liquidity, _amount);
-    try IERC20(_liquidity).transfer(governance, _amount) {} catch {}
-    emit JobSlashLiquidity(_job, _liquidity, msg.sender, _amount);
-  }
+  //   // _unbondLiquidityFromJob(_job, _liquidity, _amount);
+  //   // try IERC20(_liquidity).transfer(governance, _amount) {} catch {}
+  //   // emit JobSlashLiquidity(_job, _liquidity, msg.sender, _amount);
+  // }
 }

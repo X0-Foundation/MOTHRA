@@ -32,7 +32,7 @@ contract Keep3rHelperParameters is IKeep3rHelperParameters, Governable {
   uint256 public override workExtraGas = 50_000;
 
   /// @inheritdoc IKeep3rHelperParameters
-  uint32 public override quoteTwapTime = 10 minutes;
+  // uint32 public override quoteTwapTime = 10 minutes;
 
   /// @inheritdoc IKeep3rHelperParameters
   address public override keep3rV2;
@@ -82,10 +82,10 @@ contract Keep3rHelperParameters is IKeep3rHelperParameters, Governable {
   }
 
   /// @inheritdoc IKeep3rHelperParameters
-  function setQuoteTwapTime(uint32 _quoteTwapTime) external override onlyGovernance {
-    quoteTwapTime = _quoteTwapTime;
-    emit QuoteTwapTimeChange(quoteTwapTime);
-  }
+  // function setQuoteTwapTime(uint32 _quoteTwapTime) external override onlyGovernance {
+  //   quoteTwapTime = _quoteTwapTime;
+  //   emit QuoteTwapTimeChange(quoteTwapTime);
+  // }
 
   /// @notice Sets KP3R-WETH pool
   /// @param _poolAddress The address of the KP3R-WETH pool

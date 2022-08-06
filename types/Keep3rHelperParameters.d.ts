@@ -30,13 +30,11 @@ interface Keep3rHelperParametersInterface extends ethers.utils.Interface {
     "maxBoost()": FunctionFragment;
     "minBoost()": FunctionFragment;
     "pendingGovernance()": FunctionFragment;
-    "quoteTwapTime()": FunctionFragment;
     "setGovernance(address)": FunctionFragment;
     "setKeep3rV2(address)": FunctionFragment;
     "setKp3rWethPool(address)": FunctionFragment;
     "setMaxBoost(uint256)": FunctionFragment;
     "setMinBoost(uint256)": FunctionFragment;
-    "setQuoteTwapTime(uint32)": FunctionFragment;
     "setTargetBond(uint256)": FunctionFragment;
     "setWorkExtraGas(uint256)": FunctionFragment;
     "targetBond()": FunctionFragment;
@@ -68,10 +66,6 @@ interface Keep3rHelperParametersInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "quoteTwapTime",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "setGovernance",
     values: [string]
   ): string;
@@ -86,10 +80,6 @@ interface Keep3rHelperParametersInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "setMinBoost",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setQuoteTwapTime",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -128,10 +118,6 @@ interface Keep3rHelperParametersInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "quoteTwapTime",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "setGovernance",
     data: BytesLike
   ): Result;
@@ -149,10 +135,6 @@ interface Keep3rHelperParametersInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "setMinBoost",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setQuoteTwapTime",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -176,7 +158,6 @@ interface Keep3rHelperParametersInterface extends ethers.utils.Interface {
     "Kp3rWethPoolChange(address,bool)": EventFragment;
     "MaxBoostChange(uint256)": EventFragment;
     "MinBoostChange(uint256)": EventFragment;
-    "QuoteTwapTimeChange(uint32)": EventFragment;
     "TargetBondChange(uint256)": EventFragment;
     "WorkExtraGasChange(uint256)": EventFragment;
   };
@@ -187,7 +168,6 @@ interface Keep3rHelperParametersInterface extends ethers.utils.Interface {
   getEvent(nameOrSignatureOrTopic: "Kp3rWethPoolChange"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "MaxBoostChange"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "MinBoostChange"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "QuoteTwapTimeChange"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TargetBondChange"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "WorkExtraGasChange"): EventFragment;
 }
@@ -210,10 +190,6 @@ export type MaxBoostChangeEvent = TypedEvent<
 
 export type MinBoostChangeEvent = TypedEvent<
   [BigNumber] & { _minBoost: BigNumber }
->;
-
-export type QuoteTwapTimeChangeEvent = TypedEvent<
-  [number] & { _quoteTwapTime: number }
 >;
 
 export type TargetBondChangeEvent = TypedEvent<
@@ -292,8 +268,6 @@ export class Keep3rHelperParameters extends BaseContract {
 
     pendingGovernance(overrides?: CallOverrides): Promise<[string]>;
 
-    quoteTwapTime(overrides?: CallOverrides): Promise<[number]>;
-
     setGovernance(
       _governance: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -316,11 +290,6 @@ export class Keep3rHelperParameters extends BaseContract {
 
     setMinBoost(
       _minBoost: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    setQuoteTwapTime(
-      _quoteTwapTime: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -363,8 +332,6 @@ export class Keep3rHelperParameters extends BaseContract {
 
   pendingGovernance(overrides?: CallOverrides): Promise<string>;
 
-  quoteTwapTime(overrides?: CallOverrides): Promise<number>;
-
   setGovernance(
     _governance: string,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -387,11 +354,6 @@ export class Keep3rHelperParameters extends BaseContract {
 
   setMinBoost(
     _minBoost: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  setQuoteTwapTime(
-    _quoteTwapTime: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -432,8 +394,6 @@ export class Keep3rHelperParameters extends BaseContract {
 
     pendingGovernance(overrides?: CallOverrides): Promise<string>;
 
-    quoteTwapTime(overrides?: CallOverrides): Promise<number>;
-
     setGovernance(
       _governance: string,
       overrides?: CallOverrides
@@ -453,11 +413,6 @@ export class Keep3rHelperParameters extends BaseContract {
 
     setMinBoost(
       _minBoost: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setQuoteTwapTime(
-      _quoteTwapTime: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -533,14 +488,6 @@ export class Keep3rHelperParameters extends BaseContract {
       _minBoost?: null
     ): TypedEventFilter<[BigNumber], { _minBoost: BigNumber }>;
 
-    "QuoteTwapTimeChange(uint32)"(
-      _quoteTwapTime?: null
-    ): TypedEventFilter<[number], { _quoteTwapTime: number }>;
-
-    QuoteTwapTimeChange(
-      _quoteTwapTime?: null
-    ): TypedEventFilter<[number], { _quoteTwapTime: number }>;
-
     "TargetBondChange(uint256)"(
       _targetBond?: null
     ): TypedEventFilter<[BigNumber], { _targetBond: BigNumber }>;
@@ -579,8 +526,6 @@ export class Keep3rHelperParameters extends BaseContract {
 
     pendingGovernance(overrides?: CallOverrides): Promise<BigNumber>;
 
-    quoteTwapTime(overrides?: CallOverrides): Promise<BigNumber>;
-
     setGovernance(
       _governance: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -603,11 +548,6 @@ export class Keep3rHelperParameters extends BaseContract {
 
     setMinBoost(
       _minBoost: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    setQuoteTwapTime(
-      _quoteTwapTime: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -647,8 +587,6 @@ export class Keep3rHelperParameters extends BaseContract {
 
     pendingGovernance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    quoteTwapTime(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     setGovernance(
       _governance: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -671,11 +609,6 @@ export class Keep3rHelperParameters extends BaseContract {
 
     setMinBoost(
       _minBoost: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setQuoteTwapTime(
-      _quoteTwapTime: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

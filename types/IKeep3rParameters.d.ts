@@ -23,32 +23,22 @@ interface IKeep3rParametersInterface extends ethers.utils.Interface {
   functions: {
     "bondTime()": FunctionFragment;
     "fee()": FunctionFragment;
-    "inflationPeriod()": FunctionFragment;
     "keep3rHelper()": FunctionFragment;
     "keep3rV1()": FunctionFragment;
     "keep3rV1Proxy()": FunctionFragment;
     "kp3rWethPool()": FunctionFragment;
-    "liquidityMinimum()": FunctionFragment;
-    "rewardPeriodTime()": FunctionFragment;
     "setBondTime(uint256)": FunctionFragment;
     "setFee(uint256)": FunctionFragment;
-    "setInflationPeriod(uint256)": FunctionFragment;
     "setKeep3rHelper(address)": FunctionFragment;
     "setKeep3rV1(address)": FunctionFragment;
     "setKeep3rV1Proxy(address)": FunctionFragment;
     "setKp3rWethPool(address)": FunctionFragment;
-    "setLiquidityMinimum(uint256)": FunctionFragment;
-    "setRewardPeriodTime(uint256)": FunctionFragment;
     "setUnbondTime(uint256)": FunctionFragment;
     "unbondTime()": FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: "bondTime", values?: undefined): string;
   encodeFunctionData(functionFragment: "fee", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "inflationPeriod",
-    values?: undefined
-  ): string;
   encodeFunctionData(
     functionFragment: "keep3rHelper",
     values?: undefined
@@ -63,23 +53,11 @@ interface IKeep3rParametersInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "liquidityMinimum",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "rewardPeriodTime",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "setBondTime",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "setFee",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setInflationPeriod",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -96,14 +74,6 @@ interface IKeep3rParametersInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
   encodeFunctionData(
-    functionFragment: "setLiquidityMinimum",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setRewardPeriodTime",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
     functionFragment: "setUnbondTime",
     values: [BigNumberish]
   ): string;
@@ -114,10 +84,6 @@ interface IKeep3rParametersInterface extends ethers.utils.Interface {
 
   decodeFunctionResult(functionFragment: "bondTime", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "fee", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "inflationPeriod",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "keep3rHelper",
     data: BytesLike
@@ -132,22 +98,10 @@ interface IKeep3rParametersInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "liquidityMinimum",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "rewardPeriodTime",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "setBondTime",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "setFee", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "setInflationPeriod",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "setKeep3rHelper",
     data: BytesLike
@@ -162,14 +116,6 @@ interface IKeep3rParametersInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "setKp3rWethPool",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setLiquidityMinimum",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setRewardPeriodTime",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -291,10 +237,6 @@ export class IKeep3rParameters extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { _amount: BigNumber }>;
 
-    inflationPeriod(
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { _period: BigNumber }>;
-
     keep3rHelper(
       overrides?: CallOverrides
     ): Promise<[string] & { _keep3rHelper: string }>;
@@ -311,14 +253,6 @@ export class IKeep3rParameters extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string] & { _kp3rWethPool: string }>;
 
-    liquidityMinimum(
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { _amount: BigNumber }>;
-
-    rewardPeriodTime(
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { _days: BigNumber }>;
-
     setBondTime(
       _bond: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -326,11 +260,6 @@ export class IKeep3rParameters extends BaseContract {
 
     setFee(
       _fee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    setInflationPeriod(
-      _inflationPeriod: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -354,16 +283,6 @@ export class IKeep3rParameters extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    setLiquidityMinimum(
-      _liquidityMinimum: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    setRewardPeriodTime(
-      _rewardPeriodTime: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     setUnbondTime(
       _unbond: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -378,8 +297,6 @@ export class IKeep3rParameters extends BaseContract {
 
   fee(overrides?: CallOverrides): Promise<BigNumber>;
 
-  inflationPeriod(overrides?: CallOverrides): Promise<BigNumber>;
-
   keep3rHelper(overrides?: CallOverrides): Promise<string>;
 
   keep3rV1(overrides?: CallOverrides): Promise<string>;
@@ -388,10 +305,6 @@ export class IKeep3rParameters extends BaseContract {
 
   kp3rWethPool(overrides?: CallOverrides): Promise<string>;
 
-  liquidityMinimum(overrides?: CallOverrides): Promise<BigNumber>;
-
-  rewardPeriodTime(overrides?: CallOverrides): Promise<BigNumber>;
-
   setBondTime(
     _bond: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -399,11 +312,6 @@ export class IKeep3rParameters extends BaseContract {
 
   setFee(
     _fee: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  setInflationPeriod(
-    _inflationPeriod: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -427,16 +335,6 @@ export class IKeep3rParameters extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  setLiquidityMinimum(
-    _liquidityMinimum: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  setRewardPeriodTime(
-    _rewardPeriodTime: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   setUnbondTime(
     _unbond: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -449,8 +347,6 @@ export class IKeep3rParameters extends BaseContract {
 
     fee(overrides?: CallOverrides): Promise<BigNumber>;
 
-    inflationPeriod(overrides?: CallOverrides): Promise<BigNumber>;
-
     keep3rHelper(overrides?: CallOverrides): Promise<string>;
 
     keep3rV1(overrides?: CallOverrides): Promise<string>;
@@ -459,18 +355,9 @@ export class IKeep3rParameters extends BaseContract {
 
     kp3rWethPool(overrides?: CallOverrides): Promise<string>;
 
-    liquidityMinimum(overrides?: CallOverrides): Promise<BigNumber>;
-
-    rewardPeriodTime(overrides?: CallOverrides): Promise<BigNumber>;
-
     setBondTime(_bond: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     setFee(_fee: BigNumberish, overrides?: CallOverrides): Promise<void>;
-
-    setInflationPeriod(
-      _inflationPeriod: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
 
     setKeep3rHelper(
       _keep3rHelper: string,
@@ -486,16 +373,6 @@ export class IKeep3rParameters extends BaseContract {
 
     setKp3rWethPool(
       _kp3rWethPool: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setLiquidityMinimum(
-      _liquidityMinimum: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setRewardPeriodTime(
-      _rewardPeriodTime: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -592,8 +469,6 @@ export class IKeep3rParameters extends BaseContract {
 
     fee(overrides?: CallOverrides): Promise<BigNumber>;
 
-    inflationPeriod(overrides?: CallOverrides): Promise<BigNumber>;
-
     keep3rHelper(overrides?: CallOverrides): Promise<BigNumber>;
 
     keep3rV1(overrides?: CallOverrides): Promise<BigNumber>;
@@ -602,10 +477,6 @@ export class IKeep3rParameters extends BaseContract {
 
     kp3rWethPool(overrides?: CallOverrides): Promise<BigNumber>;
 
-    liquidityMinimum(overrides?: CallOverrides): Promise<BigNumber>;
-
-    rewardPeriodTime(overrides?: CallOverrides): Promise<BigNumber>;
-
     setBondTime(
       _bond: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -613,11 +484,6 @@ export class IKeep3rParameters extends BaseContract {
 
     setFee(
       _fee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    setInflationPeriod(
-      _inflationPeriod: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -638,16 +504,6 @@ export class IKeep3rParameters extends BaseContract {
 
     setKp3rWethPool(
       _kp3rWethPool: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    setLiquidityMinimum(
-      _liquidityMinimum: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    setRewardPeriodTime(
-      _rewardPeriodTime: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -664,8 +520,6 @@ export class IKeep3rParameters extends BaseContract {
 
     fee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    inflationPeriod(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     keep3rHelper(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     keep3rV1(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -674,10 +528,6 @@ export class IKeep3rParameters extends BaseContract {
 
     kp3rWethPool(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    liquidityMinimum(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    rewardPeriodTime(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     setBondTime(
       _bond: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -685,11 +535,6 @@ export class IKeep3rParameters extends BaseContract {
 
     setFee(
       _fee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setInflationPeriod(
-      _inflationPeriod: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -710,16 +555,6 @@ export class IKeep3rParameters extends BaseContract {
 
     setKp3rWethPool(
       _kp3rWethPool: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setLiquidityMinimum(
-      _liquidityMinimum: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setRewardPeriodTime(
-      _rewardPeriodTime: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

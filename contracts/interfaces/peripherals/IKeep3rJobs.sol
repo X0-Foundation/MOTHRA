@@ -71,162 +71,162 @@ interface IKeep3rJobFundableLiquidity {
 
   /// @notice Emitted when Keep3rJobFundableLiquidity#approveLiquidity function is called
   /// @param _liquidity The address of the liquidity pair being approved
-  event LiquidityApproval(address _liquidity);
+  // event LiquidityApproval(address _liquidity);
 
   /// @notice Emitted when Keep3rJobFundableLiquidity#revokeLiquidity function is called
   /// @param _liquidity The address of the liquidity pair being revoked
-  event LiquidityRevocation(address _liquidity);
+  // event LiquidityRevocation(address _liquidity);
 
   /// @notice Emitted when IKeep3rJobFundableLiquidity#addLiquidityToJob function is called
   /// @param _job The address of the job to which liquidity will be added
   /// @param _liquidity The address of the liquidity being added
   /// @param _provider The user that calls the function
   /// @param _amount The amount of liquidity being added
-  event LiquidityAddition(address indexed _job, address indexed _liquidity, address indexed _provider, uint256 _amount);
+  // event LiquidityAddition(address indexed _job, address indexed _liquidity, address indexed _provider, uint256 _amount);
 
   /// @notice Emitted when IKeep3rJobFundableLiquidity#withdrawLiquidityFromJob function is called
   /// @param _job The address of the job of which liquidity will be withdrawn from
   /// @param _liquidity The address of the liquidity being withdrawn
   /// @param _receiver The receiver of the liquidity tokens
   /// @param _amount The amount of liquidity being withdrawn from the job
-  event LiquidityWithdrawal(address indexed _job, address indexed _liquidity, address indexed _receiver, uint256 _amount);
+  // event LiquidityWithdrawal(address indexed _job, address indexed _liquidity, address indexed _receiver, uint256 _amount);
 
   /// @notice Emitted when Keep3rJobFundableLiquidity#addLiquidityToJob function is called
   /// @param _job The address of the job whose credits will be updated
   /// @param _rewardedAt The time at which the job was last rewarded
   /// @param _currentCredits The current credits of the job
   /// @param _periodCredits The credits of the job for the current period
-  event LiquidityCreditsReward(address indexed _job, uint256 _rewardedAt, uint256 _currentCredits, uint256 _periodCredits);
+  // event LiquidityCreditsReward(address indexed _job, uint256 _rewardedAt, uint256 _currentCredits, uint256 _periodCredits);
 
   /// @notice Emitted when Keep3rJobFundableLiquidity#forceLiquidityCreditsToJob function is called
   /// @param _job The address of the job whose credits will be updated
   /// @param _rewardedAt The time at which the job was last rewarded
   /// @param _currentCredits The current credits of the job
-  event LiquidityCreditsForced(address indexed _job, uint256 _rewardedAt, uint256 _currentCredits);
+  // event LiquidityCreditsForced(address indexed _job, uint256 _rewardedAt, uint256 _currentCredits);
 
   // Errors
 
   /// @notice Throws when the liquidity being approved has already been approved
-  error LiquidityPairApproved();
+  // error LiquidityPairApproved();
 
   /// @notice Throws when the liquidity being removed has not been approved
-  error LiquidityPairUnexistent();
+  // error LiquidityPairUnexistent();
 
   /// @notice Throws when trying to add liquidity to an unapproved pool
-  error LiquidityPairUnapproved();
+  // error LiquidityPairUnapproved();
 
   /// @notice Throws when the job doesn't have the requested liquidity
-  error JobLiquidityUnexistent();
+  // error JobLiquidityUnexistent();
 
   /// @notice Throws when trying to remove more liquidity than the job has
-  error JobLiquidityInsufficient();
+  // error JobLiquidityInsufficient();
 
   /// @notice Throws when trying to add less liquidity than the minimum liquidity required
-  error JobLiquidityLessThanMin();
+  // error JobLiquidityLessThanMin();
 
   // Structs
 
   /// @notice Stores the tick information of the different liquidity pairs
-  struct TickCache {
-    int56 current; // Tracks the current tick
-    int56 difference; // Stores the difference between the current tick and the last tick
-    uint256 period; // Stores the period at which the last observation was made
-  }
+  // struct TickCache {
+  //   int56 current; // Tracks the current tick
+  //   int56 difference; // Stores the difference between the current tick and the last tick
+  //   uint256 period; // Stores the period at which the last observation was made
+  // }
 
   // Variables
 
   /// @notice Lists liquidity pairs
   /// @return _list An array of addresses with all the approved liquidity pairs
-  function approvedLiquidities() external view returns (address[] memory _list);
+  // function approvedLiquidities() external view returns (address[] memory _list);
 
   /// @notice Amount of liquidity in a specified job
   /// @param _job The address of the job being checked
   /// @param _liquidity The address of the liquidity we are checking
   /// @return _amount Amount of liquidity in the specified job
-  function liquidityAmount(address _job, address _liquidity) external view returns (uint256 _amount);
+  // function liquidityAmount(address _job, address _liquidity) external view returns (uint256 _amount);
 
   /// @notice Last time the job was rewarded liquidity credits
   /// @param _job The address of the job being checked
   /// @return _timestamp Timestamp of the last time the job was rewarded liquidity credits
-  function rewardedAt(address _job) external view returns (uint256 _timestamp);
+  // function rewardedAt(address _job) external view returns (uint256 _timestamp);
 
   /// @notice Last time the job was worked
   /// @param _job The address of the job being checked
   /// @return _timestamp Timestamp of the last time the job was worked
-  function workedAt(address _job) external view returns (uint256 _timestamp);
+  // function workedAt(address _job) external view returns (uint256 _timestamp);
 
   // Methods
 
   /// @notice Returns the liquidity credits of a given job
   /// @param _job The address of the job of which we want to know the liquidity credits
   /// @return _amount The liquidity credits of a given job
-  function jobLiquidityCredits(address _job) external view returns (uint256 _amount);
+  // function jobLiquidityCredits(address _job) external view returns (uint256 _amount);
 
   /// @notice Returns the credits of a given job for the current period
   /// @param _job The address of the job of which we want to know the period credits
   /// @return _amount The credits the given job has at the current period
-  function jobPeriodCredits(address _job) external view returns (uint256 _amount);
+  // function jobPeriodCredits(address _job) external view returns (uint256 _amount);
 
   /// @notice Calculates the total credits of a given job
   /// @param _job The address of the job of which we want to know the total credits
   /// @return _amount The total credits of the given job
-  function totalJobCredits(address _job) external view returns (uint256 _amount);
+  // function totalJobCredits(address _job) external view returns (uint256 _amount); // Implemented in Keep3rJobFundableLiquidity.sol
 
   /// @notice Calculates how many credits should be rewarded periodically for a given liquidity amount
   /// @dev _periodCredits = underlying KP3Rs for given liquidity amount * rewardPeriod / inflationPeriod
   /// @param _liquidity The address of the liquidity to provide
   /// @param _amount The amount of liquidity to provide
   /// @return _periodCredits The amount of KP3R periodically minted for the given liquidity
-  function quoteLiquidity(address _liquidity, uint256 _amount) external view returns (uint256 _periodCredits);
+  // function quoteLiquidity(address _liquidity, uint256 _amount) external view returns (uint256 _periodCredits);
 
   /// @notice Observes the current state of the liquidity pair being observed and updates TickCache with the information
   /// @param _liquidity The address of the liquidity pair being observed
   /// @return _tickCache The updated TickCache
-  function observeLiquidity(address _liquidity) external view returns (TickCache memory _tickCache);
+  // function observeLiquidity(address _liquidity) external view returns (TickCache memory _tickCache);
 
   /// @notice Gifts liquidity credits to the specified job
   /// @param _job The address of the job being credited
   /// @param _amount The amount of liquidity credits to gift
-  function forceLiquidityCreditsToJob(address _job, uint256 _amount) external;
+  // function forceLiquidityCreditsToJob(address _job, uint256 _amount) external;
 
   /// @notice Approve a liquidity pair for being accepted in future
   /// @param _liquidity The address of the liquidity accepted
-  function approveLiquidity(address _liquidity) external;
+  // function approveLiquidity(address _liquidity) external;
 
   /// @notice Revoke a liquidity pair from being accepted in future
   /// @param _liquidity The liquidity no longer accepted
-  function revokeLiquidity(address _liquidity) external;
+  // function revokeLiquidity(address _liquidity) external;
 
   /// @notice Allows anyone to fund a job with liquidity
   /// @param _job The address of the job to assign liquidity to
   /// @param _liquidity The liquidity being added
   /// @param _amount The amount of liquidity tokens to add
-  function addLiquidityToJob(
-    address _job,
-    address _liquidity,
-    uint256 _amount
-  ) external;
+  // function addLiquidityToJob(
+  //   address _job,
+  //   address _liquidity,
+  //   uint256 _amount
+  // ) external;
 
   /// @notice Unbond liquidity for a job
   /// @dev Can only be called by the job's owner
   /// @param _job The address of the job being unbonded from
   /// @param _liquidity The liquidity being unbonded
   /// @param _amount The amount of liquidity being removed
-  function unbondLiquidityFromJob(
-    address _job,
-    address _liquidity,
-    uint256 _amount
-  ) external;
+  // function unbondLiquidityFromJob(
+  //   address _job,
+  //   address _liquidity,
+  //   uint256 _amount
+  // ) external;
 
   /// @notice Withdraw liquidity from a job
   /// @param _job The address of the job being withdrawn from
   /// @param _liquidity The liquidity being withdrawn
   /// @param _receiver The address that will receive the withdrawn liquidity
-  function withdrawLiquidityFromJob(
-    address _job,
-    address _liquidity,
-    address _receiver
-  ) external;
+  // function withdrawLiquidityFromJob(
+  //   address _job,
+  //   address _liquidity,
+  //   address _receiver
+  // ) external;
 }
 
 /// @title Keep3rJobManager contract
@@ -423,7 +423,9 @@ interface IKeep3rJobMigration {
 
 /// @title Keep3rJobDisputable contract
 /// @notice Handles the actions that can be taken on a disputed job
+//interface IKeep3rJobDisputable is IKeep3rJobFundableCredits {
 interface IKeep3rJobDisputable is IKeep3rJobFundableCredits, IKeep3rJobFundableLiquidity {
+
   // Events
 
   /// @notice Emitted when Keep3rJobDisputable#slashTokenFromJob is called
@@ -464,11 +466,11 @@ interface IKeep3rJobDisputable is IKeep3rJobFundableCredits, IKeep3rJobFundableL
   /// @param _job The address being slashed
   /// @param _liquidity The address of the liquidity that will be slashed
   /// @param _amount The amount of liquidity that will be slashed
-  function slashLiquidityFromJob(
-    address _job,
-    address _liquidity,
-    uint256 _amount
-  ) external;
+  // function slashLiquidityFromJob(
+  //   address _job,
+  //   address _liquidity,
+  //   uint256 _amount
+  // ) external;
 }
 
 // solhint-disable-next-line no-empty-blocks

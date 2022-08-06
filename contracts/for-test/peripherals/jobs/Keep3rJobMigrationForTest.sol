@@ -47,7 +47,7 @@ contract Keep3rJobMigrationForTest is Keep3rJobMigration {
     return _jobs.contains(_job);
   }
 
-  function _settleJobAccountance(address _job) internal override {
-    settleJobAccountanceCallCount[_job]++;
-  }
+  // function _settleJobAccountance(address _job) internal override {
+  //   settleJobAccountanceCallCount[_job]++;
+  // }
 }

@@ -21,25 +21,25 @@ contract Keep3rJobWorkableForTest is Keep3rJobWorkable {
     _keepers.add(_keeper);
   }
 
-  function setApprovedLiquidity(address _liquidity) external {
-    _approvedLiquidities.add(_liquidity);
-  }
+  // function setApprovedLiquidity(address _liquidity) external {
+  //   _approvedLiquidities.add(_liquidity);
+  // }
 
-  function setJobLiquidity(address _job, address _liquidity) external {
-    _jobLiquidities[_job].add(_liquidity);
-  }
+  // function setJobLiquidity(address _job, address _liquidity) external {
+  //   _jobLiquidities[_job].add(_liquidity);
+  // }
 
-  function viewJobLiquidityCredits(address _job) external view returns (uint256) {
-    return _jobLiquidityCredits[_job];
-  }
+  // function viewJobLiquidityCredits(address _job) external view returns (uint256) {
+  //   return _jobLiquidityCredits[_job];
+  // }
 
-  function viewJobPeriodCredits(address _job) external view returns (uint256) {
-    return _jobPeriodCredits[_job];
-  }
+  // function viewJobPeriodCredits(address _job) external view returns (uint256) {
+  //   return _jobPeriodCredits[_job];
+  // }
 
-  function viewTickCache(address _liquidity) external view returns (TickCache memory _tickCache) {
-    _tickCache = _tick[_liquidity];
-  }
+  // function viewTickCache(address _liquidity) external view returns (TickCache memory _tickCache) {
+  //   _tickCache = _tick[_liquidity];
+  // }
 
   function viewGas() external view returns (uint256) {
     return _initialGas;

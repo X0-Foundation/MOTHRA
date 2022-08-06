@@ -35,35 +35,6 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "_liquidityAmount",
-        type: "uint256",
-      },
-      {
-        internalType: "int56",
-        name: "_tickDifference",
-        type: "int56",
-      },
-      {
-        internalType: "uint256",
-        name: "_timeInterval",
-        type: "uint256",
-      },
-    ],
-    name: "getKP3RsAtTick",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "_kp3rAmount",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "pure",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
         name: "_bonds",
         type: "uint256",
       },
@@ -111,35 +82,6 @@ const _abi = [
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint128",
-        name: "_baseAmount",
-        type: "uint128",
-      },
-      {
-        internalType: "int56",
-        name: "_tickDifference",
-        type: "int56",
-      },
-      {
-        internalType: "uint256",
-        name: "_timeInterval",
-        type: "uint256",
-      },
-    ],
-    name: "getQuoteAtTick",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "_quoteAmount",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "pure",
     type: "function",
   },
   {
@@ -217,40 +159,6 @@ const _abi = [
       {
         internalType: "bool",
         name: "_isKP3RToken0",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_pool",
-        type: "address",
-      },
-      {
-        internalType: "uint32[]",
-        name: "_secondsAgo",
-        type: "uint32[]",
-      },
-    ],
-    name: "observe",
-    outputs: [
-      {
-        internalType: "int56",
-        name: "_tickCumulative1",
-        type: "int56",
-      },
-      {
-        internalType: "int56",
-        name: "_tickCumulative2",
-        type: "int56",
-      },
-      {
-        internalType: "bool",
-        name: "_success",
         type: "bool",
       },
     ],

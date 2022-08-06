@@ -45,9 +45,9 @@ interface IKeep3rHelperParameters {
   /// @param _workExtraGas The work extra gas
   event WorkExtraGasChange(uint256 _workExtraGas);
 
-  /// @notice Emitted when the quote twap time is changed
-  /// @param _quoteTwapTime The twap time for quoting
-  event QuoteTwapTimeChange(uint32 _quoteTwapTime);
+  // /// @notice Emitted when the quote twap time is changed
+  // /// @param _quoteTwapTime The twap time for quoting
+  // event QuoteTwapTimeChange(uint32 _quoteTwapTime);
 
   // Variables
 
@@ -87,7 +87,7 @@ interface IKeep3rHelperParameters {
 
   /// @notice The twap time for quoting
   /// @return _quoteTwapTime The twap time
-  function quoteTwapTime() external view returns (uint32 _quoteTwapTime);
+  // function quoteTwapTime() external view returns (uint32 _quoteTwapTime);
 
   /// @notice Address of Keep3r V2
   /// @return _keep3rV2 Address of Keep3r V2
@@ -121,5 +121,5 @@ interface IKeep3rHelperParameters {
 
   /// @notice Sets the quote twap time
   /// @param _quoteTwapTime The twap time for quoting
-  function setQuoteTwapTime(uint32 _quoteTwapTime) external;
+  // function setQuoteTwapTime(uint32 _quoteTwapTime) external;
 }

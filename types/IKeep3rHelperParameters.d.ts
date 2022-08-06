@@ -27,12 +27,10 @@ interface IKeep3rHelperParametersInterface extends ethers.utils.Interface {
     "kp3rWethPool()": FunctionFragment;
     "maxBoost()": FunctionFragment;
     "minBoost()": FunctionFragment;
-    "quoteTwapTime()": FunctionFragment;
     "setKeep3rV2(address)": FunctionFragment;
     "setKp3rWethPool(address)": FunctionFragment;
     "setMaxBoost(uint256)": FunctionFragment;
     "setMinBoost(uint256)": FunctionFragment;
-    "setQuoteTwapTime(uint32)": FunctionFragment;
     "setTargetBond(uint256)": FunctionFragment;
     "setWorkExtraGas(uint256)": FunctionFragment;
     "targetBond()": FunctionFragment;
@@ -51,10 +49,6 @@ interface IKeep3rHelperParametersInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "maxBoost", values?: undefined): string;
   encodeFunctionData(functionFragment: "minBoost", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "quoteTwapTime",
-    values?: undefined
-  ): string;
   encodeFunctionData(functionFragment: "setKeep3rV2", values: [string]): string;
   encodeFunctionData(
     functionFragment: "setKp3rWethPool",
@@ -66,10 +60,6 @@ interface IKeep3rHelperParametersInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "setMinBoost",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setQuoteTwapTime",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -99,10 +89,6 @@ interface IKeep3rHelperParametersInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "maxBoost", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "minBoost", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "quoteTwapTime",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "setKeep3rV2",
     data: BytesLike
   ): Result;
@@ -116,10 +102,6 @@ interface IKeep3rHelperParametersInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "setMinBoost",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setQuoteTwapTime",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -141,7 +123,6 @@ interface IKeep3rHelperParametersInterface extends ethers.utils.Interface {
     "Kp3rWethPoolChange(address,bool)": EventFragment;
     "MaxBoostChange(uint256)": EventFragment;
     "MinBoostChange(uint256)": EventFragment;
-    "QuoteTwapTimeChange(uint32)": EventFragment;
     "TargetBondChange(uint256)": EventFragment;
     "WorkExtraGasChange(uint256)": EventFragment;
   };
@@ -150,7 +131,6 @@ interface IKeep3rHelperParametersInterface extends ethers.utils.Interface {
   getEvent(nameOrSignatureOrTopic: "Kp3rWethPoolChange"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "MaxBoostChange"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "MinBoostChange"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "QuoteTwapTimeChange"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TargetBondChange"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "WorkExtraGasChange"): EventFragment;
 }
@@ -167,10 +147,6 @@ export type MaxBoostChangeEvent = TypedEvent<
 
 export type MinBoostChangeEvent = TypedEvent<
   [BigNumber] & { _minBoost: BigNumber }
->;
-
-export type QuoteTwapTimeChangeEvent = TypedEvent<
-  [number] & { _quoteTwapTime: number }
 >;
 
 export type TargetBondChangeEvent = TypedEvent<
@@ -249,10 +225,6 @@ export class IKeep3rHelperParameters extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { _multiplier: BigNumber }>;
 
-    quoteTwapTime(
-      overrides?: CallOverrides
-    ): Promise<[number] & { _quoteTwapTime: number }>;
-
     setKeep3rV2(
       _keep3rV2: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -270,11 +242,6 @@ export class IKeep3rHelperParameters extends BaseContract {
 
     setMinBoost(
       _minBoost: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    setQuoteTwapTime(
-      _quoteTwapTime: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -313,8 +280,6 @@ export class IKeep3rHelperParameters extends BaseContract {
 
   minBoost(overrides?: CallOverrides): Promise<BigNumber>;
 
-  quoteTwapTime(overrides?: CallOverrides): Promise<number>;
-
   setKeep3rV2(
     _keep3rV2: string,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -332,11 +297,6 @@ export class IKeep3rHelperParameters extends BaseContract {
 
   setMinBoost(
     _minBoost: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  setQuoteTwapTime(
-    _quoteTwapTime: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -371,8 +331,6 @@ export class IKeep3rHelperParameters extends BaseContract {
 
     minBoost(overrides?: CallOverrides): Promise<BigNumber>;
 
-    quoteTwapTime(overrides?: CallOverrides): Promise<number>;
-
     setKeep3rV2(_keep3rV2: string, overrides?: CallOverrides): Promise<void>;
 
     setKp3rWethPool(
@@ -387,11 +345,6 @@ export class IKeep3rHelperParameters extends BaseContract {
 
     setMinBoost(
       _minBoost: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setQuoteTwapTime(
-      _quoteTwapTime: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -451,14 +404,6 @@ export class IKeep3rHelperParameters extends BaseContract {
       _minBoost?: null
     ): TypedEventFilter<[BigNumber], { _minBoost: BigNumber }>;
 
-    "QuoteTwapTimeChange(uint32)"(
-      _quoteTwapTime?: null
-    ): TypedEventFilter<[number], { _quoteTwapTime: number }>;
-
-    QuoteTwapTimeChange(
-      _quoteTwapTime?: null
-    ): TypedEventFilter<[number], { _quoteTwapTime: number }>;
-
     "TargetBondChange(uint256)"(
       _targetBond?: null
     ): TypedEventFilter<[BigNumber], { _targetBond: BigNumber }>;
@@ -489,8 +434,6 @@ export class IKeep3rHelperParameters extends BaseContract {
 
     minBoost(overrides?: CallOverrides): Promise<BigNumber>;
 
-    quoteTwapTime(overrides?: CallOverrides): Promise<BigNumber>;
-
     setKeep3rV2(
       _keep3rV2: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -508,11 +451,6 @@ export class IKeep3rHelperParameters extends BaseContract {
 
     setMinBoost(
       _minBoost: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    setQuoteTwapTime(
-      _quoteTwapTime: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -544,8 +482,6 @@ export class IKeep3rHelperParameters extends BaseContract {
 
     minBoost(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    quoteTwapTime(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     setKeep3rV2(
       _keep3rV2: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -563,11 +499,6 @@ export class IKeep3rHelperParameters extends BaseContract {
 
     setMinBoost(
       _minBoost: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setQuoteTwapTime(
-      _quoteTwapTime: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
