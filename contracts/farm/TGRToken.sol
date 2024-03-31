@@ -349,7 +349,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             decayPer1e12 = uint256(0);
             uint256 survival = FeeMagnifier - pulse.decayRate;
             for(uint256 i = 0; i < missingRounds; i++) {
-                decayPer1e12 = decayPer1e12 + (uint256(1e12) - decayPer1e12) * pulse.decayRate / FeeMagnifier
+                decayPer1e12 = decayPer1e12 + (uint256(1e12) - decayPer1e12) * pulse.decayRate / FeeMagnifier;
             }
         }
     }
