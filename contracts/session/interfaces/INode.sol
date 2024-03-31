@@ -34,3 +34,4 @@ interface INode {
     event SetFeeRates(ActionType _sessionType, FeeRates _feeRates);
     event Begin();
 }
+

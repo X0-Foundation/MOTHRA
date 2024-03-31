@@ -49,7 +49,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     // The non-user TGR accounts, not limited to the below items.
     // address tgrFtm; // Decleared in node. The address of TGR_FTM pool, which has TGR and WFTM balances.
     // address tgrHtz; // Decleared in node. The address of TGR_HTZ pool, which has TGR and HTZ balances.
-    address votes;  // The address of the share-based, TGR staking account in the Agency dapp.
+    address immutable votes;  // The address of the share-based, TGR staking account in the Agency dapp.
 
     Pulse public lp_reward;
     Pulse public vote_burn;
@@ -67,7 +67,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     //====================== Pulse internal functions ============================
 
     function _isUserAccount(address account) internal view returns (bool) {
-        return pairs[account].token0 == address(0) && account != votes;
+        return pairs[account].token0 == address(0) && account != votes; // not a pair's token && not a votes account
     }
 
     function _pendingBurn(address account) internal view returns (uint256 pendingBurn) {
@@ -200,6 +200,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
 
         _beforeTokenTransfer(from, address(0), amount);
         _changeBalance(from, amount, false);
+        // _totalSupply -= amount; // commented out, as it's burried not burned
         _afterTokenTransfer(from, address(0), amount);
 
         emit Transfer(from, address(0), amount);
@@ -336,36 +337,19 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     //==================== Pulse public functions ====================
 
     function _getDecayPer1e12(Pulse storage pulse) internal returns (uint256 decayPer1e12) {
-        // pulse.lastTime, pulse.cycle, pulse.decayRate
+        // Assumption: The amount subject to decay did not change since the pulse.latestRound or pulse/latestTime
 
-        uint256 round = block.timestamp / pulse.cycle;
+        // pulse.lastTime, pulse.cycle, pulse.decayRate
+        uint256 round = block.timestamp / pulse.cycle;  // the fraction is saved in the timestamp for later use
         if (round > pulse.latestRound) {
             uint256 missingRounds = round - pulse.latestRound;
             pulse.latestRound = round;
             pulse.latestTime = block.timestamp; // Not used.
 
-            //require(missingRounds <= 30, "Beyond math library capability");
-            if (missingRounds > 5) missingRounds = 5; // No trust in analyticMath.
-
-            decayPer1e12 = 1e12;
-            if (missingRounds <= 5) { // 5 optimized
-                uint256 remain = FeeMagnifier - pulse.decayRate;
-                uint256 numerator = remain; 
-                uint256 denominator = FeeMagnifier;
-                for(uint256 i = 1; i < missingRounds; i++) { // note it starts from 1.
-                    numerator *= remain;
-                    denominator *= FeeMagnifier;
-                }
-                decayPer1e12 = 1e12 - 1e12 * numerator / denominator;
-            } else {
-                // !!! This function appears not to work properly.
-                (uint256 P, uint256 Q) = analyticMath.pow(FeeMagnifier - pulse.decayRate, FeeMagnifier, missingRounds, uint256(1));
-                // Function pow(a, b, c, d) approximates the power of a / b by c / d.
-                // When a >= b, the output of this function is guaranteed to be not greater than or equal to the actual value of (a / b) ^ (c / d).
-                // When a <= b, the output of this function is guaranteed to be not less than or equal to the actual value of (a / b) ^ (c / d).
-                // As a <= b, the output is not less than its real value.
-                decayPer1e12 = 1e12 - 1e12 * P / Q;
-                // Now, decayPer1e12 is not greater than its real value.
+            decayPer1e12 = uint256(0);
+            uint256 survival = FeeMagnifier - pulse.decayRate;
+            for(uint256 i = 0; i < missingRounds; i++) {
+                decayPer1e12 = decayPer1e12 + (uint256(1e12) - decayPer1e12) * pulse.decayRate / FeeMagnifier
             }
         }
     }
@@ -374,41 +358,52 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         // 0.69% of XDAO/FTM LP has the XDAO side sold for FTM, 
         // then the FTM is used to buy HTZ which is added to XDAO lps airdrop rewards every 12 hours.
 
-        uint256 decayPer1e12 = _getDecayPer1e12(lp_reward); // not greater than its real value.
+        uint256 dilutePer1e12 = _getDecayPer1e12(lp_reward); // not greater than its real value.
         // Delute by decayPar1e12 (ie, remove decayPer1e12 portion from tgrFtm pool), use the TGR part to buy FTM, 
         // and use the FTM tokens to buy HTZ tokens at the htzftm pool, 
         // then add them to airdrop rewards.
-        
-        uint256 tgrAmount = _balanceOf(address(this));
-        uint256 decay = IERC20(tgrFtm).totalSupply() * decayPer1e12 / 1e12;
-        uint256 amountETH = IXMaker(nodes.maker).diluteLiquidityForETH(
-            address(this), decay, 0, address(this), block.timestamp
-        );
-        tgrAmount = _balanceOf(address(this)) - tgrAmount;
-        _burn(address(this), tgrAmount);
 
-        console.log("FTM and TGR gained by LP dilution -----", amountETH, tgrAmount);
-        address[] memory path = new address[](2);
-        path[0] = WBNB; path[1] = HTZ;
-        uint256 amountHertz = IERC20(HTZ).balanceOf(address(this));
+        if (dilutePer1e12 > 0) {
+            // 1. dilute for FTM
+            uint256 tgrAmount = _balanceOf(address(this));
+            uint256 decay = IERC20(tgrFtm).totalSupply() * dilutePer1e12 / uint256(1e12);
+            uint256 amountETH = IXMaker(nodes.maker).diluteLiquidityForETH(
+                address(this), decay, 0, address(this), block.timestamp
+            ); 
+            // it's dilution only, keeping the totalSupply of liquidity unchanged 
+            // and moving the two token sides of diluted liquidity to this contract
 
-        // We may need to get this swap free from the price change control.
-        IXTaker(nodes.taker).swapExactETHForTokens {value: amountETH} (0, path, address(this), block.timestamp);
-        amountHertz = IERC20(HTZ).balanceOf(address(this)) - amountHertz;
-        console.log("HTZ gained by swap -----", amountHertz);
-        IERC20(HTZ).transfer(HTZRewards, amountHertz);
+            // 2. burn the TGR side of the deluted liquidity
+            tgrAmount = _balanceOf(address(this)) - tgrAmount;
+            _burn(address(this), tgrAmount);
+            console.log("FTM and TGR gained by LP dilution -----", amountETH, tgrAmount);
 
-        lp_reward.latestTime = block.timestamp;
+            // 3. buy HTZ with FTM
+            address[] memory path = new address[](2);
+            path[0] = WBNB; path[1] = HTZ;
+            uint256 amountHertz = IERC20(HTZ).balanceOf(address(this));
+            //// We may need to get this swap free from the price change control.
+            IXTaker(nodes.taker).swapExactETHForTokens {value: amountETH} (0, path, address(this), block.timestamp);
+            amountHertz = IERC20(HTZ).balanceOf(address(this)) - amountHertz;
+            console.log("HTZ gained by swap -----", amountHertz);
+
+            // 4. add the bought HTZ to HTZRewards
+            IERC20(HTZ).transfer(HTZRewards, amountHertz);
+
+            lp_reward.latestTime = block.timestamp;
+        }
     }
 
     function pulse_vote_burn() external {
         // 0.07% of tokens in the Agency dapp actively being used for voting burned every 12 hours.
 
         uint256 decayPer1e12 = _getDecayPer1e12(vote_burn); // not greater than its real value.
-        // burn decayPer1e12 portion of votes account's TRG balance.
-        _burn(vote_burn.account, _balances[vote_burn.account] * decayPer1e12 / 1e12);
 
-        vote_burn.latestTime = block.timestamp;
+        if (decayPer1e12 > 0) {
+            // burn decayPer1e12 portion of votes account's TRG balance.
+            _burn(vote_burn.account, _balances[vote_burn.account] * decayPer1e12 / uint256(1e12));
+            vote_burn.latestTime = block.timestamp;
+        }
     }
 
     function pulse_user_burn() external {
@@ -419,10 +414,9 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         uint256 decayPer1e12 = _getDecayPer1e12(user_burn); // not greater than its real value.
         if (decayPer1e12 > 0) {
             uint256 net_value = user_burn.sum_tokens - user_burn.pending_burn;
-            uint256 new_burn = net_value * decayPer1e12 / 1e12;  // not greater than its real value
+            uint256 new_burn = net_value * decayPer1e12 / uint256(1e12);  // not greater than its real value
             user_burn.pending_burn += new_burn;
-            user_burn.accDecayPerShare += new_burn * 1e12 / user_burn.sum_tokens;   // not greater than its real value
-
+            user_burn.accDecayPerShare += new_burn * uint256(1e12) / user_burn.sum_tokens;   // not greater than its real value
             user_burn.latestTime = block.timestamp;
         }
     }
@@ -477,12 +471,12 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
                 // } else if (action == ActionType.Dilute) {    // Dilute
                 //     console.log("Dilute");
                 } else {
-                    console.log("Inconsistency found 0");
+                    console.log("Inconsistenct 0");
                 }
             } else if (sender == nodes.maker) {  // Remove
-                console.log("Remove");
+                console.log("Remove1");
             } else {
-                revert("Inconsistency found 1");
+                revert("Inconsistent 1");
             }
 
         } else if (msgSender == nodes.taker) { // Buy/Sell TGR tokens
@@ -491,29 +485,28 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             } else if (sender == nodes.taker) {  // Buy, as Taker sends tokens from Taker to a non-pool.
                 console.log("Buy");
             } else {
-                revert("Inconsistency found 2");
+                revert("Inconsistenct 2");
             }
 
             uint256 burnAmount = amount * buysell_burn_rate / FeeMagnifier;
             _burn(sender, burnAmount);
             amount -= burnAmount;
 
-        } else if (pairs[msgSender].token0 != address(0)) { // Remove/Buy/Dilute
-
-            require( msgSender == sender, "Inconsistent1" );
-
-            ActionType action = _getCurrentActionType();
-            if(action == ActionType.Swap) { // Buy
-                uint256 burnAmount = amount * buysell_burn_rate / FeeMagnifier;
-                _burn(sender, burnAmount);
-                amount -= burnAmount;
-                console.log("Buy");
-            } else if (action == ActionType.RemoveLiquidity) { // Remove
-                console.log("Remove");
-            } else if (action == ActionType.Dilute) { // Dilute
-                console.log("Dilute");
-            } else {
-                revert("Inconsistency found 3");
+        } else if (msgSender == sender) {
+            if (pairs[msgSender].token0 != address(0)) { // Remove/Buy/Dilute
+                ActionType action = _getCurrentActionType();
+                if(action == ActionType.Swap) { // Buy
+                    uint256 burnAmount = amount * buysell_burn_rate / FeeMagnifier;
+                    _burn(sender, burnAmount);
+                    amount -= burnAmount;
+                    console.log("Buy");
+                } else if (action == ActionType.RemoveLiquidity) { // Remove
+                    console.log("Remove2");
+                } else if (action == ActionType.Dilute) { // Dilute
+                    console.log("Dilute");
+                } else {
+                    revert("Inconsistenct 5");
+                }
             }
 
         } else {

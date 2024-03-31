@@ -4,20 +4,28 @@ pragma solidity ^0.8.0;
 import "../session/interfaces/INode.sol";
 
 library WireLibrary {
+
+    string private constant node_alredy_set = "Node already set";
+
     function setNode(
         NodeType nodeType,
         address node,
         Nodes storage nodes
     ) external {
         if (nodeType == NodeType.Token) {
+            require(npdes.token == address(0), node_alredy_set)
             nodes.token = node;
         } else if (nodeType == NodeType.Center) {
+            require(npdes.center == address(0), node_alredy_set)
             nodes.center = node;
         } else if (nodeType == NodeType.Maker) {
+            require(npdes.maker == address(0), node_alredy_set)
             nodes.maker = node;
         } else if (nodeType == NodeType.Taker) {
+            require(npdes.taker == address(0), node_alredy_set)
             nodes.taker = node;
         } else if (nodeType == NodeType.XFactory) {
+            require(npdes.factory == address(0), node_alredy_set)
             nodes.factory = node;
         }
     }

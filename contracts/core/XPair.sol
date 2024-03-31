@@ -26,7 +26,7 @@ contract XPair is IXPair {
     mapping(address => uint256) public override balanceOf;
     mapping(address => mapping(address => uint256)) public override allowance;
 
-    bytes32 public override DOMAIN_SEPARATOR;
+    bytes32 public override DOMAIN_SEPARATOR;   // https://soliditydeveloper.com/ecrecover
     // keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
     bytes32 public constant override PERMIT_TYPEHASH =
         0x6e71edae12b1b97f4d1f60370fef10105fa2faae0126114a169c64845d6126c9;
@@ -34,7 +34,7 @@ contract XPair is IXPair {
     mapping(address => uint256) public override nonces;
 
     uint256 public constant override MINIMUM_LIQUIDITY = 10**3;
-    bytes4 private constant SELECTOR = bytes4(keccak256(bytes("transfer(address,uint256)")));
+    bytes4 private constant TRANSFER = bytes4(keccak256(bytes("transfer(address,uint256)")));
 
     ListStatus public override status;
 
@@ -95,15 +95,15 @@ contract XPair is IXPair {
     }
 
     function _safeTransfer(
-        address tokenToTransfer,
-        address to,
+        address fromToken,
+        address toToken,
         uint256 value
     ) private {
-        if (tokenToTransfer == token) {
-            ITGRToken(tokenToTransfer).transferDirectSafe(address(this), to, value);
+        if (fromToken == token) {
+            ITGRToken(fromToken).transferDirectSafe(address(this), toToken, value);
         } else {
-            (bool success, bytes memory data) = tokenToTransfer.call(abi.encodeWithSelector(SELECTOR, to, value));
-            require(success && (data.length == 0 || abi.decode(data, (bool))), "_safeTransfer failed");
+            (bool success, bytes memory data) = fromToken.call(abi.encodeWithSelector(TRANSFER, toToken, value));
+            require(success && abi.decode(data, (bool)), "_safeTransfer failed");
         }
     }
 
@@ -216,9 +216,9 @@ contract XPair is IXPair {
     ) private {
         require(balance0 <= type(uint112).max && balance1 <= type(uint112).max, "Wrong balances");
         uint32 blockTimestamp = uint32(block.timestamp % 2**32);
-        uint32 timeElapsed = blockTimestamp - blockTimestampLast; // overflow is desired
-        if (timeElapsed > 0 && _reserve0 != 0 && _reserve1 != 0) {
-            // * never overflows, and + overflow is desired
+        uint32 timeElapsed = blockTimestamp - blockTimestampLast; // blockTimestampLast: zero initially
+        if (timeElapsed > 0 && _reserve0 != 0 && _reserve1 != 0) {  // first call per block && ...
+            // * never overflows, as timeElanpsed < 2**32
             price0CumulativeLast += (uint256(UQ112x112.encode(_reserve1).uqdiv(_reserve0)) * timeElapsed);
             price1CumulativeLast += (uint256(UQ112x112.encode(_reserve0).uqdiv(_reserve1)) * timeElapsed);
         }
@@ -261,8 +261,9 @@ contract XPair is IXPair {
         uint256 _totalSupply = totalSupply; // gas savings, must be defined here since totalSupply can update in _mintFee
         if (_totalSupply == 0) {
             liquidity = SafeMath.sqrt(amount0.mul(amount1)).sub(MINIMUM_LIQUIDITY);
-            _mint(address(0), MINIMUM_LIQUIDITY); // permanently lock the first MINIMUM_LIQUIDITY tokens
+            _mint(address(0), MINIMUM_LIQUIDITY); // ensure less shares than assets
         } else {
+            // non-propotional amount is taken free of liquidity
             liquidity = Math.min(amount0.mul(_totalSupply) / _reserve0, amount1.mul(_totalSupply) / _reserve1);
         }
         require(liquidity > 0, "Zero liquidity minted");
@@ -283,10 +284,10 @@ contract XPair is IXPair {
         uint256 liquidity = balanceOf[address(this)];
 
         bool feeOn = _mintFee(_reserve0, _reserve1);
-        uint256 _totalSupply = totalSupply; // gas savings, must be defined here since totalSupply may update in _mintFee
+        uint256 _totalSupply = totalSupply; // gas savings, must be defined after _mintFee since totalSupply may update
         amount0 = liquidity.mul(balance0) / _totalSupply; // using balances ensures pro-rata distribution
         amount1 = liquidity.mul(balance1) / _totalSupply; // using balances ensures pro-rata distribution
-        require(amount0 > 0 && amount1 > 0, "XPair: Zero amount after burn");
+        require(amount0 > 0 && amount1 > 0, "No token to take after burn");
         _burn(address(this), liquidity);
         _safeTransfer(_token0, to, amount0);
         _safeTransfer(_token1, to, amount1);
@@ -355,7 +356,7 @@ contract XPair is IXPair {
     }
 
     function dilute(uint liquidity, address to) external virtual override lock returns (uint amount0, uint amount1) {
-        require(msg.sender == maker, "X: CALLER IS NOT X ROUTER");
+        require(msg.sender == maker, "CALLER IS NOT X ROUTER");
         address _token0 = token0; address _token1 = token1; // gas saving
         uint balance0 = IERC20(_token0).balanceOf(address(this));
         uint balance1 = IERC20(_token1).balanceOf(address(this));
@@ -363,7 +364,7 @@ contract XPair is IXPair {
         require(liquidity <= _totalSupply, "Exceeds totalSupply");
         amount0 = liquidity.mul(balance0) / _totalSupply; // using balances ensures pro-rata distribution
         amount1 = liquidity.mul(balance1) / _totalSupply; // using balances ensures pro-rata distribution
-        require(amount0 > 0 && amount1 > 0, 'XDAO: INSUFFICIENT_LIQUIDITY_BURNED');
+        require(amount0 > 0 && amount1 > 0, 'Zero amount to dilute');
         // No _burn(address(this), liquidity), as this is not remove but dilute.
         _safeTransfer(_token0, to, amount0);
         _safeTransfer(_token1, to, amount1);
