@@ -27,7 +27,6 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     "balanceOf(address)": FunctionFragment;
     "begin(address)": FunctionFragment;
     "burn(address,uint256)": FunctionFragment;
-    "changeBurnRates(uint256,uint256)": FunctionFragment;
     "changePairStatus(address,address,address,uint8,address)": FunctionFragment;
     "checkForConsistency()": FunctionFragment;
     "decimals()": FunctionFragment;
@@ -93,10 +92,6 @@ interface TGRTokenInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "burn",
     values: [string, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "changeBurnRates",
-    values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "changePairStatus",
@@ -232,10 +227,6 @@ interface TGRTokenInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "begin", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "changeBurnRates",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "changePairStatus",
     data: BytesLike
@@ -487,12 +478,6 @@ export class TGRToken extends BaseContract {
     burn(
       from: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    changeBurnRates(
-      _buysell_burn_rate: BigNumberish,
-      _shift_burn_rate: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -786,12 +771,6 @@ export class TGRToken extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  changeBurnRates(
-    _buysell_burn_rate: BigNumberish,
-    _shift_burn_rate: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   changePairStatus(
     pair: string,
     token0: string,
@@ -1071,12 +1050,6 @@ export class TGRToken extends BaseContract {
     burn(
       from: string,
       amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    changeBurnRates(
-      _buysell_burn_rate: BigNumberish,
-      _shift_burn_rate: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1487,12 +1460,6 @@ export class TGRToken extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    changeBurnRates(
-      _buysell_burn_rate: BigNumberish,
-      _shift_burn_rate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     changePairStatus(
       pair: string,
       token0: string,
@@ -1704,12 +1671,6 @@ export class TGRToken extends BaseContract {
     burn(
       from: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    changeBurnRates(
-      _buysell_burn_rate: BigNumberish,
-      _shift_burn_rate: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

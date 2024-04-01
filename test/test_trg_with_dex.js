@@ -787,17 +787,17 @@ describe("====================== Stage 2: Test pulses ======================\n".
     await pulse_user_burn();
     await showConsistency();
 
-    // await transfer(owner, alice, 10);
+    await transfer(owner, alice, 10);
     await mintBlocks(500);
     await pulse_user_burn();
     await showConsistency();
 
-    // await transfer(owner, bob, 1000);
+    await transfer(owner, bob, 1000);
     await mintBlocks(500);
     await pulse_user_burn();
     await showConsistency();
 
-    // await transfer(owner, carol, 5000);
+    await transfer(owner, carol, 5000);
     await mintBlocks(500);
     await pulse_user_burn();
     await showConsistency();
@@ -806,17 +806,17 @@ describe("====================== Stage 2: Test pulses ======================\n".
     await pulse_user_burn();
     await showConsistency();
 
-    // await transfer(owner, carol, 100);
+    await transfer(owner, carol, 100);
     await mintBlocks(500);
     await pulse_user_burn();
     await showConsistency();
 
-    // await transfer(carol, carol, 100);
+    await transfer(carol, carol, 100);
     await mintBlocks(500);
     await pulse_user_burn();
     await showConsistency();
 
-    // await transfer(carol, alice, 100);
+    await transfer(carol, alice, 100);
     await mintBlocks(500);
     await pulse_user_burn();
     await showConsistency();
