@@ -15,26 +15,26 @@ import "./XLibrary.sol";
 import "../periphery/interfaces/IWETH.sol";
 
 library RouterLibrary {
-    using SafeMath for uint256;
+    using SafeMath for uint;
     using SafeERC20 for IERC20;
 
     function test() external {}
 
     function swapStep(
-        uint256[] memory amounts,
+        uint[] memory amounts,
         address[] memory path,
         address to,
         PairSnapshot memory pairSnapshot,
         address factory,
-        uint256 step
+        uint step
     ) external {
         (address input, address output) = (path[step], path[step + 1]);
         IXPair pair = IXPair(pairSnapshot.pair);
 
-        uint256 amountOut = amounts[step + 1];
-        (uint256 amount0Out, uint256 amount1Out) = input == pairSnapshot.token0
-            ? (uint256(0), amountOut)
-            : (amountOut, uint256(0));
+        uint amountOut = amounts[step + 1];
+        (uint amount0Out, uint amount1Out) = input == pairSnapshot.token0
+            ? (uint(0), amountOut)
+            : (amountOut, uint(0));
         address _to = step < path.length - 2 ? XLibrary.pairFor(factory, output, path[step + 2]) : to;
         pair.swap(amount0Out, amount1Out, _to, new bytes(0));
     }
@@ -44,24 +44,24 @@ library RouterLibrary {
         address to,
         PairSnapshot memory pairSnapshot,
         address factory,
-        uint256 step
+        uint step
     ) external {
         IXPair pair = IXPair(pairSnapshot.pair);
         (address input, address output) = (path[step], path[step + 1]);
 
-        uint256 amountOutput;
+        uint amountOutput;
         {
-            uint256 amountInput;
-            (uint256 reserveInput, uint256 reserveOutput) = input == pairSnapshot.token0
+            uint amountInput;
+            (uint reserveInput, uint reserveOutput) = input == pairSnapshot.token0
                 ? (pairSnapshot.reserve0, pairSnapshot.reserve1)
                 : (pairSnapshot.reserve1, pairSnapshot.reserve0);
             amountInput = IERC20(input).balanceOf(address(pair)).sub(reserveInput);
             amountOutput = XLibrary.getAmountOut(amountInput, reserveInput, reserveOutput);
         }
 
-        (uint256 amount0Out, uint256 amount1Out) = input == pairSnapshot.token0
-            ? (uint256(0), amountOutput)
-            : (amountOutput, uint256(0));
+        (uint amount0Out, uint amount1Out) = input == pairSnapshot.token0
+            ? (uint(0), amountOutput)
+            : (amountOutput, uint(0));
         address _to = step < path.length - 2 ? XLibrary.pairFor(factory, output, path[step + 2]) : to;
         pair.swap(amount0Out, amount1Out, _to, new bytes(0));
     }

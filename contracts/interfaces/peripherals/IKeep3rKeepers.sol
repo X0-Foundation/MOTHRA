@@ -10,13 +10,13 @@ interface IKeep3rKeeperFundable {
   /// @param _keeper The keeper that has been activated
   /// @param _bond The asset the keeper has bonded
   /// @param _amount The amount of the asset the keeper has bonded
-  event Activation(address indexed _keeper, address indexed _bond, uint256 _amount);
+  event Activation(address indexed _keeper, address indexed _bond, uint _amount);
 
   /// @notice Emitted when Keep3rKeeperFundable#withdraw is called
   /// @param _keeper The caller of Keep3rKeeperFundable#withdraw function
   /// @param _bond The asset to withdraw from the bonding pool
   /// @param _amount The amount of funds withdrawn
-  event Withdrawal(address indexed _keeper, address indexed _bond, uint256 _amount);
+  event Withdrawal(address indexed _keeper, address indexed _bond, uint _amount);
 
   // Errors
 
@@ -28,12 +28,12 @@ interface IKeep3rKeeperFundable {
   /// @notice Beginning of the bonding process
   /// @param _bonding The asset being bonded
   /// @param _amount The amount of bonding asset being bonded
-  function bond(address _bonding, uint256 _amount) external;
+  function bond(address _bonding, uint _amount) external;
 
   /// @notice Beginning of the unbonding process
   /// @param _bonding The asset being unbonded
   /// @param _amount Allows for partial unbonding
-  function unbond(address _bonding, uint256 _amount) external;
+  function unbond(address _bonding, uint _amount) external;
 
   /// @notice End of the bonding process after bonding time has passed
   /// @param _bonding The asset being activated as bond collateral
@@ -53,7 +53,7 @@ interface IKeep3rKeeperDisputable {
   /// @param _keeper The address of the slashed keeper
   /// @param _slasher The user that called Keep3rKeeperDisputable#slash
   /// @param _amount The amount of credits slashed from the keeper
-  event KeeperSlash(address indexed _keeper, address indexed _slasher, uint256 _amount);
+  event KeeperSlash(address indexed _keeper, address indexed _slasher, uint _amount);
 
   /// @notice Emitted when Keep3rKeeperDisputable#revoke is called
   /// @param _keeper The address of the revoked keeper
@@ -70,8 +70,8 @@ interface IKeep3rKeeperDisputable {
   function slash(
     address _keeper,
     address _bonded,
-    uint256 _bondAmount,
-    uint256 _unbondAmount
+    uint _bondAmount,
+    uint _unbondAmount
   ) external;
 
   /// @notice Blacklists a keeper from participating in the network

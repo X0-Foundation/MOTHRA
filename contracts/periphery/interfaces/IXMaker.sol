@@ -8,136 +8,136 @@ interface IXMaker {
     function addLiquidity(
         address tokenA,
         address tokenB,
-        uint256 amountADesired,
-        uint256 amountBDesired,
-        uint256 amountAMin,
-        uint256 amountBMin,
+        uint amountADesired,
+        uint amountBDesired,
+        uint amountAMin,
+        uint amountBMin,
         address to,
-        uint256 deadline
+        uint deadline
     )
         external
         returns (
-            uint256 amountA,
-            uint256 amountB,
-            uint256 liquidity
+            uint amountA,
+            uint amountB,
+            uint liquidity
         );
 
     function wired_addLiquidity(
         address tokenA,
         address tokenB,
-        uint256 amountADesired,
-        uint256 amountBDesired,
-        uint256 amountAMin,
-        uint256 amountBMin,
+        uint amountADesired,
+        uint amountBDesired,
+        uint amountAMin,
+        uint amountBMin,
         address to,
-        uint256 deadline
+        uint deadline
     )
         external
         returns (
-            uint256 amountA,
-            uint256 amountB,
-            uint256 liquidity
+            uint amountA,
+            uint amountB,
+            uint liquidity
         );
 
     function addLiquidityETH(
         address token,
-        uint256 amountTokenDesired,
-        uint256 amountTokenMin,
-        uint256 amountETHMin,
+        uint amountTokenDesired,
+        uint amountTokenMin,
+        uint amountETHMin,
         address to,
-        uint256 deadline
+        uint deadline
     )
         external
         payable
         returns (
-            uint256 amountToken,
-            uint256 amountETH,
-            uint256 liquidity
+            uint amountToken,
+            uint amountETH,
+            uint liquidity
         );
 
     function removeLiquidity(
         address tokenA,
         address tokenB,
-        uint256 liquidity,
-        uint256 amountAMin,
-        uint256 amountBMin,
+        uint liquidity,
+        uint amountAMin,
+        uint amountBMin,
         address to,
-        uint256 deadline
-    ) external returns (uint256 amountA, uint256 amountB);
+        uint deadline
+    ) external returns (uint amountA, uint amountB);
 
     function wired_removeLiquidity(
         address tokenA,
         address tokenB,
-        uint256 liquidity,
-        uint256 amountAMin,
-        uint256 amountBMin,
+        uint liquidity,
+        uint amountAMin,
+        uint amountBMin,
         address to,
-        uint256 deadline
-    ) external returns (uint256 amountA, uint256 amountB);
+        uint deadline
+    ) external returns (uint amountA, uint amountB);
 
     function sim_removeLiquidity(
         address tokenA,
         address tokenB,
-        uint256 liquidity
-    ) external view returns (uint256 amountA, uint256 amountB);
+        uint liquidity
+    ) external view returns (uint amountA, uint amountB);
 
     function removeLiquidityETH(
         address token,
-        uint256 liquidity,
-        uint256 amountTokenMin,
-        uint256 amountETHMin,
+        uint liquidity,
+        uint amountTokenMin,
+        uint amountETHMin,
         address to,
-        uint256 deadline
-    ) external returns (uint256 amountToken, uint256 amountETH);
+        uint deadline
+    ) external returns (uint amountToken, uint amountETH);
 
     function removeLiquidityWithPermit(
         address tokenA,
         address tokenB,
-        uint256 liquidity,
-        uint256 amountAMin,
-        uint256 amountBMin,
+        uint liquidity,
+        uint amountAMin,
+        uint amountBMin,
         address to,
-        uint256 deadline,
+        uint deadline,
         bool approveMax,
         uint8 v,
         bytes32 r,
         bytes32 s
-    ) external returns (uint256 amountA, uint256 amountB);
+    ) external returns (uint amountA, uint amountB);
 
     function removeLiquidityETHWithPermit(
         address token,
-        uint256 liquidity,
-        uint256 amountTokenMin,
-        uint256 amountETHMin,
+        uint liquidity,
+        uint amountTokenMin,
+        uint amountETHMin,
         address to,
-        uint256 deadline,
+        uint deadline,
         bool approveMax,
         uint8 v,
         bytes32 r,
         bytes32 s
-    ) external returns (uint256 amountToken, uint256 amountETH);
+    ) external returns (uint amountToken, uint amountETH);
 
     function removeLiquidityETHSupportingFeeOnTransferTokens(
         address token,
-        uint256 liquidity,
-        uint256 amountTokenMin,
-        uint256 amountETHMin,
+        uint liquidity,
+        uint amountTokenMin,
+        uint amountETHMin,
         address to,
-        uint256 deadline
-    ) external returns (uint256 amountETH);
+        uint deadline
+    ) external returns (uint amountETH);
 
     function removeLiquidityETHWithPermitSupportingFeeOnTransferTokens(
         address token,
-        uint256 liquidity,
-        uint256 amountTokenMin,
-        uint256 amountETHMin,
+        uint liquidity,
+        uint amountTokenMin,
+        uint amountETHMin,
         address to,
-        uint256 deadline,
+        uint deadline,
         bool approveMax,
         uint8 v,
         bytes32 r,
         bytes32 s
-    ) external returns (uint256 amountETH);
+    ) external returns (uint amountETH);
 
     function diluteLiquidityETH(
         address token,
@@ -157,12 +157,12 @@ interface IXMaker {
     ) external returns (uint amountWETH);
 
     function quote(
-        uint256 amountA,
-        uint256 reserveA,
-        uint256 reserveB
-    ) external pure returns (uint256 amountB);
+        uint amountA,
+        uint reserveA,
+        uint reserveB
+    ) external pure returns (uint amountB);
 
-    function getReserveOnETHPair(address token) external view returns (uint256 reserve);
+    function getReserveOnETHPair(address token) external view returns (uint reserve);
     
     function getPair(address tokenA, address tokenB) external view returns (address pair);
 }

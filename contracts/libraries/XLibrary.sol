@@ -10,7 +10,7 @@ import "../libraries/utils/TransferHelper.sol";
 import "hardhat/console.sol";
 
 library XLibrary {
-    using SafeMath for uint256;
+    using SafeMath for uint;
 
     // returns sorted token addresses, used to handle return values from pairs sorted in this order
     function sortTokens(address tokenA, address tokenB) internal pure returns (address token0, address token1) {
@@ -28,13 +28,13 @@ library XLibrary {
         (address token0, address token1) = sortTokens(tokenA, tokenB);
         pair = address(
             uint160(
-                uint256(
+                uint(
                     keccak256(
                         abi.encodePacked(
                             hex"ff",
                             factory,
                             keccak256(abi.encodePacked(token0, token1)),
-                            hex"e7ee2b8ab058817f5f226126ad72f45c59f68d0e68a80d5e509174032aa180cb" // init code hash
+                            hex"d1a0746a623af4dd9bcb657423472307c7e9ac59e611990c6905f64cc8aaff81" // init code hash
                         )
                     )
                 )
@@ -47,19 +47,22 @@ library XLibrary {
         address factory,
         address tokenA,
         address tokenB
-    ) internal view returns (uint256 reserveA, uint256 reserveB) {
+    ) internal view returns (uint reserveA, uint reserveB) {
         (address token0, ) = sortTokens(tokenA, tokenB);
-        pairFor(factory, tokenA, tokenB);
-        (uint256 reserve0, uint256 reserve1, ) = IXPair(pairFor(factory, tokenA, tokenB)).getReserves();
-        (reserveA, reserveB) = tokenA == token0 ? (reserve0, reserve1) : (reserve1, reserve0);
+        console.log("0.1", token0, tokenA, tokenB);
+        console.log("0.2, factory, pairFor", factory, pairFor(factory, tokenA, tokenB));
+        (uint112 reserve0, uint112 reserve1, ) = IXPair(pairFor(factory, tokenA, tokenB)).getReserves();
+        console.log("1", reserveA, reserveB);
+        (reserveA, reserveB) = tokenA == token0 ? (uint(reserve0), uint(reserve1)) : (uint(reserve1), uint(reserve0));
+        console.log("2", reserveA, reserveB);
     }
 
     // given some amount of an asset and pair reserves, returns an equivalent amount of the other asset
     function quote(
-        uint256 amountA,
-        uint256 reserveA,
-        uint256 reserveB
-    ) internal pure returns (uint256 amountB) {
+        uint amountA,
+        uint reserveA,
+        uint reserveB
+    ) internal pure returns (uint amountB) {
         require(amountA > 0, "XLibrary: INSUFFICIENT_AMOUNT");
         require(reserveA > 0 && reserveB > 0, "XLibrary: INSUFFICIENT_LIQUIDITY");
         amountB = amountA.mul(reserveB) / reserveA;
@@ -67,42 +70,42 @@ library XLibrary {
 
     // given an input amount of an asset and pair reserves, returns the maximum output amount of the other asset
     function getAmountOut(
-        uint256 amountIn,
-        uint256 reserveIn,
-        uint256 reserveOut
-    ) internal pure returns (uint256 amountOut) {
+        uint amountIn,
+        uint reserveIn,
+        uint reserveOut
+    ) internal pure returns (uint amountOut) {
         require(amountIn > 0, "XLibrary: INSUFFICIENT_INPUT_AMOUNT");
         require(reserveIn > 0 && reserveOut > 0, "XLibrary: INSUFFICIENT_LIQUIDITY");
-        uint256 amountInWithFee = amountIn.mul(9983); // 0.17% for LP providers. Couples with Pair code.
-        uint256 numerator = amountInWithFee.mul(reserveOut);
-        uint256 denominator = reserveIn.mul(10000).add(amountInWithFee);
+        uint amountInWithFee = amountIn.mul(9983); // 0.17% for LP providers. Couples with Pair code.
+        uint numerator = amountInWithFee.mul(reserveOut);
+        uint denominator = reserveIn.mul(10000).add(amountInWithFee);
         amountOut = numerator / denominator;
     }
 
     // given an output amount of an asset and pair reserves, returns a required input amount of the other asset
     function getAmountIn(
-        uint256 amountOut,
-        uint256 reserveIn,
-        uint256 reserveOut
-    ) internal pure returns (uint256 amountIn) {
+        uint amountOut,
+        uint reserveIn,
+        uint reserveOut
+    ) internal pure returns (uint amountIn) {
         require(amountOut > 0, "XLibrary: INSUFFICIENT_OUTPUT_AMOUNT");
         require(reserveIn > 0 && reserveOut > 0, "XLibrary: INSUFFICIENT_LIQUIDITY");
-        uint256 numerator = reserveIn.mul(amountOut).mul(10000);
-        uint256 denominator = reserveOut.sub(amountOut).mul(9983); // 0.17% for LP providers. Couples with Pair code.
+        uint numerator = reserveIn.mul(amountOut).mul(10000);
+        uint denominator = reserveOut.sub(amountOut).mul(9983); // 0.17% for LP providers. Couples with Pair code.
         amountIn = (numerator / denominator).add(1);
     }
 
     // performs chained getAmountOut calculations on any number of pairs
     function getAmountsOut(
         address factory,
-        uint256 amountIn,
+        uint amountIn,
         address[] memory path
-    ) internal view returns (uint256[] memory amounts) {
+    ) internal view returns (uint[] memory amounts) {
         require(path.length >= 2, "XLibrary: INVALID_PATH");
-        amounts = new uint256[](path.length);
+        amounts = new uint[](path.length);
         amounts[0] = amountIn;
-        for (uint256 i; i < path.length - 1; i++) {
-            (uint256 reserveIn, uint256 reserveOut) = getReserves(factory, path[i], path[i + 1]);
+        for (uint i; i < path.length - 1; i++) {
+            (uint reserveIn, uint reserveOut) = getReserves(factory, path[i], path[i + 1]);
             amounts[i + 1] = getAmountOut(amounts[i], reserveIn, reserveOut);
         }
     }
@@ -110,14 +113,14 @@ library XLibrary {
     // performs chained getAmountIn calculations on any number of pairs
     function getAmountsIn(
         address factory,
-        uint256 amountOut,
+        uint amountOut,
         address[] memory path
-    ) internal view returns (uint256[] memory amounts) {
+    ) internal view returns (uint[] memory amounts) {
         require(path.length >= 2, "XLibrary: INVALID_PATH");
-        amounts = new uint256[](path.length);
+        amounts = new uint[](path.length);
         amounts[amounts.length - 1] = amountOut;
-        for (uint256 i = path.length - 1; i > 0; i--) {
-            (uint256 reserveIn, uint256 reserveOut) = getReserves(factory, path[i - 1], path[i]);
+        for (uint i = path.length - 1; i > 0; i--) {
+            (uint reserveIn, uint reserveOut) = getReserves(factory, path[i - 1], path[i]);
             amounts[i - 1] = getAmountIn(amounts[i], reserveIn, reserveOut);
         }
     }
@@ -125,12 +128,12 @@ library XLibrary {
     function transferFeesFrom(
         address token,
         address payer,
-        uint256 principal,
+        uint principal,
         FeeRates memory rates,
         FeeStores memory feeStores,
         address tgrToken
-    ) internal returns (uint256 feesPaid) {
-        uint256 fee;
+    ) internal returns (uint feesPaid) {
+        uint fee;
         if (principal != 0) {
             if (rates.accountant != 0) {
                 fee = (principal * rates.accountant) / FeeMagnifier;
@@ -144,7 +147,7 @@ library XLibrary {
         address tokenTransfer,
         address sender,
         address recipient,
-        uint256 amount, 
+        uint amount, 
         address tgrToken
     ) internal {
         if (tokenTransfer == tgrToken) {
@@ -157,7 +160,7 @@ library XLibrary {
     function lightTransfer(
         address tokenTransfer,
         address recipient,
-        uint256 amount, 
+        uint amount, 
         address tgrToken
     ) internal {
         if (tokenTransfer == tgrToken) {

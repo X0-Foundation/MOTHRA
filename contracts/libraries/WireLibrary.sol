@@ -12,20 +12,21 @@ library WireLibrary {
         address node,
         Nodes storage nodes
     ) external {
+        require(node != address(0), "zero address");
         if (nodeType == NodeType.Token) {
-            require(npdes.token == address(0), node_alredy_set)
+            require(nodes.token == address(0), node_alredy_set);
             nodes.token = node;
         } else if (nodeType == NodeType.Center) {
-            require(npdes.center == address(0), node_alredy_set)
+            require(nodes.center == address(0), node_alredy_set);
             nodes.center = node;
         } else if (nodeType == NodeType.Maker) {
-            require(npdes.maker == address(0), node_alredy_set)
+            require(nodes.maker == address(0), node_alredy_set);
             nodes.maker = node;
         } else if (nodeType == NodeType.Taker) {
-            require(npdes.taker == address(0), node_alredy_set)
+            require(nodes.taker == address(0), node_alredy_set);
             nodes.taker = node;
         } else if (nodeType == NodeType.XFactory) {
-            require(npdes.factory == address(0), node_alredy_set)
+            require(nodes.factory == address(0), node_alredy_set);
             nodes.factory = node;
         }
     }
@@ -49,7 +50,7 @@ library WireLibrary {
         mapping(ActionType => FeeRates) storage feeRates,
         FeeRates memory _feeRates
     ) external {
-        require(uint256(_sessionType) < NumberSessionTypes, "Wrong ActionType");
+        require(uint(_sessionType) < NumberSessionTypes, "Wrong ActionType");
         require(_feeRates.accountant <= FeeMagnifier, "Fee rates exceed limit");
 
         feeRates[_sessionType].accountant = _feeRates.accountant;

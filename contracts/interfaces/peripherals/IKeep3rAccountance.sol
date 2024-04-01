@@ -11,25 +11,25 @@ interface IKeep3rAccountance {
   /// @param _keeper The caller of Keep3rKeeperFundable#bond function
   /// @param _bonding The asset the keeper has bonded
   /// @param _amount The amount the keeper has bonded
-  event Bonding(address indexed _keeper, address indexed _bonding, uint256 _amount);
+  event Bonding(address indexed _keeper, address indexed _bonding, uint _amount);
 
   /// @notice Emitted when a keeper or job begins the unbonding process to withdraw the funds
   /// @param _keeperOrJob The keeper or job that began the unbonding process
   /// @param _unbonding The liquidity pair or asset being unbonded
   /// @param _amount The amount being unbonded
-  event Unbonding(address indexed _keeperOrJob, address indexed _unbonding, uint256 _amount);
+  event Unbonding(address indexed _keeperOrJob, address indexed _unbonding, uint _amount);
 
   // Variables
 
   /// @notice Tracks the total KP3R earnings of a keeper since it started working
   /// @param _keeper The address of the keeper
   /// @return _workCompleted Total KP3R earnings of a keeper since it started working
-  function workCompleted(address _keeper) external view returns (uint256 _workCompleted);
+  function workCompleted(address _keeper) external view returns (uint _workCompleted);
 
   /// @notice Tracks when a keeper was first registered
   /// @param _keeper The address of the keeper
   /// @return timestamp The time at which the keeper was first registered
-  function firstSeen(address _keeper) external view returns (uint256 timestamp);
+  function firstSeen(address _keeper) external view returns (uint timestamp);
 
   /// @notice Tracks if a keeper or job has a pending dispute
   /// @param _keeperOrJob The address of the keeper or job
@@ -40,37 +40,37 @@ interface IKeep3rAccountance {
   /// @param _keeper The address of the keeper
   /// @param _bond The address of the token being bonded
   /// @return _bonds Amount of a certain token that a keeper has bonded
-  function bonds(address _keeper, address _bond) external view returns (uint256 _bonds);
+  function bonds(address _keeper, address _bond) external view returns (uint _bonds);
 
   /// @notice The current token credits available for a job
   /// @param _job The address of the job
   /// @param _token The address of the token bonded
   /// @return _amount The amount of token credits available for a job
-  function jobTokenCredits(address _job, address _token) external view returns (uint256 _amount);
+  function jobTokenCredits(address _job, address _token) external view returns (uint _amount);
 
   /// @notice Tracks the amount of assets deposited in pending bonds
   /// @param _keeper The address of the keeper
   /// @param _bonding The address of the token being bonded
   /// @return _pendingBonds Amount of a certain asset a keeper has unbonding
-  function pendingBonds(address _keeper, address _bonding) external view returns (uint256 _pendingBonds);
+  function pendingBonds(address _keeper, address _bonding) external view returns (uint _pendingBonds);
 
   /// @notice Tracks when a bonding for a keeper can be activated
   /// @param _keeper The address of the keeper
   /// @param _bonding The address of the token being bonded
   /// @return _timestamp Time at which the bonding for a keeper can be activated
-  function canActivateAfter(address _keeper, address _bonding) external view returns (uint256 _timestamp);
+  function canActivateAfter(address _keeper, address _bonding) external view returns (uint _timestamp);
 
   /// @notice Tracks when keeper bonds are ready to be withdrawn
   /// @param _keeper The address of the keeper
   /// @param _bonding The address of the token being unbonded
   /// @return _timestamp Time at which the keeper bonds are ready to be withdrawn
-  function canWithdrawAfter(address _keeper, address _bonding) external view returns (uint256 _timestamp);
+  function canWithdrawAfter(address _keeper, address _bonding) external view returns (uint _timestamp);
 
   /// @notice Tracks how much keeper bonds are to be withdrawn
   /// @param _keeper The address of the keeper
   /// @param _bonding The address of the token being unbonded
   /// @return _pendingUnbonds The amount of keeper bonds that are to be withdrawn
-  function pendingUnbonds(address _keeper, address _bonding) external view returns (uint256 _pendingUnbonds);
+  function pendingUnbonds(address _keeper, address _bonding) external view returns (uint _pendingUnbonds);
 
   /// @notice Checks whether the address has ever bonded an asset
   /// @param _keeper The address of the keeper

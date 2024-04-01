@@ -5,12 +5,12 @@ import "./IPancakePair.sol";
 import "../../session/interfaces/IConstants.sol";
 
 interface IXPair is IPancakePair {
-    event Dilute(address indexed sender, uint256 amount0, uint256 amount1, address indexed to);
+    event Dilute(address indexed sender, uint amount0, uint amount1, address indexed to);
 
     function initialize(address, address) external;
     function setNodes(address token, address maker, address taker) external;
     function status() external view returns (ListStatus);
     function changeStatus(ListStatus _status) external;
-    function sim_burn(uint256 liquidity) external view returns (uint256 amount0, uint256 amount1);
+    function sim_burn(uint liquidity) external view returns (uint amount0, uint amount1);
     function dilute(uint liquidity, address to) external returns (uint amount0, uint amount1);
 }

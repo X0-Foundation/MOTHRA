@@ -7,8 +7,8 @@ contract BasicJob {
   error KeeperNotValid();
 
   address public keep3r;
-  uint256 public nonce;
-  uint256[] public array;
+  uint public nonce;
+  uint[] public array;
 
   constructor(address _keep3r) {
     keep3r = _keep3r;
@@ -16,14 +16,14 @@ contract BasicJob {
 
   function work() external upkeep {}
 
-  function workHard(uint256 _howHard) external upkeep {
-    for (uint256 i = nonce; i < _howHard; i++) {
+  function workHard(uint _howHard) external upkeep {
+    for (uint i = nonce; i < _howHard; i++) {
       nonce++;
     }
   }
 
-  function workRefund(uint256 _howHard) external upkeep {
-    for (uint256 i; i < _howHard; i++) {
+  function workRefund(uint _howHard) external upkeep {
+    for (uint i; i < _howHard; i++) {
       array.push(i);
     }
 

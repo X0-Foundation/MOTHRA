@@ -65,8 +65,8 @@ interface IUniV3PairManager is IGovernable, IPairManager {
   /// @param amount1Owed The amount of token1 due to the pool for the minted liquidity
   /// @param data The encoded token0, token1, fee (_poolKey) and the payer (msg.sender) of the IUniV3PairManager#mint function
   function uniswapV3MintCallback(
-    uint256 amount0Owed,
-    uint256 amount1Owed,
+    uint amount0Owed,
+    uint amount1Owed,
     bytes calldata data
   ) external;
 
@@ -79,10 +79,10 @@ interface IUniV3PairManager is IGovernable, IPairManager {
   /// @param to The address to which the kLP tokens are going to be minted to
   /// @return liquidity kLP tokens sent in exchange for the provision of tokens
   function mint(
-    uint256 amount0Desired,
-    uint256 amount1Desired,
-    uint256 amount0Min,
-    uint256 amount1Min,
+    uint amount0Desired,
+    uint amount1Desired,
+    uint amount0Min,
+    uint amount1Min,
     address to
   ) external returns (uint128 liquidity);
 
@@ -97,8 +97,8 @@ interface IUniV3PairManager is IGovernable, IPairManager {
     view
     returns (
       uint128 liquidity,
-      uint256 feeGrowthInside0LastX128,
-      uint256 feeGrowthInside1LastX128,
+      uint feeGrowthInside0LastX128,
+      uint feeGrowthInside1LastX128,
       uint128 tokensOwed0,
       uint128 tokensOwed1
     );
@@ -108,7 +108,7 @@ interface IUniV3PairManager is IGovernable, IPairManager {
   /// @dev The collected fees will be sent to governance
   /// @return amount0 The amount of fees collected in token0
   /// @return amount1 The amount of fees collected in token1
-  function collect() external returns (uint256 amount0, uint256 amount1);
+  function collect() external returns (uint amount0, uint amount1);
 
   /// @notice Burns the corresponding amount of kLP tokens from the msg.sender and withdraws the specified liquidity
   //          in the entire range
@@ -120,8 +120,8 @@ interface IUniV3PairManager is IGovernable, IPairManager {
   /// @return amount1 The calculated amount of token1 that will be sent to the recipient
   function burn(
     uint128 liquidity,
-    uint256 amount0Min,
-    uint256 amount1Min,
+    uint amount0Min,
+    uint amount1Min,
     address to
-  ) external returns (uint256 amount0, uint256 amount1);
+  ) external returns (uint amount0, uint amount1);
 }

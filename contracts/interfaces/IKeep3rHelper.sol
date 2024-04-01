@@ -17,28 +17,28 @@ interface IKeep3rHelper {
   /// @dev This function allows us to calculate how much KP3R we should pay to a keeper for things expressed in ETH, like gas
   /// @param _eth The amount of ETH
   /// @return _amountOut The amount of KP3R
-  function quote(uint256 _eth) external view returns (uint256 _amountOut);
+  function quote(uint _eth) external view returns (uint _amountOut);
 
   /// @notice Returns the amount of KP3R the keeper has bonded
   /// @param _keeper The address of the keeper to check
   /// @return _amountBonded The amount of KP3R the keeper has bonded
-  function bonds(address _keeper) external view returns (uint256 _amountBonded);
+  function bonds(address _keeper) external view returns (uint _amountBonded);
 
   /// @notice Calculates the reward (in KP3R) that corresponds to a keeper for using gas
   /// @param _keeper The address of the keeper to check
   /// @param _gasUsed The amount of gas used that will be rewarded
   /// @return _kp3r The amount of KP3R that should be awarded to the keeper
-  function getRewardAmountFor(address _keeper, uint256 _gasUsed) external view returns (uint256 _kp3r);
+  function getRewardAmountFor(address _keeper, uint _gasUsed) external view returns (uint _kp3r);
 
   /// @notice Calculates the boost in the reward given to a keeper based on the amount of KP3R that keeper has bonded
   /// @param _bonds The amount of KP3R tokens bonded by the keeper
   /// @return _rewardBoost The reward boost that corresponds to the keeper
-  function getRewardBoostFor(uint256 _bonds) external view returns (uint256 _rewardBoost);
+  function getRewardBoostFor(uint _bonds) external view returns (uint _rewardBoost);
 
   /// @notice Calculates the reward (in KP3R) that corresponds to tx.origin for using gas
   /// @param _gasUsed The amount of gas used that will be rewarded
   /// @return _amount The amount of KP3R that should be awarded to tx.origin
-  function getRewardAmount(uint256 _gasUsed) external view returns (uint256 _amount);
+  function getRewardAmount(uint _gasUsed) external view returns (uint _amount);
 
   /// @notice Given a pool address, returns the underlying tokens of the pair
   /// @param _pool Address of the correspondant pool
@@ -71,13 +71,13 @@ interface IKeep3rHelper {
   /// @return _boost Multiplier per gas unit. Takes into account the base fee and the amount of bonded KP3R
   /// @return _oneEthQuote Amount of KP3R tokens equivalent to 1 ETH
   /// @return _extra Amount of extra gas that should be added to the gas spent
-  function getPaymentParams(uint256 _bonds)
+  function getPaymentParams(uint _bonds)
     external
     view
     returns (
-      uint256 _boost,
-      uint256 _oneEthQuote,
-      uint256 _extra
+      uint _boost,
+      uint _oneEthQuote,
+      uint _extra
     );
 
   /// @notice Given a tick and a liquidity amount, calculates the underlying KP3R tokens
@@ -86,10 +86,10 @@ interface IKeep3rHelper {
   /// @param _timeInterval Time value used to calculate the quote
   /// @return _kp3rAmount Amount of KP3R tokens underlying on the given liquidity
   // function getKP3RsAtTick(
-  //   uint256 _liquidityAmount,
+  //   uint _liquidityAmount,
   //   int56 _tickDifference,
-  //   uint256 _timeInterval
-  // ) external pure returns (uint256 _kp3rAmount);
+  //   uint _timeInterval
+  // ) external pure returns (uint _kp3rAmount);
 
   /// @notice Given a tick and a token amount, calculates the output in correspondant token
   /// @param _baseAmount Amount of token to be converted
@@ -99,6 +99,6 @@ interface IKeep3rHelper {
   // function getQuoteAtTick(
   //   uint128 _baseAmount,
   //   int56 _tickDifference,
-  //   uint256 _timeInterval
-  // ) external pure returns (uint256 _quoteAmount);
+  //   uint _timeInterval
+  // ) external pure returns (uint _quoteAmount);
 }

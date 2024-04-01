@@ -11,14 +11,14 @@ interface IKeep3rJobFundableCredits {
   /// @param _token The address of the token being provided
   /// @param _provider The user that calls the function
   /// @param _amount The amount of credit being added to the job
-  event TokenCreditAddition(address indexed _job, address indexed _token, address indexed _provider, uint256 _amount);
+  event TokenCreditAddition(address indexed _job, address indexed _token, address indexed _provider, uint _amount);
 
   /// @notice Emitted when Keep3rJobFundableCredits#withdrawTokenCreditsFromJob is called
   /// @param _job The address of the job from which the credits are withdrawn
   /// @param _token The credit being withdrawn from the job
   /// @param _receiver The user that receives the tokens
   /// @param _amount The amount of credit withdrawn
-  event TokenCreditWithdrawal(address indexed _job, address indexed _token, address indexed _receiver, uint256 _amount);
+  event TokenCreditWithdrawal(address indexed _job, address indexed _token, address indexed _receiver, uint _amount);
 
   // Errors
 
@@ -37,7 +37,7 @@ interface IKeep3rJobFundableCredits {
   /// @param _job The address of the job credited
   /// @param _token The address of the token credited
   /// @return _timestamp The last block where tokens were added to the job
-  function jobTokenCreditsAddedAt(address _job, address _token) external view returns (uint256 _timestamp);
+  function jobTokenCreditsAddedAt(address _job, address _token) external view returns (uint _timestamp);
 
   // Methods
 
@@ -48,7 +48,7 @@ interface IKeep3rJobFundableCredits {
   function addTokenCreditsToJob(
     address _job,
     address _token,
-    uint256 _amount
+    uint _amount
   ) external;
 
   /// @notice Withdraw credit from a job
@@ -59,7 +59,7 @@ interface IKeep3rJobFundableCredits {
   function withdrawTokenCreditsFromJob(
     address _job,
     address _token,
-    uint256 _amount,
+    uint _amount,
     address _receiver
   ) external;
 }
@@ -82,27 +82,27 @@ interface IKeep3rJobFundableLiquidity {
   /// @param _liquidity The address of the liquidity being added
   /// @param _provider The user that calls the function
   /// @param _amount The amount of liquidity being added
-  // event LiquidityAddition(address indexed _job, address indexed _liquidity, address indexed _provider, uint256 _amount);
+  // event LiquidityAddition(address indexed _job, address indexed _liquidity, address indexed _provider, uint _amount);
 
   /// @notice Emitted when IKeep3rJobFundableLiquidity#withdrawLiquidityFromJob function is called
   /// @param _job The address of the job of which liquidity will be withdrawn from
   /// @param _liquidity The address of the liquidity being withdrawn
   /// @param _receiver The receiver of the liquidity tokens
   /// @param _amount The amount of liquidity being withdrawn from the job
-  // event LiquidityWithdrawal(address indexed _job, address indexed _liquidity, address indexed _receiver, uint256 _amount);
+  // event LiquidityWithdrawal(address indexed _job, address indexed _liquidity, address indexed _receiver, uint _amount);
 
   /// @notice Emitted when Keep3rJobFundableLiquidity#addLiquidityToJob function is called
   /// @param _job The address of the job whose credits will be updated
   /// @param _rewardedAt The time at which the job was last rewarded
   /// @param _currentCredits The current credits of the job
   /// @param _periodCredits The credits of the job for the current period
-  // event LiquidityCreditsReward(address indexed _job, uint256 _rewardedAt, uint256 _currentCredits, uint256 _periodCredits);
+  // event LiquidityCreditsReward(address indexed _job, uint _rewardedAt, uint _currentCredits, uint _periodCredits);
 
   /// @notice Emitted when Keep3rJobFundableLiquidity#forceLiquidityCreditsToJob function is called
   /// @param _job The address of the job whose credits will be updated
   /// @param _rewardedAt The time at which the job was last rewarded
   /// @param _currentCredits The current credits of the job
-  // event LiquidityCreditsForced(address indexed _job, uint256 _rewardedAt, uint256 _currentCredits);
+  // event LiquidityCreditsForced(address indexed _job, uint _rewardedAt, uint _currentCredits);
 
   // Errors
 
@@ -130,7 +130,7 @@ interface IKeep3rJobFundableLiquidity {
   // struct TickCache {
   //   int56 current; // Tracks the current tick
   //   int56 difference; // Stores the difference between the current tick and the last tick
-  //   uint256 period; // Stores the period at which the last observation was made
+  //   uint period; // Stores the period at which the last observation was made
   // }
 
   // Variables
@@ -143,41 +143,41 @@ interface IKeep3rJobFundableLiquidity {
   /// @param _job The address of the job being checked
   /// @param _liquidity The address of the liquidity we are checking
   /// @return _amount Amount of liquidity in the specified job
-  // function liquidityAmount(address _job, address _liquidity) external view returns (uint256 _amount);
+  // function liquidityAmount(address _job, address _liquidity) external view returns (uint _amount);
 
   /// @notice Last time the job was rewarded liquidity credits
   /// @param _job The address of the job being checked
   /// @return _timestamp Timestamp of the last time the job was rewarded liquidity credits
-  // function rewardedAt(address _job) external view returns (uint256 _timestamp);
+  // function rewardedAt(address _job) external view returns (uint _timestamp);
 
   /// @notice Last time the job was worked
   /// @param _job The address of the job being checked
   /// @return _timestamp Timestamp of the last time the job was worked
-  // function workedAt(address _job) external view returns (uint256 _timestamp);
+  // function workedAt(address _job) external view returns (uint _timestamp);
 
   // Methods
 
   /// @notice Returns the liquidity credits of a given job
   /// @param _job The address of the job of which we want to know the liquidity credits
   /// @return _amount The liquidity credits of a given job
-  // function jobLiquidityCredits(address _job) external view returns (uint256 _amount);
+  // function jobLiquidityCredits(address _job) external view returns (uint _amount);
 
   /// @notice Returns the credits of a given job for the current period
   /// @param _job The address of the job of which we want to know the period credits
   /// @return _amount The credits the given job has at the current period
-  // function jobPeriodCredits(address _job) external view returns (uint256 _amount);
+  // function jobPeriodCredits(address _job) external view returns (uint _amount);
 
   /// @notice Calculates the total credits of a given job
   /// @param _job The address of the job of which we want to know the total credits
   /// @return _amount The total credits of the given job
-  // function totalJobCredits(address _job) external view returns (uint256 _amount); // Implemented in Keep3rJobFundableLiquidity.sol
+  // function totalJobCredits(address _job) external view returns (uint _amount); // Implemented in Keep3rJobFundableLiquidity.sol
 
   /// @notice Calculates how many credits should be rewarded periodically for a given liquidity amount
   /// @dev _periodCredits = underlying KP3Rs for given liquidity amount * rewardPeriod / inflationPeriod
   /// @param _liquidity The address of the liquidity to provide
   /// @param _amount The amount of liquidity to provide
   /// @return _periodCredits The amount of KP3R periodically minted for the given liquidity
-  // function quoteLiquidity(address _liquidity, uint256 _amount) external view returns (uint256 _periodCredits);
+  // function quoteLiquidity(address _liquidity, uint _amount) external view returns (uint _periodCredits);
 
   /// @notice Observes the current state of the liquidity pair being observed and updates TickCache with the information
   /// @param _liquidity The address of the liquidity pair being observed
@@ -187,7 +187,7 @@ interface IKeep3rJobFundableLiquidity {
   /// @notice Gifts liquidity credits to the specified job
   /// @param _job The address of the job being credited
   /// @param _amount The amount of liquidity credits to gift
-  // function forceLiquidityCreditsToJob(address _job, uint256 _amount) external;
+  // function forceLiquidityCreditsToJob(address _job, uint _amount) external;
 
   /// @notice Approve a liquidity pair for being accepted in future
   /// @param _liquidity The address of the liquidity accepted
@@ -204,7 +204,7 @@ interface IKeep3rJobFundableLiquidity {
   // function addLiquidityToJob(
   //   address _job,
   //   address _liquidity,
-  //   uint256 _amount
+  //   uint _amount
   // ) external;
 
   /// @notice Unbond liquidity for a job
@@ -215,7 +215,7 @@ interface IKeep3rJobFundableLiquidity {
   // function unbondLiquidityFromJob(
   //   address _job,
   //   address _liquidity,
-  //   uint256 _amount
+  //   uint _amount
   // ) external;
 
   /// @notice Withdraw liquidity from a job
@@ -261,7 +261,7 @@ interface IKeep3rJobWorkable {
 
   /// @notice Emitted when a keeper is validated before a job
   /// @param _gasLeft The amount of gas that the transaction has left at the moment of keeper validation
-  event KeeperValidation(uint256 _gasLeft);
+  event KeeperValidation(uint _gasLeft);
 
   /// @notice Emitted when a keeper works a job
   /// @param _credit The address of the asset in which the keeper is paid
@@ -269,7 +269,7 @@ interface IKeep3rJobWorkable {
   /// @param _keeper The address of the keeper that has worked the job
   /// @param _payment The amount that has been paid out to the keeper in exchange for working the job
   /// @param _gasLeft The amount of gas that the transaction has left at the moment of payment
-  event KeeperWork(address indexed _credit, address indexed _job, address indexed _keeper, uint256 _payment, uint256 _gasLeft);
+  event KeeperWork(address indexed _credit, address indexed _job, address indexed _keeper, uint _payment, uint _gasLeft);
 
   // Errors
 
@@ -298,9 +298,9 @@ interface IKeep3rJobWorkable {
   function isBondedKeeper(
     address _keeper,
     address _bond,
-    uint256 _minBond,
-    uint256 _earned,
-    uint256 _age
+    uint _minBond,
+    uint _earned,
+    uint _age
   ) external returns (bool _isBondedKeeper);
 
   /// @notice Implemented by jobs to show that a keeper performed work
@@ -312,7 +312,7 @@ interface IKeep3rJobWorkable {
   /// @dev Pays the keeper that performs the work with KP3R
   /// @param _keeper Address of the keeper that performed the work
   /// @param _payment The reward that should be allocated for the job
-  function bondedPayment(address _keeper, uint256 _payment) external;
+  function bondedPayment(address _keeper, uint _payment) external;
 
   /// @notice Implemented by jobs to show that a keeper performed work
   /// @dev Pays the keeper that performs the work with a specific token
@@ -322,7 +322,7 @@ interface IKeep3rJobWorkable {
   function directTokenPayment(
     address _token,
     address _keeper,
-    uint256 _amount
+    uint _amount
   ) external;
 }
 
@@ -433,14 +433,14 @@ interface IKeep3rJobDisputable is IKeep3rJobFundableCredits, IKeep3rJobFundableL
   /// @param _token The address of the token being slashed
   /// @param _slasher The user that slashes the token
   /// @param _amount The amount of the token being slashed
-  event JobSlashToken(address indexed _job, address _token, address indexed _slasher, uint256 _amount);
+  event JobSlashToken(address indexed _job, address _token, address indexed _slasher, uint _amount);
 
   /// @notice Emitted when Keep3rJobDisputable#slashLiquidityFromJob is called
   /// @param _job The address of the job from which the liquidity will be slashed
   /// @param _liquidity The address of the liquidity being slashed
   /// @param _slasher The user that slashes the liquidity
   /// @param _amount The amount of the liquidity being slashed
-  event JobSlashLiquidity(address indexed _job, address _liquidity, address indexed _slasher, uint256 _amount);
+  event JobSlashLiquidity(address indexed _job, address _liquidity, address indexed _slasher, uint _amount);
 
   // Errors
 
@@ -459,7 +459,7 @@ interface IKeep3rJobDisputable is IKeep3rJobFundableCredits, IKeep3rJobFundableL
   function slashTokenFromJob(
     address _job,
     address _token,
-    uint256 _amount
+    uint _amount
   ) external;
 
   /// @notice Allows governance or a slasher to slash liquidity from a job
@@ -469,7 +469,7 @@ interface IKeep3rJobDisputable is IKeep3rJobFundableCredits, IKeep3rJobFundableL
   // function slashLiquidityFromJob(
   //   address _job,
   //   address _liquidity,
-  //   uint256 _amount
+  //   uint _amount
   // ) external;
 }
 

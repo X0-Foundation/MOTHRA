@@ -22,7 +22,7 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 interface IPairManagerInterface extends ethers.utils.Interface {
   functions: {
     "allowance(address,address)": FunctionFragment;
-    "approve(address,uint256)": FunctionFragment;
+    "approve(address,uint)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "decimals()": FunctionFragment;
     "factory()": FunctionFragment;
@@ -32,8 +32,8 @@ interface IPairManagerInterface extends ethers.utils.Interface {
     "token0()": FunctionFragment;
     "token1()": FunctionFragment;
     "totalSupply()": FunctionFragment;
-    "transfer(address,uint256)": FunctionFragment;
-    "transferFrom(address,address,uint256)": FunctionFragment;
+    "transfer(address,uint)": FunctionFragment;
+    "transferFrom(address,address,uint)": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -86,8 +86,8 @@ interface IPairManagerInterface extends ethers.utils.Interface {
   ): Result;
 
   events: {
-    "Approval(address,address,uint256)": EventFragment;
-    "Transfer(address,address,uint256)": EventFragment;
+    "Approval(address,address,uint)": EventFragment;
+    "Transfer(address,address,uint)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment;
@@ -285,7 +285,7 @@ export class IPairManager extends BaseContract {
   };
 
   filters: {
-    "Approval(address,address,uint256)"(
+    "Approval(address,address,uint)"(
       owner?: string | null,
       spender?: string | null,
       value?: null
@@ -303,7 +303,7 @@ export class IPairManager extends BaseContract {
       { owner: string; spender: string; value: BigNumber }
     >;
 
-    "Transfer(address,address,uint256)"(
+    "Transfer(address,address,uint)"(
       from?: string | null,
       to?: string | null,
       value?: null

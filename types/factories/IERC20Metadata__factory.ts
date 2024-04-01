@@ -27,9 +27,9 @@ const _abi = [
       },
       {
         indexed: false,
-        internalType: "uint256",
+        internalType: "uint",
         name: "value",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "Approval",
@@ -52,9 +52,9 @@ const _abi = [
       },
       {
         indexed: false,
-        internalType: "uint256",
+        internalType: "uint",
         name: "value",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "Transfer",
@@ -76,9 +76,9 @@ const _abi = [
     name: "allowance",
     outputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "",
-        type: "uint256",
+        type: "uint",
       },
     ],
     stateMutability: "view",
@@ -92,9 +92,9 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "amount",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "approve",
@@ -119,9 +119,9 @@ const _abi = [
     name: "balanceOf",
     outputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "",
-        type: "uint256",
+        type: "uint",
       },
     ],
     stateMutability: "view",
@@ -171,9 +171,9 @@ const _abi = [
     name: "totalSupply",
     outputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "",
-        type: "uint256",
+        type: "uint",
       },
     ],
     stateMutability: "view",
@@ -187,9 +187,9 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "amount",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "transfer",
@@ -216,9 +216,9 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "amount",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "transferFrom",

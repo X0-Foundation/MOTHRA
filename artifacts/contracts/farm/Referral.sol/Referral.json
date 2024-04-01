@@ -57,9 +57,9 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "commission",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "ReferralCommissionRecorded",
@@ -95,9 +95,9 @@
       "name": "countReferrals",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -111,9 +111,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_debit",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "debitOutstandingCommission",
@@ -132,9 +132,9 @@
       "name": "getOutstandingCommission",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -170,9 +170,9 @@
       "name": "outstandingCommissions",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -230,9 +230,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_commission",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "recordReferralCommission",
@@ -290,9 +290,9 @@
       "name": "totalReferralCommissions",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",

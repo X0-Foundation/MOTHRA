@@ -7,18 +7,18 @@ contract AnalyticMath {
     uint8 internal constant MIN_PRECISION = 32;
     uint8 internal constant MAX_PRECISION = 127;
 
-    uint256 internal constant FIXED_1 = 1 << MAX_PRECISION;
-    uint256 internal constant FIXED_2 = 2 << MAX_PRECISION;
+    uint internal constant FIXED_1 = 1 << MAX_PRECISION;
+    uint internal constant FIXED_2 = 2 << MAX_PRECISION;
 
     // Auto-generated via 'PrintLn2ScalingFactors.py'
-    uint256 internal constant LN2_NUMERATOR   = 0x3f80fe03f80fe03f80fe03f80fe03f8;
-    uint256 internal constant LN2_DENOMINATOR = 0x5b9de1d10bf4103d647b0955897ba80;
+    uint internal constant LN2_NUMERATOR   = 0x3f80fe03f80fe03f80fe03f80fe03f8;
+    uint internal constant LN2_DENOMINATOR = 0x5b9de1d10bf4103d647b0955897ba80;
 
     // Auto-generated via 'PrintOptimalThresholds.py'
-    uint256 internal constant OPT_LOG_MAX_VAL = 0x15bf0a8b1457695355fb8ac404e7a79e4;
-    uint256 internal constant OPT_EXP_MAX_VAL = 0x800000000000000000000000000000000;
+    uint internal constant OPT_LOG_MAX_VAL = 0x15bf0a8b1457695355fb8ac404e7a79e4;
+    uint internal constant OPT_EXP_MAX_VAL = 0x800000000000000000000000000000000;
 
-    uint256[MAX_PRECISION + 1] private maxExpArray;
+    uint[MAX_PRECISION + 1] private maxExpArray;
 
     /**
       * @dev Should be executed either during construction or after construction (if too large for the constructor)
@@ -30,17 +30,17 @@ contract AnalyticMath {
     /**
       * @dev Compute (a / b) ^ (c / d)
     */
-    function pow(uint256 a, uint256 b, uint256 c, uint256 d) public view returns (uint256, uint256) { unchecked {
+    function pow(uint a, uint b, uint c, uint d) public view returns (uint, uint) { unchecked {
         if (a >= b)
             return mulDivExp(mulDivLog(FIXED_1, a, b), c, d);
-        (uint256 q, uint256 p) = mulDivExp(mulDivLog(FIXED_1, b, a), c, d);
+        (uint q, uint p) = mulDivExp(mulDivLog(FIXED_1, b, a), c, d);
         return (p, q);
     }}
 
     /**
       * @dev Compute log(a / b)
     */
-    function log(uint256 a, uint256 b) internal pure returns (uint256, uint256) { unchecked {
+    function log(uint a, uint b) internal pure returns (uint, uint) { unchecked {
         require(a >= b, "log: a < b");
         return (mulDivLog(FIXED_1, a, b), FIXED_1);
     }}
@@ -48,14 +48,14 @@ contract AnalyticMath {
     /**
       * @dev Compute e ^ (a / b)
     */
-    function exp(uint256 a, uint256 b) internal view returns (uint256, uint256) { unchecked {
+    function exp(uint a, uint b) internal view returns (uint, uint) { unchecked {
         return mulDivExp(FIXED_1, a, b);
     }}
 
     /**
       * @dev Compute log(x / FIXED_1) * FIXED_1
     */
-    function fixedLog(uint256 x) internal pure returns (uint256) { unchecked {
+    function fixedLog(uint x) internal pure returns (uint) { unchecked {
         if (x < OPT_LOG_MAX_VAL) {
             return optimalLog(x);
         }
@@ -67,7 +67,7 @@ contract AnalyticMath {
     /**
       * @dev Compute e ^ (x / FIXED_1) * FIXED_1
     */
-    function fixedExp(uint256 x) internal view returns (uint256, uint256) { unchecked {
+    function fixedExp(uint x) internal view returns (uint, uint) { unchecked {
         if (x < OPT_EXP_MAX_VAL) {
             return (optimalExp(x), 1 << MAX_PRECISION);
         }
@@ -81,8 +81,8 @@ contract AnalyticMath {
       * @dev Compute log(x / FIXED_1) * FIXED_1
       * This functions assumes that x >= FIXED_1, because the output would be negative otherwise
     */
-    function generalLog(uint256 x) internal pure returns (uint256) { unchecked {
-        uint256 res = 0;
+    function generalLog(uint x) internal pure returns (uint) { unchecked {
+        uint res = 0;
 
         // if x >= 2, then we compute the integer part of log2(x), which is larger than 0
         if (x >= FIXED_2) {
@@ -113,9 +113,9 @@ contract AnalyticMath {
       * - The global "maxExpArray" maps each "precision" to "((maximumExponent + 1) << (MAX_PRECISION - precision)) - 1"
       * - The maximum permitted value for "x" is therefore given by "maxExpArray[precision] >> (MAX_PRECISION - precision)"
     */
-    function generalExp(uint256 x, uint8 precision) internal pure returns (uint256) { unchecked {
-        uint256 xi = x;
-        uint256 res = 0;
+    function generalExp(uint x, uint8 precision) internal pure returns (uint) { unchecked {
+        uint xi = x;
+        uint res = 0;
 
         xi = (xi * x) >> precision; res += xi * 0x3442c4e6074a82f1797f72ac0000000; // add x^02 * (33! / 02!)
         xi = (xi * x) >> precision; res += xi * 0x116b96f757c380fb287fd0e40000000; // add x^03 * (33! / 03!)
@@ -164,12 +164,12 @@ contract AnalyticMath {
       * - The natural logarithm of the input is calculated by summing up the intermediate results above
       * - For example: log(250) = log(e^4 * e^1 * e^0.5 * 1.021692859) = 4 + 1 + 0.5 + log(1 + 0.021692859)
     */
-    function optimalLog(uint256 x) internal pure returns (uint256) { unchecked {
-        uint256 res = 0;
+    function optimalLog(uint x) internal pure returns (uint) { unchecked {
+        uint res = 0;
 
-        uint256 y;
-        uint256 z;
-        uint256 w;
+        uint y;
+        uint z;
+        uint w;
 
         if (x >= 0xd3094c70f034de4b96ff7d5b6f99fcd9) {res += 0x40000000000000000000000000000000; x = x * FIXED_1 / 0xd3094c70f034de4b96ff7d5b6f99fcd9;} // add 1 / 2^1
         if (x >= 0xa45af1e1f40c333b3de1db4dd55f29a8) {res += 0x20000000000000000000000000000000; x = x * FIXED_1 / 0xa45af1e1f40c333b3de1db4dd55f29a8;} // add 1 / 2^2
@@ -205,11 +205,11 @@ contract AnalyticMath {
       * - The exponentiation of the input is calculated by multiplying the intermediate results above
       * - For example: e^5.521692859 = e^(4 + 1 + 0.5 + 0.021692859) = e^4 * e^1 * e^0.5 * e^0.021692859
     */
-    function optimalExp(uint256 x) internal pure returns (uint256) { unchecked {
-        uint256 res = 0;
+    function optimalExp(uint x) internal pure returns (uint) { unchecked {
+        uint res = 0;
 
-        uint256 y;
-        uint256 z;
+        uint y;
+        uint z;
 
         z = y = x % 0x10000000000000000000000000000000; // get the input modulo 2^(-3)
         z = z * y / FIXED_1; res += z * 0x10e1b3be415a0000; // add y^02 * (20! / 02!)
@@ -257,7 +257,7 @@ contract AnalyticMath {
       * Hence we need to determine the highest precision which can be used for the given input, before calling the exponentiation function.
       * This allows us to compute the result with maximum accuracy and without exceeding 256 bits in any of the intermediate computations.
     */
-    function findPosition(uint256 x) internal view returns (uint8) { unchecked {
+    function findPosition(uint x) internal view returns (uint8) { unchecked {
         uint8 lo = MIN_PRECISION;
         uint8 hi = MAX_PRECISION;
 
@@ -413,12 +413,12 @@ contract AnalyticMath {
     }
 
     // auxiliary function
-    function mulDivLog(uint256 x, uint256 y, uint256 z) private pure returns (uint256) {
+    function mulDivLog(uint x, uint y, uint z) private pure returns (uint) {
         return fixedLog(IntegralMath.mulDivF(x, y, z));
     }
 
     // auxiliary function
-    function mulDivExp(uint256 x, uint256 y, uint256 z) private view returns (uint256, uint256) {
+    function mulDivExp(uint x, uint y, uint z) private view returns (uint, uint) {
         return fixedExp(IntegralMath.mulDivF(x, y, z));
     }
 }

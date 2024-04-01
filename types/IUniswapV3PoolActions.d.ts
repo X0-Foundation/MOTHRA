@@ -23,7 +23,7 @@ interface IUniswapV3PoolActionsInterface extends ethers.utils.Interface {
   functions: {
     "burn(int24,int24,uint128)": FunctionFragment;
     "collect(address,int24,int24,uint128,uint128)": FunctionFragment;
-    "flash(address,uint256,uint256,bytes)": FunctionFragment;
+    "flash(address,uint,uint,bytes)": FunctionFragment;
     "increaseObservationCardinalityNext(uint16)": FunctionFragment;
     "initialize(uint160)": FunctionFragment;
     "mint(address,int24,int24,uint128,bytes)": FunctionFragment;

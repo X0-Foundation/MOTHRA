@@ -92,7 +92,7 @@ async function mintTime(seconds) {
     console.log("\t%s seconds minted.", (await ethers.provider.getBlock("latest")).timestamp - tm0);
 }
 
-async function showVirtualBurn() {
+async function showConsistency() {
     let user_burn = await tgr.user_burn();
     console.log("\n\tsum_balances: %s, pending_burn: %s, totalSupply: %s", 
     user_burn.sum_balances, user_burn.pending_burn, await tgr.totalSupply());
@@ -142,61 +142,61 @@ describe("====================== Stage 1: ======================\n".yellow, asyn
         console.log("\tTGR contract deployed at: %s", tgr.address);
         console.log("\tOwner's balance: %s", await tgr.balanceOf(owner.address));
 
-        await showVirtualBurn();
+        await showConsistency();
 
         await mintBlocks(50);
         await tgr.pulse_user_burn();
-        await showVirtualBurn();
+        await showConsistency();
 
         await transfer(owner, alice, 10);
         await mintBlocks(5);
         await tgr.pulse_user_burn();
-        await showVirtualBurn();
+        await showConsistency();
 
         await transfer(owner, bob, 1000);
         await mintBlocks(50);
         await tgr.pulse_user_burn();
-        await showVirtualBurn();
+        await showConsistency();
 
         await transfer(owner, carol, 5000);
         await mintBlocks(50);
         await tgr.pulse_user_burn();
-        await showVirtualBurn();
+        await showConsistency();
 
         await mintBlocks(50);
         await tgr.pulse_user_burn();
-        await showVirtualBurn();
+        await showConsistency();
 
         await transfer(owner, carol, 100);
         await mintBlocks(50);
         await tgr.pulse_user_burn();
-        await showVirtualBurn();
+        await showConsistency();
 
         await transfer(carol, carol, 100);
         await mintBlocks(50);
         await tgr.pulse_user_burn();
-        await showVirtualBurn();
+        await showConsistency();
 
         await transfer(carol, alice, 100);
         await mintBlocks(50);
         await tgr.pulse_user_burn();
-        await showVirtualBurn();
+        await showConsistency();
 
         await transfer(owner, tgrFtm, 100);
         await mintBlocks(50);
         await tgr.pulse_user_burn();
-        await showVirtualBurn();
+        await showConsistency();
 
         await transfer(tgrFtm, tgrHtz, 101);
         await mintBlocks(50);
         await tgr.pulse_user_burn();
-        await showVirtualBurn();
+        await showConsistency();
 
         await transfer(owner, votes, 10000);
-        await showVirtualBurn();
+        await showConsistency();
         await mintBlocks(20);
         await tgr.pulse_vote_burn();
-        await showVirtualBurn();
+        await showConsistency();
 
 
     });

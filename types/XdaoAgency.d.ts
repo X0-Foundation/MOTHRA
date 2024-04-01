@@ -22,40 +22,40 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface XdaoAgencyInterface extends ethers.utils.Interface {
   functions: {
-    "_isTaskCompletedByUser(uint256,address)": FunctionFragment;
-    "_isTaskEndVerifiedByUser(uint256,address)": FunctionFragment;
+    "_isTaskCompletedByUser(uint,address)": FunctionFragment;
+    "_isTaskEndVerifiedByUser(uint,address)": FunctionFragment;
     "agentInfo(address)": FunctionFragment;
     "agentLastSlashTime(address)": FunctionFragment;
-    "agentVerifiedTask(address,uint256)": FunctionFragment;
-    "assignTask(uint256,uint256[])": FunctionFragment;
-    "bidden(uint256,address)": FunctionFragment;
-    "bidders(uint256,uint256)": FunctionFragment;
-    "compeletTask(uint256)": FunctionFragment;
-    "doers(uint256,uint256)": FunctionFragment;
+    "agentVerifiedTask(address,uint)": FunctionFragment;
+    "assignTask(uint,uint[])": FunctionFragment;
+    "bidden(uint,address)": FunctionFragment;
+    "bidders(uint,uint)": FunctionFragment;
+    "compeletTask(uint)": FunctionFragment;
+    "doers(uint,uint)": FunctionFragment;
     "initialize(address)": FunctionFragment;
     "isAgent(address)": FunctionFragment;
     "owner()": FunctionFragment;
-    "placeBid(uint256)": FunctionFragment;
-    "postTask(uint256)": FunctionFragment;
+    "placeBid(uint)": FunctionFragment;
+    "postTask(uint)": FunctionFragment;
     "proxiableUUID()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
-    "requestRevalidation(uint256,string)": FunctionFragment;
-    "setNumVerificationsNeeded(uint256)": FunctionFragment;
-    "setSlashImpactPeriod(uint256)": FunctionFragment;
-    "stake(uint256)": FunctionFragment;
-    "submitTask((string,string,uint256,uint256,uint8,uint8,uint8,uint8,uint8[],address,uint256,uint256))": FunctionFragment;
-    "taskCompleters(uint256,uint256)": FunctionFragment;
-    "taskEndVerifiers(uint256,uint256)": FunctionFragment;
-    "taskVerifiersCount(uint256)": FunctionFragment;
-    "tasks(uint256)": FunctionFragment;
+    "requestRevalidation(uint,string)": FunctionFragment;
+    "setNumVerificationsNeeded(uint)": FunctionFragment;
+    "setSlashImpactPeriod(uint)": FunctionFragment;
+    "stake(uint)": FunctionFragment;
+    "submitTask((string,string,uint,uint,uint8,uint8,uint8,uint8,uint8[],address,uint,uint))": FunctionFragment;
+    "taskCompleters(uint,uint)": FunctionFragment;
+    "taskEndVerifiers(uint,uint)": FunctionFragment;
+    "taskVerifiersCount(uint)": FunctionFragment;
+    "tasks(uint)": FunctionFragment;
     "tgr()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
-    "unStake(uint256)": FunctionFragment;
+    "unStake(uint)": FunctionFragment;
     "updateAgentLevel(address)": FunctionFragment;
     "upgradeTo(address)": FunctionFragment;
     "upgradeToAndCall(address,bytes)": FunctionFragment;
-    "verifyTask(uint256)": FunctionFragment;
-    "verifyTaskCompletion(uint256)": FunctionFragment;
+    "verifyTask(uint)": FunctionFragment;
+    "verifyTaskCompletion(uint)": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -277,13 +277,13 @@ interface XdaoAgencyInterface extends ethers.utils.Interface {
     "BeaconUpgraded(address)": EventFragment;
     "Initialized(uint8)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
-    "TaskAssigned(uint256,address)": EventFragment;
-    "TaskCreated(uint256,string,uint256,uint256,uint256,address)": EventFragment;
-    "TaskDelivered(uint256)": EventFragment;
-    "TaskDone(uint256,address)": EventFragment;
-    "TaskEndVerified(uint256)": EventFragment;
-    "TaskPosted(uint256)": EventFragment;
-    "TaskVerified(uint256)": EventFragment;
+    "TaskAssigned(uint,address)": EventFragment;
+    "TaskCreated(uint,string,uint,uint,uint,address)": EventFragment;
+    "TaskDelivered(uint)": EventFragment;
+    "TaskDone(uint,address)": EventFragment;
+    "TaskEndVerified(uint)": EventFragment;
+    "TaskPosted(uint)": EventFragment;
+    "TaskVerified(uint)": EventFragment;
     "Upgraded(address)": EventFragment;
   };
 
@@ -1051,7 +1051,7 @@ export class XdaoAgency extends BaseContract {
       { previousOwner: string; newOwner: string }
     >;
 
-    "TaskAssigned(uint256,address)"(
+    "TaskAssigned(uint,address)"(
       id?: null,
       doer?: null
     ): TypedEventFilter<[BigNumber, string], { id: BigNumber; doer: string }>;
@@ -1061,7 +1061,7 @@ export class XdaoAgency extends BaseContract {
       doer?: null
     ): TypedEventFilter<[BigNumber, string], { id: BigNumber; doer: string }>;
 
-    "TaskCreated(uint256,string,uint256,uint256,uint256,address)"(
+    "TaskCreated(uint,string,uint,uint,uint,address)"(
       id?: null,
       name?: null,
       reward?: null,
@@ -1099,13 +1099,13 @@ export class XdaoAgency extends BaseContract {
       }
     >;
 
-    "TaskDelivered(uint256)"(
+    "TaskDelivered(uint)"(
       id?: null
     ): TypedEventFilter<[BigNumber], { id: BigNumber }>;
 
     TaskDelivered(id?: null): TypedEventFilter<[BigNumber], { id: BigNumber }>;
 
-    "TaskDone(uint256,address)"(
+    "TaskDone(uint,address)"(
       id?: null,
       doer?: null
     ): TypedEventFilter<[BigNumber, string], { id: BigNumber; doer: string }>;
@@ -1115,7 +1115,7 @@ export class XdaoAgency extends BaseContract {
       doer?: null
     ): TypedEventFilter<[BigNumber, string], { id: BigNumber; doer: string }>;
 
-    "TaskEndVerified(uint256)"(
+    "TaskEndVerified(uint)"(
       id?: null
     ): TypedEventFilter<[BigNumber], { id: BigNumber }>;
 
@@ -1123,13 +1123,13 @@ export class XdaoAgency extends BaseContract {
       id?: null
     ): TypedEventFilter<[BigNumber], { id: BigNumber }>;
 
-    "TaskPosted(uint256)"(
+    "TaskPosted(uint)"(
       id?: null
     ): TypedEventFilter<[BigNumber], { id: BigNumber }>;
 
     TaskPosted(id?: null): TypedEventFilter<[BigNumber], { id: BigNumber }>;
 
-    "TaskVerified(uint256)"(
+    "TaskVerified(uint)"(
       id?: null
     ): TypedEventFilter<[BigNumber], { id: BigNumber }>;
 

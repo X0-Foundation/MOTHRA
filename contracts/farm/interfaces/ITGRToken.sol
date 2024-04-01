@@ -10,7 +10,7 @@ interface ITGRToken is IERC20 {
         uint256 cycle;
         uint256 decayRate;
         address account;
-        uint256 accDecayPerShare;
+        uint256 accDecayPer1e12;
         uint256 sum_tokens;
         uint256 pending_burn;
         uint256 latestRound;
@@ -22,8 +22,6 @@ interface ITGRToken is IERC20 {
     function maxSupply() external view returns (uint256);
     function mint(address to, uint256 amount) external;
     function burn(address from, uint256 amount) external;
-    function bury(address from, uint256 amount) external;
-
 
     function transferDirectSafe(address sender, address recipient, uint256 amount) external;
 }

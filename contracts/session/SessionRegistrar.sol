@@ -8,12 +8,12 @@ import "hardhat/console.sol";
 
 abstract contract SessionRegistrar is ISessionRegistrar {
 
-    uint256 public session;
-    uint256 public lastSession;
-    mapping(ActionType => uint256) public sessionsLastSeenBySType;
+    uint public session;
+    uint public lastSession;
+    mapping(ActionType => uint) public sessionsLastSeenBySType;
 
     ActionType[20] private actionStack;
-    uint256 stackPointer;
+    uint stackPointer;
 
     bool public paused;
 
@@ -32,7 +32,7 @@ abstract contract SessionRegistrar is ISessionRegistrar {
         require(actionType != ActionType.None, "Invalid action");
 
         if (blockReentry) {
-            for (uint256 i; i <= stackPointer; i++) {
+            for (uint i; i <= stackPointer; i++) {
                 require(actionStack[i] != actionType, "Reentry");
             }
         }
@@ -46,7 +46,7 @@ abstract contract SessionRegistrar is ISessionRegistrar {
         actionParams.actionType = actionType;
         actionParams.isUserAction = stackPointer == 0;
         
-        uint256 _session = uint256(keccak256(abi.encode(block.number, tx.origin)));
+        uint _session = uint(keccak256(abi.encode(block.number, tx.origin)));
         if (session != _session) {
             lastSession = session;
             session = _session;

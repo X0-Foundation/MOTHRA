@@ -18,19 +18,19 @@
               "type": "address"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "deadline",
-              "type": "uint256"
+              "type": "uint"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "amountIn",
-              "type": "uint256"
+              "type": "uint"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "amountOutMinimum",
-              "type": "uint256"
+              "type": "uint"
             }
           ],
           "internalType": "struct ISwapRouter.ExactInputParams",
@@ -41,9 +41,9 @@
       "name": "exactInput",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountOut",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "payable",
@@ -74,19 +74,19 @@
               "type": "address"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "deadline",
-              "type": "uint256"
+              "type": "uint"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "amountIn",
-              "type": "uint256"
+              "type": "uint"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "amountOutMinimum",
-              "type": "uint256"
+              "type": "uint"
             },
             {
               "internalType": "uint160",
@@ -102,9 +102,9 @@
       "name": "exactInputSingle",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountOut",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "payable",
@@ -125,19 +125,19 @@
               "type": "address"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "deadline",
-              "type": "uint256"
+              "type": "uint"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "amountOut",
-              "type": "uint256"
+              "type": "uint"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "amountInMaximum",
-              "type": "uint256"
+              "type": "uint"
             }
           ],
           "internalType": "struct ISwapRouter.ExactOutputParams",
@@ -148,9 +148,9 @@
       "name": "exactOutput",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountIn",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "payable",
@@ -181,19 +181,19 @@
               "type": "address"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "deadline",
-              "type": "uint256"
+              "type": "uint"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "amountOut",
-              "type": "uint256"
+              "type": "uint"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "amountInMaximum",
-              "type": "uint256"
+              "type": "uint"
             },
             {
               "internalType": "uint160",
@@ -209,9 +209,9 @@
       "name": "exactOutputSingle",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountIn",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "payable",

@@ -15,12 +15,12 @@ library FixedPoint {
     // range: [0, 2**144 - 1]
     // resolution: 1 / 2**112
     struct uq144x112 {
-        uint256 _x;
+        uint _x;
     }
 
     uint8 private constant RESOLUTION = 112;
-    uint256 private constant Q112 = uint256(1) << RESOLUTION;
-    uint256 private constant Q224 = Q112 << RESOLUTION;
+    uint private constant Q112 = uint(1) << RESOLUTION;
+    uint private constant Q224 = Q112 << RESOLUTION;
 
     // encode a uint112 as a UQ112x112
     function encode(uint112 x) internal pure returns (uq112x112 memory) {
@@ -29,7 +29,7 @@ library FixedPoint {
 
     // encodes a uint144 as a UQ144x112
     function encode144(uint144 x) internal pure returns (uq144x112 memory) {
-        return uq144x112(uint256(x) << RESOLUTION);
+        return uq144x112(uint(x) << RESOLUTION);
     }
 
     // divide a UQ112x112 by a uint112, returning a UQ112x112
@@ -40,9 +40,9 @@ library FixedPoint {
 
     // multiply a UQ112x112 by a uint, returning a UQ144x112
     // reverts on overflow
-    function mul(uq112x112 memory self, uint256 y) internal pure returns (uq144x112 memory) {
-        uint256 z;
-        require(y == 0 || (z = uint256(self._x) * y) / y == uint256(self._x), "FixedPoint: MULTIPLICATION_OVERFLOW");
+    function mul(uq112x112 memory self, uint y) internal pure returns (uq144x112 memory) {
+        uint z;
+        require(y == 0 || (z = uint(self._x) * y) / y == uint(self._x), "FixedPoint: MULTIPLICATION_OVERFLOW");
         return uq144x112(z);
     }
 
@@ -71,6 +71,6 @@ library FixedPoint {
 
     // square root of a UQ112x112
     function sqrt(uq112x112 memory self) internal pure returns (uq112x112 memory) {
-        return uq112x112(uint224(SafeMath.sqrt(uint256(self._x)) << 56));
+        return uq112x112(uint224(SafeMath.sqrt(uint(self._x)) << 56));
     }
 }

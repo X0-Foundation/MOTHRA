@@ -27,7 +27,6 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     "balanceOf(address)": FunctionFragment;
     "begin(address)": FunctionFragment;
     "burn(address,uint256)": FunctionFragment;
-    "bury(address,uint256)": FunctionFragment;
     "changeBurnRates(uint256,uint256)": FunctionFragment;
     "changePairStatus(address,address,address,uint8,address)": FunctionFragment;
     "checkForConsistency()": FunctionFragment;
@@ -93,10 +92,6 @@ interface TGRTokenInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: "begin", values: [string]): string;
   encodeFunctionData(
     functionFragment: "burn",
-    values: [string, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "bury",
     values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
@@ -237,7 +232,6 @@ interface TGRTokenInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "begin", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "bury", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "changeBurnRates",
     data: BytesLike
@@ -496,12 +490,6 @@ export class TGRToken extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    bury(
-      from: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     changeBurnRates(
       _buysell_burn_rate: BigNumberish,
       _shift_burn_rate: BigNumberish,
@@ -567,7 +555,7 @@ export class TGRToken extends BaseContract {
         cycle: BigNumber;
         decayRate: BigNumber;
         account: string;
-        accDecayPerShare: BigNumber;
+        accDecayPer1e12: BigNumber;
         sum_tokens: BigNumber;
         pending_burn: BigNumber;
         latestRound: BigNumber;
@@ -728,7 +716,7 @@ export class TGRToken extends BaseContract {
         cycle: BigNumber;
         decayRate: BigNumber;
         account: string;
-        accDecayPerShare: BigNumber;
+        accDecayPer1e12: BigNumber;
         sum_tokens: BigNumber;
         pending_burn: BigNumber;
         latestRound: BigNumber;
@@ -752,7 +740,7 @@ export class TGRToken extends BaseContract {
         cycle: BigNumber;
         decayRate: BigNumber;
         account: string;
-        accDecayPerShare: BigNumber;
+        accDecayPer1e12: BigNumber;
         sum_tokens: BigNumber;
         pending_burn: BigNumber;
         latestRound: BigNumber;
@@ -793,12 +781,6 @@ export class TGRToken extends BaseContract {
   ): Promise<ContractTransaction>;
 
   burn(
-    from: string,
-    amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  bury(
     from: string,
     amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -864,7 +846,7 @@ export class TGRToken extends BaseContract {
       cycle: BigNumber;
       decayRate: BigNumber;
       account: string;
-      accDecayPerShare: BigNumber;
+      accDecayPer1e12: BigNumber;
       sum_tokens: BigNumber;
       pending_burn: BigNumber;
       latestRound: BigNumber;
@@ -1025,7 +1007,7 @@ export class TGRToken extends BaseContract {
       cycle: BigNumber;
       decayRate: BigNumber;
       account: string;
-      accDecayPerShare: BigNumber;
+      accDecayPer1e12: BigNumber;
       sum_tokens: BigNumber;
       pending_burn: BigNumber;
       latestRound: BigNumber;
@@ -1049,7 +1031,7 @@ export class TGRToken extends BaseContract {
       cycle: BigNumber;
       decayRate: BigNumber;
       account: string;
-      accDecayPerShare: BigNumber;
+      accDecayPer1e12: BigNumber;
       sum_tokens: BigNumber;
       pending_burn: BigNumber;
       latestRound: BigNumber;
@@ -1087,12 +1069,6 @@ export class TGRToken extends BaseContract {
     begin(caller: string, overrides?: CallOverrides): Promise<void>;
 
     burn(
-      from: string,
-      amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    bury(
       from: string,
       amount: BigNumberish,
       overrides?: CallOverrides
@@ -1158,7 +1134,7 @@ export class TGRToken extends BaseContract {
         cycle: BigNumber;
         decayRate: BigNumber;
         account: string;
-        accDecayPerShare: BigNumber;
+        accDecayPer1e12: BigNumber;
         sum_tokens: BigNumber;
         pending_burn: BigNumber;
         latestRound: BigNumber;
@@ -1312,7 +1288,7 @@ export class TGRToken extends BaseContract {
         cycle: BigNumber;
         decayRate: BigNumber;
         account: string;
-        accDecayPerShare: BigNumber;
+        accDecayPer1e12: BigNumber;
         sum_tokens: BigNumber;
         pending_burn: BigNumber;
         latestRound: BigNumber;
@@ -1336,7 +1312,7 @@ export class TGRToken extends BaseContract {
         cycle: BigNumber;
         decayRate: BigNumber;
         account: string;
-        accDecayPerShare: BigNumber;
+        accDecayPer1e12: BigNumber;
         sum_tokens: BigNumber;
         pending_burn: BigNumber;
         latestRound: BigNumber;
@@ -1506,12 +1482,6 @@ export class TGRToken extends BaseContract {
     ): Promise<BigNumber>;
 
     burn(
-      from: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    bury(
       from: string,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -1732,12 +1702,6 @@ export class TGRToken extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     burn(
-      from: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    bury(
       from: string,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }

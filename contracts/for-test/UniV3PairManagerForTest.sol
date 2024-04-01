@@ -17,16 +17,16 @@ contract UniV3PairManagerForTest is UniV3PairManager {
   constructor(address _pool, address _governance) UniV3PairManager(_pool, _governance) {}
 
   function internalAddLiquidity(
-    uint256 amount0Desired,
-    uint256 amount1Desired,
-    uint256 amount0Min,
-    uint256 amount1Min
+    uint amount0Desired,
+    uint amount1Desired,
+    uint amount0Min,
+    uint amount1Min
   )
     external
     returns (
       uint128 liquidity,
-      uint256 amount0,
-      uint256 amount1
+      uint amount0,
+      uint amount1
     )
   {
     return _addLiquidity(amount0Desired, amount1Desired, amount0Min, amount1Min);
@@ -36,23 +36,23 @@ contract UniV3PairManagerForTest is UniV3PairManager {
     address token,
     address payer,
     address recipient,
-    uint256 value
+    uint value
   ) external {
     return _pay(token, payer, recipient, value);
   }
 
-  function internalMint(address dst, uint256 amount) external {
+  function internalMint(address dst, uint amount) external {
     return _mint(dst, amount);
   }
 
-  function internalBurn(address dst, uint256 amount) external {
+  function internalBurn(address dst, uint amount) external {
     return _burn(dst, amount);
   }
 
   function internalTransferTokens(
     address src,
     address dst,
-    uint256 amount
+    uint amount
   ) external {
     _transferTokens(src, dst, amount);
   }
@@ -61,7 +61,7 @@ contract UniV3PairManagerForTest is UniV3PairManager {
     address token,
     address from,
     address to,
-    uint256 value
+    uint value
   ) external {
     _safeTransferFrom(token, from, to, value);
   }

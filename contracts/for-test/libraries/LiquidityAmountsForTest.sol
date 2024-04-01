@@ -8,24 +8,24 @@ import '../../agency/libraries/FixedPoint96.sol';
 
 // solhint-disable
 contract LiquidityAmountsForTest {
-  function toUint128(uint256 x) private pure returns (uint128 y) {
+  function toUint128(uint x) private pure returns (uint128 y) {
     require((y = uint128(x)) == x);
   }
 
   function getLiquidityForAmount0(
     uint160 sqrtRatioAX96,
     uint160 sqrtRatioBX96,
-    uint256 amount0
+    uint amount0
   ) public pure returns (uint128 liquidity) {
     if (sqrtRatioAX96 > sqrtRatioBX96) (sqrtRatioAX96, sqrtRatioBX96) = (sqrtRatioBX96, sqrtRatioAX96);
-    uint256 intermediate = FullMath.mulDiv(sqrtRatioAX96, sqrtRatioBX96, FixedPoint96.Q96);
+    uint intermediate = FullMath.mulDiv(sqrtRatioAX96, sqrtRatioBX96, FixedPoint96.Q96);
     return toUint128(FullMath.mulDiv(amount0, intermediate, sqrtRatioBX96 - sqrtRatioAX96));
   }
 
   function getLiquidityForAmount1(
     uint160 sqrtRatioAX96,
     uint160 sqrtRatioBX96,
-    uint256 amount1
+    uint amount1
   ) public pure returns (uint128 liquidity) {
     if (sqrtRatioAX96 > sqrtRatioBX96) (sqrtRatioAX96, sqrtRatioBX96) = (sqrtRatioBX96, sqrtRatioAX96);
     return toUint128(FullMath.mulDiv(amount1, FixedPoint96.Q96, sqrtRatioBX96 - sqrtRatioAX96));
@@ -35,8 +35,8 @@ contract LiquidityAmountsForTest {
     uint160 sqrtRatioX96,
     uint160 sqrtRatioAX96,
     uint160 sqrtRatioBX96,
-    uint256 amount0,
-    uint256 amount1
+    uint amount0,
+    uint amount1
   ) external pure returns (uint128 liquidity) {
     if (sqrtRatioAX96 > sqrtRatioBX96) (sqrtRatioAX96, sqrtRatioBX96) = (sqrtRatioBX96, sqrtRatioAX96);
 
@@ -56,17 +56,17 @@ contract LiquidityAmountsForTest {
     uint160 sqrtRatioAX96,
     uint160 sqrtRatioBX96,
     uint128 liquidity
-  ) public pure returns (uint256 amount0) {
+  ) public pure returns (uint amount0) {
     if (sqrtRatioAX96 > sqrtRatioBX96) (sqrtRatioAX96, sqrtRatioBX96) = (sqrtRatioBX96, sqrtRatioAX96);
 
-    return FullMath.mulDiv(uint256(liquidity) << FixedPoint96.RESOLUTION, sqrtRatioBX96 - sqrtRatioAX96, sqrtRatioBX96) / sqrtRatioAX96;
+    return FullMath.mulDiv(uint(liquidity) << FixedPoint96.RESOLUTION, sqrtRatioBX96 - sqrtRatioAX96, sqrtRatioBX96) / sqrtRatioAX96;
   }
 
   function getAmount1ForLiquidity(
     uint160 sqrtRatioAX96,
     uint160 sqrtRatioBX96,
     uint128 liquidity
-  ) public pure returns (uint256 amount1) {
+  ) public pure returns (uint amount1) {
     if (sqrtRatioAX96 > sqrtRatioBX96) (sqrtRatioAX96, sqrtRatioBX96) = (sqrtRatioBX96, sqrtRatioAX96);
 
     return FullMath.mulDiv(liquidity, sqrtRatioBX96 - sqrtRatioAX96, FixedPoint96.Q96);
@@ -77,7 +77,7 @@ contract LiquidityAmountsForTest {
     uint160 sqrtRatioAX96,
     uint160 sqrtRatioBX96,
     uint128 liquidity
-  ) external pure returns (uint256 amount0, uint256 amount1) {
+  ) external pure returns (uint amount0, uint amount1) {
     if (sqrtRatioAX96 > sqrtRatioBX96) (sqrtRatioAX96, sqrtRatioBX96) = (sqrtRatioBX96, sqrtRatioAX96);
 
     if (sqrtRatioX96 <= sqrtRatioAX96) {

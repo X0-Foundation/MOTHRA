@@ -76,9 +76,9 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        internalType: "uint256",
+        internalType: "uint",
         name: "id",
-        type: "uint256",
+        type: "uint",
       },
       {
         indexed: false,
@@ -95,9 +95,9 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        internalType: "uint256",
+        internalType: "uint",
         name: "id",
-        type: "uint256",
+        type: "uint",
       },
       {
         indexed: false,
@@ -107,21 +107,21 @@ const _abi = [
       },
       {
         indexed: false,
-        internalType: "uint256",
+        internalType: "uint",
         name: "reward",
-        type: "uint256",
+        type: "uint",
       },
       {
         indexed: false,
-        internalType: "uint256",
+        internalType: "uint",
         name: "status",
-        type: "uint256",
+        type: "uint",
       },
       {
         indexed: false,
-        internalType: "uint256",
+        internalType: "uint",
         name: "minLevel",
-        type: "uint256",
+        type: "uint",
       },
       {
         indexed: false,
@@ -138,9 +138,9 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        internalType: "uint256",
+        internalType: "uint",
         name: "id",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "TaskDelivered",
@@ -151,9 +151,9 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        internalType: "uint256",
+        internalType: "uint",
         name: "id",
-        type: "uint256",
+        type: "uint",
       },
       {
         indexed: false,
@@ -170,9 +170,9 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        internalType: "uint256",
+        internalType: "uint",
         name: "id",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "TaskEndVerified",
@@ -183,9 +183,9 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        internalType: "uint256",
+        internalType: "uint",
         name: "id",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "TaskPosted",
@@ -196,9 +196,9 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        internalType: "uint256",
+        internalType: "uint",
         name: "id",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "TaskVerified",
@@ -220,9 +220,9 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "_id",
-        type: "uint256",
+        type: "uint",
       },
       {
         internalType: "address",
@@ -244,9 +244,9 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "_id",
-        type: "uint256",
+        type: "uint",
       },
       {
         internalType: "address",
@@ -281,14 +281,14 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "level",
-        type: "uint256",
+        type: "uint",
       },
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "stakedAmount",
-        type: "uint256",
+        type: "uint",
       },
     ],
     stateMutability: "view",
@@ -305,9 +305,9 @@ const _abi = [
     name: "agentLastSlashTime",
     outputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "",
-        type: "uint256",
+        type: "uint",
       },
     ],
     stateMutability: "view",
@@ -321,9 +321,9 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "agentVerifiedTask",
@@ -340,14 +340,14 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "_id",
-        type: "uint256",
+        type: "uint",
       },
       {
-        internalType: "uint256[]",
+        internalType: "uint[]",
         name: "_bidders",
-        type: "uint256[]",
+        type: "uint[]",
       },
     ],
     name: "assignTask",
@@ -358,9 +358,9 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "",
-        type: "uint256",
+        type: "uint",
       },
       {
         internalType: "address",
@@ -382,14 +382,14 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "",
-        type: "uint256",
+        type: "uint",
       },
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "bidders",
@@ -406,9 +406,9 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "_id",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "compeletTask",
@@ -419,14 +419,14 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "",
-        type: "uint256",
+        type: "uint",
       },
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "doers",
@@ -488,9 +488,9 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "_id",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "placeBid",
@@ -501,9 +501,9 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "_id",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "postTask",
@@ -534,9 +534,9 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "_id",
-        type: "uint256",
+        type: "uint",
       },
       {
         internalType: "string",
@@ -552,9 +552,9 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "_num",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "setNumVerificationsNeeded",
@@ -565,9 +565,9 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "_time",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "setSlashImpactPeriod",
@@ -578,9 +578,9 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "amount",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "stake",
@@ -603,14 +603,14 @@ const _abi = [
             type: "string",
           },
           {
-            internalType: "uint256",
+            internalType: "uint",
             name: "reward",
-            type: "uint256",
+            type: "uint",
           },
           {
-            internalType: "uint256",
+            internalType: "uint",
             name: "bonus",
-            type: "uint256",
+            type: "uint",
           },
           {
             internalType: "uint8",
@@ -643,14 +643,14 @@ const _abi = [
             type: "address",
           },
           {
-            internalType: "uint256",
+            internalType: "uint",
             name: "dueTime",
-            type: "uint256",
+            type: "uint",
           },
           {
-            internalType: "uint256",
+            internalType: "uint",
             name: "verifiedTime",
-            type: "uint256",
+            type: "uint",
           },
         ],
         internalType: "struct TaskDetails",
@@ -661,9 +661,9 @@ const _abi = [
     name: "submitTask",
     outputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "taskId",
-        type: "uint256",
+        type: "uint",
       },
     ],
     stateMutability: "nonpayable",
@@ -672,14 +672,14 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "",
-        type: "uint256",
+        type: "uint",
       },
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "taskCompleters",
@@ -696,14 +696,14 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "",
-        type: "uint256",
+        type: "uint",
       },
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "taskEndVerifiers",
@@ -720,17 +720,17 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "taskVerifiersCount",
     outputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "",
-        type: "uint256",
+        type: "uint",
       },
     ],
     stateMutability: "view",
@@ -739,9 +739,9 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "tasks",
@@ -757,14 +757,14 @@ const _abi = [
         type: "string",
       },
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "reward",
-        type: "uint256",
+        type: "uint",
       },
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "bonus",
-        type: "uint256",
+        type: "uint",
       },
       {
         internalType: "uint8",
@@ -792,14 +792,14 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "dueTime",
-        type: "uint256",
+        type: "uint",
       },
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "verifiedTime",
-        type: "uint256",
+        type: "uint",
       },
     ],
     stateMutability: "view",
@@ -834,9 +834,9 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "amount",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "unStake",
@@ -891,9 +891,9 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "_taskId",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "verifyTask",
@@ -904,9 +904,9 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "_id",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "verifyTaskCompletion",

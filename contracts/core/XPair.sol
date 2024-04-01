@@ -15,26 +15,26 @@ import "hardhat/console.sol";
 
 
 contract XPair is IXPair {
-    using Math for uint256;
-    using SafeMath for uint256;
+    using Math for uint;
+    using SafeMath for uint;
     using UQ112x112 for uint224;
 
     string public constant override name = "Liquidity Pools";
     string public constant override symbol = "LP";
     uint8 public constant override decimals = 18;
-    uint256 public override totalSupply;
-    mapping(address => uint256) public override balanceOf;
-    mapping(address => mapping(address => uint256)) public override allowance;
+    uint public override totalSupply;
+    mapping(address => uint) public override balanceOf;
+    mapping(address => mapping(address => uint)) public override allowance;
 
     bytes32 public override DOMAIN_SEPARATOR;   // https://soliditydeveloper.com/ecrecover
-    // keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
+    // keccak256("Permit(address owner,address spender,uint value,uint nonce,uint deadline)");
     bytes32 public constant override PERMIT_TYPEHASH =
         0x6e71edae12b1b97f4d1f60370fef10105fa2faae0126114a169c64845d6126c9;
 
-    mapping(address => uint256) public override nonces;
+    mapping(address => uint) public override nonces;
 
-    uint256 public constant override MINIMUM_LIQUIDITY = 10**3;
-    bytes4 private constant TRANSFER = bytes4(keccak256(bytes("transfer(address,uint256)")));
+    uint public constant override MINIMUM_LIQUIDITY = 10**3;
+    bytes4 private constant TRANSFER = bytes4(keccak256(bytes("transfer(address,uint)")));
 
     ListStatus public override status;
 
@@ -46,15 +46,15 @@ contract XPair is IXPair {
     uint112 private reserve1; // uses single storage slot, accessible via getReserves
     uint32 private blockTimestampLast; // uses single storage slot, accessible via getReserves
 
-    uint256 public override price0CumulativeLast;
-    uint256 public override price1CumulativeLast;
-    uint256 public override kLast; // reserve0 * reserve1, as of immediately after the most recent liquidity event
+    uint public override price0CumulativeLast;
+    uint public override price1CumulativeLast;
+    uint public override kLast; // reserve0 * reserve1, as of immediately after the most recent liquidity event
 
     address token;
     address maker;
     address taker;
 
-    uint256 private unlocked = 1;
+    uint private unlocked = 1;
 
     modifier lock() {
         require(unlocked == 1, "Locked");
@@ -97,7 +97,7 @@ contract XPair is IXPair {
     function _safeTransfer(
         address fromToken,
         address toToken,
-        uint256 value
+        uint value
     ) private {
         if (fromToken == token) {
             ITGRToken(fromToken).transferDirectSafe(address(this), toToken, value);
@@ -108,14 +108,14 @@ contract XPair is IXPair {
     }
 
     constructor() {
-        uint256 chainId;
+        uint chainId;
         factory = msg.sender;
         assembly {
             chainId := chainid()
         }
         DOMAIN_SEPARATOR = keccak256(
             abi.encode(
-                keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"),
+                keccak256("EIP712Domain(string name,string version,uint chainId,address verifyingContract)"),
                 keccak256(bytes(name)),
                 keccak256(bytes("1")),
                 chainId,
@@ -125,13 +125,13 @@ contract XPair is IXPair {
         status = ListStatus.Enlisted;
     }
 
-    function _mint(address to, uint256 value) internal {
+    function _mint(address to, uint value) internal {
         totalSupply = totalSupply.add(value);
         balanceOf[to] = balanceOf[to].add(value);
         emit Transfer(address(0), to, value);
     }
 
-    function _burn(address from, uint256 value) internal {
+    function _burn(address from, uint value) internal {
         balanceOf[from] = balanceOf[from].sub(value);
         totalSupply = totalSupply.sub(value);
         emit Transfer(from, address(0), value);
@@ -140,7 +140,7 @@ contract XPair is IXPair {
     function _approve(
         address owner,
         address spender,
-        uint256 value
+        uint value
     ) private {
         allowance[owner][spender] = value;
         emit Approval(owner, spender, value);
@@ -149,19 +149,19 @@ contract XPair is IXPair {
     function _transfer(
         address from,
         address to,
-        uint256 value
+        uint value
     ) private {
         balanceOf[from] -= value;
         balanceOf[to] += value;
         emit Transfer(from, to, value);
     }
 
-    function approve(address spender, uint256 value) external override returns (bool) {
+    function approve(address spender, uint value) external override returns (bool) {
         _approve(msg.sender, spender, value);
         return true;
     }
 
-    function transfer(address to, uint256 value) external override returns (bool) {
+    function transfer(address to, uint value) external override returns (bool) {
         _transfer(msg.sender, to, value);
         return true;
     }
@@ -169,9 +169,9 @@ contract XPair is IXPair {
     function transferFrom(
         address from,
         address to,
-        uint256 value
+        uint value
     ) external override returns (bool) {
-        if (from != msg.sender && allowance[from][msg.sender] != type(uint256).max) {
+        if (from != msg.sender && allowance[from][msg.sender] != type(uint).max) {
             allowance[from][msg.sender] -= value;
         }
         _transfer(from, to, value);
@@ -181,8 +181,8 @@ contract XPair is IXPair {
     function permit(
         address owner,
         address spender,
-        uint256 value,
-        uint256 deadline,
+        uint value,
+        uint deadline,
         uint8 v,
         bytes32 r,
         bytes32 s
@@ -209,8 +209,8 @@ contract XPair is IXPair {
 
     // update reserves and, on the first call per block, price accumulators
     function _update(
-        uint256 balance0,
-        uint256 balance1,
+        uint balance0,
+        uint balance1,
         uint112 _reserve0,
         uint112 _reserve1
     ) private {
@@ -219,8 +219,8 @@ contract XPair is IXPair {
         uint32 timeElapsed = blockTimestamp - blockTimestampLast; // blockTimestampLast: zero initially
         if (timeElapsed > 0 && _reserve0 != 0 && _reserve1 != 0) {  // first call per block && ...
             // * never overflows, as timeElanpsed < 2**32
-            price0CumulativeLast += (uint256(UQ112x112.encode(_reserve1).uqdiv(_reserve0)) * timeElapsed);
-            price1CumulativeLast += (uint256(UQ112x112.encode(_reserve0).uqdiv(_reserve1)) * timeElapsed);
+            price0CumulativeLast += (uint(UQ112x112.encode(_reserve1).uqdiv(_reserve0)) * timeElapsed);
+            price1CumulativeLast += (uint(UQ112x112.encode(_reserve0).uqdiv(_reserve1)) * timeElapsed);
         }
         reserve0 = uint112(balance0);
         reserve1 = uint112(balance1);
@@ -232,15 +232,15 @@ contract XPair is IXPair {
     function _mintFee(uint112 _reserve0, uint112 _reserve1) private returns (bool feeOn) {
         address feeTo = IXFactory(factory).feeTo();
         feeOn = feeTo != address(0);
-        uint256 _kLast = kLast; // gas savings
+        uint _kLast = kLast; // gas savings
         if (feeOn) {
             if (_kLast != 0) {
-                uint256 rootK = SafeMath.sqrt(uint256(_reserve0).mul(_reserve1));
-                uint256 rootKLast = SafeMath.sqrt(_kLast);
+                uint rootK = SafeMath.sqrt(uint(_reserve0).mul(_reserve1));
+                uint rootKLast = SafeMath.sqrt(_kLast);
                 if (rootK > rootKLast) {
-                    uint256 numerator = totalSupply.mul(rootK.sub(rootKLast));
-                    uint256 denominator = rootK.mul(3).add(rootKLast);
-                    uint256 liquidity = numerator / denominator;
+                    uint numerator = totalSupply.mul(rootK.sub(rootKLast));
+                    uint denominator = rootK.mul(3).add(rootKLast);
+                    uint liquidity = numerator / denominator;
                     if (liquidity > 0) _mint(feeTo, liquidity);
                 }
             }
@@ -250,15 +250,15 @@ contract XPair is IXPair {
     }
 
     // this low-level function should be called from a contract which performs important safety checks
-    function mint(address to) external override lock returns (uint256 liquidity) {
+    function mint(address to) external override lock returns (uint liquidity) {
         (uint112 _reserve0, uint112 _reserve1, ) = getReserves(); // gas savings
-        uint256 balance0 = IERC20(token0).balanceOf(address(this));
-        uint256 balance1 = IERC20(token1).balanceOf(address(this));
-        uint256 amount0 = balance0.sub(_reserve0);
-        uint256 amount1 = balance1.sub(_reserve1);
+        uint balance0 = IERC20(token0).balanceOf(address(this));
+        uint balance1 = IERC20(token1).balanceOf(address(this));
+        uint amount0 = balance0.sub(_reserve0);
+        uint amount1 = balance1.sub(_reserve1);
 
         bool feeOn = _mintFee(_reserve0, _reserve1);
-        uint256 _totalSupply = totalSupply; // gas savings, must be defined here since totalSupply can update in _mintFee
+        uint _totalSupply = totalSupply; // gas savings, must be defined here since totalSupply can update in _mintFee
         if (_totalSupply == 0) {
             liquidity = SafeMath.sqrt(amount0.mul(amount1)).sub(MINIMUM_LIQUIDITY);
             _mint(address(0), MINIMUM_LIQUIDITY); // ensure less shares than assets
@@ -270,21 +270,21 @@ contract XPair is IXPair {
         _mint(to, liquidity);
 
         _update(balance0, balance1, _reserve0, _reserve1);
-        if (feeOn) kLast = uint256(reserve0).mul(reserve1); // reserve0 and reserve1 are up-to-date
+        if (feeOn) kLast = uint(reserve0).mul(reserve1); // reserve0 and reserve1 are up-to-date
         emit Mint(msg.sender, amount0, amount1);
     }
 
     // this low-level function should be called from a contract which performs important safety checks
-    function burn(address to) external override lock returns (uint256 amount0, uint256 amount1) {
+    function burn(address to) external override lock returns (uint amount0, uint amount1) {
         (uint112 _reserve0, uint112 _reserve1, ) = getReserves(); // gas savings
         address _token0 = token0; // gas savings
         address _token1 = token1; // gas savings
-        uint256 balance0 = IERC20(_token0).balanceOf(address(this));
-        uint256 balance1 = IERC20(_token1).balanceOf(address(this));
-        uint256 liquidity = balanceOf[address(this)];
+        uint balance0 = IERC20(_token0).balanceOf(address(this));
+        uint balance1 = IERC20(_token1).balanceOf(address(this));
+        uint liquidity = balanceOf[address(this)];
 
         bool feeOn = _mintFee(_reserve0, _reserve1);
-        uint256 _totalSupply = totalSupply; // gas savings, must be defined after _mintFee since totalSupply may update
+        uint _totalSupply = totalSupply; // gas savings, must be defined after _mintFee since totalSupply may update
         amount0 = liquidity.mul(balance0) / _totalSupply; // using balances ensures pro-rata distribution
         amount1 = liquidity.mul(balance1) / _totalSupply; // using balances ensures pro-rata distribution
         require(amount0 > 0 && amount1 > 0, "No token to take after burn");
@@ -295,25 +295,25 @@ contract XPair is IXPair {
         balance1 = IERC20(_token1).balanceOf(address(this));
 
         _update(balance0, balance1, _reserve0, _reserve1);
-        if (feeOn) kLast = uint256(reserve0).mul(reserve1); // reserve0 and reserve1 are up-to-date
+        if (feeOn) kLast = uint(reserve0).mul(reserve1); // reserve0 and reserve1 are up-to-date
         emit Burn(msg.sender, amount0, amount1, to);
     }
 
-    function sim_burn(uint256 liquidity) external view override returns (uint256 amount0, uint256 amount1) {
+    function sim_burn(uint liquidity) external view override returns (uint amount0, uint amount1) {
         address _token0 = token0; // gas savings
         address _token1 = token1; // gas savings
-        uint256 balance0 = IERC20(_token0).balanceOf(address(this));
-        uint256 balance1 = IERC20(_token1).balanceOf(address(this));
+        uint balance0 = IERC20(_token0).balanceOf(address(this));
+        uint balance1 = IERC20(_token1).balanceOf(address(this));
 
-        uint256 _totalSupply = totalSupply; // gas savings, must be defined here since totalSupply can update in _mintFee
+        uint _totalSupply = totalSupply; // gas savings, must be defined here since totalSupply can update in _mintFee
         amount0 = liquidity.mul(balance0) / _totalSupply; // using balances ensures pro-rata distribution
         amount1 = liquidity.mul(balance1) / _totalSupply; // using balances ensures pro-rata distribution
     }
 
     // this low-level function should be called from a contract which performs important safety checks
     function swap(
-        uint256 amount0Out,
-        uint256 amount1Out,
+        uint amount0Out,
+        uint amount1Out,
         address to,
         bytes calldata data
     ) external override lock {
@@ -321,8 +321,8 @@ contract XPair is IXPair {
         (uint112 _reserve0, uint112 _reserve1, ) = getReserves(); // gas savings
         require(amount0Out < _reserve0 && amount1Out < _reserve1, "XPair: Insufficient reserves for swap");
 
-        uint256 balance0;
-        uint256 balance1;
+        uint balance0;
+        uint balance1;
         {
             // scope for _token{0,1}, avoids stack too deep errors
             address _token0 = token0;
@@ -338,15 +338,15 @@ contract XPair is IXPair {
             balance0 = IERC20(_token0).balanceOf(address(this));
             balance1 = IERC20(_token1).balanceOf(address(this));
         }
-        uint256 amount0In = balance0 > _reserve0 - amount0Out ? balance0 - (_reserve0 - amount0Out) : 0;
-        uint256 amount1In = balance1 > _reserve1 - amount1Out ? balance1 - (_reserve1 - amount1Out) : 0;
+        uint amount0In = balance0 > _reserve0 - amount0Out ? balance0 - (_reserve0 - amount0Out) : 0;
+        uint amount1In = balance1 > _reserve1 - amount1Out ? balance1 - (_reserve1 - amount1Out) : 0;
         require(amount0In > 0 || amount1In > 0, "XPair: Insufficiend input amount");
         {
             // scope for reserve{0,1}Adjusted, avoids stack too deep errors
-            uint256 balance0Adjusted = balance0 * 10000 - amount0In * 17;
-            uint256 balance1Adjusted = balance1 * 10000 - amount1In * 17;
+            uint balance0Adjusted = balance0 * 10000 - amount0In * 17;
+            uint balance1Adjusted = balance1 * 10000 - amount1In * 17;
             require(
-                balance0Adjusted * balance1Adjusted >= uint256(_reserve0) * _reserve1 * 10000**2,
+                balance0Adjusted * balance1Adjusted >= uint(_reserve0) * _reserve1 * 10000**2,
                 "XPair: Invalid liquidity aftre swap"
             );
         }

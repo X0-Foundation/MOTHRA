@@ -20,9 +20,9 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "value",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "Approval",
@@ -39,15 +39,15 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount0",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount1",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": true,
@@ -70,15 +70,15 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount0",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount1",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "Mint",
@@ -95,27 +95,27 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount0In",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount1In",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount0Out",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount1Out",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": true,
@@ -163,9 +163,9 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "value",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "Transfer",
@@ -189,9 +189,9 @@
       "name": "MINIMUM_LIQUIDITY",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "pure",
@@ -226,9 +226,9 @@
       "name": "allowance",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -242,9 +242,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "value",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "approve",
@@ -269,9 +269,9 @@
       "name": "balanceOf",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -288,14 +288,14 @@
       "name": "burn",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount0",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount1",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",
@@ -355,9 +355,9 @@
       "name": "kLast",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -374,9 +374,9 @@
       "name": "mint",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "liquidity",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",
@@ -406,9 +406,9 @@
       "name": "nonces",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -427,14 +427,14 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "value",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "deadline",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "uint8",
@@ -462,9 +462,9 @@
       "name": "price0CumulativeLast",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -475,9 +475,9 @@
       "name": "price1CumulativeLast",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -499,14 +499,14 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount0Out",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount1Out",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "address",
@@ -575,9 +575,9 @@
       "name": "totalSupply",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -591,9 +591,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "value",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "transfer",
@@ -620,9 +620,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "value",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "transferFrom",

@@ -7,7 +7,7 @@ interface IKeep3rV1Proxy is IGovernable {
   // Structs
   struct Recipient {
     address recipient;
-    uint256 caps;
+    uint caps;
   }
 
   // Variables
@@ -15,9 +15,9 @@ interface IKeep3rV1Proxy is IGovernable {
 
   function minter() external view returns (address);
 
-  function next(address) external view returns (uint256);
+  function next(address) external view returns (uint);
 
-  function caps(address) external view returns (uint256);
+  function caps(address) external view returns (uint);
 
   function recipients() external view returns (address[] memory);
 
@@ -30,19 +30,19 @@ interface IKeep3rV1Proxy is IGovernable {
   error OnlyMinter();
 
   // Methods
-  function addRecipient(address recipient, uint256 amount) external;
+  function addRecipient(address recipient, uint amount) external;
 
   function removeRecipient(address recipient) external;
 
-  function draw() external returns (uint256 _amount);
+  function draw() external returns (uint _amount);
 
   function setKeep3rV1(address _keep3rV1) external;
 
   function setMinter(address _minter) external;
 
-  function mint(uint256 _amount) external;
+  function mint(uint _amount) external;
 
-  function mint(address _account, uint256 _amount) external;
+  function mint(address _account, uint _amount) external;
 
   function setKeep3rV1Governance(address _governance) external;
 
@@ -53,7 +53,7 @@ interface IKeep3rV1Proxy is IGovernable {
   function slash(
     address _bonded,
     address _keeper,
-    uint256 _amount
+    uint _amount
   ) external;
 
   function revoke(address _keeper) external;
@@ -64,7 +64,7 @@ interface IKeep3rV1Proxy is IGovernable {
 
   function removeJob(address _job) external;
 
-  function addKPRCredit(address _job, uint256 _amount) external;
+  function addKPRCredit(address _job, uint _amount) external;
 
   function approveLiquidity(address _liquidity) external;
 
@@ -72,7 +72,7 @@ interface IKeep3rV1Proxy is IGovernable {
 
   function setKeep3rHelper(address _keep3rHelper) external;
 
-  function addVotes(address _voter, uint256 _amount) external;
+  function addVotes(address _voter, uint _amount) external;
 
-  function removeVotes(address _voter, uint256 _amount) external;
+  function removeVotes(address _voter, uint _amount) external;
 }

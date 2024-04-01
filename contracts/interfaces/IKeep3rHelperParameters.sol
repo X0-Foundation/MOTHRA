@@ -27,15 +27,15 @@ interface IKeep3rHelperParameters {
 
   /// @notice Emitted when the minimum boost multiplier is changed
   /// @param _minBoost The minimum boost multiplier
-  event MinBoostChange(uint256 _minBoost);
+  event MinBoostChange(uint _minBoost);
 
   /// @notice Emitted when the maximum boost multiplier is changed
   /// @param _maxBoost The maximum boost multiplier
-  event MaxBoostChange(uint256 _maxBoost);
+  event MaxBoostChange(uint _maxBoost);
 
   /// @notice Emitted when the target bond amount is changed
   /// @param _targetBond The target bond amount
-  event TargetBondChange(uint256 _targetBond);
+  event TargetBondChange(uint _targetBond);
 
   /// @notice Emitted when the Keep3r V2 address is changed
   /// @param _keep3rV2 The address of Keep3r V2
@@ -43,7 +43,7 @@ interface IKeep3rHelperParameters {
 
   /// @notice Emitted when the work extra gas amount is changed
   /// @param _workExtraGas The work extra gas
-  event WorkExtraGasChange(uint256 _workExtraGas);
+  event WorkExtraGasChange(uint _workExtraGas);
 
   // /// @notice Emitted when the quote twap time is changed
   // /// @param _quoteTwapTime The twap time for quoting
@@ -58,7 +58,7 @@ interface IKeep3rHelperParameters {
 
   /// @notice The boost base used to calculate the boost rewards for the keeper
   /// @return _base The boost base number
-  function BOOST_BASE() external view returns (uint256 _base);
+  function BOOST_BASE() external view returns (uint _base);
 
   /// @notice KP3R-WETH pool that is being used as oracle
   /// @return poolAddress Address of the pool
@@ -68,22 +68,22 @@ interface IKeep3rHelperParameters {
   /// @notice The minimum multiplier used to calculate the amount of gas paid to the Keeper for the gas used to perform a job
   ///         For example: if the quoted gas used is 1000, then the minimum amount to be paid will be 1000 * minBoost / BOOST_BASE
   /// @return _multiplier The minimum boost multiplier
-  function minBoost() external view returns (uint256 _multiplier);
+  function minBoost() external view returns (uint _multiplier);
 
   /// @notice The maximum multiplier used to calculate the amount of gas paid to the Keeper for the gas used to perform a job
   ///         For example: if the quoted gas used is 1000, then the maximum amount to be paid will be 1000 * maxBoost / BOOST_BASE
   /// @return _multiplier The maximum boost multiplier
-  function maxBoost() external view returns (uint256 _multiplier);
+  function maxBoost() external view returns (uint _multiplier);
 
   /// @notice The targeted amount of bonded KP3Rs to max-up reward multiplier
   ///         For example: if the amount of KP3R the keeper has bonded is targetBond or more, then the keeper will get
   ///                      the maximum boost possible in his rewards, if it's less, the reward boost will be proportional
   /// @return _target The amount of KP3R that comforms the targetBond
-  function targetBond() external view returns (uint256 _target);
+  function targetBond() external view returns (uint _target);
 
   /// @notice The amount of unaccounted gas that is going to be added to keeper payments
   /// @return _workExtraGas The work unaccounted gas amount
-  function workExtraGas() external view returns (uint256 _workExtraGas);
+  function workExtraGas() external view returns (uint _workExtraGas);
 
   /// @notice The twap time for quoting
   /// @return _quoteTwapTime The twap time
@@ -101,15 +101,15 @@ interface IKeep3rHelperParameters {
 
   /// @notice Sets the minimum boost multiplier
   /// @param _minBoost The minimum boost multiplier
-  function setMinBoost(uint256 _minBoost) external;
+  function setMinBoost(uint _minBoost) external;
 
   /// @notice Sets the maximum boost multiplier
   /// @param _maxBoost The maximum boost multiplier
-  function setMaxBoost(uint256 _maxBoost) external;
+  function setMaxBoost(uint _maxBoost) external;
 
   /// @notice Sets the target bond amount
   /// @param _targetBond The target bond amount
-  function setTargetBond(uint256 _targetBond) external;
+  function setTargetBond(uint _targetBond) external;
 
   /// @notice Sets the Keep3r V2 address
   /// @param _keep3rV2 The address of Keep3r V2
@@ -117,7 +117,7 @@ interface IKeep3rHelperParameters {
 
   /// @notice Sets the work extra gas amount
   /// @param _workExtraGas The work extra gas
-  function setWorkExtraGas(uint256 _workExtraGas) external;
+  function setWorkExtraGas(uint _workExtraGas) external;
 
   /// @notice Sets the quote twap time
   /// @param _quoteTwapTime The twap time for quoting

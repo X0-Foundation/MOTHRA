@@ -57,14 +57,14 @@ const _abi = [
         type: "int256",
       },
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "startedAt",
-        type: "uint256",
+        type: "uint",
       },
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "updatedAt",
-        type: "uint256",
+        type: "uint",
       },
       {
         internalType: "uint80",
@@ -90,14 +90,14 @@ const _abi = [
         type: "int256",
       },
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "startedAt",
-        type: "uint256",
+        type: "uint",
       },
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "updatedAt",
-        type: "uint256",
+        type: "uint",
       },
       {
         internalType: "uint80",
@@ -113,9 +113,9 @@ const _abi = [
     name: "version",
     outputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "",
-        type: "uint256",
+        type: "uint",
       },
     ],
     stateMutability: "view",

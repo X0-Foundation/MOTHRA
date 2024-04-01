@@ -27,27 +27,27 @@ interface IKeep3rParameters is IBaseErrors {
 
   /// @notice Emitted when bondTime is changed
   /// @param _bondTime The new bondTime
-  event BondTimeChange(uint256 _bondTime);
+  event BondTimeChange(uint _bondTime);
 
   /// @notice Emitted when _liquidityMinimum is changed
   /// @param _liquidityMinimum The new _liquidityMinimum
-  event LiquidityMinimumChange(uint256 _liquidityMinimum);
+  event LiquidityMinimumChange(uint _liquidityMinimum);
 
   /// @notice Emitted when _unbondTime is changed
   /// @param _unbondTime The new _unbondTime
-  event UnbondTimeChange(uint256 _unbondTime);
+  event UnbondTimeChange(uint _unbondTime);
 
   /// @notice Emitted when _rewardPeriodTime is changed
   /// @param _rewardPeriodTime The new _rewardPeriodTime
-  event RewardPeriodTimeChange(uint256 _rewardPeriodTime);
+  event RewardPeriodTimeChange(uint _rewardPeriodTime);
 
   /// @notice Emitted when the inflationPeriod is changed
   /// @param _inflationPeriod The new inflationPeriod
-  event InflationPeriodChange(uint256 _inflationPeriod);
+  event InflationPeriodChange(uint _inflationPeriod);
 
   /// @notice Emitted when the fee is changed
   /// @param _fee The new token credits fee
-  event FeeChange(uint256 _fee);
+  event FeeChange(uint _fee);
 
   // Variables
 
@@ -69,27 +69,27 @@ interface IKeep3rParameters is IBaseErrors {
 
   /// @notice The amount of time required to pass after a keeper has bonded assets for it to be able to activate
   /// @return _days The required bondTime in days
-  function bondTime() external view returns (uint256 _days);
+  function bondTime() external view returns (uint _days);
 
   /// @notice The amount of time required to pass before a keeper can unbond what he has bonded
   /// @return _days The required unbondTime in days
-  function unbondTime() external view returns (uint256 _days);
+  function unbondTime() external view returns (uint _days);
 
   /// @notice The minimum amount of liquidity required to fund a job per liquidity
   /// @return _amount The minimum amount of liquidity in KP3R
-  // function liquidityMinimum() external view returns (uint256 _amount);
+  // function liquidityMinimum() external view returns (uint _amount);
 
   /// @notice The amount of time between each scheduled credits reward given to a job
   /// @return _days The reward period in days
-  // function rewardPeriodTime() external view returns (uint256 _days);
+  // function rewardPeriodTime() external view returns (uint _days);
 
   /// @notice The inflation period is the denominator used to regulate the emission of KP3R
   /// @return _period The denominator used to regulate the emission of KP3R
-  // function inflationPeriod() external view returns (uint256 _period);
+  // function inflationPeriod() external view returns (uint _period);
 
   /// @notice The fee to be sent to governance when a user adds liquidity to a job
   /// @return _amount The fee amount to be sent to governance when a user adds liquidity to a job
-  function fee() external view returns (uint256 _amount);
+  function fee() external view returns (uint _amount);
 
   // Errors
 
@@ -131,25 +131,25 @@ interface IKeep3rParameters is IBaseErrors {
 
   /// @notice Sets the bond time required to activate as a keeper
   /// @param _bond The new bond time
-  function setBondTime(uint256 _bond) external;
+  function setBondTime(uint _bond) external;
 
   /// @notice Sets the unbond time required unbond what has been bonded
   /// @param _unbond The new unbond time
-  function setUnbondTime(uint256 _unbond) external;
+  function setUnbondTime(uint _unbond) external;
 
   /// @notice Sets the minimum amount of liquidity required to fund a job
   /// @param _liquidityMinimum The new minimum amount of liquidity
-  // function setLiquidityMinimum(uint256 _liquidityMinimum) external;
+  // function setLiquidityMinimum(uint _liquidityMinimum) external;
 
   /// @notice Sets the time required to pass between rewards for jobs
   /// @param _rewardPeriodTime The new amount of time required to pass between rewards
-  // function setRewardPeriodTime(uint256 _rewardPeriodTime) external;
+  // function setRewardPeriodTime(uint _rewardPeriodTime) external;
 
   /// @notice Sets the new inflation period
   /// @param _inflationPeriod The new inflation period
-  // function setInflationPeriod(uint256 _inflationPeriod) external;
+  // function setInflationPeriod(uint _inflationPeriod) external;
 
   /// @notice Sets the new fee
   /// @param _fee The new fee
-  function setFee(uint256 _fee) external;
+  function setFee(uint _fee) external;
 }

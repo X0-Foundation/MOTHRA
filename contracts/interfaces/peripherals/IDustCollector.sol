@@ -9,7 +9,7 @@ interface IDustCollector is IBaseErrors {
   /// @param _token The token that will be transferred
   /// @param _amount The amount of the token that will be transferred
   /// @param _to The address which will receive the funds
-  event DustSent(address _token, uint256 _amount, address _to);
+  event DustSent(address _token, uint _amount, address _to);
 
   /// @notice Allows an authorized user to transfer the tokens or eth that may have been left in a contract
   /// @param _token The token that will be transferred
@@ -17,7 +17,7 @@ interface IDustCollector is IBaseErrors {
   /// @param _to The address that will receive the idle funds
   function sendDust(
     address _token,
-    uint256 _amount,
+    uint _amount,
     address _to
   ) external;
 }

@@ -61,9 +61,9 @@ const _abi = [
       },
       {
         indexed: false,
-        internalType: "uint256",
+        internalType: "uint",
         name: "commission",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "ReferralCommissionRecorded",
@@ -99,9 +99,9 @@ const _abi = [
     name: "countReferrals",
     outputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "",
-        type: "uint256",
+        type: "uint",
       },
     ],
     stateMutability: "view",
@@ -115,9 +115,9 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "_debit",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "debitOutstandingCommission",
@@ -136,9 +136,9 @@ const _abi = [
     name: "getOutstandingCommission",
     outputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "amount",
-        type: "uint256",
+        type: "uint",
       },
     ],
     stateMutability: "view",
@@ -174,9 +174,9 @@ const _abi = [
     name: "outstandingCommissions",
     outputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "",
-        type: "uint256",
+        type: "uint",
       },
     ],
     stateMutability: "view",
@@ -234,9 +234,9 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "_commission",
-        type: "uint256",
+        type: "uint",
       },
     ],
     name: "recordReferralCommission",
@@ -294,9 +294,9 @@ const _abi = [
     name: "totalReferralCommissions",
     outputs: [
       {
-        internalType: "uint256",
+        internalType: "uint",
         name: "",
-        type: "uint256",
+        type: "uint",
       },
     ],
     stateMutability: "view",

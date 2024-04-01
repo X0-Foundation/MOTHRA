@@ -25,7 +25,6 @@ interface ITGRTokenInterface extends ethers.utils.Interface {
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "burn(address,uint256)": FunctionFragment;
-    "bury(address,uint256)": FunctionFragment;
     "maxSupply()": FunctionFragment;
     "mint(address,uint256)": FunctionFragment;
     "totalSupply()": FunctionFragment;
@@ -45,10 +44,6 @@ interface ITGRTokenInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
   encodeFunctionData(
     functionFragment: "burn",
-    values: [string, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "bury",
     values: [string, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "maxSupply", values?: undefined): string;
@@ -77,7 +72,6 @@ interface ITGRTokenInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "bury", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "maxSupply", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
   decodeFunctionResult(
@@ -179,12 +173,6 @@ export class ITGRToken extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    bury(
-      from: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     maxSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     mint(
@@ -236,12 +224,6 @@ export class ITGRToken extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  bury(
-    from: string,
-    amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   maxSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
   mint(
@@ -288,12 +270,6 @@ export class ITGRToken extends BaseContract {
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     burn(
-      from: string,
-      amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    bury(
       from: string,
       amount: BigNumberish,
       overrides?: CallOverrides
@@ -389,12 +365,6 @@ export class ITGRToken extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    bury(
-      from: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     maxSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
     mint(
@@ -445,12 +415,6 @@ export class ITGRToken extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     burn(
-      from: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    bury(
       from: string,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }

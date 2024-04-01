@@ -8,6 +8,6 @@ import "./interfaces/ISessionFees.sol";
 abstract contract SessionFees is ISessionFees {
 
     modifier onlySessionManager virtual;
-    function payFeeTgrLogic(address account, uint256 principal, FeeRates calldata rates, bool fromAllowance) 
-    public override virtual onlySessionManager returns (uint256 feesPaid) {}
+    function payFeeTgrLogic(address account, uint principal, FeeRates calldata rates, bool fromAllowance) 
+    public override virtual onlySessionManager returns (uint feesPaid) {}
 }

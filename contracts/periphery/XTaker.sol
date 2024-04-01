@@ -20,11 +20,11 @@ import "./interfaces/IWETH.sol";
 import "hardhat/console.sol";
 
 interface IBalanceLedger {
-    function balanceOf(address account) external view returns (uint256);
+    function balanceOf(address account) external view returns (uint);
 }
 
 contract XTaker is Node, IXTaker, Ownable, SessionManager {
-    using SafeMath for uint256;
+    using SafeMath for uint;
 
     address public immutable override WETH;
 
@@ -36,7 +36,7 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
     string private sExcessiveInput = "XTaker: Excessive input amount";
     string private sExpired = "XTaker: Expired";
 
-    modifier ensure(uint256 deadline) {
+    modifier ensure(uint deadline) {
         require(deadline >= block.timestamp, sExpired);
         _;
     }
@@ -72,11 +72,11 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
     // **** SWAP ****
     // requires the initial amount to have already been sent to the first pair
     function _swap_controlled(
-        uint256[] memory amounts,
+        uint[] memory amounts,
         address[] memory path,
         address to
     ) internal virtual {
-        for (uint256 i; i < path.length - 1; i++) {
+        for (uint i; i < path.length - 1; i++) {
             (address input, address output) = (path[i], path[i + 1]);
 
             (PairSnapshot memory pairSnapshot, bool isNichePair) = IControlCenter(nodes.center).captureInitialPairState(
@@ -87,8 +87,8 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
 
             address pair = pairFor[input][output];
             (address token0, ) = XLibrary.sortTokens(input, output); //pairs[address(pair)].token0;
-            uint256 amountOut = amounts[i + 1];
-            (uint256 amount0Out, uint256 amount1Out) = input == token0 ? (uint256(0), amountOut) : (amountOut, uint256(0));
+            uint amountOut = amounts[i + 1];
+            (uint amount0Out, uint amount1Out) = input == token0 ? (uint(0), amountOut) : (amountOut, uint(0));
             address _to = i < path.length - 2 ? pairFor[output][path[i + 2]] : to;
             IXPair(pair).swap(amount0Out, amount1Out, _to, new bytes(0));
 
@@ -97,29 +97,29 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
     }
 
     function _swap(
-        uint256[] memory amounts,
+        uint[] memory amounts,
         address[] memory path,
         address to
     ) internal virtual {
-        for (uint256 i; i < path.length - 1; i++) {
+        for (uint i; i < path.length - 1; i++) {
             (address input, address output) = (path[i], path[i + 1]);
             address pair = pairFor[input][output];
             (address token0, ) = XLibrary.sortTokens(input, output); //pairs[address(pair)].token0;
 
-            uint256 amountOut = amounts[i + 1];
-            (uint256 amount0Out, uint256 amount1Out) = input == token0 ? (uint256(0), amountOut) : (amountOut, uint256(0));
+            uint amountOut = amounts[i + 1];
+            (uint amount0Out, uint amount1Out) = input == token0 ? (uint(0), amountOut) : (amountOut, uint(0));
             address _to = i < path.length - 2 ? pairFor[output][path[i + 2]] : to;
             IXPair(pair).swap(amount0Out, amount1Out, _to, new bytes(0));
         }
     }
 
     function swapExactTokensForTokens(
-        uint256 amountIn,
-        uint256 amountOutMin,
+        uint amountIn,
+        uint amountOutMin,
         address[] calldata path,
         address to,
-        uint256 deadline
-    ) external virtual override ensure(deadline) returns (uint256[] memory amounts) {
+        uint deadline
+    ) external virtual override ensure(deadline) returns (uint[] memory amounts) {
         _openAction(ActionType.Swap, true);
 
         amountIn -= _payTransactonFee(path[0], msg.sender, amountIn, true);
@@ -132,11 +132,11 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
     }
 
     function wired_swapExactTokensForTokens(
-        uint256 amountIn,
-        uint256 amountOutMin,
+        uint amountIn,
+        uint amountOutMin,
         address[] calldata path,
         address to
-    ) external virtual override returns (uint256[] memory amounts) {
+    ) external virtual override returns (uint[] memory amounts) {
         require(_msgSender() == nodes.token, sForbidden);
 
         amounts = XLibrary.getAmountsOut(nodes.factory, amountIn, path);
@@ -146,19 +146,19 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
     }
 
     function sim_swapExactTokensForTokens(
-        uint256 amountIn,
+        uint amountIn,
         address[] calldata path
-    ) external view virtual override returns (uint256[] memory amounts) {
+    ) external view virtual override returns (uint[] memory amounts) {
         amounts = XLibrary.getAmountsOut(nodes.factory, amountIn, path);
     }
 
     function swapTokensForExactTokens(
-        uint256 amountOut,
-        uint256 amountInMax,
+        uint amountOut,
+        uint amountInMax,
         address[] calldata path,
         address to,
-        uint256 deadline
-    ) external virtual override ensure(deadline) returns (uint256[] memory amounts) {
+        uint deadline
+    ) external virtual override ensure(deadline) returns (uint[] memory amounts) {
         _openAction(ActionType.Swap, true);
 
         amounts = XLibrary.getAmountsIn(nodes.factory, amountOut, path);
@@ -166,7 +166,7 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
         //uint b0 = IERC20(path[0]).balanceOf(pairFor[path[0]][path[1]]);
         XLibrary.lightTransferFrom(path[0], msg.sender, pairFor[path[0]][path[1]], amounts[0], nodes.token);
         _swap_controlled(amounts, path, address(this));
-        uint256 last = path.length - 1;
+        uint last = path.length - 1;
         amounts[last] -= _payTransactonFee(path[last], address(this), amounts[last], false);
         XLibrary.lightTransferFrom(path[last], address(this), to, amounts[last], nodes.token);
 
@@ -174,16 +174,16 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
     }
 
     function swapExactETHForTokens(
-        uint256 amountOutMin,
+        uint amountOutMin,
         address[] calldata path,
         address to,
-        uint256 deadline
-    ) external payable virtual override ensure(deadline) returns (uint256[] memory amounts) {
+        uint deadline
+    ) external payable virtual override ensure(deadline) returns (uint[] memory amounts) {
         _openAction(ActionType.Swap, true);
 
         require(path[0] == WETH, sInvalidPath);
         IWETH(WETH).deposit{value: msg.value}();
-        uint256 amountIn = msg.value;
+        uint amountIn = msg.value;
         amountIn -= _payTransactonFee(path[0], address(this), amountIn, true);
         amounts = XLibrary.getAmountsOut(nodes.factory, amountIn, path);
         require(amounts[amounts.length - 1] >= amountOutMin, sInsufficientOutput);
@@ -194,12 +194,12 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
     }
 
     function swapTokensForExactETH(
-        uint256 amountOut,
-        uint256 amountInMax,
+        uint amountOut,
+        uint amountInMax,
         address[] calldata path,
         address to,
-        uint256 deadline
-    ) external virtual override ensure(deadline) returns (uint256[] memory amounts) {
+        uint deadline
+    ) external virtual override ensure(deadline) returns (uint[] memory amounts) {
         _openAction(ActionType.Swap, true);
 
         require(path[path.length - 1] == WETH, sInvalidPath);
@@ -207,7 +207,7 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
         require(amounts[0] <= amountInMax, sExcessiveInput);
         XLibrary.lightTransferFrom(path[0], msg.sender, pairFor[path[0]][path[1]], amounts[0], nodes.token);
         _swap_controlled(amounts, path, address(this));
-        uint256 last = path.length - 1;
+        uint last = path.length - 1;
         amounts[last] -= _payTransactonFee(path[last], address(this), amounts[last], false);
         IWETH(WETH).withdraw(amounts[last]);
         TransferHelper.safeTransferETH(to, amounts[last]);
@@ -216,12 +216,12 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
     }
 
     function swapExactTokensForETH(
-        uint256 amountIn,
-        uint256 amountOutMin,
+        uint amountIn,
+        uint amountOutMin,
         address[] calldata path,
         address to,
-        uint256 deadline
-    ) external virtual override ensure(deadline) returns (uint256[] memory amounts) {
+        uint deadline
+    ) external virtual override ensure(deadline) returns (uint[] memory amounts) {
         _openAction(ActionType.Swap, true);
 
         require(path[path.length - 1] == WETH, sInvalidPath);
@@ -237,21 +237,21 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
     }
 
     function swapETHForExactTokens(
-        uint256 amountOut,
+        uint amountOut,
         address[] calldata path,
         address to,
-        uint256 deadline
-    ) external payable virtual override ensure(deadline) returns (uint256[] memory amounts) {
+        uint deadline
+    ) external payable virtual override ensure(deadline) returns (uint[] memory amounts) {
         _openAction(ActionType.Swap, true);
 
         require(path[0] == WETH, sInvalidPath);
         amounts = XLibrary.getAmountsIn(nodes.factory, amountOut, path);
         require(amounts[0] <= msg.value, sExcessiveInput);
         IWETH(WETH).deposit{value: amounts[0]}();
-        uint256 amountIn = amounts[0];
+        uint amountIn = amounts[0];
         assert(IWETH(WETH).transfer(pairFor[path[0]][path[1]], amounts[0]));
         _swap_controlled(amounts, path, address(this));
-        uint256 last = path.length - 1;
+        uint last = path.length - 1;
         amounts[last] -= _payTransactonFee(path[path.length-1], address(this), amounts[last], false);
         XLibrary.lightTransferFrom(path[last], address(this), to, amounts[last], nodes.token);
 
@@ -263,7 +263,7 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
     // **** SWAP (supporting fee-on-transfer tokens) ****
     // requires the initial amount to have already been sent to the first pair
     function _swapSupportingFeeOnTransferTokens(address[] memory path, address to) internal virtual {
-        for (uint256 i; i < path.length - 1; i++) {
+        for (uint i; i < path.length - 1; i++) {
             (address input, address output) = (path[i], path[i + 1]);
 
             (PairSnapshot memory pairSnapshot, bool isNichePair) = IControlCenter(nodes.center).captureInitialPairState(
@@ -290,17 +290,17 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
     }
 
     function swapExactTokensForTokensSupportingFeeOnTransferTokens(
-        uint256 amountIn,
-        uint256 amountOutMin,
+        uint amountIn,
+        uint amountOutMin,
         address[] calldata path,
         address to,
-        uint256 deadline
+        uint deadline
     ) external virtual override ensure(deadline) {
         _openAction(ActionType.Swap, true);
 
         amountIn -= _payTransactonFee(path[0], msg.sender, amountIn, true);
         XLibrary.lightTransferFrom(path[0], msg.sender, pairFor[path[0]][path[1]], amountIn, nodes.token);
-        uint256 balanceBefore = IERC20(path[path.length - 1]).balanceOf(to);
+        uint balanceBefore = IERC20(path[path.length - 1]).balanceOf(to);
         _swapSupportingFeeOnTransferTokens(path, to);
         require(IERC20(path[path.length - 1]).balanceOf(to) - balanceBefore >= amountOutMin, sInsufficientOutput);
 
@@ -308,19 +308,19 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
     }
 
     function swapExactETHForTokensSupportingFeeOnTransferTokens(
-        uint256 amountOutMin,
+        uint amountOutMin,
         address[] calldata path,
         address to,
-        uint256 deadline
+        uint deadline
     ) external payable virtual override ensure(deadline) {
         _openAction(ActionType.Swap, true);
 
         require(path[0] == WETH, sInvalidPath);
-        uint256 amountIn = msg.value;
+        uint amountIn = msg.value;
         IWETH(WETH).deposit{value: amountIn}();
         amountIn -= _payTransactonFee(path[0], address(this), amountIn, true);
         assert(IWETH(WETH).transfer(pairFor[path[0]][path[1]], amountIn));
-        uint256 balanceBefore = IERC20(path[path.length - 1]).balanceOf(to);
+        uint balanceBefore = IERC20(path[path.length - 1]).balanceOf(to);
         _swapSupportingFeeOnTransferTokens(path, to);
         require(IERC20(path[path.length - 1]).balanceOf(to) - balanceBefore >= amountOutMin, sInsufficientOutput);
 
@@ -328,11 +328,11 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
     }
 
     function swapExactTokensForETHSupportingFeeOnTransferTokens(
-        uint256 amountIn,
-        uint256 amountOutMin,
+        uint amountIn,
+        uint amountOutMin,
         address[] calldata path,
         address to,
-        uint256 deadline
+        uint deadline
     ) external virtual override ensure(deadline) {
         _openAction(ActionType.Swap, true);
 
@@ -340,7 +340,7 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
         amountIn -= _payTransactonFee(path[0], msg.sender, amountIn, true);
         XLibrary.lightTransferFrom(path[0], msg.sender, pairFor[path[0]][path[1]], amountIn, nodes.token);
         _swapSupportingFeeOnTransferTokens(path, address(this));
-        uint256 amountOut = IERC20(WETH).balanceOf(address(this));
+        uint amountOut = IERC20(WETH).balanceOf(address(this));
         require(amountOut >= amountOutMin, sInsufficientOutput);
         IWETH(WETH).withdraw(amountOut);
         TransferHelper.safeTransferETH(to, amountOut);
@@ -351,9 +351,9 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
     function _payTransactonFee(
         address payerToken,
         address payerAddress,
-        uint256 principal,
+        uint principal,
         bool fromAllowance
-    ) internal virtual returns (uint256 feesPaid) {
+    ) internal virtual returns (uint feesPaid) {
         if (actionParams.isUserAction && principal > 0) {
             if (payerToken == nodes.token) {
                 feesPaid = _payFeeTgr(payerAddress, principal, feeRates[actionParams.actionType], fromAllowance);
@@ -372,45 +372,45 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
 
     // **** LIBRARY FUNCTIONS ****
     function quote(
-        uint256 amountA,
-        uint256 reserveA,
-        uint256 reserveB
-    ) public pure virtual override returns (uint256 amountB) {
+        uint amountA,
+        uint reserveA,
+        uint reserveB
+    ) public pure virtual override returns (uint amountB) {
         return XLibrary.quote(amountA, reserveA, reserveB);
     }
 
     function getAmountOut(
-        uint256 amountIn,
-        uint256 reserveIn,
-        uint256 reserveOut
-    ) public pure virtual override returns (uint256 amountOut) {
+        uint amountIn,
+        uint reserveIn,
+        uint reserveOut
+    ) public pure virtual override returns (uint amountOut) {
         return XLibrary.getAmountOut(amountIn, reserveIn, reserveOut);
     }
 
     function getAmountIn(
-        uint256 amountOut,
-        uint256 reserveIn,
-        uint256 reserveOut
-    ) public pure virtual override returns (uint256 amountIn) {
+        uint amountOut,
+        uint reserveIn,
+        uint reserveOut
+    ) public pure virtual override returns (uint amountIn) {
         return XLibrary.getAmountIn(amountOut, reserveIn, reserveOut);
     }
 
-    function getAmountsOut(uint256 amountIn, address[] memory path)
+    function getAmountsOut(uint amountIn, address[] memory path)
         public
         view
         virtual
         override
-        returns (uint256[] memory amounts)
+        returns (uint[] memory amounts)
     {
         return XLibrary.getAmountsOut(nodes.factory, amountIn, path);
     }
 
-    function getAmountsIn(uint256 amountOut, address[] memory path)
+    function getAmountsIn(uint amountOut, address[] memory path)
         public
         view
         virtual
         override
-        returns (uint256[] memory amounts)
+        returns (uint[] memory amounts)
     {
         return XLibrary.getAmountsIn(nodes.factory, amountOut, path);
     }

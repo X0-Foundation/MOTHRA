@@ -14,9 +14,9 @@ import "hardhat/console.sol";
 contract ControlCenter is IControlCenter, Node, Ownable {
 
     struct PairStateSessionTagged {
-        uint256 reserve0;
-        uint256 reserve1;
-        uint256 sessionTag;
+        uint reserve0;
+        uint reserve1;
+        uint sessionTag;
     }
     struct CLFeed {
         uint64 deviation;
@@ -27,12 +27,12 @@ contract ControlCenter is IControlCenter, Node, Ownable {
     }
 
     mapping(address => PairStateSessionTagged) pairStateAtSessionDetect;
-    uint256 public sessionPriceChangeLimit;
+    uint public sessionPriceChangeLimit;
 
-    uint256 public sessionLiquidityChangeLimit = 5000; // 5% remove.
+    uint public sessionLiquidityChangeLimit = 5000; // 5% remove.
 
-    uint256 constant sqaureMagnifier = FeeMagnifier * FeeMagnifier;
-    uint256 private constant safety = 1e2;
+    uint constant sqaureMagnifier = FeeMagnifier * FeeMagnifier;
+    uint private constant safety = 1e2;
 
     constructor() Ownable() Node(NodeType.Center) {
         _initializeBnbMainNetCLFeeds(); 
@@ -46,23 +46,23 @@ contract ControlCenter is IControlCenter, Node, Ownable {
     }
 
     function ruleOutInvalidLiquidity(PairSnapshot memory ps) external view override virtual {
-        uint256 squareLiquidity = ps.reserve0 * ps.reserve1 * safety;
-        uint256 prevSquareLiquidity = pairStateAtSessionDetect[ps.pair].reserve0 * pairStateAtSessionDetect[ps.pair].reserve1;
-        uint256 squareExponent = (FeeMagnifier + sessionLiquidityChangeLimit);
+        uint squareLiquidity = ps.reserve0 * ps.reserve1 * safety;
+        uint prevSquareLiquidity = pairStateAtSessionDetect[ps.pair].reserve0 * pairStateAtSessionDetect[ps.pair].reserve1;
+        uint squareExponent = (FeeMagnifier + sessionLiquidityChangeLimit);
         squareExponent = squareExponent * squareExponent;
-        uint256 squareMin = prevSquareLiquidity * sqaureMagnifier * safety / squareExponent; // uint256 can accommodate 1e77. 1e15 tokens possible.
-        uint256 squareMax = prevSquareLiquidity * squareExponent * safety / sqaureMagnifier;
+        uint squareMin = prevSquareLiquidity * sqaureMagnifier * safety / squareExponent; // uint can accommodate 1e77. 1e15 tokens possible.
+        uint squareMax = prevSquareLiquidity * squareExponent * safety / sqaureMagnifier;
 
         require(squareMin <= squareLiquidity && squareLiquidity <= squareMax, "Excessive deviation from initial liquidity");
         //console.log("liquidity control: OK", squareMin, squareLiquidity, squareMax);
     }
 
-    function setLiquidityChangeLimit(uint256 newLimit) external virtual onlyOwner {
+    function setLiquidityChangeLimit(uint newLimit) external virtual onlyOwner {
         require( 100 <= newLimit && newLimit <= 5000, "LiquidityChangeLimit out of range"); // 0.1% to 5.0%
         sessionLiquidityChangeLimit = newLimit;
     }
 
-    function capturePairStateAtSessionDetect(uint256 session, PairSnapshot memory pairSnapshot) public override virtual {
+    function capturePairStateAtSessionDetect(uint session, PairSnapshot memory pairSnapshot) public override virtual {
         if (pairStateAtSessionDetect[pairSnapshot.pair].sessionTag != session ) {
             pairStateAtSessionDetect[pairSnapshot.pair].reserve0 = pairSnapshot.reserve0;
             pairStateAtSessionDetect[pairSnapshot.pair].reserve1 = pairSnapshot.reserve1;
@@ -70,11 +70,11 @@ contract ControlCenter is IControlCenter, Node, Ownable {
         }
     }
     function _ruleOutDeviateFromInitialPrice(PairSnapshot memory ps) internal view virtual {
-        uint256 price = ps.reserve0 * 1e12 / ps.reserve1;
-        uint256 prevPrice = pairStateAtSessionDetect[ps.pair].reserve0 * 1e12 / pairStateAtSessionDetect[ps.pair].reserve1;
-        uint256 exponent = FeeMagnifier + sessionPriceChangeLimit;
-        uint256 min = prevPrice * FeeMagnifier / exponent;
-        uint256 max = prevPrice * exponent / FeeMagnifier;
+        uint price = ps.reserve0 * 1e12 / ps.reserve1;
+        uint prevPrice = pairStateAtSessionDetect[ps.pair].reserve0 * 1e12 / pairStateAtSessionDetect[ps.pair].reserve1;
+        uint exponent = FeeMagnifier + sessionPriceChangeLimit;
+        uint min = prevPrice * FeeMagnifier / exponent;
+        uint max = prevPrice * exponent / FeeMagnifier;
         require(min <= price && price <= max, "Excessive deviation from initial price");
         //console.log("Price control 1: OK", min, price, max);
     }
@@ -87,7 +87,7 @@ contract ControlCenter is IControlCenter, Node, Ownable {
             _ruleOutDeviateFromChainLinkPrice(pairSnapshot); // Compare current reserves to ChainLink. Use tokens and decimals.
         }
     }
-    function setPriceChangeLimit(uint256 newLimit) external virtual onlyOwner {
+    function setPriceChangeLimit(uint newLimit) external virtual onlyOwner {
         require( 100 <= newLimit && newLimit <= 5000, "Price limit out of range"); // 0.1% to 5.0%
        sessionPriceChangeLimit = newLimit;
     }
@@ -115,7 +115,7 @@ contract ControlCenter is IControlCenter, Node, Ownable {
     //.99498, .98994, .98488, .97979, .97467, .96953, .96436, .95916, .95393, .94868, 
     int32[] public zValuePerRuleOutPercent = [int32(280600), 257400, 242900, 232100, 223700, 216300, 210100, 204500, 199500, 194800];
     mapping(address => CLFeed) public chainlinkFeeds;
-    uint256 ruleOutPercent = 5;
+    uint ruleOutPercent = 5;
 
     int256 constant LinearM4 = int256(10 ** (FeeMagnifierPower + 4));
     int256 constant SquareM4 = LinearM4 ** 2;
@@ -131,8 +131,8 @@ contract ControlCenter is IControlCenter, Node, Ownable {
         (   /*uint80 roundID*/, int256 price1, /*uint startedAt*/, /*uint timeStamp*/, /*uint80 answeredInRound*/
         ) = AggregatorV3Interface(priceFeed1.proxy).latestRoundData();
 
-        int256 d0 = int256(uint256(priceFeed0.deviation)); 
-        int256 d1 = int256(uint256(priceFeed1.deviation));
+        int256 d0 = int256(uint(priceFeed0.deviation)); 
+        int256 d1 = int256(uint(priceFeed1.deviation));
         // Theory ... Do not remove.
         // sigma = price * priceFeed.deviation * 1e-4, as priceFeed.deviation = standard deviation percent * 100.
         // max = price + zScore / 10 ** M * sigma = price * E, as zScore is the z tale of Gaussian distribution.
@@ -160,7 +160,7 @@ contract ControlCenter is IControlCenter, Node, Ownable {
         int256 newPrice1e23  = _getPrice1e23(ps);
         (int256 minPrice1e23, int256 maxPrice1e23) = _getChainLinkPrice1e23Range(ps.token0, ps.token1);
         require(minPrice1e23 <= newPrice1e23 && newPrice1e23 <= maxPrice1e23, "Excessive deviation from ChainLink price");
-        //console.log("Price control 2: OK", uint256(minPrice1e23), uint256(newPrice1e23), uint256(maxPrice1e23));
+        //console.log("Price control 2: OK", uint(minPrice1e23), uint(newPrice1e23), uint(maxPrice1e23));
     }
 
     function _initializeBnbMainNetCLFeeds() internal virtual {

@@ -29,24 +29,24 @@ contract Keep3rJobDisputableForTest is Keep3rJobDisputable {
   //   _approvedLiquidities.remove(_liquidity);
   // }
 
-  // function internalJobLiquidityCredits(address _job) external view returns (uint256 _credits) {
+  // function internalJobLiquidityCredits(address _job) external view returns (uint _credits) {
   //   _credits = _jobLiquidityCredits[_job];
   // }
 
-  // function internalJobPeriodCredits(address _job) external view returns (uint256 _credits) {
+  // function internalJobPeriodCredits(address _job) external view returns (uint _credits) {
   //   _credits = _jobPeriodCredits[_job];
   // }
 
   function internalJobTokens(address _job) external view returns (address[] memory _tokens) {
     _tokens = new address[](_jobTokens[_job].length());
-    for (uint256 i; i < _jobTokens[_job].length(); i++) {
+    for (uint i; i < _jobTokens[_job].length(); i++) {
       _tokens[i] = _jobTokens[_job].at(i);
     }
   }
 
   // function internalJobLiquidities(address _job) external view returns (address[] memory _tokens) {
   //   _tokens = new address[](_jobLiquidities[_job].length());
-  //   for (uint256 i; i < _jobLiquidities[_job].length(); i++) {
+  //   for (uint i; i < _jobLiquidities[_job].length(); i++) {
   //     _tokens[i] = _jobLiquidities[_job].at(i);
   //   }
   // }

@@ -22,14 +22,14 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 interface IERC20MetadataInterface extends ethers.utils.Interface {
   functions: {
     "allowance(address,address)": FunctionFragment;
-    "approve(address,uint256)": FunctionFragment;
+    "approve(address,uint)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "decimals()": FunctionFragment;
     "name()": FunctionFragment;
     "symbol()": FunctionFragment;
     "totalSupply()": FunctionFragment;
-    "transfer(address,uint256)": FunctionFragment;
-    "transferFrom(address,address,uint256)": FunctionFragment;
+    "transfer(address,uint)": FunctionFragment;
+    "transferFrom(address,address,uint)": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -74,8 +74,8 @@ interface IERC20MetadataInterface extends ethers.utils.Interface {
   ): Result;
 
   events: {
-    "Approval(address,address,uint256)": EventFragment;
-    "Transfer(address,address,uint256)": EventFragment;
+    "Approval(address,address,uint)": EventFragment;
+    "Transfer(address,address,uint)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment;
@@ -247,7 +247,7 @@ export class IERC20Metadata extends BaseContract {
   };
 
   filters: {
-    "Approval(address,address,uint256)"(
+    "Approval(address,address,uint)"(
       owner?: string | null,
       spender?: string | null,
       value?: null
@@ -265,7 +265,7 @@ export class IERC20Metadata extends BaseContract {
       { owner: string; spender: string; value: BigNumber }
     >;
 
-    "Transfer(address,address,uint256)"(
+    "Transfer(address,address,uint)"(
       from?: string | null,
       to?: string | null,
       value?: null

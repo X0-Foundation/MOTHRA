@@ -30,7 +30,7 @@ contract Keep3rHelper is IKeep3rHelper, Keep3rHelperParameters {
   constructor(address _keep3rV2, address _governance) Keep3rHelperParameters(_keep3rV2, _governance) {}
 
   /// @inheritdoc IKeep3rHelper
-  function quote(uint256 _eth) public view override returns (uint256 _amountOut) {
+  function quote(uint _eth) public view override returns (uint _amountOut) {
     // MODIFY
 
     // uint32[] memory _secondsAgos = new uint32[](2);
@@ -42,26 +42,26 @@ contract Keep3rHelper is IKeep3rHelper, Keep3rHelperParameters {
   }
 
   /// @inheritdoc IKeep3rHelper
-  function bonds(address _keeper) public view override returns (uint256 _amountBonded) {
+  function bonds(address _keeper) public view override returns (uint _amountBonded) {
     return IKeep3r(keep3rV2).bonds(_keeper, KP3R);
   }
 
   /// @inheritdoc IKeep3rHelper
-  function getRewardAmountFor(address _keeper, uint256 _gasUsed) public view override returns (uint256 _kp3r) {
-    uint256 _boost = getRewardBoostFor(bonds(_keeper));
+  function getRewardAmountFor(address _keeper, uint _gasUsed) public view override returns (uint _kp3r) {
+    uint _boost = getRewardBoostFor(bonds(_keeper));
     _kp3r = quote((_gasUsed * _boost) / BOOST_BASE);
   }
 
   /// @inheritdoc IKeep3rHelper
-  function getRewardAmount(uint256 _gasUsed) external view override returns (uint256 _amount) {
+  function getRewardAmount(uint _gasUsed) external view override returns (uint _amount) {
     // solhint-disable-next-line avoid-tx-origin
     return getRewardAmountFor(tx.origin, _gasUsed);
   }
 
   /// @inheritdoc IKeep3rHelper
-  function getRewardBoostFor(uint256 _bonds) public view override returns (uint256 _rewardBoost) {
+  function getRewardBoostFor(uint _bonds) public view override returns (uint _rewardBoost) {
     _bonds = Math.min(_bonds, targetBond);
-    uint256 _cap = Math.max(minBoost, minBoost + ((maxBoost - minBoost) * _bonds) / targetBond);
+    uint _cap = Math.max(minBoost, minBoost + ((maxBoost - minBoost) * _bonds) / targetBond);
     _rewardBoost = _cap * _getBasefee();
   }
 
@@ -103,14 +103,14 @@ contract Keep3rHelper is IKeep3rHelper, Keep3rHelperParameters {
   // }
 
   /// @inheritdoc IKeep3rHelper
-  function getPaymentParams(uint256 _bonds)
+  function getPaymentParams(uint _bonds)
     external
     view
     override
     returns (
-      uint256 _boost,
-      uint256 _oneEthQuote,
-      uint256 _extra
+      uint _boost,
+      uint _oneEthQuote,
+      uint _extra
     )
   {
     _oneEthQuote = quote(1 ether);
@@ -120,10 +120,10 @@ contract Keep3rHelper is IKeep3rHelper, Keep3rHelperParameters {
 
   /// @inheritdoc IKeep3rHelper
   // function getKP3RsAtTick(
-  //   uint256 _liquidityAmount,
+  //   uint _liquidityAmount,
   //   int56 _tickDifference,
-  //   uint256 _timeInterval
-  // ) public pure override returns (uint256 _kp3rAmount) {
+  //   uint _timeInterval
+  // ) public pure override returns (uint _kp3rAmount) {
   //   uint160 sqrtRatioX96 = TickMath.getSqrtRatioAtTick(int24(_tickDifference / int256(_timeInterval)));
   //   _kp3rAmount = FullMath.mulDiv(1 << 96, _liquidityAmount, sqrtRatioX96); // Mike: so, kp3r is X token and not Y token of ratio. Y/X.
   // }
@@ -132,22 +132,22 @@ contract Keep3rHelper is IKeep3rHelper, Keep3rHelperParameters {
   // function getQuoteAtTick(
   //   uint128 _baseAmount,
   //   int56 _tickDifference,
-  //   uint256 _timeInterval
-  // ) public pure override returns (uint256 _quoteAmount) {
+  //   uint _timeInterval
+  // ) public pure override returns (uint _quoteAmount) {
   //   uint160 sqrtRatioX96 = TickMath.getSqrtRatioAtTick(int24(_tickDifference / int256(_timeInterval)));
 
-  //   if (sqrtRatioX96 <= type(uint128).max) { // Mike: in case sqrtRatioX96 * sqrtRatioX96 > type(uint256).max
-  //     uint256 ratioX192 = uint256(sqrtRatioX96) * sqrtRatioX96;
+  //   if (sqrtRatioX96 <= type(uint128).max) { // Mike: in case sqrtRatioX96 * sqrtRatioX96 > type(uint).max
+  //     uint ratioX192 = uint(sqrtRatioX96) * sqrtRatioX96;
   //     _quoteAmount = FullMath.mulDiv(1 << 192, _baseAmount, ratioX192); // Mike: so, _baseAmount refers to Y token, and quiteAmount to X token.
   //   } else {
-  //     uint256 ratioX128 = FullMath.mulDiv(sqrtRatioX96, sqrtRatioX96, 1 << 64);
+  //     uint ratioX128 = FullMath.mulDiv(sqrtRatioX96, sqrtRatioX96, 1 << 64);
   //     _quoteAmount = FullMath.mulDiv(1 << 128, _baseAmount, ratioX128);
   //   }
   // }
 
   /// @notice Gets the block's base fee
   /// @return _baseFee The block's basefee
-  function _getBasefee() internal view virtual returns (uint256 _baseFee) {
+  function _getBasefee() internal view virtual returns (uint _baseFee) {
     return block.basefee; // Mike: the minimum price per unit of gas for inclusion in this block
   }
 }

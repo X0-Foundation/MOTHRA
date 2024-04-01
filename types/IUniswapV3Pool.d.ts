@@ -28,13 +28,13 @@ interface IUniswapV3PoolInterface extends ethers.utils.Interface {
     "fee()": FunctionFragment;
     "feeGrowthGlobal0X128()": FunctionFragment;
     "feeGrowthGlobal1X128()": FunctionFragment;
-    "flash(address,uint256,uint256,bytes)": FunctionFragment;
+    "flash(address,uint,uint,bytes)": FunctionFragment;
     "increaseObservationCardinalityNext(uint16)": FunctionFragment;
     "initialize(uint160)": FunctionFragment;
     "liquidity()": FunctionFragment;
     "maxLiquidityPerTick()": FunctionFragment;
     "mint(address,int24,int24,uint128,bytes)": FunctionFragment;
-    "observations(uint256)": FunctionFragment;
+    "observations(uint)": FunctionFragment;
     "observe(uint32[])": FunctionFragment;
     "positions(bytes32)": FunctionFragment;
     "protocolFees()": FunctionFragment;
@@ -191,13 +191,13 @@ interface IUniswapV3PoolInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "token1", data: BytesLike): Result;
 
   events: {
-    "Burn(address,int24,int24,uint128,uint256,uint256)": EventFragment;
+    "Burn(address,int24,int24,uint128,uint,uint)": EventFragment;
     "Collect(address,address,int24,int24,uint128,uint128)": EventFragment;
     "CollectProtocol(address,address,uint128,uint128)": EventFragment;
-    "Flash(address,address,uint256,uint256,uint256,uint256)": EventFragment;
+    "Flash(address,address,uint,uint,uint,uint)": EventFragment;
     "IncreaseObservationCardinalityNext(uint16,uint16)": EventFragment;
     "Initialize(uint160,int24)": EventFragment;
-    "Mint(address,address,int24,int24,uint128,uint256,uint256)": EventFragment;
+    "Mint(address,address,int24,int24,uint128,uint,uint)": EventFragment;
     "SetFeeProtocol(uint8,uint8,uint8,uint8)": EventFragment;
     "Swap(address,address,int256,int256,uint160,uint128,int24)": EventFragment;
   };
@@ -897,7 +897,7 @@ export class IUniswapV3Pool extends BaseContract {
   };
 
   filters: {
-    "Burn(address,int24,int24,uint128,uint256,uint256)"(
+    "Burn(address,int24,int24,uint128,uint,uint)"(
       owner?: string | null,
       tickLower?: BigNumberish | null,
       tickUpper?: BigNumberish | null,
@@ -1003,7 +1003,7 @@ export class IUniswapV3Pool extends BaseContract {
       }
     >;
 
-    "Flash(address,address,uint256,uint256,uint256,uint256)"(
+    "Flash(address,address,uint,uint,uint,uint)"(
       sender?: string | null,
       recipient?: string | null,
       amount0?: null,
@@ -1079,7 +1079,7 @@ export class IUniswapV3Pool extends BaseContract {
       { sqrtPriceX96: BigNumber; tick: number }
     >;
 
-    "Mint(address,address,int24,int24,uint128,uint256,uint256)"(
+    "Mint(address,address,int24,int24,uint128,uint,uint)"(
       sender?: null,
       owner?: string | null,
       tickLower?: BigNumberish | null,
