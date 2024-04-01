@@ -75,20 +75,23 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     }
 
 
-    function _updateBalance(address account, uint amount, bool addNotSubtract) internal {
+    function _updateBalance(address account, uint amount, bool creditNotDebit) internal {
         if (_isUserAccount(account)) {
+            // _balances[account] didn't change since the last debting.
+            // user_burn.accDecayPer1e12 may have changed since the last debting.
 
             // Settle with pending burn (account)
             uint pendingBurn = _pendingBurn(account);
+            console.log("_updateBalance", pendingBurn);
             if (pendingBurn > 0) {
-                _balances[account] -= pendingBurn; // not less than its true value
-                _totalSupply -= pendingBurn; // not less than its true value
+                _balances[account] -= pendingBurn; // This is core burning
                 user_burn.sum_tokens -= pendingBurn; // larger
+                _totalSupply -= pendingBurn; // not less than its true value
                 user_burn.pending_burn -= pendingBurn; // larger
             }
 
-            // Add or subtract
-            if (addNotSubtract) {
+            // credit or debit
+            if (creditNotDebit) {
                 _balances[account] += amount;
                 user_burn.sum_tokens += amount;
             } else {
@@ -100,7 +103,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             Users[account].debtToPendingBurn =  _balances[account] * user_burn.accDecayPer1e12 / uint(1e12);
 
         } else {
-            if (addNotSubtract) {
+            if (creditNotDebit) {
                 _balances[account] += amount;
                 nonUserSumTokens += amount;
             } else {
@@ -208,9 +211,10 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         uint senderBalance = _balanceOf(sender);
         require(senderBalance >= amount, sExceedsBalance);
         //_beforeTokenTransfer(sender, recipient, amount);
-        _updateBalance(sender, amount, false);
-        _updateBalance(recipient, amount, true);
+        _updateBalance(sender, amount, false);  // false: debit
+        _updateBalance(recipient, amount, true);    // true: credit
         //_afterTokenTransfer(sender, recipient, amount);
+        console.log("_transfer", sender, recipient, amount);
 
         emit Transfer(sender, recipient, amount);
     }
@@ -219,11 +223,11 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         _openAction(ActionType.Transfer, true);
 
         if (amount > 0) {
-            if (actionParams.isUserAction) {  // Shift transfer
-                uint burnAmount = amount * buysell_burn_rate / FeeMagnifier;
-                _burn(sender, burnAmount);
-                amount -= burnAmount;
-            }
+            // if (actionParams.isUserAction) {  // Shift transfer
+            //     uint burnAmount = amount * buysell_burn_rate / FeeMagnifier;
+            //     _burn(sender, burnAmount);
+            //     amount -= burnAmount;
+            // }
             _transfer(sender, recipient, amount);
         }
 
@@ -435,7 +439,8 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             abs_error = net_collective - net_marginal;
         }
 
-        console.log("1e6 error_rate, error, net_collective", 1e3 * 1e3 * abs_error/net_collective, abs_error, net_collective);
+        console.log("1e6 error_rate, error", 1e3 * 1e3 * abs_error/net_collective, abs_error);
+        console.log("net_collective, net_marginal", net_collective, net_marginal);
         require( 1e3 * abs_error < net_collective, "Error exceeds a thousand-th");
     }
 
