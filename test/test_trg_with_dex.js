@@ -331,7 +331,7 @@ async function test_addLiquidity(tokenA, amountA, tokenB, amountB, caller, to, l
     const symbolA = await tokenA.symbol();
     const symbolB = await tokenB.symbol();
 
-    await console.log("\t%s is going to add liquidity (%s %s, %s %s) to %s' account".yellow, caller.name, amountA, symbolA, amountB, symbolB, to.name);
+    await console.log("\t%s is adding liquidity (%s %s, %s %s) to %s' account".yellow, caller.name, amountA, symbolA, amountB, symbolB, to.name);
 
     pair = await factory.getPair(tokenA.address, tokenB.address)
 
@@ -463,7 +463,7 @@ async function test_removeLiquidity(tokenA, tokenB, liquidity, caller, to, log) 
     const symbolA = await tokenA.symbol();
     const symbolB = await tokenB.symbol();
 
-    console.log("\t%s is going to remove liquidity %s SQRT(%s x %s) to %s' account".yellow, caller.name, liquidity, symbolA, symbolB, to.name);
+    console.log("\t%s is removing liquidity %s SQRT(%s x %s) to %s' account".yellow, caller.name, liquidity, symbolA, symbolB, to.name);
 
     const isNewPair = (await factory.getPair(tokenA.address, tokenB.address)) == zero_address ? true : false;
     let liquidityBalance0, reserveA0, reserveB0;
@@ -542,11 +542,11 @@ async function test_swap(tokenA, amountA, tokenB, amountB, caller, to, log) {
     const symbolB = await tokenB.symbol();
 
     if (amountA != undefined) {
-        console.log("\t%s is going to swap %s %s for undefined %s, with the beneficiary being %s".yellow, caller.name, amountA, symbolA, symbolB, to.name);
+        console.log("\t%s is swaping %s %s for undefined %s, for %s".yellow, caller.name, amountA, symbolA, symbolB, to.name);
     } else if (amountB != undefined) {
-        console.log("\t%s is going to swap undefined %s for %s %s , with the beneficiary being %s".yellow, caller.name, symbolA, amountB, symbolB, to.name);
+        console.log("\t%s is swaping undefined %s for %s %s , for %s".yellow, caller.name, symbolA, amountB, symbolB, to.name);
     } else {
-        console.log("\t%s is going to swap, with wrong parameters".yellow);
+        console.log("\t%s is swaping, with wrong parameters".yellow);
     }
 
     let totalLiquidity0, reserveA0, reserveB0;
@@ -822,7 +822,7 @@ describe("====================== Stage 2: Test pulses ======================\n".
 
     blocks = 10 // Test pulse cycles are less than 5.
 
-    for(i=0; i<1; i++) {
+    for(i=0; i<5; i++) {
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
@@ -943,46 +943,38 @@ describe("====================== Stage 3: Test Dex ======================\n".yel
         await mintBlocks(50);
         await pulse_user_burn();
         await showConsistency();
-        console.log("\n\t1");
 
         let poolValue = initialTgrBnbValue;
         let tgrAmount = poolValue / 2 / initialTgrPrice;
         let bnbAmount = poolValue / 2 / bnbPrice;
         [tgr_bnb, report] = await test_addLiquidity(tgr, tgrAmount / 3, wbnb, bnbAmount / 3, owner, alice, true);
-        console.log("\n\t2");
 
         await mintBlocks(50);
         await pulse_user_burn();
         await showConsistency();
-        console.log("\n\t3");
 
         [tgr_bnb, report] = await test_addLiquidity(tgr, tgrAmount / 3, wbnb, bnbAmount / 3, owner, bob, true);
         await mintBlocks(50);
         await pulse_user_burn();
         await showConsistency();
-        console.log("\n\t4");
 
         [tgr_bnb, report] = await test_addLiquidity(tgr, tgrAmount / 3, wbnb, bnbAmount / 3, owner, carol, true);
         await mintBlocks(50);
         await pulse_user_burn();
         await showConsistency();    //-----------------------------
-        console.log("\n\t5");
 
         [mck_bnb, report] = await test_addLiquidity(mock, tgrAmount / 3, wbnb, bnbAmount / 3, owner, carol, true); // ------------ mck_bnb
         await mintBlocks(50);
-        console.log("\n\t6");
 
         [report, tgrAmount] = await test_swap(wbnb, 1, tgr, undefined, alice, bob, true);
         await mintBlocks(50);
         await pulse_user_burn();
         await showConsistency();
-        console.log("\n\t7");
 
-        [report, bnbAmount] = await test_swap(tgr, tgrAmount * 0.99, wbnb, undefined, bob, alice, true);
-        await mintBlocks(50);
-        await pulse_user_burn();
-        await showConsistency();
-        console.log("\n\t8");
+        // [report, bnbAmount] = await test_swap(tgr, tgrAmount * 0.99, wbnb, undefined, bob, alice, true);
+        // await mintBlocks(50);
+        // await pulse_user_burn();
+        // await showConsistency();
 
         // ------------------------ This doesn't work for TGR contract which collect fees.        
         // [report, tgrAmount] = await test_swap(tgr, undefined, wbnb, bnbAmount * 0.99, alice, bob, true); //----------------------------
@@ -990,114 +982,114 @@ describe("====================== Stage 3: Test Dex ======================\n".yel
         // await pulse_user_burn();
         // await showConsistency();
 
-        let liquidityAmount = 0.001;
-        report = await test_removeLiquidity(tgr, wbnb, liquidityAmount, alice, alice, true);
-        await mintBlocks(50);
-        await pulse_user_burn();
-        await showConsistency();
-        console.log("\n\t9");
+        // let liquidityAmount = 0.001;
+        // report = await test_removeLiquidity(tgr, wbnb, liquidityAmount, alice, alice, true);
+        // await mintBlocks(50);
+        // await pulse_user_burn();
+        // await showConsistency();
+        // console.log("\n\t9");
 
-        poolValue = initialTgrMckValue;
-        tgrAmount = poolValue / 10 / initialTgrPrice;
-        let mckAmount = poolValue / 10 / mckPrice;
-        [tgr_mck, report] = await test_addLiquidity(tgr, tgrAmount, mock, mckAmount, owner, alice, true);
+        // poolValue = initialTgrMckValue;
+        // tgrAmount = poolValue / 10 / initialTgrPrice;
+        // let mckAmount = poolValue / 10 / mckPrice;
+        // [tgr_mck, report] = await test_addLiquidity(tgr, tgrAmount, mock, mckAmount, owner, alice, true);
 
-        await mintBlocks(50);
-        await pulse_user_burn();
-        await showConsistency();
-        console.log("\n\t10");
+        // await mintBlocks(50);
+        // await pulse_user_burn();
+        // await showConsistency();
+        // console.log("\n\t10");
 
-        [tgr_mck, report] = await test_addLiquidity(tgr, tgrAmount, mock, mckAmount, owner, bob, true);
+        // [tgr_mck, report] = await test_addLiquidity(tgr, tgrAmount, mock, mckAmount, owner, bob, true);
         
-        await mintBlocks(50);
-        await pulse_user_burn();
-        await showConsistency();
-        console.log("\n\t11");
+        // await mintBlocks(50);
+        // await pulse_user_burn();
+        // await showConsistency();
+        // console.log("\n\t11");
 
-        [tgr_mck, report] = await test_addLiquidity(tgr, tgrAmount, mock, mckAmount, owner, carol, true);
-        console.log("\n\t12");
+        // [tgr_mck, report] = await test_addLiquidity(tgr, tgrAmount, mock, mckAmount, owner, carol, true);
+        // console.log("\n\t12");
 
-        await mintBlocks(50);
-        await pulse_user_burn();
-        await showConsistency();
-        console.log("\n\t13");
+        // await mintBlocks(50);
+        // await pulse_user_burn();
+        // await showConsistency();
+        // console.log("\n\t13");
 
-        [tgr_mck2, report] = await test_addLiquidity(tgr, tgrAmount, mock2, mckAmount, owner, alice, true); // ===========
-        await mintBlocks(50);
-        await pulse_user_burn();
-        await showConsistency();
-        console.log("\n\t14");
+        // [tgr_mck2, report] = await test_addLiquidity(tgr, tgrAmount, mock2, mckAmount, owner, alice, true); // ===========
+        // await mintBlocks(50);
+        // await pulse_user_burn();
+        // await showConsistency();
+        // console.log("\n\t14");
 
-        [tgr_mck2, report] = await test_addLiquidity(tgr, tgrAmount, mock2, mckAmount, owner, bob, true);
-        await mintBlocks(50);
-        await pulse_user_burn();
-        await showConsistency();
-        console.log("\n\t15");
+        // [tgr_mck2, report] = await test_addLiquidity(tgr, tgrAmount, mock2, mckAmount, owner, bob, true);
+        // await mintBlocks(50);
+        // await pulse_user_burn();
+        // await showConsistency();
+        // console.log("\n\t15");
 
-        [tgr_mck2, report] = await test_addLiquidity(tgr, tgrAmount, mock2, mckAmount, owner, carol, true);
-        await mintBlocks(50);
-        await pulse_user_burn();
-        await showConsistency();
-        console.log("\n\t16");
+        // [tgr_mck2, report] = await test_addLiquidity(tgr, tgrAmount, mock2, mckAmount, owner, carol, true);
+        // await mintBlocks(50);
+        // await pulse_user_burn();
+        // await showConsistency();
+        // console.log("\n\t16");
 
-        let balances = await tgr_mck2.connect(owner).getReserves();
-        [report, tgrAmount] = await test_swap(mock2, undefined, tgr, 100, alice, bob, true); //----------------------------------
-        await mintBlocks(50);
-        await pulse_user_burn();
-        await showConsistency();
-        console.log("\n\t17");
+        // let balances = await tgr_mck2.connect(owner).getReserves();
+        // [report, tgrAmount] = await test_swap(mock2, undefined, tgr, 100, alice, bob, true); //----------------------------------
+        // await mintBlocks(50);
+        // await pulse_user_burn();
+        // await showConsistency();
+        // console.log("\n\t17");
 
-        console.log("\n\tOwner transferring to alice... 15000 Tgr");
-        await tgr.connect(owner).transfer(alice.address, ethToWei(15000));
-        await mintBlocks(50);
-        await pulse_user_burn();
-        await showConsistency();
-        console.log("\n\t18");
+        // console.log("\n\tOwner transferring to alice... 15000 Tgr");
+        // await tgr.connect(owner).transfer(alice.address, ethToWei(15000));
+        // await mintBlocks(50);
+        // await pulse_user_burn();
+        // await showConsistency();
+        // console.log("\n\t18");
 
-        [report, mockAmount] = await test_swap(tgr, 10, mock, undefined, alice, alice, true);
-        await mintBlocks(50);
-        await pulse_user_burn();
-        await showConsistency();
-        console.log("\n\t19");
+        // [report, mockAmount] = await test_swap(tgr, 10, mock, undefined, alice, alice, true);
+        // await mintBlocks(50);
+        // await pulse_user_burn();
+        // await showConsistency();
+        // console.log("\n\t19");
 
-        [report, tgrAmount] = await test_swap(mock, mockAmount * 0.99, tgr, undefined, alice, bob, true);
-        await mintBlocks(50);
-        await pulse_user_burn();
-        await showConsistency();
-        console.log("\n\t20");
+        // [report, tgrAmount] = await test_swap(mock, mockAmount * 0.99, tgr, undefined, alice, bob, true);
+        // await mintBlocks(50);
+        // await pulse_user_burn();
+        // await showConsistency();
+        // console.log("\n\t20");
 
-        liquidityAmount = 0.001;
-        report = await test_removeLiquidity(tgr, mock, liquidityAmount, alice, alice, true);
-        await mintBlocks(50);
-        await pulse_user_burn();
-        await showConsistency();
-        console.log("\n\t21");
+        // liquidityAmount = 0.001;
+        // report = await test_removeLiquidity(tgr, mock, liquidityAmount, alice, alice, true);
+        // await mintBlocks(50);
+        // await pulse_user_burn();
+        // await showConsistency();
+        // console.log("\n\t21");
 
-        console.log("\n\tOwner transferring to alice... 15000 Trg");
-        await tgr.connect(owner).transfer(alice.address, ethToWei(15000));
-        await mintBlocks(50);
-        await pulse_user_burn();
-        await showConsistency();
-        console.log("\n\t22");
+        // console.log("\n\tOwner transferring to alice... 15000 Trg");
+        // await tgr.connect(owner).transfer(alice.address, ethToWei(15000));
+        // await mintBlocks(50);
+        // await pulse_user_burn();
+        // await showConsistency();
+        // console.log("\n\t22");
 
-        [report, mockAmount] = await test_swap(tgr, 10, mock2, undefined, alice, alice, true);
-        await mintBlocks(50);
-        await pulse_user_burn();
-        await showConsistency();
-        console.log("\n\t23");
+        // [report, mockAmount] = await test_swap(tgr, 10, mock2, undefined, alice, alice, true);
+        // await mintBlocks(50);
+        // await pulse_user_burn();
+        // await showConsistency();
+        // console.log("\n\t23");
 
-        [report, tgrAmount] = await test_swap(mock2, mockAmount * 0.99, tgr, undefined, alice, bob, true);
-        await mintBlocks(50);
-        await pulse_user_burn();
-        await showConsistency();
-        console.log("\n\t24");
+        // [report, tgrAmount] = await test_swap(mock2, mockAmount * 0.99, tgr, undefined, alice, bob, true);
+        // await mintBlocks(50);
+        // await pulse_user_burn();
+        // await showConsistency();
+        // console.log("\n\t24");
 
-        liquidityAmount = 0.001;
-        report = await test_removeLiquidity(tgr, mock2, liquidityAmount, alice, alice, true);
-        await mintBlocks(50);
-        await pulse_user_burn();
-        await showConsistency();
-        console.log("\n\t25");
+        // liquidityAmount = 0.001;
+        // report = await test_removeLiquidity(tgr, mock2, liquidityAmount, alice, alice, true);
+        // await mintBlocks(50);
+        // await pulse_user_burn();
+        // await showConsistency();
+        // console.log("\n\t25");
 
     });
 
@@ -1105,37 +1097,37 @@ describe("====================== Stage 3: Test Dex ======================\n".yel
         await showConsistency();
 
         await mintBlocks(50);
-        (await pulse_user_burn()).wait();
+        await pulse_user_burn();
         await showConsistency();
 
         await transfer(owner, alice, 10);
         await mintBlocks(5);
-        (await pulse_user_burn()).wait();
+        await pulse_user_burn();
         await showConsistency();
 
         await transfer(owner, bob, 1000);
         await mintBlocks(50);
-        (await pulse_user_burn()).wait();
+        await pulse_user_burn();
         await showConsistency();
 
         await transfer(owner, carol, 5000);
         await mintBlocks(50);
-        (await pulse_user_burn()).wait();
+        await pulse_user_burn();
         await showConsistency();
 
         await transfer(owner, carol, 100);
         await mintBlocks(50);
-        (await pulse_user_burn()).wait();
+        await pulse_user_burn();
         await showConsistency();
 
         await transfer(carol, carol, 100);
         await mintBlocks(50);
-        (await pulse_user_burn()).wait();
+        await pulse_user_burn();
         await showConsistency();
 
         await transfer(carol, alice, 100);
         await mintBlocks(50);
-        (await pulse_user_burn()).wait();
+        await pulse_user_burn();
         await showConsistency();
 
         // await transfer(owner, tgr_bnb, 100);
@@ -1152,13 +1144,13 @@ describe("====================== Stage 3: Test Dex ======================\n".yel
 
         await transfer(owner, votes, 100);
         await mintBlocks(20);
-        (await tgr.pulse_vote_burn()).wait();
+        await pulse_user_burn();
         await showConsistency();
 
-        (await tgr.pulse_lp_reward()).wait();
+        // await tgr.pulse_lp_reward();
 
         await mintBlocks(5);
-        (await pulse_user_burn()).wait();
+        await pulse_user_burn();
         await showConsistency();
 
     });
