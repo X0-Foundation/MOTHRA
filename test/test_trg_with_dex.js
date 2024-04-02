@@ -262,14 +262,21 @@ async function pulse_user_burn() {
 async function showStatus(account) {
     const s = await tgr.getStatus(account);
     console.log("\tstatus: %s", account);
-    console.log("\t_totalSupply %s, accDecayPer1e12 %s, \
-    \n\tsum_tokens %s, pending_burn %s, \
-    \n\t_balances[account] %s, _balanceOf(account) %s, \
-    \n\tUsers[account].debtToPendingBurn %s".green,
+    console.log("\t_totalSupply %s, ub_accDecayPer1e12 %s, \
+    \n\tub.sum_tokens %s, ub.pending_burn %s, \
+    \n\t_balances[acc] %s, _balanceOf(acc) %s, \
+    \n\t_pendingBurn(acc) %s, \
+    \n\tUsers[acc].debtToPendingBurn %s, \
+    \n\t_totalSupply-nonUserTokenSum-ub.sum_tokens %s, \
+    \n\t_balances[acc]-balanceOf(acc)-pendingBurn(acc) %s".green,
     s.totalSupply, s.ub_accDecayPer1e12, 
     s.ub_sum_tokens, s.ub_pending_burn,
-    s.account_balances, s.account_balanceOf, 
-    s.account_debtToPendingBurn);
+    s.account_balances, s.account_balanceOf,
+    s.account_pending_burn,
+    s.account_debtToPendingBurn,
+    BigInt(s.totalSupply)-BigInt(s._nonUserSumTokens)-BigInt(s.ub_sum_tokens),
+    BigInt(s.account_balances)-BigInt(s.account_balanceOf)-BigInt(s.account_pending_burn)
+    );
 }
 
 // function getStatus(address account) external view returns (

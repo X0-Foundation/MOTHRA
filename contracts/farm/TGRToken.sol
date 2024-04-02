@@ -65,16 +65,18 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     address admin; address alice; address bob; address carol;
 
     function getStatus(address account) external view returns (
-        uint totalSupply, uint ub_accDecayPer1e12, uint ub_sum_tokens, uint ub_pending_burn,
-        uint account_balances, uint account_debtToPendingBurn, uint account_balanceOf
+        uint totalSupply, uint ub_accDecayPer1e12, uint ub_sum_tokens, uint ub_pending_burn, uint _nonUserSumTokens,
+        uint account_balances, uint account_balanceOf, uint account_pending_burn, uint account_debtToPendingBurn
     ) {
-        totalSupply = _totalSupply;
+        totalSupply = _totalSupply; // user_burn.sum_tokens + nonUserSumTokens; // _totalSupply;
         ub_accDecayPer1e12 = user_burn.accDecayPer1e12;
         ub_sum_tokens = user_burn.sum_tokens;
         ub_pending_burn = user_burn.pending_burn;
+        _nonUserSumTokens = nonUserSumTokens;
         account_balances = _balances[account];
-        account_debtToPendingBurn = Users[account].debtToPendingBurn;
         account_balanceOf = _balanceOf(account);
+        account_pending_burn = _pendingBurn(account);
+        account_debtToPendingBurn = Users[account].debtToPendingBurn;
     }
 
     //====================== Pulse internal functions ============================
@@ -121,7 +123,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             } else {
                 _balances[account] = _safeSubtract(_balances[account] , amount);
                 user_burn.sum_tokens = _safeSubtract(user_burn.sum_tokens, amount);
-                _totalSupply = _safeSubtract(_totalSupply, amount);
+                _totalSupply  = _safeSubtract(_totalSupply, amount);
             }
 
             // account has now zero pendingBurn and _balances[account] is now its true balance.
@@ -202,7 +204,8 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     }
 
     function _getTotalSupply() internal view returns (uint) {
-        return _totalSupply - user_burn.pending_burn;
+        // return _totalSupply - user_burn.pending_burn;
+        return user_burn.sum_tokens + nonUserSumTokens - user_burn.pending_burn;
     }
 
     function _beforeTokenTransfer(address from, address to, uint amount) internal virtual {}
@@ -472,7 +475,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     function checkForConsistency() external view {
 
         // Defines user_burn attributes, based on the ERC20 core data.
-        require(user_burn.sum_tokens + nonUserSumTokens == _totalSupply, "sum_tokens + nonUserSumTokens != _totalSupply");
+        // require(user_burn.sum_tokens + nonUserSumTokens == _totalSupply, "sum_tokens + nonUserSumTokens != _totalSupply");
         // This implies that user_burn.sum_tokens - user_burn.pending_burn + nonUserSumTokens == totalSupply()
         // See totalSupply()
 

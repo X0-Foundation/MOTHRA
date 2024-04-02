@@ -542,15 +542,19 @@ export class TGRToken extends BaseContract {
         BigNumber,
         BigNumber,
         BigNumber,
+        BigNumber,
+        BigNumber,
         BigNumber
       ] & {
         totalSupply: BigNumber;
         ub_accDecayPer1e12: BigNumber;
         ub_sum_tokens: BigNumber;
         ub_pending_burn: BigNumber;
+        _nonUserSumTokens: BigNumber;
         account_balances: BigNumber;
-        account_debtToPendingBurn: BigNumber;
         account_balanceOf: BigNumber;
+        account_pending_burn: BigNumber;
+        account_debtToPendingBurn: BigNumber;
       }
     >;
 
@@ -856,15 +860,19 @@ export class TGRToken extends BaseContract {
       BigNumber,
       BigNumber,
       BigNumber,
+      BigNumber,
+      BigNumber,
       BigNumber
     ] & {
       totalSupply: BigNumber;
       ub_accDecayPer1e12: BigNumber;
       ub_sum_tokens: BigNumber;
       ub_pending_burn: BigNumber;
+      _nonUserSumTokens: BigNumber;
       account_balances: BigNumber;
-      account_debtToPendingBurn: BigNumber;
       account_balanceOf: BigNumber;
+      account_pending_burn: BigNumber;
+      account_debtToPendingBurn: BigNumber;
     }
   >;
 
@@ -1167,15 +1175,19 @@ export class TGRToken extends BaseContract {
         BigNumber,
         BigNumber,
         BigNumber,
+        BigNumber,
+        BigNumber,
         BigNumber
       ] & {
         totalSupply: BigNumber;
         ub_accDecayPer1e12: BigNumber;
         ub_sum_tokens: BigNumber;
         ub_pending_burn: BigNumber;
+        _nonUserSumTokens: BigNumber;
         account_balances: BigNumber;
-        account_debtToPendingBurn: BigNumber;
         account_balanceOf: BigNumber;
+        account_pending_burn: BigNumber;
+        account_debtToPendingBurn: BigNumber;
       }
     >;
 
