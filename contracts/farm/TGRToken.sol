@@ -71,7 +71,9 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     }
 
     function _pendingBurn(address account) internal view returns (uint pendingBurn) {
+        // Note _balanceOf(account) relies on _pendingBurn, thun leading a circular referencing.
         pendingBurn = _balanceOf(account) * user_burn.accDecayPer1e12 / uint(1e12) - Users[account].debtToPendingBurn;
+        // pendingBurn = _balances[account] - 
     }
 
 

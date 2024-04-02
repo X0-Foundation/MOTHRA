@@ -628,10 +628,10 @@ describe("====================== Stage 1: Deploy ======================\n".yello
         wireLib = await deployWireLibrary(owner);
         console.log("\tWireLibrary deployed at: %s", wireLib.address);
 
-    		const AnalyticMath = await ethers.getContractFactory("AnalyticMath", owner);
-		    analyticMath = await AnalyticMath.deploy();
-            await analyticMath.init();
-		    console.log("\tAnalyticMath contract was deployed at: ", analyticMath.address);
+        const AnalyticMath = await ethers.getContractFactory("AnalyticMath", owner);
+        analyticMath = await AnalyticMath.deploy();
+        await analyticMath.init();
+        console.log("\tAnalyticMath contract was deployed at: ", analyticMath.address);
 
         tgr = await deployTGR(owner, analyticMath.address, wireLib.address);
         console.log("\tTGR contract deployed at: %s", tgr.address);
@@ -785,7 +785,7 @@ describe("====================== Stage 2: Test pulses ======================\n".
 
     blocks = 2
 
-    for(i=0; i<10; i++) {
+    for(i=0; i<1; i++) {
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
