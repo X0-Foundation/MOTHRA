@@ -102,6 +102,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
 
 
     function _changeBalance(address account, uint amount, bool creditNotDebit) internal {
+        console.log("_changeBalance. acc, amount, credit:", account, amount, creditNotDebit);
         if (_isUserAccount(account)) {
             // _balances[account] didn't change since the last debting.
             // user_burn.accDecayPer1e12 may have changed since the last debting.
@@ -114,6 +115,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
                 user_burn.pending_burn = _safeSubtract(user_burn.pending_burn, pendingBurn); // larger
                 _totalSupply = _safeSubtract(_totalSupply, pendingBurn); // not less than its true value
             }
+            console.log("_changeBalance. _totalSupply:", _totalSupply);
 
             // credit or debit
             if (creditNotDebit) {
@@ -125,6 +127,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
                 user_burn.sum_tokens = _safeSubtract(user_burn.sum_tokens, amount);
                 _totalSupply  = _safeSubtract(_totalSupply, amount);
             }
+            console.log("_changeBalance. _totalSupply:", _totalSupply);
 
             // account has now zero pendingBurn and _balances[account] is now its true balance.
             // This is the only place to change debt, which is only used by _pendingBurn with possibly increased user_burn.accDecayPer1e12.
@@ -141,7 +144,9 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
                 nonUserSumTokens = _safeSubtract(nonUserSumTokens, amount);
                 _totalSupply = _safeSubtract(_totalSupply, amount);
             }
+            console.log("_changeBalance. _totalSupply:", _totalSupply);
         }
+        console.log("_changeBalance. _totalSupply, _isUserAcc(acc), nonUserSumTokens:", _totalSupply, _isUserAccount(account), nonUserSumTokens);
     }
 
     AnalyticMath analyticMath;
@@ -204,8 +209,8 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     }
 
     function _getTotalSupply() internal view returns (uint) {
-        // return _totalSupply - user_burn.pending_burn;
-        return user_burn.sum_tokens + nonUserSumTokens - user_burn.pending_burn;
+        return _totalSupply - user_burn.pending_burn;
+        // return user_burn.sum_tokens + nonUserSumTokens - user_burn.pending_burn;
     }
 
     function _beforeTokenTransfer(address from, address to, uint amount) internal virtual {}
@@ -254,14 +259,14 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     function _transferHub(address sender, address recipient, uint amount) internal virtual {
         _openAction(ActionType.Transfer, true);
 
-        if (amount > 0) {
+        // if (amount > 0) {
             // if (actionParams.isUserAction) {  // Shift transfer
             //     uint burnAmount = amount * buysell_burn_rate / FeeMagnifier;
             //     _burn(sender, burnAmount);
             //     amount -= burnAmount;
             // }
             _transfer(sender, recipient, amount);
-        }
+        // }
 
         _closeAction();
     }

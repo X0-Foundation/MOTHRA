@@ -267,8 +267,8 @@ async function showStatus(account) {
     \n\t_balances[acc] %s, _balanceOf(acc) %s, \
     \n\t_pendingBurn(acc) %s, \
     \n\tUsers[acc].debtToPendingBurn %s, \
-    \n\t_totalSupply-nonUserTokenSum-ub.sum_tokens %s, \
-    \n\t_balances[acc]-balanceOf(acc)-pendingBurn(acc) %s".green,
+    \n\t_totalSupply-nonUserTokenSum-ub.sum_tokens === %s, \
+    \n\t_balances[acc]-balanceOf(acc)-pendingBurn(acc) === %s".green,
     s.totalSupply, s.ub_accDecayPer1e12, 
     s.ub_sum_tokens, s.ub_pending_burn,
     s.account_balances, s.account_balanceOf,
@@ -863,6 +863,12 @@ describe("====================== Stage 2: Test pulses ======================\n".
 
         await showStatus(owner.address);
         await showStatus(alice.address);
+        await transfer(owner, alice, 0);
+        await showStatus(owner.address);
+        await showStatus(alice.address);
+
+        await showStatus(owner.address);
+        await showStatus(alice.address);
         await mint(owner, alice, mintburn);
         await showStatus(owner.address);
         await showStatus(alice.address);
@@ -870,12 +876,6 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await showStatus(owner.address);
         await showStatus(alice.address);
         await burn(owner, alice, mintburn);
-        await showStatus(owner.address);
-        await showStatus(alice.address);
-
-        await showStatus(owner.address);
-        await showStatus(alice.address);
-        await transfer(owner, alice, 1);
         await showStatus(owner.address);
         await showStatus(alice.address);
 
