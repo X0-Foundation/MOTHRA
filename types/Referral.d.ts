@@ -22,14 +22,14 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 interface ReferralInterface extends ethers.utils.Interface {
   functions: {
     "countReferrals(address)": FunctionFragment;
-    "debitOutstandingCommission(address,uint)": FunctionFragment;
+    "debitOutstandingCommission(address,uint256)": FunctionFragment;
     "getOutstandingCommission(address)": FunctionFragment;
     "getReferrer(address)": FunctionFragment;
     "outstandingCommissions(address)": FunctionFragment;
     "owner()": FunctionFragment;
     "payer()": FunctionFragment;
     "recordReferral(address,address)": FunctionFragment;
-    "recordReferralCommission(address,uint)": FunctionFragment;
+    "recordReferralCommission(address,uint256)": FunctionFragment;
     "referrers(address)": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "setPayer(address)": FunctionFragment;
@@ -127,7 +127,7 @@ interface ReferralInterface extends ethers.utils.Interface {
   events: {
     "OperatorUpdated(address,bool)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
-    "ReferralCommissionRecorded(address,uint)": EventFragment;
+    "ReferralCommissionRecorded(address,uint256)": EventFragment;
     "ReferralRecorded(address,address)": EventFragment;
   };
 
@@ -402,7 +402,7 @@ export class Referral extends BaseContract {
       { previousOwner: string; newOwner: string }
     >;
 
-    "ReferralCommissionRecorded(address,uint)"(
+    "ReferralCommissionRecorded(address,uint256)"(
       referrer?: string | null,
       commission?: null
     ): TypedEventFilter<

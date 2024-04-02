@@ -21,11 +21,11 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface IReferralInterface extends ethers.utils.Interface {
   functions: {
-    "debitOutstandingCommission(address,uint)": FunctionFragment;
+    "debitOutstandingCommission(address,uint256)": FunctionFragment;
     "getOutstandingCommission(address)": FunctionFragment;
     "getReferrer(address)": FunctionFragment;
     "recordReferral(address,address)": FunctionFragment;
-    "recordReferralCommission(address,uint)": FunctionFragment;
+    "recordReferralCommission(address,uint256)": FunctionFragment;
   };
 
   encodeFunctionData(

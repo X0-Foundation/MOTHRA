@@ -32,15 +32,15 @@
         },
         {
           "indexed": false,
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "amount0",
-          "type": "uint"
+          "type": "uint256"
         },
         {
           "indexed": false,
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "amount1",
-          "type": "uint"
+          "type": "uint256"
         }
       ],
       "name": "Burn",
@@ -137,27 +137,27 @@
         },
         {
           "indexed": false,
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "amount0",
-          "type": "uint"
+          "type": "uint256"
         },
         {
           "indexed": false,
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "amount1",
-          "type": "uint"
+          "type": "uint256"
         },
         {
           "indexed": false,
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "paid0",
-          "type": "uint"
+          "type": "uint256"
         },
         {
           "indexed": false,
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "paid1",
-          "type": "uint"
+          "type": "uint256"
         }
       ],
       "name": "Flash",
@@ -236,15 +236,15 @@
         },
         {
           "indexed": false,
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "amount0",
-          "type": "uint"
+          "type": "uint256"
         },
         {
           "indexed": false,
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "amount1",
-          "type": "uint"
+          "type": "uint256"
         }
       ],
       "name": "Mint",
@@ -351,14 +351,14 @@
       "name": "burn",
       "outputs": [
         {
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "amount0",
-          "type": "uint"
+          "type": "uint256"
         },
         {
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "amount1",
-          "type": "uint"
+          "type": "uint256"
         }
       ],
       "stateMutability": "nonpayable",
@@ -473,9 +473,9 @@
       "name": "feeGrowthGlobal0X128",
       "outputs": [
         {
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "",
-          "type": "uint"
+          "type": "uint256"
         }
       ],
       "stateMutability": "view",
@@ -486,9 +486,9 @@
       "name": "feeGrowthGlobal1X128",
       "outputs": [
         {
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "",
-          "type": "uint"
+          "type": "uint256"
         }
       ],
       "stateMutability": "view",
@@ -502,14 +502,14 @@
           "type": "address"
         },
         {
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "amount0",
-          "type": "uint"
+          "type": "uint256"
         },
         {
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "amount1",
-          "type": "uint"
+          "type": "uint256"
         },
         {
           "internalType": "bytes",
@@ -605,14 +605,14 @@
       "name": "mint",
       "outputs": [
         {
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "amount0",
-          "type": "uint"
+          "type": "uint256"
         },
         {
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "amount1",
-          "type": "uint"
+          "type": "uint256"
         }
       ],
       "stateMutability": "nonpayable",
@@ -621,9 +621,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "index",
-          "type": "uint"
+          "type": "uint256"
         }
       ],
       "name": "observations",
@@ -692,14 +692,14 @@
           "type": "uint128"
         },
         {
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "feeGrowthInside0LastX128",
-          "type": "uint"
+          "type": "uint256"
         },
         {
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "feeGrowthInside1LastX128",
-          "type": "uint"
+          "type": "uint256"
         },
         {
           "internalType": "uint128",
@@ -883,9 +883,9 @@
       "name": "tickBitmap",
       "outputs": [
         {
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "",
-          "type": "uint"
+          "type": "uint256"
         }
       ],
       "stateMutability": "view",
@@ -925,14 +925,14 @@
           "type": "int128"
         },
         {
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "feeGrowthOutside0X128",
-          "type": "uint"
+          "type": "uint256"
         },
         {
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "feeGrowthOutside1X128",
-          "type": "uint"
+          "type": "uint256"
         },
         {
           "internalType": "int56",

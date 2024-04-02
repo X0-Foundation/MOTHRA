@@ -39,15 +39,15 @@ const _abi = [
       },
       {
         indexed: false,
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount0",
-        type: "uint",
+        type: "uint256",
       },
       {
         indexed: false,
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount1",
-        type: "uint",
+        type: "uint256",
       },
     ],
     name: "Burn",
@@ -144,27 +144,27 @@ const _abi = [
       },
       {
         indexed: false,
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount0",
-        type: "uint",
+        type: "uint256",
       },
       {
         indexed: false,
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount1",
-        type: "uint",
+        type: "uint256",
       },
       {
         indexed: false,
-        internalType: "uint",
+        internalType: "uint256",
         name: "paid0",
-        type: "uint",
+        type: "uint256",
       },
       {
         indexed: false,
-        internalType: "uint",
+        internalType: "uint256",
         name: "paid1",
-        type: "uint",
+        type: "uint256",
       },
     ],
     name: "Flash",
@@ -243,15 +243,15 @@ const _abi = [
       },
       {
         indexed: false,
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount0",
-        type: "uint",
+        type: "uint256",
       },
       {
         indexed: false,
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount1",
-        type: "uint",
+        type: "uint256",
       },
     ],
     name: "Mint",
@@ -358,14 +358,14 @@ const _abi = [
     name: "burn",
     outputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount0",
-        type: "uint",
+        type: "uint256",
       },
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount1",
-        type: "uint",
+        type: "uint256",
       },
     ],
     stateMutability: "nonpayable",
@@ -480,9 +480,9 @@ const _abi = [
     name: "feeGrowthGlobal0X128",
     outputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "",
-        type: "uint",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -493,9 +493,9 @@ const _abi = [
     name: "feeGrowthGlobal1X128",
     outputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "",
-        type: "uint",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -509,14 +509,14 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount0",
-        type: "uint",
+        type: "uint256",
       },
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount1",
-        type: "uint",
+        type: "uint256",
       },
       {
         internalType: "bytes",
@@ -612,14 +612,14 @@ const _abi = [
     name: "mint",
     outputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount0",
-        type: "uint",
+        type: "uint256",
       },
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount1",
-        type: "uint",
+        type: "uint256",
       },
     ],
     stateMutability: "nonpayable",
@@ -628,9 +628,9 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "index",
-        type: "uint",
+        type: "uint256",
       },
     ],
     name: "observations",
@@ -699,14 +699,14 @@ const _abi = [
         type: "uint128",
       },
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "feeGrowthInside0LastX128",
-        type: "uint",
+        type: "uint256",
       },
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "feeGrowthInside1LastX128",
-        type: "uint",
+        type: "uint256",
       },
       {
         internalType: "uint128",
@@ -890,9 +890,9 @@ const _abi = [
     name: "tickBitmap",
     outputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "",
-        type: "uint",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -932,14 +932,14 @@ const _abi = [
         type: "int128",
       },
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "feeGrowthOutside0X128",
-        type: "uint",
+        type: "uint256",
       },
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "feeGrowthOutside1X128",
-        type: "uint",
+        type: "uint256",
       },
       {
         internalType: "int56",

@@ -21,13 +21,13 @@ interface IUniswapV3PoolEventsInterface extends ethers.utils.Interface {
   functions: {};
 
   events: {
-    "Burn(address,int24,int24,uint128,uint,uint)": EventFragment;
+    "Burn(address,int24,int24,uint128,uint256,uint256)": EventFragment;
     "Collect(address,address,int24,int24,uint128,uint128)": EventFragment;
     "CollectProtocol(address,address,uint128,uint128)": EventFragment;
-    "Flash(address,address,uint,uint,uint,uint)": EventFragment;
+    "Flash(address,address,uint256,uint256,uint256,uint256)": EventFragment;
     "IncreaseObservationCardinalityNext(uint16,uint16)": EventFragment;
     "Initialize(uint160,int24)": EventFragment;
-    "Mint(address,address,int24,int24,uint128,uint,uint)": EventFragment;
+    "Mint(address,address,int24,int24,uint128,uint256,uint256)": EventFragment;
     "SetFeeProtocol(uint8,uint8,uint8,uint8)": EventFragment;
     "Swap(address,address,int256,int256,uint160,uint128,int24)": EventFragment;
   };
@@ -179,7 +179,7 @@ export class IUniswapV3PoolEvents extends BaseContract {
   callStatic: {};
 
   filters: {
-    "Burn(address,int24,int24,uint128,uint,uint)"(
+    "Burn(address,int24,int24,uint128,uint256,uint256)"(
       owner?: string | null,
       tickLower?: BigNumberish | null,
       tickUpper?: BigNumberish | null,
@@ -285,7 +285,7 @@ export class IUniswapV3PoolEvents extends BaseContract {
       }
     >;
 
-    "Flash(address,address,uint,uint,uint,uint)"(
+    "Flash(address,address,uint256,uint256,uint256,uint256)"(
       sender?: string | null,
       recipient?: string | null,
       amount0?: null,
@@ -361,7 +361,7 @@ export class IUniswapV3PoolEvents extends BaseContract {
       { sqrtPriceX96: BigNumber; tick: number }
     >;
 
-    "Mint(address,address,int24,int24,uint128,uint,uint)"(
+    "Mint(address,address,int24,int24,uint128,uint256,uint256)"(
       sender?: null,
       owner?: string | null,
       tickLower?: BigNumberish | null,

@@ -22,19 +22,19 @@ const _abi = [
             type: "address",
           },
           {
-            internalType: "uint",
+            internalType: "uint256",
             name: "deadline",
-            type: "uint",
+            type: "uint256",
           },
           {
-            internalType: "uint",
+            internalType: "uint256",
             name: "amountIn",
-            type: "uint",
+            type: "uint256",
           },
           {
-            internalType: "uint",
+            internalType: "uint256",
             name: "amountOutMinimum",
-            type: "uint",
+            type: "uint256",
           },
         ],
         internalType: "struct ISwapRouter.ExactInputParams",
@@ -45,9 +45,9 @@ const _abi = [
     name: "exactInput",
     outputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "amountOut",
-        type: "uint",
+        type: "uint256",
       },
     ],
     stateMutability: "payable",
@@ -78,19 +78,19 @@ const _abi = [
             type: "address",
           },
           {
-            internalType: "uint",
+            internalType: "uint256",
             name: "deadline",
-            type: "uint",
+            type: "uint256",
           },
           {
-            internalType: "uint",
+            internalType: "uint256",
             name: "amountIn",
-            type: "uint",
+            type: "uint256",
           },
           {
-            internalType: "uint",
+            internalType: "uint256",
             name: "amountOutMinimum",
-            type: "uint",
+            type: "uint256",
           },
           {
             internalType: "uint160",
@@ -106,9 +106,9 @@ const _abi = [
     name: "exactInputSingle",
     outputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "amountOut",
-        type: "uint",
+        type: "uint256",
       },
     ],
     stateMutability: "payable",
@@ -129,19 +129,19 @@ const _abi = [
             type: "address",
           },
           {
-            internalType: "uint",
+            internalType: "uint256",
             name: "deadline",
-            type: "uint",
+            type: "uint256",
           },
           {
-            internalType: "uint",
+            internalType: "uint256",
             name: "amountOut",
-            type: "uint",
+            type: "uint256",
           },
           {
-            internalType: "uint",
+            internalType: "uint256",
             name: "amountInMaximum",
-            type: "uint",
+            type: "uint256",
           },
         ],
         internalType: "struct ISwapRouter.ExactOutputParams",
@@ -152,9 +152,9 @@ const _abi = [
     name: "exactOutput",
     outputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "amountIn",
-        type: "uint",
+        type: "uint256",
       },
     ],
     stateMutability: "payable",
@@ -185,19 +185,19 @@ const _abi = [
             type: "address",
           },
           {
-            internalType: "uint",
+            internalType: "uint256",
             name: "deadline",
-            type: "uint",
+            type: "uint256",
           },
           {
-            internalType: "uint",
+            internalType: "uint256",
             name: "amountOut",
-            type: "uint",
+            type: "uint256",
           },
           {
-            internalType: "uint",
+            internalType: "uint256",
             name: "amountInMaximum",
-            type: "uint",
+            type: "uint256",
           },
           {
             internalType: "uint160",
@@ -213,9 +213,9 @@ const _abi = [
     name: "exactOutputSingle",
     outputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "amountIn",
-        type: "uint",
+        type: "uint256",
       },
     ],
     stateMutability: "payable",

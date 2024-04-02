@@ -25,7 +25,7 @@ interface IPancakePairInterface extends ethers.utils.Interface {
     "MINIMUM_LIQUIDITY()": FunctionFragment;
     "PERMIT_TYPEHASH()": FunctionFragment;
     "allowance(address,address)": FunctionFragment;
-    "approve(address,uint)": FunctionFragment;
+    "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "burn(address)": FunctionFragment;
     "decimals()": FunctionFragment;
@@ -35,18 +35,18 @@ interface IPancakePairInterface extends ethers.utils.Interface {
     "mint(address)": FunctionFragment;
     "name()": FunctionFragment;
     "nonces(address)": FunctionFragment;
-    "permit(address,address,uint,uint,uint8,bytes32,bytes32)": FunctionFragment;
+    "permit(address,address,uint256,uint256,uint8,bytes32,bytes32)": FunctionFragment;
     "price0CumulativeLast()": FunctionFragment;
     "price1CumulativeLast()": FunctionFragment;
     "skim(address)": FunctionFragment;
-    "swap(uint,uint,address,bytes)": FunctionFragment;
+    "swap(uint256,uint256,address,bytes)": FunctionFragment;
     "symbol()": FunctionFragment;
     "sync()": FunctionFragment;
     "token0()": FunctionFragment;
     "token1()": FunctionFragment;
     "totalSupply()": FunctionFragment;
-    "transfer(address,uint)": FunctionFragment;
-    "transferFrom(address,address,uint)": FunctionFragment;
+    "transfer(address,uint256)": FunctionFragment;
+    "transferFrom(address,address,uint256)": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -175,12 +175,12 @@ interface IPancakePairInterface extends ethers.utils.Interface {
   ): Result;
 
   events: {
-    "Approval(address,address,uint)": EventFragment;
-    "Burn(address,uint,uint,address)": EventFragment;
-    "Mint(address,uint,uint)": EventFragment;
-    "Swap(address,uint,uint,uint,uint,address)": EventFragment;
+    "Approval(address,address,uint256)": EventFragment;
+    "Burn(address,uint256,uint256,address)": EventFragment;
+    "Mint(address,uint256,uint256)": EventFragment;
+    "Swap(address,uint256,uint256,uint256,uint256,address)": EventFragment;
     "Sync(uint112,uint112)": EventFragment;
-    "Transfer(address,address,uint)": EventFragment;
+    "Transfer(address,address,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment;
@@ -586,7 +586,7 @@ export class IPancakePair extends BaseContract {
   };
 
   filters: {
-    "Approval(address,address,uint)"(
+    "Approval(address,address,uint256)"(
       owner?: string | null,
       spender?: string | null,
       value?: null
@@ -604,7 +604,7 @@ export class IPancakePair extends BaseContract {
       { owner: string; spender: string; value: BigNumber }
     >;
 
-    "Burn(address,uint,uint,address)"(
+    "Burn(address,uint256,uint256,address)"(
       sender?: string | null,
       amount0?: null,
       amount1?: null,
@@ -624,7 +624,7 @@ export class IPancakePair extends BaseContract {
       { sender: string; amount0: BigNumber; amount1: BigNumber; to: string }
     >;
 
-    "Mint(address,uint,uint)"(
+    "Mint(address,uint256,uint256)"(
       sender?: string | null,
       amount0?: null,
       amount1?: null
@@ -642,7 +642,7 @@ export class IPancakePair extends BaseContract {
       { sender: string; amount0: BigNumber; amount1: BigNumber }
     >;
 
-    "Swap(address,uint,uint,uint,uint,address)"(
+    "Swap(address,uint256,uint256,uint256,uint256,address)"(
       sender?: string | null,
       amount0In?: null,
       amount1In?: null,
@@ -696,7 +696,7 @@ export class IPancakePair extends BaseContract {
       { reserve0: BigNumber; reserve1: BigNumber }
     >;
 
-    "Transfer(address,address,uint)"(
+    "Transfer(address,address,uint256)"(
       from?: string | null,
       to?: string | null,
       value?: null

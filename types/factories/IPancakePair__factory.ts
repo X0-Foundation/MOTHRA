@@ -24,9 +24,9 @@ const _abi = [
       },
       {
         indexed: false,
-        internalType: "uint",
+        internalType: "uint256",
         name: "value",
-        type: "uint",
+        type: "uint256",
       },
     ],
     name: "Approval",
@@ -43,15 +43,15 @@ const _abi = [
       },
       {
         indexed: false,
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount0",
-        type: "uint",
+        type: "uint256",
       },
       {
         indexed: false,
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount1",
-        type: "uint",
+        type: "uint256",
       },
       {
         indexed: true,
@@ -74,15 +74,15 @@ const _abi = [
       },
       {
         indexed: false,
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount0",
-        type: "uint",
+        type: "uint256",
       },
       {
         indexed: false,
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount1",
-        type: "uint",
+        type: "uint256",
       },
     ],
     name: "Mint",
@@ -99,27 +99,27 @@ const _abi = [
       },
       {
         indexed: false,
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount0In",
-        type: "uint",
+        type: "uint256",
       },
       {
         indexed: false,
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount1In",
-        type: "uint",
+        type: "uint256",
       },
       {
         indexed: false,
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount0Out",
-        type: "uint",
+        type: "uint256",
       },
       {
         indexed: false,
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount1Out",
-        type: "uint",
+        type: "uint256",
       },
       {
         indexed: true,
@@ -167,9 +167,9 @@ const _abi = [
       },
       {
         indexed: false,
-        internalType: "uint",
+        internalType: "uint256",
         name: "value",
-        type: "uint",
+        type: "uint256",
       },
     ],
     name: "Transfer",
@@ -193,9 +193,9 @@ const _abi = [
     name: "MINIMUM_LIQUIDITY",
     outputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "",
-        type: "uint",
+        type: "uint256",
       },
     ],
     stateMutability: "pure",
@@ -230,9 +230,9 @@ const _abi = [
     name: "allowance",
     outputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "",
-        type: "uint",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -246,9 +246,9 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "value",
-        type: "uint",
+        type: "uint256",
       },
     ],
     name: "approve",
@@ -273,9 +273,9 @@ const _abi = [
     name: "balanceOf",
     outputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "",
-        type: "uint",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -292,14 +292,14 @@ const _abi = [
     name: "burn",
     outputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount0",
-        type: "uint",
+        type: "uint256",
       },
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount1",
-        type: "uint",
+        type: "uint256",
       },
     ],
     stateMutability: "nonpayable",
@@ -359,9 +359,9 @@ const _abi = [
     name: "kLast",
     outputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "",
-        type: "uint",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -378,9 +378,9 @@ const _abi = [
     name: "mint",
     outputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "liquidity",
-        type: "uint",
+        type: "uint256",
       },
     ],
     stateMutability: "nonpayable",
@@ -410,9 +410,9 @@ const _abi = [
     name: "nonces",
     outputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "",
-        type: "uint",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -431,14 +431,14 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "value",
-        type: "uint",
+        type: "uint256",
       },
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "deadline",
-        type: "uint",
+        type: "uint256",
       },
       {
         internalType: "uint8",
@@ -466,9 +466,9 @@ const _abi = [
     name: "price0CumulativeLast",
     outputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "",
-        type: "uint",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -479,9 +479,9 @@ const _abi = [
     name: "price1CumulativeLast",
     outputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "",
-        type: "uint",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -503,14 +503,14 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount0Out",
-        type: "uint",
+        type: "uint256",
       },
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount1Out",
-        type: "uint",
+        type: "uint256",
       },
       {
         internalType: "address",
@@ -579,9 +579,9 @@ const _abi = [
     name: "totalSupply",
     outputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "",
-        type: "uint",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -595,9 +595,9 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "value",
-        type: "uint",
+        type: "uint256",
       },
     ],
     name: "transfer",
@@ -624,9 +624,9 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "value",
-        type: "uint",
+        type: "uint256",
       },
     ],
     name: "transferFrom",

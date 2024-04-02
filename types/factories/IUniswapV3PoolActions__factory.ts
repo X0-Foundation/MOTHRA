@@ -31,14 +31,14 @@ const _abi = [
     name: "burn",
     outputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount0",
-        type: "uint",
+        type: "uint256",
       },
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount1",
-        type: "uint",
+        type: "uint256",
       },
     ],
     stateMutability: "nonpayable",
@@ -96,14 +96,14 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount0",
-        type: "uint",
+        type: "uint256",
       },
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount1",
-        type: "uint",
+        type: "uint256",
       },
       {
         internalType: "bytes",
@@ -173,14 +173,14 @@ const _abi = [
     name: "mint",
     outputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount0",
-        type: "uint",
+        type: "uint256",
       },
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount1",
-        type: "uint",
+        type: "uint256",
       },
     ],
     stateMutability: "nonpayable",

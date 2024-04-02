@@ -783,43 +783,47 @@ describe("====================== Stage 2: Test pulses ======================\n".
   it("2.1 Test Pulses.\n".green, async function () {
     await showConsistency();
 
-    await mintBlocks(500);
-    await pulse_user_burn();
-    await showConsistency();
+    blocks = 2
 
-    await transfer(owner, alice, 10);
-    await mintBlocks(500);
-    await pulse_user_burn();
-    await showConsistency();
+    for(i=0; i<10; i++) {
+        await mintBlocks(blocks);
+        await pulse_user_burn();
+        await showConsistency();
 
-    await transfer(owner, bob, 1000);
-    await mintBlocks(500);
-    await pulse_user_burn();
-    await showConsistency();
+        await transfer(owner, alice, 10);
+        await mintBlocks(blocks);
+        await pulse_user_burn();
+        await showConsistency();
 
-    await transfer(owner, carol, 5000);
-    await mintBlocks(500);
-    await pulse_user_burn();
-    await showConsistency();
+        await transfer(owner, bob, 1000);
+        await mintBlocks(blocks);
+        await pulse_user_burn();
+        await showConsistency();
 
-    await mintBlocks(500);
-    await pulse_user_burn();
-    await showConsistency();
+        await transfer(owner, carol, 5000);
+        await mintBlocks(blocks);
+        await pulse_user_burn();
+        await showConsistency();
 
-    await transfer(owner, carol, 100);
-    await mintBlocks(500);
-    await pulse_user_burn();
-    await showConsistency();
+        await mintBlocks(blocks);
+        await pulse_user_burn();
+        await showConsistency();
 
-    await transfer(carol, carol, 100);
-    await mintBlocks(500);
-    await pulse_user_burn();
-    await showConsistency();
+        await transfer(owner, carol, 100);
+        await mintBlocks(blocks);
+        await pulse_user_burn();
+        await showConsistency();
 
-    await transfer(carol, alice, 100);
-    await mintBlocks(500);
-    await pulse_user_burn();
-    await showConsistency();
+        await transfer(carol, carol, 100);
+        await mintBlocks(blocks);
+        await pulse_user_burn();
+        await showConsistency();
+
+        await transfer(carol, alice, 100);
+        await mintBlocks(blocks);
+        await pulse_user_burn();
+        await showConsistency();
+    }
 
 });
 

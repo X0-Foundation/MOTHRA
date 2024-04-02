@@ -23,7 +23,7 @@ interface IUniswapV3PoolStateInterface extends ethers.utils.Interface {
     "feeGrowthGlobal0X128()": FunctionFragment;
     "feeGrowthGlobal1X128()": FunctionFragment;
     "liquidity()": FunctionFragment;
-    "observations(uint)": FunctionFragment;
+    "observations(uint256)": FunctionFragment;
     "positions(bytes32)": FunctionFragment;
     "protocolFees()": FunctionFragment;
     "slot0()": FunctionFragment;

@@ -32,15 +32,15 @@
         },
         {
           "indexed": false,
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "amount0",
-          "type": "uint"
+          "type": "uint256"
         },
         {
           "indexed": false,
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "amount1",
-          "type": "uint"
+          "type": "uint256"
         }
       ],
       "name": "Burn",
@@ -137,27 +137,27 @@
         },
         {
           "indexed": false,
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "amount0",
-          "type": "uint"
+          "type": "uint256"
         },
         {
           "indexed": false,
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "amount1",
-          "type": "uint"
+          "type": "uint256"
         },
         {
           "indexed": false,
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "paid0",
-          "type": "uint"
+          "type": "uint256"
         },
         {
           "indexed": false,
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "paid1",
-          "type": "uint"
+          "type": "uint256"
         }
       ],
       "name": "Flash",
@@ -236,15 +236,15 @@
         },
         {
           "indexed": false,
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "amount0",
-          "type": "uint"
+          "type": "uint256"
         },
         {
           "indexed": false,
-          "internalType": "uint",
+          "internalType": "uint256",
           "name": "amount1",
-          "type": "uint"
+          "type": "uint256"
         }
       ],
       "name": "Mint",

@@ -22,10 +22,10 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 interface IERC20MinimalInterface extends ethers.utils.Interface {
   functions: {
     "allowance(address,address)": FunctionFragment;
-    "approve(address,uint)": FunctionFragment;
+    "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
-    "transfer(address,uint)": FunctionFragment;
-    "transferFrom(address,address,uint)": FunctionFragment;
+    "transfer(address,uint256)": FunctionFragment;
+    "transferFrom(address,address,uint256)": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -56,8 +56,8 @@ interface IERC20MinimalInterface extends ethers.utils.Interface {
   ): Result;
 
   events: {
-    "Approval(address,address,uint)": EventFragment;
-    "Transfer(address,address,uint)": EventFragment;
+    "Approval(address,address,uint256)": EventFragment;
+    "Transfer(address,address,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment;
@@ -205,7 +205,7 @@ export class IERC20Minimal extends BaseContract {
   };
 
   filters: {
-    "Approval(address,address,uint)"(
+    "Approval(address,address,uint256)"(
       owner?: string | null,
       spender?: string | null,
       value?: null
@@ -223,7 +223,7 @@ export class IERC20Minimal extends BaseContract {
       { owner: string; spender: string; value: BigNumber }
     >;
 
-    "Transfer(address,address,uint)"(
+    "Transfer(address,address,uint256)"(
       from?: string | null,
       to?: string | null,
       value?: null

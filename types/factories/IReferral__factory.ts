@@ -15,9 +15,9 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "_debit",
-        type: "uint",
+        type: "uint256",
       },
     ],
     name: "debitOutstandingCommission",
@@ -36,9 +36,9 @@ const _abi = [
     name: "getOutstandingCommission",
     outputs: [
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "amount",
-        type: "uint",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -89,9 +89,9 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "uint",
+        internalType: "uint256",
         name: "commission",
-        type: "uint",
+        type: "uint256",
       },
     ],
     name: "recordReferralCommission",

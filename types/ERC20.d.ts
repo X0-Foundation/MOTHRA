@@ -22,16 +22,16 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 interface ERC20Interface extends ethers.utils.Interface {
   functions: {
     "allowance(address,address)": FunctionFragment;
-    "approve(address,uint)": FunctionFragment;
+    "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "decimals()": FunctionFragment;
-    "decreaseAllowance(address,uint)": FunctionFragment;
-    "increaseAllowance(address,uint)": FunctionFragment;
+    "decreaseAllowance(address,uint256)": FunctionFragment;
+    "increaseAllowance(address,uint256)": FunctionFragment;
     "name()": FunctionFragment;
     "symbol()": FunctionFragment;
     "totalSupply()": FunctionFragment;
-    "transfer(address,uint)": FunctionFragment;
-    "transferFrom(address,address,uint)": FunctionFragment;
+    "transfer(address,uint256)": FunctionFragment;
+    "transferFrom(address,address,uint256)": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -92,8 +92,8 @@ interface ERC20Interface extends ethers.utils.Interface {
   ): Result;
 
   events: {
-    "Approval(address,address,uint)": EventFragment;
-    "Transfer(address,address,uint)": EventFragment;
+    "Approval(address,address,uint256)": EventFragment;
+    "Transfer(address,address,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment;
@@ -301,7 +301,7 @@ export class ERC20 extends BaseContract {
   };
 
   filters: {
-    "Approval(address,address,uint)"(
+    "Approval(address,address,uint256)"(
       owner?: string | null,
       spender?: string | null,
       value?: null
@@ -319,7 +319,7 @@ export class ERC20 extends BaseContract {
       { owner: string; spender: string; value: BigNumber }
     >;
 
-    "Transfer(address,address,uint)"(
+    "Transfer(address,address,uint256)"(
       from?: string | null,
       to?: string | null,
       value?: null
