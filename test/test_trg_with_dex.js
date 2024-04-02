@@ -259,6 +259,32 @@ async function pulse_user_burn() {
     console.log("\tPulse_user_burn".green);
 }
 
+async function showStatus(account) {
+    const s = await tgr.getStatus(account);
+    console.log("\tstatus: %s", account);
+    console.log("\t_totalSupply %s, accDecayPer1e12 %s, \
+    \n\tsum_tokens %s, pending_burn %s, \
+    \n\t_balances[account] %s, _balanceOf(account) %s, \
+    \n\tUsers[account].debtToPendingBurn %s".green,
+    s.totalSupply, s.ub_accDecayPer1e12, 
+    s.ub_sum_tokens, s.ub_pending_burn,
+    s.account_balances, s.account_balanceOf, 
+    s.account_debtToPendingBurn);
+}
+
+// function getStatus(address account) external view returns (
+//     uint totalSupply, uint ub_accDecayPer1e12, uint ub_sum_tokens, uint ub_pending_burn,
+//     uint account_balances, uint account_debtToPendingBurn, uint account_balanceOf
+// ) {
+//     totalSupply = _totalSupply;
+//     ub_accDecayPer1e12 = user_burn.accDecayPer1e12;
+//     ub_sum_tokens = user_burn.sum_tokens;
+//     ub_pending_burn = user_burn.pending_burn;
+//     account_balances = _balances[account];
+//     account_debtToPendingBurn = Users[account].debtToPendingBurn;
+//     account_balanceOf = _balanceOf(account);
+// }
+
 async function mintTime(seconds) {
     let tm0 = (await ethers.provider.getBlock("latest")).timestamp;
     await network.provider.send("evm_increaseTime", [seconds]);
@@ -821,56 +847,72 @@ describe("====================== Stage 2: Test pulses ======================\n".
     await showConsistency();
 
     blocks = 10 // Test pulse cycles are less than 5.
+    mintburn = 100
 
-    for(i=0; i<5; i++) {
+    for(i=0; i<1; i++) {
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
 
-        await mint(owner, alice, 20);
-        await burn(owner, alice, 20);
-        await transfer(owner, alice, 10);
+        await showStatus(owner.address);
+        await showStatus(alice.address);
+        await mint(owner, alice, mintburn);
+        await showStatus(owner.address);
+        await showStatus(alice.address);
+
+        await showStatus(owner.address);
+        await showStatus(alice.address);
+        await burn(owner, alice, mintburn);
+        await showStatus(owner.address);
+        await showStatus(alice.address);
+
+        await showStatus(owner.address);
+        await showStatus(alice.address);
+        await transfer(owner, alice, 1);
+        await showStatus(owner.address);
+        await showStatus(alice.address);
+
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
 
-        await mint(owner, bob, 20);
-        await burn(owner, bob, 20);
-        await transfer(owner, bob, 1000);
+        await mint(owner, bob, mintburn);
+        await burn(owner, bob, mintburn);
+        // await transfer(owner, bob, 1000);
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
 
-        await mint(owner, carol, 20);
-        await burn(owner, carol, 20);
-        await transfer(owner, carol, 5000);
+        await mint(owner, carol, mintburn);
+        await burn(owner, carol, mintburn);
+        // await transfer(owner, carol, 5000);
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
 
-        await mint(owner, alice, 20);
-        await burn(owner, alice, 20);
+        await mint(owner, alice, mintburn);
+        await burn(owner, alice, mintburn);
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
 
-        await mint(owner, alice, 20);
-        await burn(owner, alice, 20);
-        await transfer(owner, carol, 100);
+        await mint(owner, alice, mintburn);
+        await burn(owner, alice, mintburn);
+        // await transfer(owner, carol, 100);
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
 
-        await mint(owner, bob, 20);
-        await burn(owner, bob, 20);
-        await transfer(carol, carol, 100);
+        await mint(owner, bob, mintburn);
+        await burn(owner, bob, mintburn);
+        // await transfer(carol, carol, 100);
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
 
-        await mint(owner, alice, 20);
-        await burn(owner, alice, 20);
-        await transfer(carol, alice, 100);
+        await mint(owner, alice, mintburn);
+        await burn(owner, alice, mintburn);
+        // await transfer(carol, alice, 100);
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
