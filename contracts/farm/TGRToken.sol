@@ -72,7 +72,8 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
 
     function _pendingBurn(address account) internal view returns (uint pendingBurn) {
         // Note _balanceOf(account) relies on _pendingBurn, thun leading a circular referencing.
-        // This pendingBurn comes from user_burn.accDecayPer1e12 possibly increased, not _balances[account] increased.
+        // This pendingBurn comes from user_burn.accDecayPer1e12 increased, not _balances[account] increased, 
+        // since Users[account].debtToPendingBurn was captured in _updateBalance
         pendingBurn = _balances[account] * user_burn.accDecayPer1e12 / uint(1e12) - Users[account].debtToPendingBurn;
     }
 
@@ -174,13 +175,11 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             // This line of code produces dust, due to numerical error. pendingBurn becomes less than its true value.
             uint pendingBurn = _pendingBurn(account);
             // so, balance becomes greater than its true value.
+            console.log("_balanceOf. 1e6 user_burn.accDecayPer1e12/1e12:", 1e6 *user_burn.accDecayPer1e12/1e12);
             if(pendingBurn > _balances[account]) {
-                console.log("!!! inconsistent. _balanceOf. pendingBurn > _balances[account]. _pendingBurn", pendingBurn);
-                console.log("_balanceOf. account, _balances[accmount], user_burn.accDecayPer1e12:", account, _balances[account], user_burn.accDecayPer1e12);
-                console.log("_balanceOf. Users[account].debtToPendingBurn:", Users[account].debtToPendingBurn);
                 if (user_burn.accDecayPer1e12 > 1e12) {
-                    console.log("user_burn.accDecayPer1e12 is greater than 1e12");
-                }
+                    console.log("!!!_balanceOf. user_burn.accDecayPer1e12 is greater than 1e12");
+                } 
             }
             balance = _balances[account] - pendingBurn; // not less than its true value
         } else {
@@ -444,9 +443,11 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             uint256 net_collective = user_burn.sum_tokens - user_burn.pending_burn;
             uint256 new_burn = net_collective * decayPer1e12 / 1e12;  // smaller than its real value
             user_burn.pending_burn += new_burn;
-            user_burn.accDecayPer1e12 += new_burn * 1e12 / net_collective;
+            // user_burn.accDecayPer1e12 +=  user_burn.accDecayPer1e12 * accDecayPer1e12 / uint(1e12);
+            // user_burn.accDecayPer1e12 += (decayPer1e12 * net_collective / uint(1e12)); // == decayPer1e12
+            // user_burn.accDecayPer1e12 += new_burn * 1e12 / net_collective; // == decayPer1e12
             // user_burn.accDecayPer1e12 += new_burn * 1e12 / user_burn.sum_tokens;   // / net_collective should be more reasonable.
-            // user_burn.accDecayPer1e12 += (uint(1e12)-user_burn.accDecayPer1e12) * decayPer1e12 / uint(1e12);
+            user_burn.accDecayPer1e12 += (uint(1e12)-user_burn.accDecayPer1e12) * decayPer1e12 / uint(1e12);
             // user_burn.accDecayPer1e12 = decayPer1e12;
             // user_burn.accDecayPer1e12 += net_collective * decayPer1e12; 
 
@@ -460,32 +461,31 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         require(user_burn.sum_tokens + nonUserSumTokens == _totalSupply, "sum_tokens + nonUserSumTokens != _totalSupply");
         // This implies that user_burn.sum_tokens - user_burn.pending_burn + nonUserSumTokens == totalSupply()
         // See totalSupply()
+
         require(user_burn.pending_burn <= user_burn.sum_tokens, "user_pending_burn exceeds user_sum_total");
 
-        // -------------- deeper consistency checker, used for development -----------------
 
-        // // Be careful, there are more userAccounts. Look at _isUserAccount().
-        // if (_balances[admin] + _balances[alice] + _balances[bob] + _balances[carol] != user_burn.sum_tokens) {
-        //     console.log("!!! inconsistent", _balances[admin] + _balances[alice] + _balances[bob] + _balances[carol], user_burn.sum_tokens);
-        // }
+        // Be careful, there are more userAccounts. Look at _isUserAccount().
+        if (_balances[admin] + _balances[alice] + _balances[bob] + _balances[carol] != user_burn.sum_tokens) {
+            console.log("!!! inconsistent", _balances[admin] + _balances[alice] + _balances[bob] + _balances[carol], user_burn.sum_tokens);
+        }
 
-        // uint net_collective = user_burn.sum_tokens - user_burn.pending_burn;
-        // uint net_marginal = balanceOf(admin) + balanceOf(alice) + balanceOf(bob) + balanceOf(carol);
-        // uint abs_error;
+        uint net_collective = user_burn.sum_tokens - user_burn.pending_burn;
+        uint net_marginal = balanceOf(admin) + balanceOf(alice) + balanceOf(bob) + balanceOf(carol);
+        uint abs_error;
         
-        // if (net_collective < net_marginal) {
-        //     abs_error = net_marginal - net_collective;
-        //     console.log("check --- marginal greater");
+        if (net_collective < net_marginal) {
+            abs_error = net_marginal - net_collective;
+            // console.log("check --- marginal greater");
 
-        // } else {
-        //     abs_error = net_collective - net_marginal;
-        //     console.log("check --- collective greater");
-        // }
+        } else {
+            abs_error = net_collective - net_marginal;
+            // console.log("check --- collective greater");
+        }
 
         // console.log("1e12 error_rate, error", 1e12 * abs_error/net_collective, abs_error);
         // console.log("net_collective, net_marginal", net_collective, net_marginal);
         // require( 1e3 * abs_error < net_collective, "Error exceeds a thousand-th");
-        
     }
 
     //======================= DEX cooperations ===============================
