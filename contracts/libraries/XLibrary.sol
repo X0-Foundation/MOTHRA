@@ -49,12 +49,8 @@ library XLibrary {
         address tokenB
     ) internal view returns (uint reserveA, uint reserveB) {
         (address token0, ) = sortTokens(tokenA, tokenB);
-        console.log("0.1", token0, tokenA, tokenB);
-        console.log("0.2, factory, pairFor", factory, pairFor(factory, tokenA, tokenB));
         (uint112 reserve0, uint112 reserve1, ) = IXPair(pairFor(factory, tokenA, tokenB)).getReserves();
-        console.log("1", reserveA, reserveB);
         (reserveA, reserveB) = tokenA == token0 ? (uint(reserve0), uint(reserve1)) : (uint(reserve1), uint(reserve0));
-        console.log("2", reserveA, reserveB);
     }
 
     // given some amount of an asset and pair reserves, returns an equivalent amount of the other asset

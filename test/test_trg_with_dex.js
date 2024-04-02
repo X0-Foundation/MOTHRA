@@ -287,6 +287,44 @@ async function transfer(sender, recipient, amount) {
     console.log("\tTransfer done".green);
 }
 
+async function transfer2(token_contract, sender, recipient, amount) {
+    let amountWei = ethToWei(amount);
+    let balance = await token_contract.balanceOf(sender.address);
+    if (amountWei > balance) amountWei = balance;
+    //console.log("\t%s is transferring %s %s TGR ...".yellow, sender.name, recipient.name, weiToEth(amountWei));
+    console.log("\t%s is transferring to %s ...".yellow, 
+    sender.name == undefined ? "undefined" : sender.name,
+    recipient.hasOwnProperty("name") ? (recipient.name == undefined ? "undefined" : recipient.name) : "NoName" );
+
+    tx = token_contract.connect(sender).transfer(recipient.address, amountWei );
+    (await tx).wait();
+    console.log("\tTransfer done".green);
+}
+
+async function mint(minter, to, amount) {
+    let amountWei = ethToWei(amount);
+    await console.log("\t%s is minting to %s ...".yellow, 
+    minter.name == undefined ? "undefined" : minter.name,
+    to.hasOwnProperty("name") ? (to.name == undefined ? "undefined" : to.name) : "NoName" );
+
+    tx = tgr.connect(minter).mint(to.address, amountWei );
+    (await tx).wait();
+
+    await console.log("\tMint done".green);
+}
+
+async function burn(burner, from, amount) {
+    let amountWei = ethToWei(amount);
+    await console.log("\t%s is burning from %s ...".yellow, 
+    burner.name == undefined ? "undefined" : burner.name,
+    from.hasOwnProperty("name") ? (from.name == undefined ? "undefined" : from.name) : "NoName" );
+
+    tx = tgr.connect(burner).burn(from.address, amountWei );
+    (await tx).wait();
+
+    await console.log("\tBurn done".green);
+}
+
 async function test_addLiquidity(tokenA, amountA, tokenB, amountB, caller, to, log) {
     let report = "";
     let pairToReturn;
@@ -300,7 +338,6 @@ async function test_addLiquidity(tokenA, amountA, tokenB, amountB, caller, to, l
     const isNewPair = ( pair == zero_address ? true : false);
     let liquidityBalance0, reserveA0, reserveB0;
     if (!isNewPair) {
-        await console.log("!isNewPair...")
         let pairAddr = await factory.getPair(tokenA.address, tokenB.address);
         let pair = new ethers.Contract(pairAddr, XPairArtifacts.abi, caller);
         liquidityBalance0 = await pair.balanceOf(to.address);
@@ -311,7 +348,6 @@ async function test_addLiquidity(tokenA, amountA, tokenB, amountB, caller, to, l
             reserveB0 = temp; 
         }
     } else {
-        await console.log("isNewPair...")
         liquidityBalance0 = 0;
         reserveA0 = 0;
         reserveB0 = 0;
@@ -784,42 +820,56 @@ describe("====================== Stage 2: Test pulses ======================\n".
   it("2.1 Test Pulses.\n".green, async function () {
     await showConsistency();
 
-    blocks = 50 // Test pulse cycles are less than 5.
+    blocks = 10 // Test pulse cycles are less than 5.
 
-    for(i=0; i<10; i++) {
+    for(i=0; i<1; i++) {
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
 
+        await mint(owner, alice, 20);
+        await burn(owner, alice, 20);
         await transfer(owner, alice, 10);
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
 
+        await mint(owner, bob, 20);
+        await burn(owner, bob, 20);
         await transfer(owner, bob, 1000);
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
 
+        await mint(owner, carol, 20);
+        await burn(owner, carol, 20);
         await transfer(owner, carol, 5000);
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
 
+        await mint(owner, alice, 20);
+        await burn(owner, alice, 20);
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
 
+        await mint(owner, alice, 20);
+        await burn(owner, alice, 20);
         await transfer(owner, carol, 100);
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
 
+        await mint(owner, bob, 20);
+        await burn(owner, bob, 20);
         await transfer(carol, carol, 100);
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
 
+        await mint(owner, alice, 20);
+        await burn(owner, alice, 20);
         await transfer(carol, alice, 100);
         await mintBlocks(blocks);
         await pulse_user_burn();

@@ -87,10 +87,8 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
         console.log("_addLiquidity...");
 
         if (IXFactory(nodes.factory).getPair(tokenA, tokenB) == address(0)) {
-            console.log("no pair, creating...A, B, Pair", tokenA, tokenB, IXFactory(nodes.factory).getPair(tokenA, tokenB));
             IXFactory(nodes.factory).createPair(tokenA, tokenB);
         }
-        console.log("0... A, B, Pair", tokenA, tokenB, IXFactory(nodes.factory).getPair(tokenA, tokenB));
         (uint reserveA, uint reserveB) = XLibrary.getReserves(nodes.factory, tokenA, tokenB);
 
         if (reserveA == 0 && reserveB == 0) {
@@ -204,7 +202,6 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
         )
     {
         _openAction(ActionType.AddLiquidity, true);
-        console.log("-1, calling _addLiquidity...", _token, to);
 
         (amountToken, amountETH) = _addLiquidity(
             _token,
