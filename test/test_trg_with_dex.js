@@ -267,9 +267,10 @@ async function mintTime(seconds) {
 
 async function showConsistency() {
     let user_burn = await tgr.user_burn();
-    console.log("\n\tuser_burn: \n\tsum_tokens: %s, pending_burn: %s, \n\ttotalSupply()=_ts-pending_burn: %s", 
-    user_burn.sum_tokens, user_burn.pending_burn, await tgr.totalSupply());
+    // console.log("\n\tuser_burn: \n\tsum_tokens: %s, pending_burn: %s, \n\ttotalSupply()=_ts-pending_burn: %s", 
+    // user_burn.sum_tokens, user_burn.pending_burn, await tgr.totalSupply());
     await tgr.checkForConsistency();
+    console.log("\tConsistency test PASS".cyan)
 }
 
 async function transfer(sender, recipient, amount) {
@@ -785,7 +786,7 @@ describe("====================== Stage 2: Test pulses ======================\n".
 
     blocks = 2
 
-    for(i=0; i<1; i++) {
+    for(i=0; i<10; i++) {
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
@@ -886,9 +887,9 @@ describe("====================== Stage 3: Test Dex ======================\n".yel
         await showConsistency();
 
         console.log("\n\tOwner transferring to alice... 15000 Tgr");
-        await tgr.connect(owner).transfer(alice.address, ethToWei(15000));
+        await tgr.connect(owner).transfer(alice.address, 1500);
         console.log("\n\tOwner transferring to alice... 15000 Mck2");
-        await mock2.connect(owner).transfer(alice.address, ethToWei(15000));
+        await mock2.connect(owner).transfer(alice.address, 1500);
         await mintBlocks(50);
         await pulse_user_burn();
         await showConsistency();

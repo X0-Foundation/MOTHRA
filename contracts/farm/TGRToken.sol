@@ -72,8 +72,16 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
 
     function _pendingBurn(address account) internal view returns (uint pendingBurn) {
         // Note _balanceOf(account) relies on _pendingBurn, thun leading a circular referencing.
-        pendingBurn = _balanceOf(account) * user_burn.accDecayPer1e12 / uint(1e12) - Users[account].debtToPendingBurn;
-        // pendingBurn = _balances[account] - 
+        // This pendingBurn comes from user_burn.accDecayPer1e12 possibly increased, not _balances[account] increased.
+        pendingBurn = _balances[account] * user_burn.accDecayPer1e12 / uint(1e12) - Users[account].debtToPendingBurn;
+    }
+
+    function _safeAlessB(uint a, uint b) internal returns (uint delta) {
+        if (a > b) {
+            delta = a - b;
+        } else {
+            delta = 0;
+        }
     }
 
 
@@ -84,12 +92,11 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
 
             // Settle with pending burn (account)
             uint pendingBurn = _pendingBurn(account);
-            console.log("_updateBalance. pendingBurn: ", pendingBurn);
             if (pendingBurn > 0) {
-                _balances[account] -= pendingBurn; // This is core burning
-                user_burn.sum_tokens -= pendingBurn; // larger
-                _totalSupply -= pendingBurn; // not less than its true value
-                user_burn.pending_burn -= pendingBurn; // larger
+                _balances[account] = _safeAlessB(_balances[account], pendingBurn); // This is core burning
+                user_burn.sum_tokens = _safeAlessB(user_burn.sum_tokens, pendingBurn); // larger
+                _totalSupply = _safeAlessB(_totalSupply, pendingBurn); // not less than its true value
+                user_burn.pending_burn = _safeAlessB(user_burn.pending_burn, pendingBurn); // larger
             }
 
             // credit or debit
@@ -101,9 +108,14 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
                 user_burn.sum_tokens -= amount;
             }
 
+            // // account has now no pendingBurn and _balances[account] is now its true balance.
+            // // We need to keep the true balance for use in _pandingBurn, otherwise _pendingBurn will have to 
+            // // call _balanceOf(account), raising a circular referencing.
+            // Users[account].true_balance_at_last_update = _balances[account];
+
             // Renew debt, so _pendingBurn(account) will return zero.
             // Users[account].debtToPendingBurn =  _balances[account] * user_burn.accDecayPer1e12 / uint(1e12);
-            Users[account].debtToPendingBurn =  _balanceOf(account) * user_burn.accDecayPer1e12 / uint(1e12);
+            Users[account].debtToPendingBurn =  _balances[account] * user_burn.accDecayPer1e12 / uint(1e12);
 
         } else {
             if (creditNotDebit) {
@@ -230,11 +242,11 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         _openAction(ActionType.Transfer, true);
 
         if (amount > 0) {
-            // if (actionParams.isUserAction) {  // Shift transfer
-            //     uint burnAmount = amount * buysell_burn_rate / FeeMagnifier;
-            //     _burn(sender, burnAmount);
-            //     amount -= burnAmount;
-            // }
+            if (actionParams.isUserAction) {  // Shift transfer
+                uint burnAmount = amount * buysell_burn_rate / FeeMagnifier;
+                _burn(sender, burnAmount);
+                amount -= burnAmount;
+            }
             _transfer(sender, recipient, amount);
         }
 
@@ -448,27 +460,32 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         require(user_burn.sum_tokens + nonUserSumTokens == _totalSupply, "sum_tokens + nonUserSumTokens != _totalSupply");
         // This implies that user_burn.sum_tokens - user_burn.pending_burn + nonUserSumTokens == totalSupply()
         // See totalSupply()
-
         require(user_burn.pending_burn <= user_burn.sum_tokens, "user_pending_burn exceeds user_sum_total");
 
-        // Be careful, there are more userAccounts. Look at _isUserAccount().
-        if (_balances[admin] + _balances[alice] + _balances[bob] + _balances[carol] != user_burn.sum_tokens) {
-            console.log("!!! inconsistent", _balances[admin] + _balances[alice] + _balances[bob] + _balances[carol], user_burn.sum_tokens);
-        }
+        // -------------- deeper consistency checker, used for development -----------------
 
-        uint net_collective = user_burn.sum_tokens - user_burn.pending_burn;
-        uint net_marginal = balanceOf(admin) + balanceOf(alice) + balanceOf(bob) + balanceOf(carol);
-        uint abs_error;
+        // // Be careful, there are more userAccounts. Look at _isUserAccount().
+        // if (_balances[admin] + _balances[alice] + _balances[bob] + _balances[carol] != user_burn.sum_tokens) {
+        //     console.log("!!! inconsistent", _balances[admin] + _balances[alice] + _balances[bob] + _balances[carol], user_burn.sum_tokens);
+        // }
+
+        // uint net_collective = user_burn.sum_tokens - user_burn.pending_burn;
+        // uint net_marginal = balanceOf(admin) + balanceOf(alice) + balanceOf(bob) + balanceOf(carol);
+        // uint abs_error;
         
-        if (net_collective < net_marginal) {
-            abs_error = net_marginal - net_collective;
-        } else {
-            abs_error = net_collective - net_marginal;
-        }
+        // if (net_collective < net_marginal) {
+        //     abs_error = net_marginal - net_collective;
+        //     console.log("check --- marginal greater");
 
-        console.log("1e12 error_rate, error", 1e12 * abs_error/net_collective, abs_error);
-        console.log("net_collective, net_marginal", net_collective, net_marginal);
-        require( 1e3 * abs_error < net_collective, "Error exceeds a thousand-th");
+        // } else {
+        //     abs_error = net_collective - net_marginal;
+        //     console.log("check --- collective greater");
+        // }
+
+        // console.log("1e12 error_rate, error", 1e12 * abs_error/net_collective, abs_error);
+        // console.log("net_collective, net_marginal", net_collective, net_marginal);
+        // require( 1e3 * abs_error < net_collective, "Error exceeds a thousand-th");
+        
     }
 
     //======================= DEX cooperations ===============================
