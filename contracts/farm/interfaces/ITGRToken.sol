@@ -16,7 +16,7 @@ interface ITGRToken is IERC20 {
         uint256 latestRound;
     }
     struct User {
-        uint256 debtToPendingBurn;        
+        uint256 debtToPendingBurnPer1e12;        
     }
 
     function maxSupply() external view returns (uint256);
