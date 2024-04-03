@@ -259,9 +259,9 @@ async function pulse_user_burn() {
     console.log("\tPulse_user_burn".green);
 }
 
-async function showStatus(account) {
-    const s = await tgr.getStatus(account);
-    console.log("\tstatus: %s", account);
+async function showStatus(user) {
+    const s = await tgr.getStatus(user.address);
+    console.log("\tstatus: %s", user.name);
     console.log("\t_totalSupply %s, ub_accDecayPer1e12 %s, \
     \n\tub.sum_tokens %s, ub.pending_burn %s, \
     \n\t_balances[acc] %s, _balanceOf(acc) %s, \
@@ -861,29 +861,36 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await pulse_user_burn();
         await showConsistency();
 
-        await showStatus(owner.address);
-        await showStatus(alice.address);
+        await showStatus(owner);
+        await showStatus(alice);
         await transfer(owner, alice, 0);
-        await showStatus(owner.address);
-        await showStatus(alice.address);
+        await showStatus(owner);
+        await showStatus(alice);
 
-        await showStatus(owner.address);
-        await showStatus(alice.address);
+        await showStatus(owner);
+        await showStatus(alice);
         await mint(owner, alice, mintburn);
-        await showStatus(owner.address);
-        await showStatus(alice.address);
+        await showStatus(owner);
+        await showStatus(alice);
 
-        await showStatus(owner.address);
-        await showStatus(alice.address);
+        await showStatus(owner);
+        await showStatus(alice);
         await burn(owner, alice, mintburn);
-        await showStatus(owner.address);
-        await showStatus(alice.address);
+        await showStatus(owner);
+        await showStatus(alice);
 
+        await showConsistency();
         await mintBlocks(blocks);
+        await showConsistency();
         await pulse_user_burn();
         await showConsistency();
 
+        await showStatus(owner);
+        await showStatus(bob);
         await mint(owner, bob, mintburn);
+        await showStatus(owner);
+        await showStatus(bob);
+
         await burn(owner, bob, mintburn);
         // await transfer(owner, bob, 1000);
         await mintBlocks(blocks);

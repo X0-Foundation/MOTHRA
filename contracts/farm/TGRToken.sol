@@ -102,7 +102,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     }
 
     function _changeBalance(address account, uint amount, bool creditNotDebit) internal {
-        console.log("_changeBalance. acc, amount, credit:", account, amount, creditNotDebit);
+        console.log("_changeBalance1. acc, amount, credit:", account, amount, creditNotDebit);
         if (_isUserAccount(account)) {
             // _balances[account] didn't change since the last debting.
             // user_burn.accDecayPer1e12 may have changed since the last debting.
@@ -113,13 +113,14 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             uint pendingBurn = _pendingBurn(account);
             if (pendingBurn > 0) {
                 checkForConsistency();
-                console.log("_changeBalance. _balanceOf, _pendingBurn:", _balanceOf(account), _pendingBurn(account));
-                // _balances[account] = _safeSubtract(_balances[account], pendingBurn); // This is core burning
+                console.log("_changeBalance2. _balanceOf, _pendingBurn:", _balanceOf(account), _pendingBurn(account));
+                _balances[account] = _safeSubtract(_balances[account], pendingBurn); // This is core burning
                 user_burn.sum_tokens = _safeSubtract(user_burn.sum_tokens, pendingBurn); // larger
                 user_burn.pending_burn = _safeSubtract(user_burn.pending_burn, pendingBurn); // larger
                 _totalSupply = _safeSubtract(_totalSupply, pendingBurn); // not less than its true value
+                Users[account].debtToPendingBurnPer1e12 =  _balances[account] * user_burn.accDecayPer1e12;
                 checkForConsistency();
-                console.log("_changeBalance. _balanceOf, _pendingBurn:", _balanceOf(account), _pendingBurn(account));
+                console.log("_changeBalance3. _balanceOf, _pendingBurn:", _balanceOf(account), _pendingBurn(account));
 
                 // At this moment, net_collective = user_burn.sum_tokens - user_burn.pending_burn didn't change,
                 // while _balanceOf(account) did, leadning to 
@@ -129,7 +130,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
                 // console.log("_changeBalance. _balanceOf, _pendingBurn:", _balanceOf(account), _pendingBurn(account));
 
             }
-            console.log("_changeBalance. _totalSupply:", _totalSupply);
+            console.log("_changeBalance4. _totalSupply:", _totalSupply);
 
             // credit or debit
             if (creditNotDebit) {
@@ -141,12 +142,14 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
                 user_burn.sum_tokens = _safeSubtract(user_burn.sum_tokens, amount);
                 _totalSupply  = _safeSubtract(_totalSupply, amount);
             }
-            console.log("_changeBalance. _totalSupply:", _totalSupply);
+            console.log("_changeBalance5. _totalSupply:", _totalSupply);
+            checkForConsistency();
 
             // account has now zero pendingBurn and _balances[account] is now its true balance.
             // This is the only place to change debt, which is only used by _pendingBurn with possibly increased user_burn.accDecayPer1e12.
             // user_burn.accDecayPer1e12 is maintained by the pulse_user_burn function.
             Users[account].debtToPendingBurnPer1e12 =  _balances[account] * user_burn.accDecayPer1e12;
+            checkForConsistency();
 
         } else {
             if (creditNotDebit) {
@@ -158,9 +161,9 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
                 nonUserSumTokens = _safeSubtract(nonUserSumTokens, amount);
                 _totalSupply = _safeSubtract(_totalSupply, amount);
             }
-            console.log("_changeBalance. _totalSupply:", _totalSupply);
+            console.log("_changeBalance6. _totalSupply:", _totalSupply);
         }
-        console.log("_changeBalance. _totalSupply, _isUserAcc(acc), nonUserSumTokens:", _totalSupply, _isUserAccount(account), nonUserSumTokens);
+        console.log("_changeBalance7. _totalSupply, _isUserAcc(acc), nonUserSumTokens:", _totalSupply, _isUserAccount(account), nonUserSumTokens);
     }
 
     AnalyticMath analyticMath;
