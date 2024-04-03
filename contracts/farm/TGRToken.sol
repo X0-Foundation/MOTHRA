@@ -118,7 +118,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
                 user_burn.sum_tokens = _safeSubtract(user_burn.sum_tokens, pendingBurn); // larger
                 user_burn.pending_burn = _safeSubtract(user_burn.pending_burn, pendingBurn); // larger
                 _totalSupply = _safeSubtract(_totalSupply, pendingBurn); // not less than its true value
-                Users[account].debtToPendingBurnPer1e12 =  _balances[account] * user_burn.accDecayPer1e12;
+                // Users[account].debtToPendingBurnPer1e12 =  _balances[account] * user_burn.accDecayPer1e12;
                 checkForConsistency();
                 console.log("_changeBalance3. _balanceOf, _pendingBurn:", _balanceOf(account), _pendingBurn(account));
 
@@ -143,7 +143,6 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
                 _totalSupply  = _safeSubtract(_totalSupply, amount);
             }
             console.log("_changeBalance5. _totalSupply:", _totalSupply);
-            checkForConsistency();
 
             // account has now zero pendingBurn and _balances[account] is now its true balance.
             // This is the only place to change debt, which is only used by _pendingBurn with possibly increased user_burn.accDecayPer1e12.
@@ -478,16 +477,24 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         // - deltaAccPer1e12 encodes history.
         // - deltaAccPer1e12 is defined first.
         // - deltaAccPer1e12 decides new_burn.
+        checkForConsistency();
         uint decayPer1e12 = _getDecayPer1e12(user_burn); // smaller than its real value.
         if (decayPer1e12 > 0) {
+            checkForConsistency();
             uint net_collective = _safeSubtract(user_burn.sum_tokens, user_burn.pending_burn);
             uint deltaAccPer1e12 = (uint(1e12)-user_burn.accDecayPer1e12) * decayPer1e12 / uint(1e12);
+            checkForConsistency();
             // uint new_burn = net_collective * decayPer1e12 / 1e12;  // smaller than its real value
             uint new_burn = net_collective * deltaAccPer1e12 / uint(1e12);
+
+            new_burn = user_burn.sum_tokens * deltaAccPer1e12 / uint(1e12);
+
             user_burn.pending_burn += new_burn;
             if (user_burn.pending_burn > user_burn.sum_tokens) {
+                console.log("pulse_user_burn. supressing user_burn.pending_burn exceeding sum_tokens");
                 user_burn.pending_burn = user_burn.sum_tokens;
             }
+            // increased user_burn.accDecayPer1e12 will increase users' pending burn, and decrease _balanceOf(account)
             // user_burn.accDecayPer1e12 +=  user_burn.accDecayPer1e12 * accDecayPer1e12 / uint(1e12);
             // user_burn.accDecayPer1e12 += (decayPer1e12 * net_collective / uint(1e12)); // == decayPer1e12
             // user_burn.accDecayPer1e12 += new_burn * 1e12 / net_collective; // == decayPer1e12
@@ -497,10 +504,15 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             // user_burn.accDecayPer1e12 += net_collective * decayPer1e12; 
 
             user_burn.latestTime = block.timestamp;
+            if( checkForConsistency() > 0 ) {
+                uint net_collective = _safeSubtract(user_burn.sum_tokens, user_burn.pending_burn);
+                uint net_marginal = balanceOf(admin) + balanceOf(alice) + balanceOf(bob) + balanceOf(carol);
+                console.log("pulse_user_burn. net_collective, net_marginal", net_collective, net_marginal);
+            }
         }
     }
 
-    function checkForConsistency() public view {
+    function checkForConsistency() public view returns(uint abs_error) {
 
         // Defines user_burn attributes, based on the ERC20 core data.
         // require(user_burn.sum_tokens + nonUserSumTokens == _totalSupply, "sum_tokens + nonUserSumTokens != _totalSupply");
@@ -517,7 +529,6 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
 
         uint net_collective = _safeSubtract(user_burn.sum_tokens, user_burn.pending_burn);
         uint net_marginal = balanceOf(admin) + balanceOf(alice) + balanceOf(bob) + balanceOf(carol);
-        uint abs_error;
         
         if (net_collective < net_marginal) {
             abs_error = net_marginal - net_collective;

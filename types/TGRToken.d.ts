@@ -508,7 +508,9 @@ export class TGRToken extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    checkForConsistency(overrides?: CallOverrides): Promise<[void]>;
+    checkForConsistency(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { abs_error: BigNumber }>;
 
     decimals(overrides?: CallOverrides): Promise<[number]>;
 
@@ -831,7 +833,7 @@ export class TGRToken extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  checkForConsistency(overrides?: CallOverrides): Promise<void>;
+  checkForConsistency(overrides?: CallOverrides): Promise<BigNumber>;
 
   decimals(overrides?: CallOverrides): Promise<number>;
 
@@ -1146,7 +1148,7 @@ export class TGRToken extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    checkForConsistency(overrides?: CallOverrides): Promise<void>;
+    checkForConsistency(overrides?: CallOverrides): Promise<BigNumber>;
 
     decimals(overrides?: CallOverrides): Promise<number>;
 

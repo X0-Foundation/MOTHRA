@@ -2290,8 +2290,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\libraries\\XLibrary.sol": {
-      "lastModificationDate": 1712028668866,
-      "contentHash": "bce51ab638518a91f04123118f0a8df2",
+      "lastModificationDate": 1712124789661,
+      "contentHash": "633ac4dbe69285c602078923459aa76b",
       "sourceName": "contracts/libraries/XLibrary.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -3331,8 +3331,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\farm\\TGRToken.sol": {
-      "lastModificationDate": 1712110279213,
-      "contentHash": "0fcc12d25b56d4c98d53e9616cbaeeb6",
+      "lastModificationDate": 1712124573300,
+      "contentHash": "5a2f6631572f9a2be45801014e348208",
       "sourceName": "contracts/farm/TGRToken.sol",
       "solcConfig": {
         "version": "0.8.14",

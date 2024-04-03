@@ -860,7 +860,7 @@ describe("====================== Stage 2: Test pulses ======================\n".
   it("2.1 Test Pulses.\n".green, async function () {
     await showConsistency();
 
-    blocks = 10 // Test pulse cycles are less than 5.
+    blocks = 30 // Test pulse cycles are less than 5.
     mintburn = 100
 
     for(i=0; i<1; i++) {
