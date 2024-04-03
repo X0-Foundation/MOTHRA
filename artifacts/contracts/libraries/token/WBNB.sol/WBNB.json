@@ -20,9 +20,9 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "wad",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "Approval",
@@ -39,9 +39,9 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "wad",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "Deposit",
@@ -64,9 +64,9 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "wad",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "Transfer",
@@ -83,9 +83,9 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "wad",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "Withdrawal",
@@ -114,9 +114,9 @@
       "name": "allowance",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -130,9 +130,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "wad",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "approve",
@@ -157,9 +157,9 @@
       "name": "balanceOf",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -216,9 +216,9 @@
       "name": "totalSupply",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -232,9 +232,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "wad",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "transfer",
@@ -261,9 +261,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "wad",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "transferFrom",
@@ -280,9 +280,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "wad",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "withdraw",

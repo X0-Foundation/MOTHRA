@@ -29,24 +29,24 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountADesired",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountBDesired",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountAMin",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountBMin",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "address",
@@ -54,27 +54,27 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "deadline",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "addLiquidity",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountA",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountB",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "liquidity",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",
@@ -88,19 +88,19 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountTokenDesired",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountTokenMin",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountETHMin",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "address",
@@ -108,27 +108,27 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "deadline",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "addLiquidityETH",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountToken",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountETH",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "liquidity",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "payable",
@@ -142,19 +142,19 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "liquidity",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountTokenMin",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountETHMin",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "address",
@@ -162,22 +162,22 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "deadline",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "diluteLiquidityETH",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountToken",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountETH",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",
@@ -191,14 +191,14 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "liquidity",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountETHMin",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "address",
@@ -206,17 +206,17 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "deadline",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "diluteLiquidityForETH",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountWETH",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",
@@ -257,9 +257,9 @@
       "name": "getReserveOnETHPair",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "reserve",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -268,27 +268,27 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountA",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "reserveA",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "reserveB",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "quote",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountB",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "pure",
@@ -307,19 +307,19 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "liquidity",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountAMin",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountBMin",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "address",
@@ -327,22 +327,22 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "deadline",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "removeLiquidity",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountA",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountB",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",
@@ -356,19 +356,19 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "liquidity",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountTokenMin",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountETHMin",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "address",
@@ -376,22 +376,22 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "deadline",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "removeLiquidityETH",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountToken",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountETH",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",
@@ -405,19 +405,19 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "liquidity",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountTokenMin",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountETHMin",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "address",
@@ -425,17 +425,17 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "deadline",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "removeLiquidityETHSupportingFeeOnTransferTokens",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountETH",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",
@@ -449,19 +449,19 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "liquidity",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountTokenMin",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountETHMin",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "address",
@@ -469,9 +469,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "deadline",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "bool",
@@ -497,14 +497,14 @@
       "name": "removeLiquidityETHWithPermit",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountToken",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountETH",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",
@@ -518,19 +518,19 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "liquidity",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountTokenMin",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountETHMin",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "address",
@@ -538,9 +538,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "deadline",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "bool",
@@ -566,9 +566,9 @@
       "name": "removeLiquidityETHWithPermitSupportingFeeOnTransferTokens",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountETH",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",
@@ -587,19 +587,19 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "liquidity",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountAMin",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountBMin",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "address",
@@ -607,9 +607,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "deadline",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "bool",
@@ -635,14 +635,14 @@
       "name": "removeLiquidityWithPermit",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountA",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountB",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",
@@ -661,22 +661,22 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "liquidity",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "sim_removeLiquidity",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountA",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountB",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -695,24 +695,24 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountADesired",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountBDesired",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountAMin",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountBMin",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "address",
@@ -720,27 +720,27 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "deadline",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "wired_addLiquidity",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountA",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountB",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "liquidity",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",
@@ -759,19 +759,19 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "liquidity",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountAMin",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountBMin",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "address",
@@ -779,22 +779,22 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "deadline",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "wired_removeLiquidity",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountA",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amountB",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",

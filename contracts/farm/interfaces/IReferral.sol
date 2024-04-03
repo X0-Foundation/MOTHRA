@@ -11,14 +11,14 @@ interface IReferral {
     /**
      * @dev Record referral commission.
      */
-    function recordReferralCommission(address referrer, uint256 commission) external;
+    function recordReferralCommission(address referrer, uint commission) external;
 
     /**
      * @dev Get the referrer address that referred the user.
      */
     function getReferrer(address user) external view returns (address);
 
-    function getOutstandingCommission(address _referrer) external view returns (uint256 amount);
+    function getOutstandingCommission(address _referrer) external view returns (uint amount);
 
-    function debitOutstandingCommission(address _referrer, uint256 _debit) external;
+    function debitOutstandingCommission(address _referrer, uint _debit) external;
 }

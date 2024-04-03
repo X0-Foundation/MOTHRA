@@ -245,7 +245,13 @@ async function setupNodeChain() {
 
 }
 
+async function showMilestone(text) {
+    console.log("\t%s".blue, text);
+}
+
 async function mintBlocks(blocks) {
+    console.log("\tchain is minting %s blocks...".yellow, blocks);
+
     let bn0 = (await ethers.provider.getBlock("latest")).number;
     for (let n = 0; n < blocks; n++) {
       await network.provider.send("evm_mine");
@@ -255,9 +261,43 @@ async function mintBlocks(blocks) {
 }
 
 async function pulse_user_burn() {
+    console.log("\tSystem is pulse_user_burn-ing ...".yellow)
     await tgr.pulse_user_burn();
-    console.log("\tPulse_user_burn".green);
+    console.log("\tPulse_user_burn-ed".green);
 }
+
+async function showStatus(user) {
+    const s = await tgr.getStatus(user.address);
+    console.log("\tstatus: %s", user.name);
+    console.log("\t_totalSupply %s, ub_accDecayPer1e12 %s, \
+    \n\tub.sum_tokens %s, ub.pending_burn %s, \
+    \n\t_balances[acc] %s, _balanceOf(acc) %s, \
+    \n\t_pendingBurn(acc) %s, \
+    \n\tUsers[acc].debtToPendingBurn %s, \
+    \n\t_totalSupply-nonUserTokenSum-ub.sum_tokens === %s, \
+    \n\t_balances[acc]-balanceOf(acc)-pendingBurn(acc) === %s".green,
+    s.totalSupply, s.ub_accDecayPer1e12, 
+    s.ub_sum_tokens, s.ub_pending_burn,
+    s.account_balances, s.account_balanceOf,
+    s.account_pending_burn,
+    s.account_debtToPendingBurn,
+    BigInt(s.totalSupply)-BigInt(s._nonUserSumTokens)-BigInt(s.ub_sum_tokens),
+    BigInt(s.account_balances)-BigInt(s.account_balanceOf)-BigInt(s.account_pending_burn)
+    );
+}
+
+// function getStatus(address account) external view returns (
+//     uint totalSupply, uint ub_accDecayPer1e12, uint ub_sum_tokens, uint ub_pending_burn,
+//     uint account_balances, uint account_debtToPendingBurn, uint account_balanceOf
+// ) {
+//     totalSupply = _totalSupply;
+//     ub_accDecayPer1e12 = user_burn.accDecayPer1e12;
+//     ub_sum_tokens = user_burn.sum_tokens;
+//     ub_pending_burn = user_burn.pending_burn;
+//     account_balances = _balances[account];
+//     account_debtToPendingBurn = Users[account].debtToPendingBurn;
+//     account_balanceOf = _balanceOf(account);
+// }
 
 async function mintTime(seconds) {
     let tm0 = (await ethers.provider.getBlock("latest")).timestamp;
@@ -820,57 +860,98 @@ describe("====================== Stage 2: Test pulses ======================\n".
   it("2.1 Test Pulses.\n".green, async function () {
     await showConsistency();
 
-    blocks = 10 // Test pulse cycles are less than 5.
+    blocks = 30 // Test pulse cycles are less than 5.
+    mintburn = 100
 
-    for(i=0; i<5; i++) {
+    for(i=0; i<1; i++) {
+        await showMilestone("Milestone 0");
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
 
-        await mint(owner, alice, 20);
-        await burn(owner, alice, 20);
-        await transfer(owner, alice, 10);
+        await showMilestone("Milestone 1");
+        await showStatus(owner);
+        await showStatus(alice);
+        await transfer(owner, alice, 0);
+        await showStatus(owner);
+        await showStatus(alice);
+
+        await showMilestone("Milestone 2");
+        await showStatus(owner);
+        await showStatus(alice);
+        await mint(owner, alice, mintburn);
+        await showStatus(owner);
+        await showStatus(alice);
+
+        await showMilestone("Milestone 3");
+        await showStatus(owner);
+        await showStatus(alice);
+        await burn(owner, alice, mintburn);
+        await showStatus(owner);
+        await showStatus(alice);
+
+        await showMilestone("Milestone 4");
+        await showConsistency();
+        await mintBlocks(blocks);
+        await showConsistency();
+        await pulse_user_burn();
+        await showConsistency();
+
+        await showMilestone("Milestone 5");
+        await showStatus(owner);
+        await showStatus(bob);
+        await mint(owner, bob, mintburn);
+        await showStatus(owner);
+        await showStatus(bob);
+
+        await showMilestone("Milestone 6");
+        await burn(owner, bob, mintburn);
+        // await transfer(owner, bob, 1000);
+        await showConsistency();
+        await mintBlocks(blocks);
+        await showConsistency();
+        await pulse_user_burn();
+        await showConsistency();    // outputs a non-zero error
+
+        await showMilestone("Milestone 7");
+        await showConsistency();
+        await mint(owner, carol, mintburn);
+        await showConsistency();
+        await burn(owner, carol, mintburn);
+        await showConsistency();
+        // await transfer(owner, carol, 5000);
+        await mintBlocks(blocks);
+        await showConsistency();
+        await pulse_user_burn();
+        await showConsistency();
+
+        await showMilestone("Milestone 8");
+        await mint(owner, alice, mintburn);
+        await burn(owner, alice, mintburn);
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
 
-        await mint(owner, bob, 20);
-        await burn(owner, bob, 20);
-        await transfer(owner, bob, 1000);
+        await showMilestone("Milestone 9");
+        await mint(owner, alice, mintburn);
+        await burn(owner, alice, mintburn);
+        // await transfer(owner, carol, 100);
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
 
-        await mint(owner, carol, 20);
-        await burn(owner, carol, 20);
-        await transfer(owner, carol, 5000);
+        await showMilestone("Milestone 10");
+        await mint(owner, bob, mintburn);
+        await burn(owner, bob, mintburn);
+        // await transfer(carol, carol, 100);
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
 
-        await mint(owner, alice, 20);
-        await burn(owner, alice, 20);
-        await mintBlocks(blocks);
-        await pulse_user_burn();
-        await showConsistency();
-
-        await mint(owner, alice, 20);
-        await burn(owner, alice, 20);
-        await transfer(owner, carol, 100);
-        await mintBlocks(blocks);
-        await pulse_user_burn();
-        await showConsistency();
-
-        await mint(owner, bob, 20);
-        await burn(owner, bob, 20);
-        await transfer(carol, carol, 100);
-        await mintBlocks(blocks);
-        await pulse_user_burn();
-        await showConsistency();
-
-        await mint(owner, alice, 20);
-        await burn(owner, alice, 20);
-        await transfer(carol, alice, 100);
+        await showMilestone("Milestone 11");
+        await mint(owner, alice, mintburn);
+        await burn(owner, alice, mintburn);
+        // await transfer(carol, alice, 100);
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();

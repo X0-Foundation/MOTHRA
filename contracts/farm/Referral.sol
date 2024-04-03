@@ -6,12 +6,12 @@ import "./interfaces/IReferral.sol";
 
 contract Referral is IReferral, Ownable {
     mapping(address => address) public referrers; // user address => referrer address
-    mapping(address => uint256) public countReferrals; // referrer address => referrals count
-    mapping(address => uint256) public totalReferralCommissions; // referrer address => total referral commissions
-    mapping(address => uint256) public outstandingCommissions;
+    mapping(address => uint) public countReferrals; // referrer address => referrals count
+    mapping(address => uint) public totalReferralCommissions; // referrer address => total referral commissions
+    mapping(address => uint) public outstandingCommissions;
 
     event ReferralRecorded(address indexed user, address indexed referrer);
-    event ReferralCommissionRecorded(address indexed referrer, uint256 commission);
+    event ReferralCommissionRecorded(address indexed referrer, uint commission);
     event OperatorUpdated(address indexed operator, bool indexed status);
 
     address public payer;
@@ -29,18 +29,18 @@ contract Referral is IReferral, Ownable {
         emit ReferralRecorded(_user, _referrer);
     }
 
-    function recordReferralCommission(address _referrer, uint256 _commission) public override {
+    function recordReferralCommission(address _referrer, uint _commission) public override {
         require( _msgSender() == payer, "Only payer can record commission");
         totalReferralCommissions[_referrer] += _commission;
         outstandingCommissions[_referrer] += _commission;
         emit ReferralCommissionRecorded(_referrer, _commission);
     }
 
-    function getOutstandingCommission(address _referrer) external view override returns (uint256 amount) {
+    function getOutstandingCommission(address _referrer) external view override returns (uint amount) {
         amount = outstandingCommissions[_referrer];
     }
 
-    function debitOutstandingCommission(address _referrer, uint256 _debit) external override {
+    function debitOutstandingCommission(address _referrer, uint _debit) external override {
         require( _msgSender() == payer, "Only payer can debit outstanding commission");
         outstandingCommissions[_referrer] -= _debit;
     }

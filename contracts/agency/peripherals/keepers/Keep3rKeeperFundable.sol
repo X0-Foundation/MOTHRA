@@ -17,12 +17,12 @@ abstract contract Keep3rKeeperFundable is IKeep3rKeeperFundable, ReentrancyGuard
   using SafeERC20 for IERC20;
 
   /// @inheritdoc IKeep3rKeeperFundable
-  function bond(address _bonding, uint256 _amount) external override nonReentrant {
+  function bond(address _bonding, uint _amount) external override nonReentrant {
     if (disputes[msg.sender]) revert Disputed();
     if (_jobs.contains(msg.sender)) revert AlreadyAJob();
     canActivateAfter[msg.sender][_bonding] = block.timestamp + bondTime;
 
-    uint256 _before = IERC20(_bonding).balanceOf(address(this));
+    uint _before = IERC20(_bonding).balanceOf(address(this));
     IERC20(_bonding).safeTransferFrom(msg.sender, address(this), _amount);
     _amount = IERC20(_bonding).balanceOf(address(this)) - _before;
 
@@ -40,12 +40,12 @@ abstract contract Keep3rKeeperFundable is IKeep3rKeeperFundable, ReentrancyGuard
 
     delete canActivateAfter[msg.sender][_bonding];
 
-    uint256 _amount = _activate(msg.sender, _bonding);
+    uint _amount = _activate(msg.sender, _bonding);
     emit Activation(msg.sender, _bonding, _amount);
   }
 
   /// @inheritdoc IKeep3rKeeperFundable
-  function unbond(address _bonding, uint256 _amount) external override {
+  function unbond(address _bonding, uint _amount) external override {
     canWithdrawAfter[msg.sender][_bonding] = block.timestamp + unbondTime;
     bonds[msg.sender][_bonding] -= _amount;
     pendingUnbonds[msg.sender][_bonding] += _amount;
@@ -59,7 +59,7 @@ abstract contract Keep3rKeeperFundable is IKeep3rKeeperFundable, ReentrancyGuard
     if (canWithdrawAfter[msg.sender][_bonding] >= block.timestamp) revert UnbondsLocked();
     if (disputes[msg.sender]) revert Disputed();
 
-    uint256 _amount = pendingUnbonds[msg.sender][_bonding];
+    uint _amount = pendingUnbonds[msg.sender][_bonding];
 
     if (_bonding == keep3rV1) {
       IKeep3rV1Proxy(keep3rV1Proxy).mint(_amount);
@@ -73,7 +73,7 @@ abstract contract Keep3rKeeperFundable is IKeep3rKeeperFundable, ReentrancyGuard
     emit Withdrawal(msg.sender, _bonding, _amount);
   }
 
-  function _activate(address _keeper, address _bonding) internal returns (uint256 _amount) {
+  function _activate(address _keeper, address _bonding) internal returns (uint _amount) {
     if (firstSeen[_keeper] == 0) {
       firstSeen[_keeper] = block.timestamp;
     }

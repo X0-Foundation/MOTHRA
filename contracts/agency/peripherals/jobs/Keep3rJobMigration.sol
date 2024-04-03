@@ -9,11 +9,11 @@ import './Keep3rJobFundableCredits.sol';
 abstract contract Keep3rJobMigration is IKeep3rJobMigration, Keep3rJobFundableCredits {
   using EnumerableSet for EnumerableSet.AddressSet;
 
-  uint256 internal constant _MIGRATION_COOLDOWN = 1 minutes;
+  uint internal constant _MIGRATION_COOLDOWN = 1 minutes;
 
   /// @inheritdoc IKeep3rJobMigration
   mapping(address => address) public override pendingJobMigrations;
-  mapping(address => mapping(address => uint256)) internal _migrationCreatedAt;
+  mapping(address => mapping(address => uint)) internal _migrationCreatedAt;
 
   /// @inheritdoc IKeep3rJobMigration
   function migrateJob(address _fromJob, address _toJob) external override onlyJobOwner(_fromJob) {

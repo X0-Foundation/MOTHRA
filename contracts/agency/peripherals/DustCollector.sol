@@ -14,7 +14,7 @@ abstract contract DustCollector is IDustCollector, Governable {
 
   function sendDust(
     address _token,
-    uint256 _amount,
+    uint _amount,
     address _to
   ) external override onlyGovernance {
     if (_to == address(0)) revert ZeroAddress();

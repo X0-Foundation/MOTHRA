@@ -6,7 +6,7 @@ import '../../../agency/peripherals/jobs/Keep3rJobMigration.sol';
 contract Keep3rJobMigrationForTest is Keep3rJobMigration {
   using EnumerableSet for EnumerableSet.AddressSet;
 
-  mapping(address => uint256) public settleJobAccountanceCallCount;
+  mapping(address => uint) public settleJobAccountanceCallCount;
 
   constructor(
     address _kph,
@@ -23,7 +23,7 @@ contract Keep3rJobMigrationForTest is Keep3rJobMigration {
     _jobLiquidities[_job].add(_liquidity);
   }
 
-  function viewJobTokenListLength(address _job) external view returns (uint256) {
+  function viewJobTokenListLength(address _job) external view returns (uint) {
     return _jobTokens[_job].length();
   }
 
@@ -31,15 +31,15 @@ contract Keep3rJobMigrationForTest is Keep3rJobMigration {
     _list = _jobLiquidities[_job].values();
   }
 
-  function viewJobPeriodCredits(address _job) external view returns (uint256) {
+  function viewJobPeriodCredits(address _job) external view returns (uint) {
     return _jobPeriodCredits[_job];
   }
 
-  function viewJobLiquidityCredits(address _job) external view returns (uint256) {
+  function viewJobLiquidityCredits(address _job) external view returns (uint) {
     return _jobLiquidityCredits[_job];
   }
 
-  function viewMigrationCreatedAt(address _fromJob, address _toJob) external view returns (uint256) {
+  function viewMigrationCreatedAt(address _fromJob, address _toJob) external view returns (uint) {
     return _migrationCreatedAt[_fromJob][_toJob];
   }
 

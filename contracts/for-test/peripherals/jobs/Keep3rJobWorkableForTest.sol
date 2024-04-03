@@ -29,11 +29,11 @@ contract Keep3rJobWorkableForTest is Keep3rJobWorkable {
   //   _jobLiquidities[_job].add(_liquidity);
   // }
 
-  // function viewJobLiquidityCredits(address _job) external view returns (uint256) {
+  // function viewJobLiquidityCredits(address _job) external view returns (uint) {
   //   return _jobLiquidityCredits[_job];
   // }
 
-  // function viewJobPeriodCredits(address _job) external view returns (uint256) {
+  // function viewJobPeriodCredits(address _job) external view returns (uint) {
   //   return _jobPeriodCredits[_job];
   // }
 
@@ -41,7 +41,7 @@ contract Keep3rJobWorkableForTest is Keep3rJobWorkable {
   //   _tickCache = _tick[_liquidity];
   // }
 
-  function viewGas() external view returns (uint256) {
+  function viewGas() external view returns (uint) {
     return _initialGas;
   }
 

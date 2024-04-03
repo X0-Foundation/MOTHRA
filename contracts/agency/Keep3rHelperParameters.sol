@@ -17,19 +17,19 @@ contract Keep3rHelperParameters is IKeep3rHelperParameters, Governable {
   address public constant override KP3R = 0x1cEB5cB57C4D4E2b2433641b95Dd330A33185A44;
 
   /// @inheritdoc IKeep3rHelperParameters
-  uint256 public constant override BOOST_BASE = 10_000;
+  uint public constant override BOOST_BASE = 10_000;
 
   /// @inheritdoc IKeep3rHelperParameters
-  uint256 public override minBoost = 11_000;
+  uint public override minBoost = 11_000;
 
   /// @inheritdoc IKeep3rHelperParameters
-  uint256 public override maxBoost = 12_000;
+  uint public override maxBoost = 12_000;
 
   /// @inheritdoc IKeep3rHelperParameters
-  uint256 public override targetBond = 200 ether;
+  uint public override targetBond = 200 ether;
 
   /// @inheritdoc IKeep3rHelperParameters
-  uint256 public override workExtraGas = 50_000;
+  uint public override workExtraGas = 50_000;
 
   /// @inheritdoc IKeep3rHelperParameters
   // uint32 public override quoteTwapTime = 10 minutes;
@@ -52,19 +52,19 @@ contract Keep3rHelperParameters is IKeep3rHelperParameters, Governable {
   }
 
   /// @inheritdoc IKeep3rHelperParameters
-  function setMinBoost(uint256 _minBoost) external override onlyGovernance {
+  function setMinBoost(uint _minBoost) external override onlyGovernance {
     minBoost = _minBoost;
     emit MinBoostChange(minBoost);
   }
 
   /// @inheritdoc IKeep3rHelperParameters
-  function setMaxBoost(uint256 _maxBoost) external override onlyGovernance {
+  function setMaxBoost(uint _maxBoost) external override onlyGovernance {
     maxBoost = _maxBoost;
     emit MaxBoostChange(maxBoost);
   }
 
   /// @inheritdoc IKeep3rHelperParameters
-  function setTargetBond(uint256 _targetBond) external override onlyGovernance {
+  function setTargetBond(uint _targetBond) external override onlyGovernance {
     targetBond = _targetBond;
     emit TargetBondChange(targetBond);
   }
@@ -76,7 +76,7 @@ contract Keep3rHelperParameters is IKeep3rHelperParameters, Governable {
   }
 
   /// @inheritdoc IKeep3rHelperParameters
-  function setWorkExtraGas(uint256 _workExtraGas) external override onlyGovernance {
+  function setWorkExtraGas(uint _workExtraGas) external override onlyGovernance {
     workExtraGas = _workExtraGas;
     emit WorkExtraGasChange(workExtraGas);
   }

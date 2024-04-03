@@ -19,9 +19,9 @@
       "name": "bonds",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amountBonded",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -30,27 +30,27 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_bonds",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "getPaymentParams",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_boost",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_oneEthQuote",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_extra",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -83,17 +83,17 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_gasUsed",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "getRewardAmount",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -107,17 +107,17 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_gasUsed",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "getRewardAmountFor",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_kp3r",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -126,17 +126,17 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_bonds",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "getRewardBoostFor",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_rewardBoost",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -164,17 +164,17 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_eth",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "quote",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amountOut",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",

@@ -187,8 +187,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\Keep3rAccountance.sol": {
-      "lastModificationDate": 1712005544045,
-      "contentHash": "e80786ed87485e3efdb37ddcb6f21ea0",
+      "lastModificationDate": 1712110080473,
+      "contentHash": "c1ae4a4acd292182fc4d3dc806afa0b6",
       "sourceName": "contracts/agency/peripherals/Keep3rAccountance.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -232,8 +232,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\Keep3rParameters.sol": {
-      "lastModificationDate": 1712005544045,
-      "contentHash": "365ea5d34d752fced1f43a9ad7916841",
+      "lastModificationDate": 1712110080473,
+      "contentHash": "adb8623e2053eebd98955b3460b58f7f",
       "sourceName": "contracts/agency/peripherals/Keep3rParameters.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -279,8 +279,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\DustCollector.sol": {
-      "lastModificationDate": 1712005544045,
-      "contentHash": "5a82d03c904a475707cb6592b9d6674f",
+      "lastModificationDate": 1712110080473,
+      "contentHash": "94f090164b099ae551b520762600971c",
       "sourceName": "contracts/agency/peripherals/DustCollector.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -326,8 +326,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\jobs\\Keep3rJobDisputable.sol": {
-      "lastModificationDate": 1712005544045,
-      "contentHash": "77a1f11c4bfc7548f29d234aea21d815",
+      "lastModificationDate": 1712110080473,
+      "contentHash": "34c8d6d41f0c8b8fa389bf96a80fafab",
       "sourceName": "contracts/agency/peripherals/jobs/Keep3rJobDisputable.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -371,8 +371,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\jobs\\Keep3rJobWorkable.sol": {
-      "lastModificationDate": 1712005544045,
-      "contentHash": "6ab6325ce21d4aad6157fc4530d2c4af",
+      "lastModificationDate": 1712110080473,
+      "contentHash": "f20f211acb1145f00a7a436e4c8bdfc6",
       "sourceName": "contracts/agency/peripherals/jobs/Keep3rJobWorkable.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -511,8 +511,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\jobs\\Keep3rJobFundableCredits.sol": {
-      "lastModificationDate": 1712005544045,
-      "contentHash": "0f69e00207fa305b1de944e6396d8a04",
+      "lastModificationDate": 1712110080473,
+      "contentHash": "776195beb4ddc23ab9afd143be7f4ad6",
       "sourceName": "contracts/agency/peripherals/jobs/Keep3rJobFundableCredits.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -1250,8 +1250,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\jobs\\Keep3rJobMigration.sol": {
-      "lastModificationDate": 1712005544045,
-      "contentHash": "7869bc577acc404ee9aa070a33e7ad33",
+      "lastModificationDate": 1712110080473,
+      "contentHash": "799f3f6319cf9a5f1de5f0c452de74bd",
       "sourceName": "contracts/agency/peripherals/jobs/Keep3rJobMigration.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -1295,8 +1295,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\keepers\\Keep3rKeeperDisputable.sol": {
-      "lastModificationDate": 1712005544045,
-      "contentHash": "070a14e030574c84a4442d7684a5b597",
+      "lastModificationDate": 1712110080473,
+      "contentHash": "c0441aaf5c0ef7d52c65e23fe035f2fb",
       "sourceName": "contracts/agency/peripherals/keepers/Keep3rKeeperDisputable.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -1431,8 +1431,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\keepers\\Keep3rKeeperFundable.sol": {
-      "lastModificationDate": 1712005544045,
-      "contentHash": "d156698d6e5dc028c2164e187ffbdc57",
+      "lastModificationDate": 1712110080473,
+      "contentHash": "7f3ba0072083caa5d6855fa9d387c250",
       "sourceName": "contracts/agency/peripherals/keepers/Keep3rKeeperFundable.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -2290,8 +2290,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\libraries\\XLibrary.sol": {
-      "lastModificationDate": 1712028668866,
-      "contentHash": "bce51ab638518a91f04123118f0a8df2",
+      "lastModificationDate": 1712124789661,
+      "contentHash": "633ac4dbe69285c602078923459aa76b",
       "sourceName": "contracts/libraries/XLibrary.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -2435,8 +2435,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\core\\interfaces\\IXFactory.sol": {
-      "lastModificationDate": 1712002476238,
-      "contentHash": "e5c9f8efde722846851cba4acbbe730c",
+      "lastModificationDate": 1712110080471,
+      "contentHash": "d6b5d9e95e04f8698cc8519b83c8190e",
       "sourceName": "contracts/core/interfaces/IXFactory.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -2914,8 +2914,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\farm\\interfaces\\ITGRToken.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "89ac1ee0fc1fd9eba5b5b003beed5acb",
+      "lastModificationDate": 1712110080471,
+      "contentHash": "74cce7a49379b813fa8ed7bbf9f968e1",
       "sourceName": "contracts/farm/interfaces/ITGRToken.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -2958,8 +2958,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\core\\interfaces\\IPancakePair.sol": {
-      "lastModificationDate": 1712002476238,
-      "contentHash": "24713f99360c78ba5897aa841020beed",
+      "lastModificationDate": 1712110080471,
+      "contentHash": "962697641c65542e8cab549b913503cd",
       "sourceName": "contracts/core/interfaces/IPancakePair.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -3331,8 +3331,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\farm\\TGRToken.sol": {
-      "lastModificationDate": 1712028297315,
-      "contentHash": "9876cdf1f8496aa55a7cb0f0e92f7725",
+      "lastModificationDate": 1712124573300,
+      "contentHash": "5a2f6631572f9a2be45801014e348208",
       "sourceName": "contracts/farm/TGRToken.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -3698,8 +3698,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\for-test\\peripherals\\jobs\\Keep3rJobMigrationForTest.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "759ceaff79e4ec2d781f34e2bfbf67a6",
+      "lastModificationDate": 1712110080471,
+      "contentHash": "d743ebdc272ad531637e9d36942cc9de",
       "sourceName": "contracts/for-test/peripherals/jobs/Keep3rJobMigrationForTest.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -3742,8 +3742,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\for-test\\peripherals\\jobs\\Keep3rJobWorkableForTest.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "d35eb14c34d2bd76f028586fc610d939",
+      "lastModificationDate": 1712110080471,
+      "contentHash": "bc3a964e5f52fb8840f01f7cd72e9871",
       "sourceName": "contracts/for-test/peripherals/jobs/Keep3rJobWorkableForTest.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -4108,8 +4108,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\libraries\\LiquidityAmounts.sol": {
-      "lastModificationDate": 1712005544045,
-      "contentHash": "cece49dc830393780d866c48c740b9bc",
+      "lastModificationDate": 1712110080473,
+      "contentHash": "731068bfc52e8cf67b07baaa9ed1e9ab",
       "sourceName": "contracts/agency/libraries/LiquidityAmounts.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -4153,8 +4153,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\libraries\\FixedPoint96.sol": {
-      "lastModificationDate": 1712005544045,
-      "contentHash": "0cae5538776763a573975f894795b8de",
+      "lastModificationDate": 1712110080474,
+      "contentHash": "b6330d006e3c8de02c12892ae317ed39",
       "sourceName": "contracts/agency/libraries/FixedPoint96.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -4195,8 +4195,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\libraries\\FullMath.sol": {
-      "lastModificationDate": 1712005544045,
-      "contentHash": "c24c381df7430c70d07c61e04a8270b5",
+      "lastModificationDate": 1712110080474,
+      "contentHash": "f4543512e5e0e649e5c7e74afa5c74ac",
       "sourceName": "contracts/agency/libraries/FullMath.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -4279,8 +4279,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\UniV3PairManager.sol": {
-      "lastModificationDate": 1712005544045,
-      "contentHash": "0b88093fe91fc1289143c4156444a909",
+      "lastModificationDate": 1712110080473,
+      "contentHash": "4e194b9cd1bc3997332f672c7a10d6f5",
       "sourceName": "contracts/agency/UniV3PairManager.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -4986,8 +4986,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\for-test\\peripherals\\keepers\\Keep3rKeeperDisputableForTest.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "122562e69d98ab4a52288d68dcc8d4eb",
+      "lastModificationDate": 1712110080471,
+      "contentHash": "2d793287e2f03b385bcc2c347a45959b",
       "sourceName": "contracts/for-test/peripherals/keepers/Keep3rKeeperDisputableForTest.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -5030,8 +5030,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\Keep3rHelperParameters.sol": {
-      "lastModificationDate": 1712005544045,
-      "contentHash": "c84428d28e952686c0ccde0dd3a27976",
+      "lastModificationDate": 1712110080471,
+      "contentHash": "36390bf964326ba62bc73b0c9f0af5ad",
       "sourceName": "contracts/agency/Keep3rHelperParameters.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -5483,8 +5483,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\core\\XFactory.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "94ee4c32df680d95875dfe1985be9eec",
+      "lastModificationDate": 1712110080471,
+      "contentHash": "535212c38a5be10dd0816dd0dee453a0",
       "sourceName": "contracts/core/XFactory.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -5576,8 +5576,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\farm\\Referral.sol": {
-      "lastModificationDate": 1712002476238,
-      "contentHash": "4f3dc3b8df429a1002dcc725d98a2f4c",
+      "lastModificationDate": 1712110080471,
+      "contentHash": "659b80f1d34bce91a9809d79018e7fee",
       "sourceName": "contracts/farm/Referral.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -5621,8 +5621,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\farm\\interfaces\\IReferral.sol": {
-      "lastModificationDate": 1712002476238,
-      "contentHash": "593fba3e3d3ba66d1a973cbef392abb7",
+      "lastModificationDate": 1712110080471,
+      "contentHash": "813c3b3eae3da910c0fea1c2fe41716c",
       "sourceName": "contracts/farm/interfaces/IReferral.sol",
       "solcConfig": {
         "version": "0.8.14",

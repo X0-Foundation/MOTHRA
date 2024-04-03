@@ -64,6 +64,29 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     // test accounts
     address admin; address alice; address bob; address carol;
 
+    function getStatus(address account) external view returns (
+        uint totalSupply, uint ub_accDecayPer1e12, uint ub_sum_tokens, uint ub_pending_burn, uint _nonUserSumTokens,
+        uint account_balances, uint account_balanceOf, uint account_pending_burn, uint account_debtToPendingBurn
+    ) {
+        totalSupply = _totalSupply; // user_burn.sum_tokens + nonUserSumTokens; // _totalSupply;
+        ub_accDecayPer1e12 = user_burn.accDecayPer1e12;
+        ub_sum_tokens = user_burn.sum_tokens;
+        ub_pending_burn = user_burn.pending_burn;
+        _nonUserSumTokens = nonUserSumTokens;
+        account_balances = _balances[account];
+        account_balanceOf = _balanceOf(account);
+        account_pending_burn = _pendingBurn(account);
+        account_debtToPendingBurn = Users[account].debtToPendingBurnPer1e12 / uint(1e12);
+    }
+
+    function _safeSubtract(uint a, uint b) internal pure returns (uint delta) {
+        if (a > b) {
+            delta = a - b;
+        } else {
+            delta = 0;
+        }
+    }
+    
     //====================== Pulse internal functions ============================
 
     function _isUserAccount(address account) internal view returns (bool) {
@@ -72,55 +95,74 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
 
     function _pendingBurn(address account) internal view returns (uint pendingBurn) {
         // Note _balanceOf(account) relies on _pendingBurn, thun leading a circular referencing.
-        // This pendingBurn comes from user_burn.accDecayPer1e12 increased, not _balances[account] increased, 
-        // since Users[account].debtToPendingBurn was captured in _updateBalance
-        pendingBurn = _balances[account] * user_burn.accDecayPer1e12 / uint(1e12) - Users[account].debtToPendingBurn;
+        // This pending burn, if any, comes from user_burn.accDecayPer1e12 increased, not _balances[account] increased, 
+        // since Users[account].debtToPendingBurnPer1e12 was captured with the current _balances[account] in _changeBalance,
+        // and since _balances[account] has not changed after that. If changed, it would be in _changeBalance.
+        pendingBurn = _safeSubtract(_balances[account] * user_burn.accDecayPer1e12, Users[account].debtToPendingBurnPer1e12) / uint(1e12);
     }
 
-    function _safeAlessB(uint a, uint b) internal pure returns (uint delta) {
-        if (a > b) {
-            delta = a - b;
-        } else {
-            delta = 0;
-        }
-    }
-
-
-    function _updateBalance(address account, uint amount, bool creditNotDebit) internal {
+    function _changeBalance(address account, uint amount, bool creditNotDebit) internal {
+        console.log("_changeBalance1. acc, amount, credit:", account, amount, creditNotDebit);
         if (_isUserAccount(account)) {
             // _balances[account] didn't change since the last debting.
             // user_burn.accDecayPer1e12 may have changed since the last debting.
 
             // Settle with pending burn (account)
+            // This pendingBurn, if non-zero, comes from user_burn.accDecayPer1e12 increased.
+            // _balances[account] and Users[account].debtToPendingBurnPer1e12 didn't change since the previous call to this function.
             uint pendingBurn = _pendingBurn(account);
             if (pendingBurn > 0) {
-                _balances[account] = _safeAlessB(_balances[account], pendingBurn); // This is core burning
-                user_burn.sum_tokens = _safeAlessB(user_burn.sum_tokens, pendingBurn); // larger
-                _totalSupply = _safeAlessB(_totalSupply, pendingBurn); // not less than its true value
-                user_burn.pending_burn = _safeAlessB(user_burn.pending_burn, pendingBurn); // larger
+                checkForConsistency();
+                console.log("_changeBalance2. _balanceOf, _pendingBurn:", _balanceOf(account), _pendingBurn(account));
+                _balances[account] = _safeSubtract(_balances[account], pendingBurn); // This is core burning
+                user_burn.sum_tokens = _safeSubtract(user_burn.sum_tokens, pendingBurn); // larger
+                user_burn.pending_burn = _safeSubtract(user_burn.pending_burn, pendingBurn); // larger
+                _totalSupply = _safeSubtract(_totalSupply, pendingBurn); // not less than its true value
+                // Users[account].debtToPendingBurnPer1e12 =  _balances[account] * user_burn.accDecayPer1e12;
+                checkForConsistency();
+                console.log("_changeBalance3. _balanceOf, _pendingBurn:", _balanceOf(account), _pendingBurn(account));
+
+                // At this moment, net_collective = user_burn.sum_tokens - user_burn.pending_burn didn't change,
+                // while _balanceOf(account) did, leadning to 
+
+                // console.log("_changeBalance. _balanceOf, _pendingBurn:", _balanceOf(account), _pendingBurn(account));
+                // Users[account].debtToPendingBurnPer1e12 =  _balances[account] * user_burn.accDecayPer1e12;
+                // console.log("_changeBalance. _balanceOf, _pendingBurn:", _balanceOf(account), _pendingBurn(account));
+
             }
+            console.log("_changeBalance4. _totalSupply:", _totalSupply);
 
             // credit or debit
             if (creditNotDebit) {
                 _balances[account] += amount;
                 user_burn.sum_tokens += amount;
+                _totalSupply += amount;
             } else {
-                _balances[account] -= amount;
-                user_burn.sum_tokens -= amount;
+                _balances[account] = _safeSubtract(_balances[account] , amount);
+                user_burn.sum_tokens = _safeSubtract(user_burn.sum_tokens, amount);
+                _totalSupply  = _safeSubtract(_totalSupply, amount);
             }
+            console.log("_changeBalance5. _totalSupply:", _totalSupply);
 
-            // // account has now no pendingBurn and _balances[account] is now its true balance.
-            Users[account].debtToPendingBurn =  _balances[account] * user_burn.accDecayPer1e12 / uint(1e12);
+            // account has now zero pendingBurn and _balances[account] is now its true balance.
+            // This is the only place to change debt, which is only used by _pendingBurn with possibly increased user_burn.accDecayPer1e12.
+            // user_burn.accDecayPer1e12 is maintained by the pulse_user_burn function.
+            Users[account].debtToPendingBurnPer1e12 =  _balances[account] * user_burn.accDecayPer1e12;
+            checkForConsistency();
 
         } else {
             if (creditNotDebit) {
                 _balances[account] += amount;
                 nonUserSumTokens += amount;
+                _totalSupply += amount;
             } else {
-                _balances[account] -= amount;
-                nonUserSumTokens -= amount;
+                _balances[account] = _safeSubtract(_balances[account], amount);
+                nonUserSumTokens = _safeSubtract(nonUserSumTokens, amount);
+                _totalSupply = _safeSubtract(_totalSupply, amount);
             }
+            console.log("_changeBalance6. _totalSupply:", _totalSupply);
         }
+        console.log("_changeBalance7. _totalSupply, _isUserAcc(acc), nonUserSumTokens:", _totalSupply, _isUserAccount(account), nonUserSumTokens);
     }
 
     AnalyticMath analyticMath;
@@ -184,6 +226,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
 
     function _getTotalSupply() internal view returns (uint) {
         return _totalSupply - user_burn.pending_burn;
+        // return user_burn.sum_tokens + nonUserSumTokens - user_burn.pending_burn;
     }
 
     function _beforeTokenTransfer(address from, address to, uint amount) internal virtual {}
@@ -194,8 +237,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         require(to != address(0), sZeroAddress);
 
         _beforeTokenTransfer(address(0), to, amount);
-        _totalSupply += amount;
-        _updateBalance(to, amount, true);
+        _changeBalance(to, amount, true);   // true for credit
         _afterTokenTransfer(address(0), to, amount);
 
         emit Transfer(address(0), to, amount);
@@ -207,8 +249,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         require(accountBalance >= amount, sExceedsBalance);
 
         _beforeTokenTransfer(from, address(0), amount);
-        _updateBalance(from, amount, false);
-        _totalSupply -= amount;
+        _changeBalance(from, amount, false);    // false for debit
         _afterTokenTransfer(from, address(0), amount);
         
         emit Transfer(from, address(0), amount);
@@ -223,11 +264,10 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         require(recipient != address(0), sZeroAddress);
         uint senderBalance = _balanceOf(sender);
         require(senderBalance >= amount, sExceedsBalance);
-        //_beforeTokenTransfer(sender, recipient, amount);
-
-        _updateBalance(sender, amount, false);  // false: debit
-        _updateBalance(recipient, amount, true);    // true: credit
-        //_afterTokenTransfer(sender, recipient, amount);
+        _beforeTokenTransfer(sender, recipient, amount);
+        _changeBalance(sender, amount, false);  // false: debit
+        _changeBalance(recipient, amount, true);    // true: credit
+        _afterTokenTransfer(sender, recipient, amount);
 
         emit Transfer(sender, recipient, amount);
     }
@@ -235,14 +275,14 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     function _transferHub(address sender, address recipient, uint amount) internal virtual {
         _openAction(ActionType.Transfer, true);
 
-        if (amount > 0) {
-            if (actionParams.isUserAction) {  // Shift transfer
-                uint burnAmount = amount * buysell_burn_rate / FeeMagnifier;
-                _burn(sender, burnAmount);
-                amount -= burnAmount;
-            }
+        // if (amount > 0) {
+            // if (actionParams.isUserAction) {  // Shift transfer
+            //     uint burnAmount = amount * buysell_burn_rate / FeeMagnifier;
+            //     _burn(sender, burnAmount);
+            //     amount -= burnAmount;
+            // }
             _transfer(sender, recipient, amount);
-        }
+        // }
 
         _closeAction();
     }
@@ -433,30 +473,49 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         // Interpretation: TGR tokens not in Cyberswap accounts (tgrftm and tgrhtz), and not in Agency account (votes account), 
         // will be burned at the above rate and interval.
 
-        uint256 decayPer1e12 = _getDecayPer1e12(user_burn); // smaller than its real value.
+        // This part of code is an invention: What's diffent from preceeding approach?
+        // - deltaAccPer1e12 encodes history.
+        // - deltaAccPer1e12 is defined first.
+        // - deltaAccPer1e12 decides new_burn.
+        checkForConsistency();
+        uint decayPer1e12 = _getDecayPer1e12(user_burn); // smaller than its real value.
         if (decayPer1e12 > 0) {
-            uint256 net_collective = _safeAlessB(user_burn.sum_tokens, user_burn.pending_burn);
-            uint256 new_burn = net_collective * decayPer1e12 / 1e12;  // smaller than its real value
+            checkForConsistency();
+            uint net_collective = _safeSubtract(user_burn.sum_tokens, user_burn.pending_burn);
+            uint deltaAccPer1e12 = (uint(1e12)-user_burn.accDecayPer1e12) * decayPer1e12 / uint(1e12);
+            checkForConsistency();
+            // uint new_burn = net_collective * decayPer1e12 / 1e12;  // smaller than its real value
+            uint new_burn = net_collective * deltaAccPer1e12 / uint(1e12);
+
+            new_burn = user_burn.sum_tokens * deltaAccPer1e12 / uint(1e12);
+
             user_burn.pending_burn += new_burn;
             if (user_burn.pending_burn > user_burn.sum_tokens) {
+                console.log("pulse_user_burn. supressing user_burn.pending_burn exceeding sum_tokens");
                 user_burn.pending_burn = user_burn.sum_tokens;
             }
+            // increased user_burn.accDecayPer1e12 will increase users' pending burn, and decrease _balanceOf(account)
             // user_burn.accDecayPer1e12 +=  user_burn.accDecayPer1e12 * accDecayPer1e12 / uint(1e12);
             // user_burn.accDecayPer1e12 += (decayPer1e12 * net_collective / uint(1e12)); // == decayPer1e12
             // user_burn.accDecayPer1e12 += new_burn * 1e12 / net_collective; // == decayPer1e12
             // user_burn.accDecayPer1e12 += new_burn * 1e12 / user_burn.sum_tokens;   // / net_collective should be more reasonable.
-            user_burn.accDecayPer1e12 += (uint(1e12)-user_burn.accDecayPer1e12) * decayPer1e12 / uint(1e12);
+            user_burn.accDecayPer1e12 += deltaAccPer1e12;
             // user_burn.accDecayPer1e12 = decayPer1e12;
             // user_burn.accDecayPer1e12 += net_collective * decayPer1e12; 
 
             user_burn.latestTime = block.timestamp;
+            if( checkForConsistency() > 0 ) {
+                uint net_collective = _safeSubtract(user_burn.sum_tokens, user_burn.pending_burn);
+                uint net_marginal = balanceOf(admin) + balanceOf(alice) + balanceOf(bob) + balanceOf(carol);
+                console.log("pulse_user_burn. net_collective, net_marginal", net_collective, net_marginal);
+            }
         }
     }
 
-    function checkForConsistency() external view {
+    function checkForConsistency() public view returns(uint abs_error) {
 
         // Defines user_burn attributes, based on the ERC20 core data.
-        require(user_burn.sum_tokens + nonUserSumTokens == _totalSupply, "sum_tokens + nonUserSumTokens != _totalSupply");
+        // require(user_burn.sum_tokens + nonUserSumTokens == _totalSupply, "sum_tokens + nonUserSumTokens != _totalSupply");
         // This implies that user_burn.sum_tokens - user_burn.pending_burn + nonUserSumTokens == totalSupply()
         // See totalSupply()
 
@@ -468,9 +527,8 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             console.log("!!! inconsistent", _balances[admin] + _balances[alice] + _balances[bob] + _balances[carol], user_burn.sum_tokens);
         }
 
-        uint net_collective = _safeAlessB(user_burn.sum_tokens, user_burn.pending_burn);
+        uint net_collective = _safeSubtract(user_burn.sum_tokens, user_burn.pending_burn);
         uint net_marginal = balanceOf(admin) + balanceOf(alice) + balanceOf(bob) + balanceOf(carol);
-        uint abs_error;
         
         if (net_collective < net_marginal) {
             abs_error = net_marginal - net_collective;
@@ -481,7 +539,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             // console.log("check --- collective greater");
         }
 
-        // console.log("1e12 error_rate, error", 1e12 * abs_error/net_collective, abs_error);
+        console.log("1e12 error_rate, error", 1e12 * abs_error/net_collective, abs_error);
         // console.log("net_collective, net_marginal", net_collective, net_marginal);
         // require( 1e3 * abs_error < net_collective, "Error exceeds a thousand-th");
     }

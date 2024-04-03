@@ -37,9 +37,9 @@
       "name": "nonce",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -55,9 +55,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_factor",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "workHard",

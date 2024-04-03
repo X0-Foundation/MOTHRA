@@ -14,7 +14,7 @@ abstract contract Keep3rJobDisputable is IKeep3rJobDisputable, Keep3rDisputable,
   function slashTokenFromJob(
     address _job,
     address _token,
-    uint256 _amount
+    uint _amount
   ) external override onlySlasher {
     if (!disputes[_job]) revert NotDisputed();
     if (!_jobTokens[_job].contains(_token)) revert JobTokenUnexistent();
@@ -33,7 +33,7 @@ abstract contract Keep3rJobDisputable is IKeep3rJobDisputable, Keep3rDisputable,
   // function slashLiquidityFromJob(
   //   address _job,
   //   address _liquidity,
-  //   uint256 _amount
+  //   uint _amount
   // ) external override onlySlasher {
   //   if (!disputes[_job]) revert NotDisputed();
 

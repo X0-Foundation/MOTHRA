@@ -36,6 +36,7 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     "feeStores()": FunctionFragment;
     "getCurrentActionType()": FunctionFragment;
     "getOwner()": FunctionFragment;
+    "getStatus(address)": FunctionFragment;
     "htzFtm()": FunctionFragment;
     "increaseAllowance(address,uint256)": FunctionFragment;
     "lastSession()": FunctionFragment;
@@ -121,6 +122,7 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "getOwner", values?: undefined): string;
+  encodeFunctionData(functionFragment: "getStatus", values: [string]): string;
   encodeFunctionData(functionFragment: "htzFtm", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "increaseAllowance",
@@ -256,6 +258,7 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "getOwner", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getStatus", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "htzFtm", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "increaseAllowance",
@@ -505,7 +508,9 @@ export class TGRToken extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    checkForConsistency(overrides?: CallOverrides): Promise<[void]>;
+    checkForConsistency(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { abs_error: BigNumber }>;
 
     decimals(overrides?: CallOverrides): Promise<[number]>;
 
@@ -527,6 +532,33 @@ export class TGRToken extends BaseContract {
     getCurrentActionType(overrides?: CallOverrides): Promise<[number]>;
 
     getOwner(overrides?: CallOverrides): Promise<[string]>;
+
+    getStatus(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber
+      ] & {
+        totalSupply: BigNumber;
+        ub_accDecayPer1e12: BigNumber;
+        ub_sum_tokens: BigNumber;
+        ub_pending_burn: BigNumber;
+        _nonUserSumTokens: BigNumber;
+        account_balances: BigNumber;
+        account_balanceOf: BigNumber;
+        account_pending_burn: BigNumber;
+        account_debtToPendingBurn: BigNumber;
+      }
+    >;
 
     htzFtm(overrides?: CallOverrides): Promise<[string]>;
 
@@ -801,7 +833,7 @@ export class TGRToken extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  checkForConsistency(overrides?: CallOverrides): Promise<void>;
+  checkForConsistency(overrides?: CallOverrides): Promise<BigNumber>;
 
   decimals(overrides?: CallOverrides): Promise<number>;
 
@@ -818,6 +850,33 @@ export class TGRToken extends BaseContract {
   getCurrentActionType(overrides?: CallOverrides): Promise<number>;
 
   getOwner(overrides?: CallOverrides): Promise<string>;
+
+  getStatus(
+    account: string,
+    overrides?: CallOverrides
+  ): Promise<
+    [
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber
+    ] & {
+      totalSupply: BigNumber;
+      ub_accDecayPer1e12: BigNumber;
+      ub_sum_tokens: BigNumber;
+      ub_pending_burn: BigNumber;
+      _nonUserSumTokens: BigNumber;
+      account_balances: BigNumber;
+      account_balanceOf: BigNumber;
+      account_pending_burn: BigNumber;
+      account_debtToPendingBurn: BigNumber;
+    }
+  >;
 
   htzFtm(overrides?: CallOverrides): Promise<string>;
 
@@ -1089,7 +1148,7 @@ export class TGRToken extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    checkForConsistency(overrides?: CallOverrides): Promise<void>;
+    checkForConsistency(overrides?: CallOverrides): Promise<BigNumber>;
 
     decimals(overrides?: CallOverrides): Promise<number>;
 
@@ -1106,6 +1165,33 @@ export class TGRToken extends BaseContract {
     getCurrentActionType(overrides?: CallOverrides): Promise<number>;
 
     getOwner(overrides?: CallOverrides): Promise<string>;
+
+    getStatus(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber
+      ] & {
+        totalSupply: BigNumber;
+        ub_accDecayPer1e12: BigNumber;
+        ub_sum_tokens: BigNumber;
+        ub_pending_burn: BigNumber;
+        _nonUserSumTokens: BigNumber;
+        account_balances: BigNumber;
+        account_balanceOf: BigNumber;
+        account_pending_burn: BigNumber;
+        account_debtToPendingBurn: BigNumber;
+      }
+    >;
 
     htzFtm(overrides?: CallOverrides): Promise<string>;
 
@@ -1520,6 +1606,8 @@ export class TGRToken extends BaseContract {
 
     getOwner(overrides?: CallOverrides): Promise<BigNumber>;
 
+    getStatus(account: string, overrides?: CallOverrides): Promise<BigNumber>;
+
     htzFtm(overrides?: CallOverrides): Promise<BigNumber>;
 
     increaseAllowance(
@@ -1746,6 +1834,11 @@ export class TGRToken extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     getOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    getStatus(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     htzFtm(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

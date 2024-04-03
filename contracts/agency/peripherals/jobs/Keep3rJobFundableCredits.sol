@@ -16,24 +16,24 @@ abstract contract Keep3rJobFundableCredits is IKeep3rJobFundableCredits, Reentra
   using SafeERC20 for IERC20;
 
   /// @notice Cooldown between withdrawals
-  uint256 internal constant _WITHDRAW_TOKENS_COOLDOWN = 1 minutes;
+  uint internal constant _WITHDRAW_TOKENS_COOLDOWN = 1 minutes;
 
   /// @inheritdoc IKeep3rJobFundableCredits
-  mapping(address => mapping(address => uint256)) public override jobTokenCreditsAddedAt;
+  mapping(address => mapping(address => uint)) public override jobTokenCreditsAddedAt;
 
   /// @inheritdoc IKeep3rJobFundableCredits
   function addTokenCreditsToJob(
     address _job,
     address _token,
-    uint256 _amount
+    uint _amount
   ) external override nonReentrant {
     if (!_jobs.contains(_job)) revert JobUnavailable();
     // KP3R shouldn't be used for direct token payments
     if (_token == keep3rV1) revert TokenUnallowed();
-    uint256 _before = IERC20(_token).balanceOf(address(this));
+    uint _before = IERC20(_token).balanceOf(address(this));
     IERC20(_token).safeTransferFrom(msg.sender, address(this), _amount);
-    uint256 _received = IERC20(_token).balanceOf(address(this)) - _before;
-    uint256 _tokenFee = (_received * fee) / _BASE;
+    uint _received = IERC20(_token).balanceOf(address(this)) - _before;
+    uint _tokenFee = (_received * fee) / _BASE;
     jobTokenCredits[_job][_token] += _received - _tokenFee;
     jobTokenCreditsAddedAt[_job][_token] = block.timestamp;
     IERC20(_token).safeTransfer(governance, _tokenFee);
@@ -46,7 +46,7 @@ abstract contract Keep3rJobFundableCredits is IKeep3rJobFundableCredits, Reentra
   function withdrawTokenCreditsFromJob(
     address _job,
     address _token,
-    uint256 _amount,
+    uint _amount,
     address _receiver
   ) external override nonReentrant onlyJobOwner(_job) {
     if (block.timestamp <= jobTokenCreditsAddedAt[_job][_token] + _WITHDRAW_TOKENS_COOLDOWN) revert JobTokenCreditsLocked();

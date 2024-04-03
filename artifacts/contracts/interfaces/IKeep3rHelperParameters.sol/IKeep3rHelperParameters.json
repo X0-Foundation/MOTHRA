@@ -45,9 +45,9 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_maxBoost",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "MaxBoostChange",
@@ -58,9 +58,9 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_minBoost",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "MinBoostChange",
@@ -71,9 +71,9 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_targetBond",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "TargetBondChange",
@@ -84,9 +84,9 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_workExtraGas",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "WorkExtraGasChange",
@@ -97,9 +97,9 @@
       "name": "BOOST_BASE",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_base",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -154,9 +154,9 @@
       "name": "maxBoost",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_multiplier",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -167,9 +167,9 @@
       "name": "minBoost",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_multiplier",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -204,9 +204,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_maxBoost",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "setMaxBoost",
@@ -217,9 +217,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_minBoost",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "setMinBoost",
@@ -230,9 +230,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_targetBond",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "setTargetBond",
@@ -243,9 +243,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_workExtraGas",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "setWorkExtraGas",
@@ -258,9 +258,9 @@
       "name": "targetBond",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_target",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -271,9 +271,9 @@
       "name": "workExtraGas",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_workExtraGas",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
