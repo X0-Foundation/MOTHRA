@@ -2290,8 +2290,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\libraries\\XLibrary.sol": {
-      "lastModificationDate": 1712124789661,
-      "contentHash": "633ac4dbe69285c602078923459aa76b",
+      "lastModificationDate": 1712171233095,
+      "contentHash": "ea24ebde4e350f9c9af23a71cb106daa",
       "sourceName": "contracts/libraries/XLibrary.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -3331,8 +3331,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\farm\\TGRToken.sol": {
-      "lastModificationDate": 1712124573300,
-      "contentHash": "5a2f6631572f9a2be45801014e348208",
+      "lastModificationDate": 1712170438104,
+      "contentHash": "ef3788ba23384e636461d8dd53483f62",
       "sourceName": "contracts/farm/TGRToken.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -3518,8 +3518,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\core\\XPair.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "026c6af74bd11f7be3febc5669ed551f",
+      "lastModificationDate": 1712171085751,
+      "contentHash": "98c37cfa06285211c946b067bf9a1692",
       "sourceName": "contracts/core/XPair.sol",
       "solcConfig": {
         "version": "0.8.14",
