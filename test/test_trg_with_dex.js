@@ -246,6 +246,8 @@ async function setupNodeChain() {
 }
 
 async function mintBlocks(blocks) {
+    console.log("\tchain is minting %s blocks...".yellow, blocks);
+
     let bn0 = (await ethers.provider.getBlock("latest")).number;
     for (let n = 0; n < blocks; n++) {
       await network.provider.send("evm_mine");
@@ -255,8 +257,9 @@ async function mintBlocks(blocks) {
 }
 
 async function pulse_user_burn() {
+    console.log("\tSystem is pulse_user_burn-ing ...".yellow)
     await tgr.pulse_user_burn();
-    console.log("\tPulse_user_burn".green);
+    console.log("\tPulse_user_burn-ed".green);
 }
 
 async function showStatus(user) {
