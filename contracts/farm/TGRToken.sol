@@ -474,11 +474,16 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         // Interpretation: TGR tokens not in Cyberswap accounts (tgrftm and tgrhtz), and not in Agency account (votes account), 
         // will be burned at the above rate and interval.
 
+        // This part of code is an invention: What's diffent from preceeding approach?
+        // - deltaAccPer1e12 encodes history.
+        // - deltaAccPer1e12 is defined first.
+        // - deltaAccPer1e12 decides new_burn.
         uint decayPer1e12 = _getDecayPer1e12(user_burn); // smaller than its real value.
         if (decayPer1e12 > 0) {
             uint net_collective = _safeSubtract(user_burn.sum_tokens, user_burn.pending_burn);
-            
-            uint new_burn = net_collective * decayPer1e12 / 1e12;  // smaller than its real value
+            uint deltaAccPer1e12 = (uint(1e12)-user_burn.accDecayPer1e12) * decayPer1e12 / uint(1e12);
+            // uint new_burn = net_collective * decayPer1e12 / 1e12;  // smaller than its real value
+            uint new_burn = net_collective * deltaAccPer1e12 / uint(1e12);
             user_burn.pending_burn += new_burn;
             if (user_burn.pending_burn > user_burn.sum_tokens) {
                 user_burn.pending_burn = user_burn.sum_tokens;
@@ -487,7 +492,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             // user_burn.accDecayPer1e12 += (decayPer1e12 * net_collective / uint(1e12)); // == decayPer1e12
             // user_burn.accDecayPer1e12 += new_burn * 1e12 / net_collective; // == decayPer1e12
             // user_burn.accDecayPer1e12 += new_burn * 1e12 / user_burn.sum_tokens;   // / net_collective should be more reasonable.
-            user_burn.accDecayPer1e12 += (uint(1e12)-user_burn.accDecayPer1e12) * decayPer1e12 / uint(1e12);
+            user_burn.accDecayPer1e12 += deltaAccPer1e12;
             // user_burn.accDecayPer1e12 = decayPer1e12;
             // user_burn.accDecayPer1e12 += net_collective * decayPer1e12; 
 

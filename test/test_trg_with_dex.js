@@ -245,6 +245,10 @@ async function setupNodeChain() {
 
 }
 
+async function showMilestone(text) {
+    console.log("\t%s".blue, text);
+}
+
 async function mintBlocks(blocks) {
     console.log("\tchain is minting %s blocks...".yellow, blocks);
 
@@ -860,59 +864,75 @@ describe("====================== Stage 2: Test pulses ======================\n".
     mintburn = 100
 
     for(i=0; i<1; i++) {
+        await showMilestone("Milestone 0");
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
 
+        await showMilestone("Milestone 1");
         await showStatus(owner);
         await showStatus(alice);
         await transfer(owner, alice, 0);
         await showStatus(owner);
         await showStatus(alice);
 
+        await showMilestone("Milestone 2");
         await showStatus(owner);
         await showStatus(alice);
         await mint(owner, alice, mintburn);
         await showStatus(owner);
         await showStatus(alice);
 
+        await showMilestone("Milestone 3");
         await showStatus(owner);
         await showStatus(alice);
         await burn(owner, alice, mintburn);
         await showStatus(owner);
         await showStatus(alice);
 
+        await showMilestone("Milestone 4");
         await showConsistency();
         await mintBlocks(blocks);
         await showConsistency();
         await pulse_user_burn();
         await showConsistency();
 
+        await showMilestone("Milestone 5");
         await showStatus(owner);
         await showStatus(bob);
         await mint(owner, bob, mintburn);
         await showStatus(owner);
         await showStatus(bob);
 
+        await showMilestone("Milestone 6");
         await burn(owner, bob, mintburn);
         // await transfer(owner, bob, 1000);
-        await mintBlocks(blocks);
-        await pulse_user_burn();
         await showConsistency();
+        await mintBlocks(blocks);
+        await showConsistency();
+        await pulse_user_burn();
+        await showConsistency();    // outputs a non-zero error
 
+        await showMilestone("Milestone 7");
+        await showConsistency();
         await mint(owner, carol, mintburn);
+        await showConsistency();
         await burn(owner, carol, mintburn);
+        await showConsistency();
         // await transfer(owner, carol, 5000);
         await mintBlocks(blocks);
+        await showConsistency();
         await pulse_user_burn();
         await showConsistency();
 
+        await showMilestone("Milestone 8");
         await mint(owner, alice, mintburn);
         await burn(owner, alice, mintburn);
         await mintBlocks(blocks);
         await pulse_user_burn();
         await showConsistency();
 
+        await showMilestone("Milestone 9");
         await mint(owner, alice, mintburn);
         await burn(owner, alice, mintburn);
         // await transfer(owner, carol, 100);
@@ -920,6 +940,7 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await pulse_user_burn();
         await showConsistency();
 
+        await showMilestone("Milestone 10");
         await mint(owner, bob, mintburn);
         await burn(owner, bob, mintburn);
         // await transfer(carol, carol, 100);
@@ -927,6 +948,7 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await pulse_user_burn();
         await showConsistency();
 
+        await showMilestone("Milestone 11");
         await mint(owner, alice, mintburn);
         await burn(owner, alice, mintburn);
         // await transfer(carol, alice, 100);
