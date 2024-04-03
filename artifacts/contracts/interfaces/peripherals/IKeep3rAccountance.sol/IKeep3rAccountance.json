@@ -30,9 +30,9 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "Bonding",
@@ -55,9 +55,9 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "Unbonding",
@@ -79,9 +79,9 @@
       "name": "bonds",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_bonds",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -103,9 +103,9 @@
       "name": "canActivateAfter",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_timestamp",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -127,9 +127,9 @@
       "name": "canWithdrawAfter",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_timestamp",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -165,9 +165,9 @@
       "name": "firstSeen",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "timestamp",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -208,9 +208,9 @@
       "name": "jobTokenCredits",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -258,9 +258,9 @@
       "name": "pendingBonds",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_pendingBonds",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -282,9 +282,9 @@
       "name": "pendingUnbonds",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_pendingUnbonds",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -301,9 +301,9 @@
       "name": "workCompleted",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_workCompleted",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",

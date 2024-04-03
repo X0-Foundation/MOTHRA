@@ -72,9 +72,9 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "id",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
@@ -91,9 +91,9 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "id",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
@@ -103,21 +103,21 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "reward",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "status",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "minLevel",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
@@ -134,9 +134,9 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "id",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "TaskDelivered",
@@ -147,9 +147,9 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "id",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
@@ -166,9 +166,9 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "id",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "TaskEndVerified",
@@ -179,9 +179,9 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "id",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "TaskPosted",
@@ -192,9 +192,9 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "id",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "TaskVerified",
@@ -216,9 +216,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_id",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "address",
@@ -240,9 +240,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_id",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "address",
@@ -277,14 +277,14 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "level",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "stakedAmount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -301,9 +301,9 @@
       "name": "agentLastSlashTime",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -317,9 +317,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "agentVerifiedTask",
@@ -336,14 +336,14 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_id",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256[]",
+          "internalType": "uint[]",
           "name": "_bidders",
-          "type": "uint256[]"
+          "type": "uint[]"
         }
       ],
       "name": "assignTask",
@@ -354,9 +354,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "address",
@@ -378,14 +378,14 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "bidders",
@@ -402,9 +402,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_id",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "compeletTask",
@@ -415,14 +415,14 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "doers",
@@ -484,9 +484,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_id",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "placeBid",
@@ -497,9 +497,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_id",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "postTask",
@@ -530,9 +530,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_id",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "string",
@@ -548,9 +548,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_num",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "setNumVerificationsNeeded",
@@ -561,9 +561,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_time",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "setSlashImpactPeriod",
@@ -574,9 +574,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "stake",
@@ -599,14 +599,14 @@
               "type": "string"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "reward",
-              "type": "uint256"
+              "type": "uint"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "bonus",
-              "type": "uint256"
+              "type": "uint"
             },
             {
               "internalType": "uint8",
@@ -639,14 +639,14 @@
               "type": "address"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "dueTime",
-              "type": "uint256"
+              "type": "uint"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "verifiedTime",
-              "type": "uint256"
+              "type": "uint"
             }
           ],
           "internalType": "struct TaskDetails",
@@ -657,9 +657,9 @@
       "name": "submitTask",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "taskId",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",
@@ -668,14 +668,14 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "taskCompleters",
@@ -692,14 +692,14 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "taskEndVerifiers",
@@ -716,17 +716,17 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "taskVerifiersCount",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -735,9 +735,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "tasks",
@@ -753,14 +753,14 @@
           "type": "string"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "reward",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "bonus",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "uint8",
@@ -788,14 +788,14 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "dueTime",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "verifiedTime",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -830,9 +830,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "unStake",
@@ -887,9 +887,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_taskId",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "verifyTask",
@@ -900,9 +900,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_id",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "verifyTaskCompletion",

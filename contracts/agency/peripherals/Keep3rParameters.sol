@@ -20,28 +20,28 @@ abstract contract Keep3rParameters is IKeep3rParameters, Keep3rAccountance, Keep
   address public override kp3rWethPool;
 
   /// @inheritdoc IKeep3rParameters
-  uint256 public override bondTime = 3 days;
+  uint public override bondTime = 3 days;
 
   /// @inheritdoc IKeep3rParameters
-  uint256 public override unbondTime = 14 days;
+  uint public override unbondTime = 14 days;
 
   /// @inheritdoc IKeep3rParameters
-  // uint256 public override liquidityMinimum = 3 ether;
+  // uint public override liquidityMinimum = 3 ether;
 
   /// @inheritdoc IKeep3rParameters
-  // uint256 public override rewardPeriodTime = 5 days;
+  // uint public override rewardPeriodTime = 5 days;
 
   /// @inheritdoc IKeep3rParameters
-  // uint256 public override inflationPeriod = 34 days;
+  // uint public override inflationPeriod = 34 days;
 
   /// @inheritdoc IKeep3rParameters
-  uint256 public override fee = 30;
+  uint public override fee = 30;
 
   /// @notice The base that will be used to calculate the fee
-  uint256 internal constant _BASE = 10_000;
+  uint internal constant _BASE = 10_000;
 
   /// @notice The minimum reward period
-  uint256 internal constant _MIN_REWARD_PERIOD_TIME = 1 days;
+  uint internal constant _MIN_REWARD_PERIOD_TIME = 1 days;
 
   constructor(
     address _keep3rHelper,
@@ -88,39 +88,39 @@ abstract contract Keep3rParameters is IKeep3rParameters, Keep3rAccountance, Keep
   }
 
   /// @inheritdoc IKeep3rParameters
-  function setBondTime(uint256 _bondTime) external override onlyGovernance {
+  function setBondTime(uint _bondTime) external override onlyGovernance {
     bondTime = _bondTime;
     emit BondTimeChange(_bondTime);
   }
 
   /// @inheritdoc IKeep3rParameters
-  function setUnbondTime(uint256 _unbondTime) external override onlyGovernance {
+  function setUnbondTime(uint _unbondTime) external override onlyGovernance {
     unbondTime = _unbondTime;
     emit UnbondTimeChange(_unbondTime);
   }
 
   /// @inheritdoc IKeep3rParameters
-  // function setLiquidityMinimum(uint256 _liquidityMinimum) external override onlyGovernance {
+  // function setLiquidityMinimum(uint _liquidityMinimum) external override onlyGovernance {
   //   liquidityMinimum = _liquidityMinimum;
   //   emit LiquidityMinimumChange(_liquidityMinimum);
   // }
 
   /// @inheritdoc IKeep3rParameters
   // TODO: check what happens to credit minting when changing this. Shouldn't we update the cached ticks?
-  // function setRewardPeriodTime(uint256 _rewardPeriodTime) external override onlyGovernance {
+  // function setRewardPeriodTime(uint _rewardPeriodTime) external override onlyGovernance {
   //   if (_rewardPeriodTime < _MIN_REWARD_PERIOD_TIME) revert MinRewardPeriod();
   //   rewardPeriodTime = _rewardPeriodTime;
   //   emit RewardPeriodTimeChange(_rewardPeriodTime);
   // }
 
   /// @inheritdoc IKeep3rParameters
-  // function setInflationPeriod(uint256 _inflationPeriod) external override onlyGovernance {
+  // function setInflationPeriod(uint _inflationPeriod) external override onlyGovernance {
   //   inflationPeriod = _inflationPeriod;
   //   emit InflationPeriodChange(_inflationPeriod);
   // }
 
   /// @inheritdoc IKeep3rParameters
-  function setFee(uint256 _fee) external override onlyGovernance {
+  function setFee(uint _fee) external override onlyGovernance {
     fee = _fee;
     emit FeeChange(_fee);
   }

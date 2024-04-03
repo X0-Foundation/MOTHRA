@@ -26,15 +26,15 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_block",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_credit",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "ApplyCredit",
@@ -57,9 +57,9 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "value",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "Approval",
@@ -101,15 +101,15 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_previousBalance",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_newBalance",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "DelegateVotesChanged",
@@ -126,9 +126,9 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_block",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
@@ -151,9 +151,9 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_block",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
@@ -176,21 +176,21 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_block",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_activated",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_bond",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "KeeperBonded",
@@ -207,21 +207,21 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_block",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_active",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_bond",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "KeeperBonding",
@@ -238,9 +238,9 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_block",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "KeeperDispute",
@@ -257,9 +257,9 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_block",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "KeeperResolved",
@@ -282,15 +282,15 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_block",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_slash",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "KeeperSlashed",
@@ -307,21 +307,21 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_block",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_deactive",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_bond",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "KeeperUnbonding",
@@ -338,21 +338,21 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_block",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_deactivated",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_bond",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "KeeperUnbound",
@@ -381,15 +381,15 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_block",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "KeeperWorked",
@@ -418,15 +418,15 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_block",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_credit",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "RemoveJob",
@@ -455,15 +455,15 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_block",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_credit",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "SubmitJob",
@@ -492,15 +492,15 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_block",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "TokenCreditAddition",
@@ -523,9 +523,9 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "value",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "Transfer",
@@ -554,15 +554,15 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_block",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_credit",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "UnbondJob",
@@ -573,9 +573,9 @@
       "name": "BASE",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",
@@ -586,9 +586,9 @@
       "name": "BOND",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",
@@ -651,9 +651,9 @@
       "name": "FEE",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",
@@ -677,9 +677,9 @@
       "name": "LIQUIDITYBOND",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",
@@ -703,9 +703,9 @@
       "name": "UNBOND",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",
@@ -744,9 +744,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "addCredit",
@@ -788,9 +788,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "addKPRCredit",
@@ -811,9 +811,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "addLiquidityToJob",
@@ -829,9 +829,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "addVotes",
@@ -855,9 +855,9 @@
       "name": "allowance",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -894,9 +894,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "approve",
@@ -934,9 +934,9 @@
       "name": "balanceOf",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -969,9 +969,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "bond",
@@ -995,9 +995,9 @@
       "name": "bondings",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -1019,9 +1019,9 @@
       "name": "bonds",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -1030,9 +1030,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "burn",
@@ -1056,9 +1056,9 @@
       "name": "canWithdrawAfter",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -1087,9 +1087,9 @@
               "type": "uint32"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "votes",
-              "type": "uint256"
+              "type": "uint"
             }
           ],
           "internalType": "struct IKeep3rV1.Checkpoint",
@@ -1116,9 +1116,9 @@
       "name": "credits",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -1199,9 +1199,9 @@
       "name": "firstSeen",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -1218,9 +1218,9 @@
       "name": "getCurrentVotes",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -1278,19 +1278,19 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_minBond",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_earned",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_age",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "isBondedKeeper",
@@ -1331,19 +1331,19 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_minBond",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_earned",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_age",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "isMinKeeper",
@@ -1360,9 +1360,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_index",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "jobList",
@@ -1387,9 +1387,9 @@
       "name": "jobProposalDelay",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -1417,9 +1417,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_index",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "keeperList",
@@ -1463,9 +1463,9 @@
       "name": "lastJob",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -1511,9 +1511,9 @@
       "name": "liquidityAmount",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -1540,9 +1540,9 @@
       "name": "liquidityAmountsUnbonding",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -1569,9 +1569,9 @@
       "name": "liquidityApplied",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -1580,9 +1580,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_index",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "liquidityPairs",
@@ -1617,9 +1617,9 @@
       "name": "liquidityProvided",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -1646,9 +1646,9 @@
       "name": "liquidityUnbonding",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -1657,9 +1657,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "mint",
@@ -1691,9 +1691,9 @@
       "name": "nonces",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -1760,9 +1760,9 @@
       "name": "pendingUnbonds",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -1784,9 +1784,9 @@
       "name": "pendingbonds",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -1805,14 +1805,14 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_deadline",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "uint8",
@@ -1848,9 +1848,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "receipt",
@@ -1866,9 +1866,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "receiptETH",
@@ -1915,9 +1915,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "removeVotes",
@@ -2003,9 +2003,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "slash",
@@ -2031,9 +2031,9 @@
       "name": "totalSupply",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -2047,9 +2047,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "transfer",
@@ -2076,9 +2076,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "transferFrom",
@@ -2100,9 +2100,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "unbond",
@@ -2123,9 +2123,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "unbondLiquidityFromJob",
@@ -2144,9 +2144,9 @@
       "name": "votes",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -2176,9 +2176,9 @@
       "name": "workCompleted",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",

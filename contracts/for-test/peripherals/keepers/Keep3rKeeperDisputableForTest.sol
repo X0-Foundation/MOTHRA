@@ -20,8 +20,8 @@ contract Keep3rKeeperDisputableForTest is Keep3rKeeperDisputable {
   function internalSlash(
     address _bonded,
     address _keeper,
-    uint256 _bondAmount,
-    uint256 _unbondAmount
+    uint _bondAmount,
+    uint _unbondAmount
   ) external {
     _slash(_bonded, _keeper, _bondAmount, _unbondAmount);
   }

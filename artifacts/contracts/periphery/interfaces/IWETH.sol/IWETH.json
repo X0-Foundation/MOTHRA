@@ -18,9 +18,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "value",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "transfer",
@@ -37,9 +37,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "withdraw",

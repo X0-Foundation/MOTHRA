@@ -21,9 +21,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_initialBalance",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",
@@ -46,9 +46,9 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "value",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "Approval",
@@ -71,9 +71,9 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "value",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "Transfer",
@@ -95,9 +95,9 @@
       "name": "allowance",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -111,9 +111,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "approve",
@@ -140,9 +140,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_value",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "approveInternal",
@@ -161,9 +161,9 @@
       "name": "balanceOf",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -177,9 +177,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "burn",
@@ -208,9 +208,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "subtractedValue",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "decreaseAllowance",
@@ -227,9 +227,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "deposit",
@@ -245,9 +245,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "addedValue",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "increaseAllowance",
@@ -269,9 +269,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "mint",
@@ -310,9 +310,9 @@
       "name": "totalSupply",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -326,9 +326,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "transfer",
@@ -355,9 +355,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "transferFrom",
@@ -384,9 +384,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_value",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "transferInternal",

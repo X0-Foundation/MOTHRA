@@ -99,9 +99,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "addKPRCredit",
@@ -117,9 +117,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "addRecipient",
@@ -135,9 +135,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "addVotes",
@@ -169,9 +169,9 @@
       "name": "caps",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -195,9 +195,9 @@
       "name": "draw",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",
@@ -237,9 +237,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "mint",
@@ -250,9 +250,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "mint",
@@ -284,9 +284,9 @@
       "name": "next",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -330,9 +330,9 @@
               "type": "address"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "caps",
-              "type": "uint256"
+              "type": "uint"
             }
           ],
           "internalType": "struct IKeep3rV1Proxy.Recipient[]",
@@ -377,9 +377,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "removeVotes",
@@ -504,9 +504,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "slash",

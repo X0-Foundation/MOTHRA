@@ -11,9 +11,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "principal",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "components": [
@@ -36,9 +36,9 @@
       "name": "payFeeTgrLogic",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "feesPaid",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",

@@ -24,14 +24,14 @@
       "name": "burn",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount0",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount1",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",
@@ -89,14 +89,14 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount0",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount1",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "internalType": "bytes",
@@ -166,14 +166,14 @@
       "name": "mint",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount0",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "amount1",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "nonpayable",

@@ -39,7 +39,7 @@ contract UniV3PairManager is IUniV3PairManager, Governable {
   string public override symbol;
 
   /// @inheritdoc IERC20
-  uint256 public override totalSupply;
+  uint public override totalSupply;
 
   /// @inheritdoc IPairManager
   address public immutable override factory;
@@ -80,10 +80,10 @@ contract UniV3PairManager is IUniV3PairManager, Governable {
   uint8 public constant override decimals = 18;
 
   /// @inheritdoc IERC20
-  mapping(address => mapping(address => uint256)) public override allowance;
+  mapping(address => mapping(address => uint)) public override allowance;
 
   /// @inheritdoc IERC20
-  mapping(address => uint256) public override balanceOf;
+  mapping(address => uint) public override balanceOf;
 
   /// @notice Struct that contains token0, token1, and fee of the Uniswap pool
   PoolAddress.PoolKey private _poolKey;
@@ -115,10 +115,10 @@ contract UniV3PairManager is IUniV3PairManager, Governable {
   // This low-level function should be called from a contract which performs important safety checks
   /// @inheritdoc IUniV3PairManager
   function mint(
-    uint256 amount0Desired,
-    uint256 amount1Desired,
-    uint256 amount0Min,
-    uint256 amount1Min,
+    uint amount0Desired,
+    uint amount1Desired,
+    uint amount0Min,
+    uint amount1Min,
     address to
   ) external override returns (uint128 liquidity) {
     (liquidity, , ) = _addLiquidity(amount0Desired, amount1Desired, amount0Min, amount1Min);
@@ -127,8 +127,8 @@ contract UniV3PairManager is IUniV3PairManager, Governable {
 
   /// @inheritdoc IUniV3PairManager
   function uniswapV3MintCallback(
-    uint256 amount0Owed,
-    uint256 amount1Owed,
+    uint amount0Owed,
+    uint amount1Owed,
     bytes calldata data
   ) external override {
     MintCallbackData memory decoded = abi.decode(data, (MintCallbackData));
@@ -140,10 +140,10 @@ contract UniV3PairManager is IUniV3PairManager, Governable {
   /// @inheritdoc IUniV3PairManager
   function burn(
     uint128 liquidity,
-    uint256 amount0Min,
-    uint256 amount1Min,
+    uint amount0Min,
+    uint amount1Min,
     address to
-  ) external override returns (uint256 amount0, uint256 amount1) {
+  ) external override returns (uint amount0, uint amount1) {
     (amount0, amount1) = IUniswapV3Pool(pool).burn(tickLower, tickUpper, liquidity);
 
     if (amount0 < amount0Min || amount1 < amount1Min) revert ExcessiveSlippage();
@@ -153,7 +153,7 @@ contract UniV3PairManager is IUniV3PairManager, Governable {
   }
 
   /// @inheritdoc IUniV3PairManager
-  function collect() external override onlyGovernance returns (uint256 amount0, uint256 amount1) {
+  function collect() external override onlyGovernance returns (uint amount0, uint amount1) {
     (, , , uint128 tokensOwed0, uint128 tokensOwed1) = IUniswapV3Pool(pool).positions(
       keccak256(abi.encodePacked(address(this), tickLower, tickUpper))
     );
@@ -167,8 +167,8 @@ contract UniV3PairManager is IUniV3PairManager, Governable {
     override
     returns (
       uint128 liquidity,
-      uint256 feeGrowthInside0LastX128,
-      uint256 feeGrowthInside1LastX128,
+      uint feeGrowthInside0LastX128,
+      uint feeGrowthInside1LastX128,
       uint128 tokensOwed0,
       uint128 tokensOwed1
     )
@@ -179,7 +179,7 @@ contract UniV3PairManager is IUniV3PairManager, Governable {
   }
 
   /// @inheritdoc IERC20
-  function approve(address spender, uint256 amount) external override returns (bool) {
+  function approve(address spender, uint amount) external override returns (bool) {
     allowance[msg.sender][spender] = amount;
 
     emit Approval(msg.sender, spender, amount);
@@ -187,7 +187,7 @@ contract UniV3PairManager is IUniV3PairManager, Governable {
   }
 
   /// @inheritdoc IERC20
-  function transfer(address to, uint256 amount) external override returns (bool) {
+  function transfer(address to, uint amount) external override returns (bool) {
     _transferTokens(msg.sender, to, amount);
     return true;
   }
@@ -196,13 +196,13 @@ contract UniV3PairManager is IUniV3PairManager, Governable {
   function transferFrom(
     address from,
     address to,
-    uint256 amount
+    uint amount
   ) external override returns (bool) {
     address spender = msg.sender;
-    uint256 spenderAllowance = allowance[from][spender];
+    uint spenderAllowance = allowance[from][spender];
 
-    if (spender != from && spenderAllowance != type(uint256).max) {
-      uint256 newAllowance = spenderAllowance - amount;
+    if (spender != from && spenderAllowance != type(uint).max) {
+      uint newAllowance = spenderAllowance - amount;
       allowance[from][spender] = newAllowance;
 
       emit Approval(from, spender, newAllowance);
@@ -223,16 +223,16 @@ contract UniV3PairManager is IUniV3PairManager, Governable {
   /// @return amount0 The amount of token0 we ended up providing
   /// @return amount1 The amount of token1 we ended up providing
   function _addLiquidity(
-    uint256 amount0Desired,
-    uint256 amount1Desired,
-    uint256 amount0Min,
-    uint256 amount1Min
+    uint amount0Desired,
+    uint amount1Desired,
+    uint amount0Min,
+    uint amount1Min
   )
     internal
     returns (
       uint128 liquidity,
-      uint256 amount0,
-      uint256 amount1
+      uint amount0,
+      uint amount1
     )
   {
     (uint160 sqrtPriceX96, , , , , , ) = IUniswapV3Pool(pool).slot0();
@@ -259,7 +259,7 @@ contract UniV3PairManager is IUniV3PairManager, Governable {
     address token,
     address from,
     address to,
-    uint256 value
+    uint value
   ) internal {
     _safeTransferFrom(token, from, to, value);
   }
@@ -267,7 +267,7 @@ contract UniV3PairManager is IUniV3PairManager, Governable {
   /// @notice Mints Keep3r credits to the passed-in address of recipient and increases total supply of Keep3r credits by the corresponding amount
   /// @param to The recipient of the Keep3r credits
   /// @param amount The amount Keep3r credits to be minted to the recipient
-  function _mint(address to, uint256 amount) internal {
+  function _mint(address to, uint amount) internal {
     totalSupply += amount;
     balanceOf[to] += amount;
     emit Transfer(address(0), to, amount);
@@ -276,7 +276,7 @@ contract UniV3PairManager is IUniV3PairManager, Governable {
   /// @notice Burns Keep3r credits to the passed-in address of recipient and reduces total supply of Keep3r credits by the corresponding amount
   /// @param to The address that will get its Keep3r credits burned
   /// @param amount The amount Keep3r credits to be burned from the recipient/recipient
-  function _burn(address to, uint256 amount) internal {
+  function _burn(address to, uint amount) internal {
     totalSupply -= amount;
     balanceOf[to] -= amount;
     emit Transfer(to, address(0), amount);
@@ -289,7 +289,7 @@ contract UniV3PairManager is IUniV3PairManager, Governable {
   function _transferTokens(
     address from,
     address to,
-    uint256 amount
+    uint amount
   ) internal {
     balanceOf[from] -= amount;
     balanceOf[to] += amount;
@@ -307,7 +307,7 @@ contract UniV3PairManager is IUniV3PairManager, Governable {
     address token,
     address from,
     address to,
-    uint256 value
+    uint value
   ) internal {
     // solhint-disable-next-line avoid-low-level-calls
     (bool success, bytes memory data) = token.call(abi.encodeWithSelector(IERC20.transferFrom.selector, from, to, value));

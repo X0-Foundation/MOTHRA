@@ -12,7 +12,7 @@ abstract contract Keep3rJobWorkable is IKeep3rJobWorkable, Keep3rJobMigration {
   using EnumerableSet for EnumerableSet.AddressSet;
   using SafeERC20 for IERC20;
 
-  uint256 internal _initialGas;
+  uint internal _initialGas;
 
   /// @inheritdoc IKeep3rJobWorkable
   function isKeeper(address _keeper) external override returns (bool _isKeeper) {
@@ -27,9 +27,9 @@ abstract contract Keep3rJobWorkable is IKeep3rJobWorkable, Keep3rJobMigration {
   function isBondedKeeper(
     address _keeper,
     address _bond,
-    uint256 _minBond,
-    uint256 _earned,
-    uint256 _age
+    uint _minBond,
+    uint _earned,
+    uint _age
   ) public override returns (bool _isBondedKeeper) {
     _initialGas = _getGasLeft();
     if (
@@ -53,10 +53,10 @@ abstract contract Keep3rJobWorkable is IKeep3rJobWorkable, Keep3rJobMigration {
     //   emit LiquidityCreditsReward(_job, rewardedAt[_job], _jobLiquidityCredits[_job], _jobPeriodCredits[_job]);
     // }
 
-    (uint256 _boost, uint256 _oneEthQuote, uint256 _extraGas) = IKeep3rHelper(keep3rHelper).getPaymentParams(bonds[_keeper][keep3rV1]);
+    (uint _boost, uint _oneEthQuote, uint _extraGas) = IKeep3rHelper(keep3rHelper).getPaymentParams(bonds[_keeper][keep3rV1]);
 
-    uint256 _gasLeft = _getGasLeft();
-    uint256 _payment = _calculatePayment(_gasLeft, _extraGas, _oneEthQuote, _boost);
+    uint _gasLeft = _getGasLeft();
+    uint _payment = _calculatePayment(_gasLeft, _extraGas, _oneEthQuote, _boost);
 
     // if (_payment > _jobLiquidityCredits[_job]) {
     //   _rewardJobCredits(_job);
@@ -73,7 +73,7 @@ abstract contract Keep3rJobWorkable is IKeep3rJobWorkable, Keep3rJobMigration {
   }
 
   /// @inheritdoc IKeep3rJobWorkable
-  function bondedPayment(address _keeper, uint256 _payment) public override {
+  function bondedPayment(address _keeper, uint _payment) public override {
     address _job = msg.sender;
 
     if (disputes[_job]) revert JobDisputed();
@@ -98,7 +98,7 @@ abstract contract Keep3rJobWorkable is IKeep3rJobWorkable, Keep3rJobMigration {
   function directTokenPayment(
     address _token,
     address _keeper,
-    uint256 _amount
+    uint _amount
   ) external override {
     address _job = msg.sender;
 
@@ -114,7 +114,7 @@ abstract contract Keep3rJobWorkable is IKeep3rJobWorkable, Keep3rJobMigration {
   function _bondedPayment(
     address _job,
     address _keeper,
-    uint256 _payment
+    uint _payment
   ) internal {
     if (_payment > _jobLiquidityCredits[_job]) revert InsufficientFunds();
 
@@ -132,18 +132,18 @@ abstract contract Keep3rJobWorkable is IKeep3rJobWorkable, Keep3rJobMigration {
   /// @param _boost Reward given to the keeper for having bonded KP3R tokens
   /// @return _payment Amount to be payed in KP3R tokens
   function _calculatePayment(
-    uint256 _gasLeft,
-    uint256 _extraGas,
-    uint256 _oneEthQuote,
-    uint256 _boost
-  ) internal view returns (uint256 _payment) {
-    uint256 _accountedGas = _initialGas - _gasLeft + _extraGas;
+    uint _gasLeft,
+    uint _extraGas,
+    uint _oneEthQuote,
+    uint _boost
+  ) internal view returns (uint _payment) {
+    uint _accountedGas = _initialGas - _gasLeft + _extraGas;
     _payment = (((_accountedGas * _boost) / _BASE) * _oneEthQuote) / 1 ether;
   }
 
   /// @notice Return the gas left and add 1/64 in order to match real gas left at first level of depth (EIP-150)
   /// @return _gasLeft Amount of gas left recording taking into account EIP-150
-  function _getGasLeft() internal view returns (uint256 _gasLeft) {
+  function _getGasLeft() internal view returns (uint _gasLeft) {
     _gasLeft = (gasleft() * 64) / 63;
   }
 }

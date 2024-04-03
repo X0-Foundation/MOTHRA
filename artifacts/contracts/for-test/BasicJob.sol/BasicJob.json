@@ -22,17 +22,17 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "array",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -56,9 +56,9 @@
       "name": "nonce",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -74,9 +74,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_howHard",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "workHard",
@@ -87,9 +87,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_howHard",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "workRefund",

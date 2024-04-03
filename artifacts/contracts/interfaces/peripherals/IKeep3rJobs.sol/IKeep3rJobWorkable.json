@@ -18,9 +18,9 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_gasLeft",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "KeeperValidation",
@@ -49,15 +49,15 @@
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_payment",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_gasLeft",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "KeeperWork",
@@ -71,9 +71,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_payment",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "bondedPayment",
@@ -94,9 +94,9 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_amount",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "directTokenPayment",
@@ -117,19 +117,19 @@
           "type": "address"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_minBond",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_earned",
-          "type": "uint256"
+          "type": "uint"
         },
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "_age",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "name": "isBondedKeeper",

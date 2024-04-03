@@ -13,14 +13,14 @@
               "type": "uint8"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "session",
-              "type": "uint256"
+              "type": "uint"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "lastSession",
-              "type": "uint256"
+              "type": "uint"
             },
             {
               "internalType": "bool",
@@ -63,14 +63,14 @@
               "type": "address"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "reserve0",
-              "type": "uint256"
+              "type": "uint"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "reserve1",
-              "type": "uint256"
+              "type": "uint"
             },
             {
               "internalType": "uint8",
@@ -99,9 +99,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "session",
-          "type": "uint256"
+          "type": "uint"
         },
         {
           "components": [
@@ -121,14 +121,14 @@
               "type": "address"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "reserve0",
-              "type": "uint256"
+              "type": "uint"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "reserve1",
-              "type": "uint256"
+              "type": "uint"
             },
             {
               "internalType": "uint8",
@@ -176,14 +176,14 @@
               "type": "address"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "reserve0",
-              "type": "uint256"
+              "type": "uint"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "reserve1",
-              "type": "uint256"
+              "type": "uint"
             },
             {
               "internalType": "uint8",
@@ -226,14 +226,14 @@
               "type": "address"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "reserve0",
-              "type": "uint256"
+              "type": "uint"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "reserve1",
-              "type": "uint256"
+              "type": "uint"
             },
             {
               "internalType": "uint8",

@@ -21,9 +21,9 @@
       "name": "lastSession",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -72,14 +72,14 @@
               "type": "uint8"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "session",
-              "type": "uint256"
+              "type": "uint"
             },
             {
-              "internalType": "uint256",
+              "internalType": "uint",
               "name": "lastSession",
-              "type": "uint256"
+              "type": "uint"
             },
             {
               "internalType": "bool",
@@ -107,9 +107,9 @@
       "name": "session",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",
@@ -126,9 +126,9 @@
       "name": "sessionsLastSeenBySType",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint",
           "name": "",
-          "type": "uint256"
+          "type": "uint"
         }
       ],
       "stateMutability": "view",

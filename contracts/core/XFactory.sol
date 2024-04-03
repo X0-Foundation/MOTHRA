@@ -31,7 +31,7 @@ contract XFactory is Node, IXFactory, Ownable {
     function setNode(NodeType nodeType, address node, address caller) public override {
         super.setNode(nodeType, node, caller);
         if (nodeType == NodeType.Token || nodeType == NodeType.Maker || nodeType == NodeType.Taker) {
-            for (uint256 i = 0; i < allPairs.length; i++) {
+            for (uint i = 0; i < allPairs.length; i++) {
                 IXPair(allPairs[i]).setNodes(nodes.token, nodes.maker, nodes.taker);
             }
         }
@@ -54,7 +54,7 @@ contract XFactory is Node, IXFactory, Ownable {
         ListStatus targetStatue = enlist? ListStatus.Enlisted : ListStatus.Delisted;
         this.changePairStatus(token, token, token, targetStatue, address(0));
 
-        for (uint256 k; k < allPairs.length; k++) {
+        for (uint k; k < allPairs.length; k++) {
             if (_isRelated(allPairs[k], token)) {
                 IXPair(allPairs[k]).changeStatus(targetStatue);
                 this.changePairStatus(
@@ -69,8 +69,8 @@ contract XFactory is Node, IXFactory, Ownable {
     }
 
     function _removePairs(address token) internal {
-        uint256 step = 1;
-        for (uint256 k; k < allPairs.length; k += step) {
+        uint step = 1;
+        for (uint k; k < allPairs.length; k += step) {
             if (_isRelated(allPairs[k], token)) {
                 this.changePairStatus( allPairs[k], address(0), address(0), ListStatus.None, address(0) ); // free storage.
 
@@ -89,7 +89,7 @@ contract XFactory is Node, IXFactory, Ownable {
         return IXPair(pair).token0() == token || IXPair(pair).token1() == token;
     }
 
-    function allPairsLength() external view override returns (uint256) {
+    function allPairsLength() external view override returns (uint) {
         return allPairs.length;
     }
 
