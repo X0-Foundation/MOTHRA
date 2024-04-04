@@ -267,6 +267,12 @@ async function pulse_user_burn() {
     console.log("\tPulse_user_burn-ed".green);
 }
 
+async function pulse_vote_burn() {
+    console.log("\tSystem is pulse_vote_burn-ing ...".yellow)
+    await tgr.pulse_vote_burn();
+    console.log("\tPulse_vote_burn-ed".green);
+}
+
 async function showStatus(user) {
     const s = await tgr.getStatus(user.address);
     console.log("\tstatus: %s", user.name);
@@ -999,6 +1005,11 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await showConsistency();
         await returnVotes(owner, 1);
         await showStatus(owner);
+        await showConsistency();
+
+        await showMilestone("Milestone 14");
+        await mintBlocks(blocks);
+        await pulse_vote_burn();
         await showConsistency();
     }
 
