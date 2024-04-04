@@ -273,6 +273,12 @@ async function pulse_vote_burn() {
     console.log("\tPulse_vote_burn-ed".green);
 }
 
+async function pulse_lp_reward() {
+    console.log("\tSystem is pulse_lp_reward-ing ...".yellow)
+    await tgr.pulse_lp_reward();
+    console.log("\tPulse_lp_reward-ed".green);
+}
+
 async function showStatus(user) {
     const s = await tgr.getStatus(user.address);
     console.log("\tstatus: %s", user.name);
@@ -1011,6 +1017,11 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await mintBlocks(blocks);
         await pulse_vote_burn();
         await showConsistency();
+
+        // await showMilestone("Milestone 15");
+        // await mintBlocks(blocks);
+        // await pulse_lp_reward();
+        // await showConsistency();
     }
 
 });

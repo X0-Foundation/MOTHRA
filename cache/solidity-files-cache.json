@@ -3331,8 +3331,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\farm\\TGRToken.sol": {
-      "lastModificationDate": 1712194979516,
-      "contentHash": "a61622210f2dc7f782887b0030cc3e11",
+      "lastModificationDate": 1712201194402,
+      "contentHash": "6376783792107356652c0570fb1e8ce7",
       "sourceName": "contracts/farm/TGRToken.sol",
       "solcConfig": {
         "version": "0.8.14",
