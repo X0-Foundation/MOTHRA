@@ -49,7 +49,8 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     // The non-user TGR accounts, not limited to the below items.
     // address tgrFtm; // Decleared in node. The address of TGR_FTM pool, which has TGR and WFTM balances.
     // address tgrHtz; // Decleared in node. The address of TGR_HTZ pool, which has TGR and HTZ balances.
-    address immutable votes;  // The address of the share-based, TGR staking account in the Agency dapp.
+    address immutable voteAccount;  // The address of the share-based, TGR staking account in the Agency dapp.
+    mapping(address => uint) private _votes;
 
     Pulse public lp_reward;
     Pulse public vote_burn;
@@ -90,7 +91,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     //====================== Pulse internal functions ============================
 
     function _isUserAccount(address account) internal view returns (bool) {
-        return pairs[account].token0 == address(0) && account != votes; // not a pair's token && not a votes account
+        return pairs[account].token0 == address(0) && account != voteAccount; // not a pair's token && not a voteAccount account
     }
 
     function _userPendingBurn(address account) internal view returns (uint pendingBurn) {
@@ -180,13 +181,13 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         bob = 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC;
         carol = 0x90F79bf6EB2c4f870365E785982E1f101E93b906;
 
-        votes = 0x976EA74026E726554dB657fA54763abd0C3a0aa9;
+        voteAccount = 0x976EA74026E726554dB657fA54763abd0C3a0aa9;
 
         lp_reward = Pulse(block.timestamp, 2 seconds, 690, tgrFtm, 0, 0, 0, block.timestamp / (2 seconds));
         // 0.69% of XDAO/FTM LP has the XDAO side sold for FTM, 
         // then the FTM is used to buy HTZ which is added to XDAO lps airdrop rewards every 12 hours.        
         
-        vote_burn = Pulse(block.timestamp, 2 seconds, 70, votes, 0, 0, 0, block.timestamp / (2 seconds));
+        vote_burn = Pulse(block.timestamp, 2 seconds, 70, voteAccount, 0, 0, 0, block.timestamp / (2 seconds));
         // 0.07% of tokens in the Agency dapp actively being used for voting burned every 12 hours.
 
         user_burn = Pulse(block.timestamp, 4 seconds, 777, zero_address, 0, 0, 0, block.timestamp / (4 seconds));
@@ -453,15 +454,25 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         uint decayPer1e12 = _getDecayPer1e12(vote_burn); // not greater than its true value.
 
         if (decayPer1e12 > 0) {
-            // burn decayPer1e12 portion of votes account's TRG balance.
+            // burn decayPer1e12 portion of voteAccount account's TRG balance.
             _burn(vote_burn.account, _balances[vote_burn.account] * decayPer1e12 / uint(1e12));
             vote_burn.latestTime = block.timestamp;
         }
     }
 
+    function takeVote(uint amount) external {
+        address taker = msg.sender;
+        
+
+    }
+
+    function returnVote(uint amount) external {
+
+    }
+
     // function pulse_user_burn() external {
     //     // 0.777% of tokens(not in Cyberswap/Agency dapp) burned each 24 hours from users wallets.
-    //     // Interpretation: TGR tokens not in Cyberswap accounts (tgrFtm and tgrHtz), and not in Agency account (votes account), 
+    //     // Interpretation: TGR tokens not in Cyberswap accounts (tgrFtm and tgrHtz), and not in Agency account (voteAccount account), 
     //     // will be burned at the above rate and interval.
 
     //     uint decayPer1e12 = _getDecayPer1e12(user_burn); // not greater than its true value.
@@ -478,7 +489,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
 
     function pulse_user_burn() external {
         // 0.777% of tokens(not in Cyberswap/Agency dapp) burned each 24 hours from users wallets.
-        // Interpretation: TGR tokens not in Cyberswap accounts (tgrftm and tgrhtz), and not in Agency account (votes account), 
+        // Interpretation: TGR tokens not in Cyberswap accounts (tgrftm and tgrhtz), and not in Agency account (voteAccount account), 
         // will be burned at the above rate and interval.
 
         // This part of code is an invention: What's diffent from preceeding approach?
