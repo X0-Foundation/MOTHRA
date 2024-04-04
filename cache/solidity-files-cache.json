@@ -3092,8 +3092,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\periphery\\XMaker.sol": {
-      "lastModificationDate": 1712028900487,
-      "contentHash": "66f0cb4305bb818f72da43e3875622b9",
+      "lastModificationDate": 1712244164631,
+      "contentHash": "ac436bfa9631ab255b64aca3c2531276",
       "sourceName": "contracts/periphery/XMaker.sol",
       "solcConfig": {
         "version": "0.8.14",
