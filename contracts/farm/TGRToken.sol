@@ -225,9 +225,9 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             if(pendingBurn > _balances[account]) {
                 console.log("_balanceOf. pendingBurn > _balances[account]");
             }
-            if (user_burn.accDecayPer1e12 > 1e12) {
-                console.log("!!!_balanceOf. user_burn.accDecayPer1e12 is greater than 1e12");
-            } 
+            // if (user_burn.accDecayPer1e12 > 1e12) {
+            //     console.log("!!!_balanceOf. user_burn.accDecayPer1e12 is greater than 1e12");    // no problem
+            // } 
             balance = _balances[account] - pendingBurn; // not less than its true value
         } else {
             balance = _balances[account];
@@ -525,7 +525,10 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             // _safeSubract doesn't manipulate data, but protects operation from possible dust coming from numerical error.
             // Note. user_burn.pending_burn may be either less or greater that its true real value. See Dust computiong below.
             uint net_collective = _safeSubtract(user_burn.sum_tokens, user_burn.pending_burn);
-            uint deltaAccPer1e12 = (uint(1e12)-user_burn.accDecayPer1e12) * decayPer1e12 / uint(1e12);
+                        
+            uint deltaAccPer1e12 = decayPer1e12; //
+            // 2nd choice: uint deltaAccPer1e12 = (uint(1e12)-user_burn.accDecayPer1e12) * decayPer1e12 / uint(1e12);
+            
             // Dust computing: deltaAccPer1e12 may be either less or greater than its true value.
             // deltaAccPer1e12 was less than its true real value due to the division initially, when user_burn.accDecayPer1e12 was zero.
             // So was user_burn.accDecayPer1e12, initially, which was the same as deltaAccPer1e12.

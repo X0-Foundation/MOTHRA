@@ -84,7 +84,6 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
         uint amountAMin,
         uint amountBMin
     ) internal virtual returns (uint amountA, uint amountB) {
-        console.log("_addLiquidity...");
 
         if (IXFactory(nodes.factory).getPair(tokenA, tokenB) == address(0)) {
             IXFactory(nodes.factory).createPair(tokenA, tokenB);
