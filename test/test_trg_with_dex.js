@@ -370,6 +370,26 @@ async function burn(burner, from, amount) {
     await console.log("\tBurn done".green);
 }
 
+async function takeVotes(taker, amount) {
+    let amountWei = ethToWei(amount);
+    console.log("\t%s is taking %s votes ...".yellow, 
+    taker.name == undefined ? "undefined" : taker.name, amount);
+
+    tx = tgr.connect(taker).takeVotes(amountWei);
+    (await tx).wait();
+    console.log("\tTakeVotes done".green);
+}
+
+async function returnVotes(returner, amount) {
+    let amountWei = ethToWei(amount);
+    console.log("\t%s is returning %s votes ...".yellow, 
+    returner.name == undefined ? "undefined" : returner.name, amount);
+
+    tx = tgr.connect(returner).returnVotes(amountWei);
+    (await tx).wait();
+    console.log("\tTakeVotes done".green);
+}
+
 async function test_addLiquidity(tokenA, amountA, tokenB, amountB, caller, to, log) {
     let report = "";
     let pairToReturn;
@@ -965,6 +985,20 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await transfer(carol, alice, 100);
         await mintBlocks(blocks);
         await pulse_user_burn();
+        await showConsistency();
+
+        await showMilestone("Milestone 12");
+        await showStatus(owner);
+        await showConsistency();
+        await takeVotes(owner, 1);
+        await showStatus(owner);
+        await showConsistency();
+
+        await showMilestone("Milestone 13");
+        await showStatus(owner);
+        await showConsistency();
+        await returnVotes(owner, 1);
+        await showStatus(owner);
         await showConsistency();
     }
 

@@ -25,8 +25,8 @@ interface ITGRToken is IERC20 {
 
     function transferDirectSafe(address sender, address recipient, uint amount) external;
 
-    function takeVote(uint amount) external;
-    function returnVote(uint amount) external;
+    function takeVotes(uint amount) external;
+    function returnVotes(uint amount) external;
 }
 
 

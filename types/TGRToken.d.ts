@@ -58,12 +58,14 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     "registerAction(uint8,bool)": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "resume()": FunctionFragment;
+    "returnVotes(uint256)": FunctionFragment;
     "session()": FunctionFragment;
     "sessionsLastSeenBySType(uint8)": FunctionFragment;
     "setFeeRates(uint8,(uint32),address)": FunctionFragment;
     "setFeeStores((address),address)": FunctionFragment;
     "setNode(uint8,address,address)": FunctionFragment;
     "symbol()": FunctionFragment;
+    "takeVotes(uint256)": FunctionFragment;
     "tgrBusd()": FunctionFragment;
     "tgrFtm()": FunctionFragment;
     "totalSupply()": FunctionFragment;
@@ -174,6 +176,10 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "resume", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "returnVotes",
+    values: [BigNumberish]
+  ): string;
   encodeFunctionData(functionFragment: "session", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "sessionsLastSeenBySType",
@@ -192,6 +198,10 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     values: [BigNumberish, string, string]
   ): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "takeVotes",
+    values: [BigNumberish]
+  ): string;
   encodeFunctionData(functionFragment: "tgrBusd", values?: undefined): string;
   encodeFunctionData(functionFragment: "tgrFtm", values?: undefined): string;
   encodeFunctionData(
@@ -304,6 +314,10 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "resume", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "returnVotes",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "session", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "sessionsLastSeenBySType",
@@ -319,6 +333,7 @@ interface TGRTokenInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "setNode", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "takeVotes", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "tgrBusd", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "tgrFtm", data: BytesLike): Result;
   decodeFunctionResult(
@@ -667,6 +682,11 @@ export class TGRToken extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    returnVotes(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     session(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     sessionsLastSeenBySType(
@@ -695,6 +715,11 @@ export class TGRToken extends BaseContract {
     ): Promise<ContractTransaction>;
 
     symbol(overrides?: CallOverrides): Promise<[string]>;
+
+    takeVotes(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     tgrBusd(overrides?: CallOverrides): Promise<[string]>;
 
@@ -985,6 +1010,11 @@ export class TGRToken extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  returnVotes(
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   session(overrides?: CallOverrides): Promise<BigNumber>;
 
   sessionsLastSeenBySType(
@@ -1013,6 +1043,11 @@ export class TGRToken extends BaseContract {
   ): Promise<ContractTransaction>;
 
   symbol(overrides?: CallOverrides): Promise<string>;
+
+  takeVotes(
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   tgrBusd(overrides?: CallOverrides): Promise<string>;
 
@@ -1295,6 +1330,8 @@ export class TGRToken extends BaseContract {
 
     resume(overrides?: CallOverrides): Promise<void>;
 
+    returnVotes(amount: BigNumberish, overrides?: CallOverrides): Promise<void>;
+
     session(overrides?: CallOverrides): Promise<BigNumber>;
 
     sessionsLastSeenBySType(
@@ -1323,6 +1360,8 @@ export class TGRToken extends BaseContract {
     ): Promise<void>;
 
     symbol(overrides?: CallOverrides): Promise<string>;
+
+    takeVotes(amount: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     tgrBusd(overrides?: CallOverrides): Promise<string>;
 
@@ -1684,6 +1723,11 @@ export class TGRToken extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    returnVotes(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     session(overrides?: CallOverrides): Promise<BigNumber>;
 
     sessionsLastSeenBySType(
@@ -1712,6 +1756,11 @@ export class TGRToken extends BaseContract {
     ): Promise<BigNumber>;
 
     symbol(overrides?: CallOverrides): Promise<BigNumber>;
+
+    takeVotes(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
     tgrBusd(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1919,6 +1968,11 @@ export class TGRToken extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    returnVotes(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
     session(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     sessionsLastSeenBySType(
@@ -1947,6 +2001,11 @@ export class TGRToken extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    takeVotes(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
     tgrBusd(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

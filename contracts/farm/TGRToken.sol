@@ -51,6 +51,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     // address tgrHtz; // Decleared in node. The address of TGR_HTZ pool, which has TGR and HTZ balances.
     address immutable voteAccount;  // The address of the share-based, TGR staking account in the Agency dapp.
     mapping(address => uint) private _votes;
+    uint _totalVotes;
 
     Pulse public lp_reward;
     Pulse public vote_burn;
@@ -460,32 +461,47 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         }
     }
 
-    function takeVote(uint amount) external {
+    function takeVotes(uint amount) external {
         address taker = msg.sender;
+        uint tgrPer1e12Votes;
+
+        if (_totalVotes == 0) {
+            tgrPer1e12Votes = 100 * uint(1e12);  // arbitrary
+        } else {
+            // Dust computing: 
+            tgrPer1e12Votes = _balances[vote_burn.account] * uint(1e12) / _totalVotes;
+        }
+
+        uint tgrAmount = tgrPer1e12Votes * amount / uint(1e12);
+        require(_balances[taker] >= tgrAmount, "short of TGR tokens");
+        _transfer(taker, vote_burn.account, tgrAmount);
+
+        _votes[taker] += amount;
+        _totalVotes += amount;
+
+        // event
+    }
+
+    function returnVotes(uint amount) external {
+        address returner = msg.sender;
+        uint tgrPer1e12Votes;
         
+        if (_totalVotes == 0) { // some users may call this function when there is no votes at all.
+            tgrPer1e12Votes = 100 * uint(1e12);  // arbitrary
+        } else {
+            // Dust computing: 
+            tgrPer1e12Votes = _balances[vote_burn.account] * uint(1e12) / _totalVotes;
+        }
 
+        uint tgrAmount = tgrPer1e12Votes * amount / uint(1e12);
+        require(_votes[returner] >= amount, "amount exceeding votes");
+        _transfer(vote_burn.account, returner, tgrAmount);
+
+        _votes[returner] -= amount; // no _safeSubtract, as _votes[returner] >= amount was required above.
+        _totalVotes -= amount;      // no _safeSubtract, as _totalVotes >= _votes[returner]
+
+        // event
     }
-
-    function returnVote(uint amount) external {
-
-    }
-
-    // function pulse_user_burn() external {
-    //     // 0.777% of tokens(not in Cyberswap/Agency dapp) burned each 24 hours from users wallets.
-    //     // Interpretation: TGR tokens not in Cyberswap accounts (tgrFtm and tgrHtz), and not in Agency account (voteAccount account), 
-    //     // will be burned at the above rate and interval.
-
-    //     uint decayPer1e12 = _getDecayPer1e12(user_burn); // not greater than its true value.
-    //     console.log("pulse_user_burn. decayPer1e12, user_burn.accDecayPer1e12", decayPer1e12, user_burn.accDecayPer1e12);
-    //     if (decayPer1e12 > 0) {
-    //         uint net_collective = user_burn.sum_tokens - user_burn.pending_burn;
-    //         uint new_burn = net_collective * decayPer1e12 / uint(1e12);  // not greater than its true value
-    //         user_burn.pending_burn += new_burn;
-    //         user_burn.accDecayPer1e12 += (uint(1e12)-user_burn.accDecayPer1e12) * decayPer1e12 / uint(1e12); //--------------------
-
-    //         user_burn.latestTime = block.timestamp;
-    //     }
-    // }
 
     function pulse_user_burn() external {
         // 0.777% of tokens(not in Cyberswap/Agency dapp) burned each 24 hours from users wallets.
