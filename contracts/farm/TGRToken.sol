@@ -526,8 +526,8 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             // Note. user_burn.pending_burn may be either less or greater that its true real value. See Dust computiong below.
             uint net_collective = _safeSubtract(user_burn.sum_tokens, user_burn.pending_burn);
                         
-            uint deltaAccPer1e12 = decayPer1e12; //
-            // 2nd choice: uint deltaAccPer1e12 = (uint(1e12)-user_burn.accDecayPer1e12) * decayPer1e12 / uint(1e12);
+            // uint deltaAccPer1e12 = decayPer1e12; // 1st choise: 
+            uint deltaAccPer1e12 = (uint(1e12)-user_burn.accDecayPer1e12) * decayPer1e12 / uint(1e12); // 2nd choice: 
             
             // Dust computing: deltaAccPer1e12 may be either less or greater than its true value.
             // deltaAccPer1e12 was less than its true real value due to the division initially, when user_burn.accDecayPer1e12 was zero.
@@ -552,7 +552,6 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             user_burn.accDecayPer1e12 += deltaAccPer1e12;
             // Dust computing: user_burn.accDecayPer1e12 may be either less or greater than its true real value.
             // Initially, it was the same, but later it fluctuate around its true real value, together with deltaAccPer1e12.
-
 
             user_burn.latestTime = block.timestamp;
             if( checkForConsistency() > 0 ) {
