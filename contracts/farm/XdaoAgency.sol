@@ -123,7 +123,7 @@ contract XdaoAgency is UUPSUpgradeable, Ownable, Initializable {
 
         if (taskVerifiersCount[_taskId] >= NumVerificationsNeeded) {
             tasks[_taskId].status = TaskStatus.Verified;
-            tasks[_taskId].verifiedTime = block.timestamp;
+            tasks[_taskId].verifiedTime = block.number;
             emit TaskVerified(_taskId);
         }
     }
@@ -135,7 +135,7 @@ contract XdaoAgency is UUPSUpgradeable, Ownable, Initializable {
     function postTask(uint _id) external {
         require (tasks[_id].owner == msg.sender, "P: Access denied");
         require (tasks[_id].status == TaskStatus.Verified, "P: Invalid status");
-        require (block.timestamp >= tasks[_id].verifiedTime + 24 hours, "P: Wait pls");
+        require (block.number >= tasks[_id].verifiedTime + 24 hours, "P: Wait pls");
 
         tasks[_id].status = TaskStatus.Posted;
         emit TaskPosted(_id);
@@ -227,7 +227,7 @@ contract XdaoAgency is UUPSUpgradeable, Ownable, Initializable {
     function updateAgentLevel(address _agent) public {
         Agent storage agent = agentInfo[_agent];
 
-        if (agentLastSlashTime[_agent] + SlashImpactPeriod > block.timestamp) {
+        if (agentLastSlashTime[_agent] + SlashImpactPeriod > block.number) {
             agent.level = 0;
             return;
         }

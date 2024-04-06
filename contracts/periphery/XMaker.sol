@@ -35,8 +35,8 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
     string private sExcessiveInput = "XTaker: Excessive input amount";
     string private sExpired = "XTaker: Expired";
 
-    modifier ensure(uint deadline) {
-        require(deadline >= block.timestamp, sExpired);
+    modifier ensure(uint deadlineBNumber) {
+        require(deadlineBNumber >= block.number, sExpired);
         _;
     }
 
@@ -117,12 +117,12 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
         uint amountAMin,
         uint amountBMin,
         address to,
-        uint deadline
+        uint deadlineBNumber
     )
         external
         virtual
         override
-        ensure(deadline)
+        ensure(deadlineBNumber)
         returns (
             uint amountA,
             uint amountB,
@@ -154,10 +154,10 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
         uint amountAMin,
         uint amountBMin,
         address to,
-        uint deadline
+        uint deadlineBNumber
     )
         external
-        virtual override ensure(deadline)
+        virtual override ensure(deadlineBNumber)
         returns (uint amountA, uint amountB, uint liquidity)
     {
         require(_msgSender() == nodes.token, sForbidden);
@@ -187,13 +187,13 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
         uint amountTokenMin,
         uint amountETHMin,
         address to,
-        uint deadline
+        uint deadlineBNumber
     )
         external
         payable
         virtual
         override
-        ensure(deadline)
+        ensure(deadlineBNumber)
         returns (
             uint amountToken,
             uint amountETH,
@@ -266,8 +266,8 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
         uint amountAMin,
         uint amountBMin,
         address to,
-        uint deadline
-    ) public virtual override ensure(deadline) returns (uint amountA, uint amountB) {
+        uint deadlineBNumber
+    ) public virtual override ensure(deadlineBNumber) returns (uint amountA, uint amountB) {
         _openAction(ActionType.RemoveLiquidity, true);
 
         (amountA, amountB) = _removeLiquidity(tokenA, tokenB, liquidity, amountAMin, amountBMin, to);
@@ -282,8 +282,8 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
         uint amountAMin,
         uint amountBMin,
         address to,
-        uint deadline
-    ) public virtual override ensure(deadline) returns (uint amountA, uint amountB) {
+        uint deadlineBNumber
+    ) public virtual override ensure(deadlineBNumber) returns (uint amountA, uint amountB) {
         require(_msgSender() == nodes.token, sForbidden);
 
         (amountA, amountB) = _removeLiquidity(tokenA, tokenB, liquidity, amountAMin, amountBMin, to);
@@ -312,8 +312,8 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
         uint amountTokenMin,
         uint amountETHMin,
         address to,
-        uint deadline
-    ) public virtual override ensure(deadline) returns (uint amountToken, uint amountETH) {
+        uint deadlineBNumber
+    ) public virtual override ensure(deadlineBNumber) returns (uint amountToken, uint amountETH) {
         _openAction(ActionType.RemoveLiquidity, true);
 
         (amountToken, amountETH) = _removeLiquidity(
@@ -338,7 +338,7 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
         uint amountAMin,
         uint amountBMin,
         address to,
-        uint deadline,
+        uint deadlineBNumber,
         bool approveMax,
         uint8 v,
         bytes32 r,
@@ -346,8 +346,8 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
     ) external virtual override returns (uint amountA, uint amountB) {
         address pair = pairFor[tokenA][tokenB];
         uint value = approveMax ? type(uint).max : liquidity;
-        IXPair(pair).permit(msg.sender, address(this), value, deadline, v, r, s);
-        (amountA, amountB) = removeLiquidity(tokenA, tokenB, liquidity, amountAMin, amountBMin, to, deadline);
+        IXPair(pair).permit(msg.sender, address(this), value, deadlineBNumber, v, r, s);
+        (amountA, amountB) = removeLiquidity(tokenA, tokenB, liquidity, amountAMin, amountBMin, to, deadlineBNumber);
     }
 
     function removeLiquidityETHWithPermit(
@@ -356,7 +356,7 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
         uint amountTokenMin,
         uint amountETHMin,
         address to,
-        uint deadline,
+        uint deadlineBNumber,
         bool approveMax,
         uint8 v,
         bytes32 r,
@@ -364,8 +364,8 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
     ) external virtual override returns (uint amountToken, uint amountETH) {
         address pair = pairFor[_token][WETH];
         uint value = approveMax ? type(uint).max : liquidity;
-        IXPair(pair).permit(msg.sender, address(this), value, deadline, v, r, s);
-        (amountToken, amountETH) = removeLiquidityETH(_token, liquidity, amountTokenMin, amountETHMin, to, deadline);
+        IXPair(pair).permit(msg.sender, address(this), value, deadlineBNumber, v, r, s);
+        (amountToken, amountETH) = removeLiquidityETH(_token, liquidity, amountTokenMin, amountETHMin, to, deadlineBNumber);
     }
 
     // **** REMOVE LIQUIDITY (supporting fee-on-transfer tokens) ****
@@ -376,8 +376,8 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
         uint amountTokenMin,
         uint amountETHMin,
         address to,
-        uint deadline
-    ) public virtual override ensure(deadline) returns (uint amountETH) {
+        uint deadlineBNumber
+    ) public virtual override ensure(deadlineBNumber) returns (uint amountETH) {
         _openAction(ActionType.RemoveLiquidity, true);
 
         uint balance0 = IERC20(_token).balanceOf(address(this));
@@ -395,7 +395,7 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
         uint amountTokenMin,
         uint amountETHMin,
         address to,
-        uint deadline,
+        uint deadlineBNumber,
         bool approveMax,
         uint8 v,
         bytes32 r,
@@ -403,14 +403,14 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
     ) external virtual override returns (uint amountETH) {
         address pair = pairFor[_token][WETH];
         uint value = approveMax ? type(uint).max : liquidity;
-        IXPair(pair).permit(msg.sender, address(this), value, deadline, v, r, s);
+        IXPair(pair).permit(msg.sender, address(this), value, deadlineBNumber, v, r, s);
         amountETH = removeLiquidityETHSupportingFeeOnTransferTokens(
             _token,
             liquidity,
             amountTokenMin,
             amountETHMin,
             to,
-            deadline
+            deadlineBNumber
         );
     }
 
@@ -421,8 +421,8 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
         uint amountAMin,
         uint amountBMin,
         address to,
-        uint deadline
-    ) internal virtual ensure(deadline) returns (uint amountA, uint amountB) {
+        uint deadlineBNumber
+    ) internal virtual ensure(deadlineBNumber) returns (uint amountA, uint amountB) {
         address pair = pairFor[tokenA][tokenB];
         uint total = IXPair(pair).totalSupply();
         // if(liquidity == 0) liquidity = total;
@@ -441,8 +441,8 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
         uint amountTokenMin,
         uint amountETHMin,
         address to,
-        uint deadline
-    ) public virtual override ensure(deadline) returns (uint amountToken, uint amountETH) {
+        uint deadlineBNumber
+    ) public virtual override ensure(deadlineBNumber) returns (uint amountToken, uint amountETH) {
         _openAction(ActionType.Dilute, true);
 
         require(msg.sender == nodes.token, "Caller is not X Contract");
@@ -453,7 +453,7 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
             amountTokenMin,
             amountETHMin,
             address(this),
-            deadline
+            deadlineBNumber
         );
         console.log("\tRouter: diluteLiquidityETH ----- liquidity, tokne, eth:", liquidity, amountToken, amountETH);
         XLibrary.lightTransferFrom(token, address(this), to, amountToken, nodes.token);
@@ -469,8 +469,8 @@ contract XMaker is Node, IXMaker, Ownable, SessionManager {
         uint liquidity,
         uint amountETHMin,
         address to,
-        uint deadline
-    ) public virtual override ensure(deadline) returns (uint amountWETH) {
+        uint deadlineBNumber
+    ) public virtual override ensure(deadlineBNumber) returns (uint amountWETH) {
         _openAction(ActionType.Dilute, true);
 
         require(msg.sender == nodes.token, "Caller is not X contract");

@@ -747,7 +747,7 @@
       "outputs": [
         {
           "internalType": "uint32",
-          "name": "blockTimestamp",
+          "name": "blockNumber",
           "type": "uint32"
         },
         {

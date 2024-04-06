@@ -909,7 +909,7 @@ describe("====================== Stage 2: Test pulses ======================\n".
     for(i=0; i<1; i++) {
         await showMilestone("Milestone 0");
         await mintBlocks(blocks);
-        await pulse_user_burn();
+        // await pulse_user_burn();
         await showConsistency();
 
         await showMilestone("Milestone 1");
@@ -937,7 +937,7 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await showConsistency();
         await mintBlocks(blocks);
         await showConsistency();
-        await pulse_user_burn();
+        // await pulse_user_burn();
         await showConsistency();
 
         await showMilestone("Milestone 5");
@@ -953,7 +953,7 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await showConsistency();
         await mintBlocks(blocks);
         await showConsistency();
-        await pulse_user_burn();
+        // await pulse_user_burn();
         await showConsistency();    // outputs a non-zero error
 
         await showMilestone("Milestone 7");
@@ -965,14 +965,14 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await transfer(owner, carol, 5000);
         await mintBlocks(blocks);
         await showConsistency();
-        await pulse_user_burn();
+        // await pulse_user_burn();
         await showConsistency();
 
         await showMilestone("Milestone 8");
         await mint(owner, alice, mintburn);
         await burn(owner, alice, mintburn);
         await mintBlocks(blocks);
-        await pulse_user_burn();
+        // await pulse_user_burn();
         await showConsistency();
 
         await showMilestone("Milestone 9");
@@ -980,7 +980,7 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await burn(owner, alice, mintburn);
         await transfer(owner, carol, 100);
         await mintBlocks(blocks);
-        await pulse_user_burn();
+        // await pulse_user_burn();
         await showConsistency();
 
         await showMilestone("Milestone 10");
@@ -988,7 +988,7 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await burn(owner, bob, mintburn);
         await transfer(carol, carol, 100);
         await mintBlocks(blocks);
-        await pulse_user_burn();
+        // await pulse_user_burn();
         await showConsistency();
 
         await showMilestone("Milestone 11");
@@ -996,7 +996,7 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await burn(owner, alice, mintburn);
         await transfer(carol, alice, 100);
         await mintBlocks(blocks);
-        await pulse_user_burn();
+        // await pulse_user_burn();
         await showConsistency();
 
         await showMilestone("Milestone 12");
@@ -1081,13 +1081,13 @@ describe("====================== Stage 3: Test Dex ======================\n".yel
         console.log("\t==========================================================================================================".yellow);
 
         await mintBlocks(50);
-        await pulse_user_burn();
+        // await pulse_user_burn();
         await showConsistency();
 
         await transfer(owner, alice, 1);
         await transfer2(mock2, owner, alice, 1);
         await mintBlocks(50);
-        await pulse_user_burn();
+        // await pulse_user_burn();
         await showConsistency();
 
         let poolValue = initialTgrBnbValue;
@@ -1096,17 +1096,17 @@ describe("====================== Stage 3: Test Dex ======================\n".yel
         [tgr_bnb, report] = await test_addLiquidity(tgr, tgrAmount / 3, wbnb, bnbAmount / 3, owner, alice, true);
 
         await mintBlocks(50);
-        await pulse_user_burn();
+        // await pulse_user_burn();
         await showConsistency();
 
         [tgr_bnb, report] = await test_addLiquidity(tgr, tgrAmount / 3, wbnb, bnbAmount / 3, owner, bob, true);
         await mintBlocks(50);
-        await pulse_user_burn();
+        // await pulse_user_burn();
         await showConsistency();
 
         [tgr_bnb, report] = await test_addLiquidity(tgr, tgrAmount / 3, wbnb, bnbAmount / 3, owner, carol, true);
         await mintBlocks(50);
-        await pulse_user_burn();
+        // await pulse_user_burn();
         await showConsistency();    //-----------------------------
 
         [mck_bnb, report] = await test_addLiquidity(mock, tgrAmount / 3, wbnb, bnbAmount / 3, owner, carol, true); // ------------ mck_bnb
@@ -1243,37 +1243,37 @@ describe("====================== Stage 3: Test Dex ======================\n".yel
         await showConsistency();
 
         await mintBlocks(50);
-        await pulse_user_burn();
+        // await pulse_user_burn();
         await showConsistency();
 
         await transfer(owner, alice, 10);
         await mintBlocks(5);
-        await pulse_user_burn();
+        // await pulse_user_burn();
         await showConsistency();
 
         await transfer(owner, bob, 1000);
         await mintBlocks(50);
-        await pulse_user_burn();
+        // await pulse_user_burn();
         await showConsistency();
 
         await transfer(owner, carol, 5000);
         await mintBlocks(50);
-        await pulse_user_burn();
+        // await pulse_user_burn();
         await showConsistency();
 
         await transfer(owner, carol, 100);
         await mintBlocks(50);
-        await pulse_user_burn();
+        // await pulse_user_burn();
         await showConsistency();
 
         await transfer(carol, carol, 100);
         await mintBlocks(50);
-        await pulse_user_burn();
+        // await pulse_user_burn();
         await showConsistency();
 
         await transfer(carol, alice, 100);
         await mintBlocks(50);
-        await pulse_user_burn();
+        // await pulse_user_burn();
         await showConsistency();
 
         // await transfer(owner, tgr_bnb, 100);
@@ -1288,15 +1288,10 @@ describe("====================== Stage 3: Test Dex ======================\n".yel
         // await pulse_user_burn();
         // await showConsistency();
 
-        await transfer(owner, votes, 100);
-        await mintBlocks(20);
-        await pulse_user_burn();
-        await showConsistency();
-
         // await tgr.pulse_lp_reward();
 
         await mintBlocks(5);
-        await pulse_user_burn();
+        // await pulse_user_burn();
         await showConsistency();
 
     });

@@ -20,7 +20,7 @@ abstract contract Keep3rJobMigration is IKeep3rJobMigration, Keep3rJobFundableCr
     if (_fromJob == _toJob) revert JobMigrationImpossible();
 
     pendingJobMigrations[_fromJob] = _toJob;
-    _migrationCreatedAt[_fromJob][_toJob] = block.timestamp;
+    _migrationCreatedAt[_fromJob][_toJob] = block.number;
 
     emit JobMigrationRequested(_fromJob, _toJob);
   }
@@ -29,7 +29,7 @@ abstract contract Keep3rJobMigration is IKeep3rJobMigration, Keep3rJobFundableCr
   function acceptJobMigration(address _fromJob, address _toJob) external override onlyJobOwner(_toJob) {
     if (disputes[_fromJob] || disputes[_toJob]) revert JobDisputed();
     if (pendingJobMigrations[_fromJob] != _toJob) revert JobMigrationUnavailable();
-    if (block.timestamp < _migrationCreatedAt[_fromJob][_toJob] + _MIGRATION_COOLDOWN) revert JobMigrationLocked();
+    if (block.number < _migrationCreatedAt[_fromJob][_toJob] + _MIGRATION_COOLDOWN) revert JobMigrationLocked();
 
     // force job credits update for both jobs
 

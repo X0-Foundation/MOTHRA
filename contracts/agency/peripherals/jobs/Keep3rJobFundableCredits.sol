@@ -35,7 +35,7 @@ abstract contract Keep3rJobFundableCredits is IKeep3rJobFundableCredits, Reentra
     uint _received = IERC20(_token).balanceOf(address(this)) - _before;
     uint _tokenFee = (_received * fee) / _BASE;
     jobTokenCredits[_job][_token] += _received - _tokenFee;
-    jobTokenCreditsAddedAt[_job][_token] = block.timestamp;
+    jobTokenCreditsAddedAt[_job][_token] = block.number;
     IERC20(_token).safeTransfer(governance, _tokenFee);
     _jobTokens[_job].add(_token);
 
@@ -49,7 +49,7 @@ abstract contract Keep3rJobFundableCredits is IKeep3rJobFundableCredits, Reentra
     uint _amount,
     address _receiver
   ) external override nonReentrant onlyJobOwner(_job) {
-    if (block.timestamp <= jobTokenCreditsAddedAt[_job][_token] + _WITHDRAW_TOKENS_COOLDOWN) revert JobTokenCreditsLocked();
+    if (block.number <= jobTokenCreditsAddedAt[_job][_token] + _WITHDRAW_TOKENS_COOLDOWN) revert JobTokenCreditsLocked();
     if (jobTokenCredits[_job][_token] < _amount) revert InsufficientJobTokenCredits();
     if (disputes[_job]) revert JobDisputed();
 

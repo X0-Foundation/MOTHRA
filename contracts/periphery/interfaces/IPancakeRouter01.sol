@@ -13,7 +13,7 @@ interface IPancakeRouter01 {
         uint amountAMin,
         uint amountBMin,
         address to,
-        uint deadline
+        uint deadlineBNumber
     )
         external
         returns (
@@ -28,7 +28,7 @@ interface IPancakeRouter01 {
         uint amountTokenMin,
         uint amountETHMin,
         address to,
-        uint deadline
+        uint deadlineBNumber
     )
         external
         payable
@@ -45,7 +45,7 @@ interface IPancakeRouter01 {
         uint amountAMin,
         uint amountBMin,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external returns (uint amountA, uint amountB);
 
     function removeLiquidityETH(
@@ -54,7 +54,7 @@ interface IPancakeRouter01 {
         uint amountTokenMin,
         uint amountETHMin,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external returns (uint amountToken, uint amountETH);
 
     function removeLiquidityWithPermit(
@@ -64,7 +64,7 @@ interface IPancakeRouter01 {
         uint amountAMin,
         uint amountBMin,
         address to,
-        uint deadline,
+        uint deadlineBNumber,
         bool approveMax,
         uint8 v,
         bytes32 r,
@@ -77,7 +77,7 @@ interface IPancakeRouter01 {
         uint amountTokenMin,
         uint amountETHMin,
         address to,
-        uint deadline,
+        uint deadlineBNumber,
         bool approveMax,
         uint8 v,
         bytes32 r,
@@ -89,7 +89,7 @@ interface IPancakeRouter01 {
         uint amountOutMin,
         address[] calldata path,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external returns (uint[] memory amounts);
 
     function swapTokensForExactTokens(
@@ -97,14 +97,14 @@ interface IPancakeRouter01 {
         uint amountInMax,
         address[] calldata path,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external returns (uint[] memory amounts);
 
     function swapExactETHForTokens(
         uint amountOutMin,
         address[] calldata path,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external payable returns (uint[] memory amounts);
 
     function swapTokensForExactETH(
@@ -112,7 +112,7 @@ interface IPancakeRouter01 {
         uint amountInMax,
         address[] calldata path,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external returns (uint[] memory amounts);
 
     function swapExactTokensForETH(
@@ -120,14 +120,14 @@ interface IPancakeRouter01 {
         uint amountOutMin,
         address[] calldata path,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external returns (uint[] memory amounts);
 
     function swapETHForExactTokens(
         uint amountOut,
         address[] calldata path,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external payable returns (uint[] memory amounts);
 
     function quote(

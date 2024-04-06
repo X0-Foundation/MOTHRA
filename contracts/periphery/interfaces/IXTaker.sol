@@ -10,7 +10,7 @@ interface IXTaker {
         uint amountOutMin,
         address[] calldata path,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external returns (uint[] memory amounts);
 
     function wired_swapExactTokensForTokens(
@@ -30,14 +30,14 @@ interface IXTaker {
         uint amountInMax,
         address[] calldata path,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external returns (uint[] memory amounts);
 
     function swapExactETHForTokens(
         uint amountOutMin,
         address[] calldata path,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external payable returns (uint[] memory amounts);
 
     function swapTokensForExactETH(
@@ -45,7 +45,7 @@ interface IXTaker {
         uint amountInMax,
         address[] calldata path,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external returns (uint[] memory amounts);
 
     function swapExactTokensForETH(
@@ -53,14 +53,14 @@ interface IXTaker {
         uint amountOutMin,
         address[] calldata path,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external returns (uint[] memory amounts);
 
     function swapETHForExactTokens(
         uint amountOut,
         address[] calldata path,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external payable returns (uint[] memory amounts);
 
     function swapExactTokensForTokensSupportingFeeOnTransferTokens(
@@ -68,14 +68,14 @@ interface IXTaker {
         uint amountOutMin,
         address[] calldata path,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external;
 
     function swapExactETHForTokensSupportingFeeOnTransferTokens(
         uint amountOutMin,
         address[] calldata path,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external payable;
 
     function swapExactTokensForETHSupportingFeeOnTransferTokens(
@@ -83,7 +83,7 @@ interface IXTaker {
         uint amountOutMin,
         address[] calldata path,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external;
 
     function quote(

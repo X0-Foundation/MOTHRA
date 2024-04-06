@@ -290,7 +290,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -300,7 +300,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -344,7 +344,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -354,7 +354,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -364,7 +364,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       approveMax: boolean,
       v: BigNumberish,
       r: BytesLike,
@@ -379,7 +379,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       approveMax: boolean,
       v: BigNumberish,
       r: BytesLike,
@@ -391,7 +391,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountOut: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -399,7 +399,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -408,7 +408,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -417,7 +417,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -426,7 +426,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -435,7 +435,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
@@ -450,7 +450,7 @@ export class IPancakeRouter01 extends BaseContract {
     amountAMin: BigNumberish,
     amountBMin: BigNumberish,
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -460,7 +460,7 @@ export class IPancakeRouter01 extends BaseContract {
     amountTokenMin: BigNumberish,
     amountETHMin: BigNumberish,
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -504,7 +504,7 @@ export class IPancakeRouter01 extends BaseContract {
     amountAMin: BigNumberish,
     amountBMin: BigNumberish,
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -514,7 +514,7 @@ export class IPancakeRouter01 extends BaseContract {
     amountTokenMin: BigNumberish,
     amountETHMin: BigNumberish,
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -524,7 +524,7 @@ export class IPancakeRouter01 extends BaseContract {
     amountTokenMin: BigNumberish,
     amountETHMin: BigNumberish,
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     approveMax: boolean,
     v: BigNumberish,
     r: BytesLike,
@@ -539,7 +539,7 @@ export class IPancakeRouter01 extends BaseContract {
     amountAMin: BigNumberish,
     amountBMin: BigNumberish,
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     approveMax: boolean,
     v: BigNumberish,
     r: BytesLike,
@@ -551,7 +551,7 @@ export class IPancakeRouter01 extends BaseContract {
     amountOut: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -559,7 +559,7 @@ export class IPancakeRouter01 extends BaseContract {
     amountOutMin: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -568,7 +568,7 @@ export class IPancakeRouter01 extends BaseContract {
     amountOutMin: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -577,7 +577,7 @@ export class IPancakeRouter01 extends BaseContract {
     amountOutMin: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -586,7 +586,7 @@ export class IPancakeRouter01 extends BaseContract {
     amountInMax: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -595,7 +595,7 @@ export class IPancakeRouter01 extends BaseContract {
     amountInMax: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -610,7 +610,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
@@ -626,7 +626,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
@@ -676,7 +676,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber] & { amountA: BigNumber; amountB: BigNumber }
@@ -688,7 +688,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber] & { amountToken: BigNumber; amountETH: BigNumber }
@@ -700,7 +700,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       approveMax: boolean,
       v: BigNumberish,
       r: BytesLike,
@@ -717,7 +717,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       approveMax: boolean,
       v: BigNumberish,
       r: BytesLike,
@@ -731,7 +731,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountOut: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
@@ -739,7 +739,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
@@ -748,7 +748,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
@@ -757,7 +757,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
@@ -766,7 +766,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
@@ -775,7 +775,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
   };
@@ -793,7 +793,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -803,7 +803,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -847,7 +847,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -857,7 +857,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -867,7 +867,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       approveMax: boolean,
       v: BigNumberish,
       r: BytesLike,
@@ -882,7 +882,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       approveMax: boolean,
       v: BigNumberish,
       r: BytesLike,
@@ -894,7 +894,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountOut: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -902,7 +902,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -911,7 +911,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -920,7 +920,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -929,7 +929,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -938,7 +938,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
@@ -954,7 +954,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -964,7 +964,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1008,7 +1008,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1018,7 +1018,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1028,7 +1028,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       approveMax: boolean,
       v: BigNumberish,
       r: BytesLike,
@@ -1043,7 +1043,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       approveMax: boolean,
       v: BigNumberish,
       r: BytesLike,
@@ -1055,7 +1055,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountOut: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1063,7 +1063,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1072,7 +1072,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1081,7 +1081,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1090,7 +1090,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1099,7 +1099,7 @@ export class IPancakeRouter01 extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };

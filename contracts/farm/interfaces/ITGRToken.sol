@@ -6,8 +6,8 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 interface ITGRToken is IERC20 {
 
     struct Pulse {
-        uint latestTime;
-        uint cycle;
+        uint latestBNumber;
+        uint cycleBlocks;
         uint decayRate;
         address account;
         uint accDecayPer1e12;
@@ -16,7 +16,7 @@ interface ITGRToken is IERC20 {
         uint latestRound;
     }
     struct User {
-        uint debtToPendingBurnPer1e12;        
+        uint latestDecayRound;        
     }
 
     function maxSupply() external view returns (uint);

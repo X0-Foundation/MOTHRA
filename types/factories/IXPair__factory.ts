@@ -420,7 +420,7 @@ const _abi = [
       },
       {
         internalType: "uint32",
-        name: "blockTimestampLast",
+        name: "blockNumberLast",
         type: "uint32",
       },
     ],
@@ -528,7 +528,7 @@ const _abi = [
       },
       {
         internalType: "uint256",
-        name: "deadline",
+        name: "deadlineBNumber",
         type: "uint256",
       },
       {

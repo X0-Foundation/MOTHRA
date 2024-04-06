@@ -36,8 +36,8 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
     string private sExcessiveInput = "XTaker: Excessive input amount";
     string private sExpired = "XTaker: Expired";
 
-    modifier ensure(uint deadline) {
-        require(deadline >= block.timestamp, sExpired);
+    modifier ensure(uint deadlineBNumber) {
+        require(deadlineBNumber >= block.number, sExpired);
         _;
     }
 
@@ -118,8 +118,8 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
         uint amountOutMin,
         address[] calldata path,
         address to,
-        uint deadline
-    ) external virtual override ensure(deadline) returns (uint[] memory amounts) {
+        uint deadlineBNumber
+    ) external virtual override ensure(deadlineBNumber) returns (uint[] memory amounts) {
         _openAction(ActionType.Swap, true);
 
         amountIn -= _payTransactonFee(path[0], msg.sender, amountIn, true);
@@ -157,8 +157,8 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
         uint amountInMax,
         address[] calldata path,
         address to,
-        uint deadline
-    ) external virtual override ensure(deadline) returns (uint[] memory amounts) {
+        uint deadlineBNumber
+    ) external virtual override ensure(deadlineBNumber) returns (uint[] memory amounts) {
         _openAction(ActionType.Swap, true);
 
         amounts = XLibrary.getAmountsIn(nodes.factory, amountOut, path);
@@ -177,8 +177,8 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
         uint amountOutMin,
         address[] calldata path,
         address to,
-        uint deadline
-    ) external payable virtual override ensure(deadline) returns (uint[] memory amounts) {
+        uint deadlineBNumber
+    ) external payable virtual override ensure(deadlineBNumber) returns (uint[] memory amounts) {
         _openAction(ActionType.Swap, true);
 
         require(path[0] == WETH, sInvalidPath);
@@ -198,8 +198,8 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
         uint amountInMax,
         address[] calldata path,
         address to,
-        uint deadline
-    ) external virtual override ensure(deadline) returns (uint[] memory amounts) {
+        uint deadlineBNumber
+    ) external virtual override ensure(deadlineBNumber) returns (uint[] memory amounts) {
         _openAction(ActionType.Swap, true);
 
         require(path[path.length - 1] == WETH, sInvalidPath);
@@ -220,8 +220,8 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
         uint amountOutMin,
         address[] calldata path,
         address to,
-        uint deadline
-    ) external virtual override ensure(deadline) returns (uint[] memory amounts) {
+        uint deadlineBNumber
+    ) external virtual override ensure(deadlineBNumber) returns (uint[] memory amounts) {
         _openAction(ActionType.Swap, true);
 
         require(path[path.length - 1] == WETH, sInvalidPath);
@@ -240,8 +240,8 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
         uint amountOut,
         address[] calldata path,
         address to,
-        uint deadline
-    ) external payable virtual override ensure(deadline) returns (uint[] memory amounts) {
+        uint deadlineBNumber
+    ) external payable virtual override ensure(deadlineBNumber) returns (uint[] memory amounts) {
         _openAction(ActionType.Swap, true);
 
         require(path[0] == WETH, sInvalidPath);
@@ -294,8 +294,8 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
         uint amountOutMin,
         address[] calldata path,
         address to,
-        uint deadline
-    ) external virtual override ensure(deadline) {
+        uint deadlineBNumber
+    ) external virtual override ensure(deadlineBNumber) {
         _openAction(ActionType.Swap, true);
 
         amountIn -= _payTransactonFee(path[0], msg.sender, amountIn, true);
@@ -311,8 +311,8 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
         uint amountOutMin,
         address[] calldata path,
         address to,
-        uint deadline
-    ) external payable virtual override ensure(deadline) {
+        uint deadlineBNumber
+    ) external payable virtual override ensure(deadlineBNumber) {
         _openAction(ActionType.Swap, true);
 
         require(path[0] == WETH, sInvalidPath);
@@ -332,8 +332,8 @@ contract XTaker is Node, IXTaker, Ownable, SessionManager {
         uint amountOutMin,
         address[] calldata path,
         address to,
-        uint deadline
-    ) external virtual override ensure(deadline) {
+        uint deadlineBNumber
+    ) external virtual override ensure(deadlineBNumber) {
         _openAction(ActionType.Swap, true);
 
         require(path[path.length - 1] == WETH, sInvalidPath);

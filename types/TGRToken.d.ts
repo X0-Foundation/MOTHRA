@@ -571,7 +571,7 @@ export class TGRToken extends BaseContract {
         account_balances: BigNumber;
         account_balanceOf: BigNumber;
         account_pending_burn: BigNumber;
-        account_debtToPendingBurn: BigNumber;
+        account_latestDecayRound: BigNumber;
       }
     >;
 
@@ -598,8 +598,8 @@ export class TGRToken extends BaseContract {
         BigNumber,
         BigNumber
       ] & {
-        latestTime: BigNumber;
-        cycle: BigNumber;
+        latestBNumber: BigNumber;
+        cycleBlocks: BigNumber;
         decayRate: BigNumber;
         account: string;
         accDecayPer1e12: BigNumber;
@@ -769,8 +769,8 @@ export class TGRToken extends BaseContract {
         BigNumber,
         BigNumber
       ] & {
-        latestTime: BigNumber;
-        cycle: BigNumber;
+        latestBNumber: BigNumber;
+        cycleBlocks: BigNumber;
         decayRate: BigNumber;
         account: string;
         accDecayPer1e12: BigNumber;
@@ -793,8 +793,8 @@ export class TGRToken extends BaseContract {
         BigNumber,
         BigNumber
       ] & {
-        latestTime: BigNumber;
-        cycle: BigNumber;
+        latestBNumber: BigNumber;
+        cycleBlocks: BigNumber;
         decayRate: BigNumber;
         account: string;
         accDecayPer1e12: BigNumber;
@@ -899,7 +899,7 @@ export class TGRToken extends BaseContract {
       account_balances: BigNumber;
       account_balanceOf: BigNumber;
       account_pending_burn: BigNumber;
-      account_debtToPendingBurn: BigNumber;
+      account_latestDecayRound: BigNumber;
     }
   >;
 
@@ -926,8 +926,8 @@ export class TGRToken extends BaseContract {
       BigNumber,
       BigNumber
     ] & {
-      latestTime: BigNumber;
-      cycle: BigNumber;
+      latestBNumber: BigNumber;
+      cycleBlocks: BigNumber;
       decayRate: BigNumber;
       account: string;
       accDecayPer1e12: BigNumber;
@@ -1097,8 +1097,8 @@ export class TGRToken extends BaseContract {
       BigNumber,
       BigNumber
     ] & {
-      latestTime: BigNumber;
-      cycle: BigNumber;
+      latestBNumber: BigNumber;
+      cycleBlocks: BigNumber;
       decayRate: BigNumber;
       account: string;
       accDecayPer1e12: BigNumber;
@@ -1121,8 +1121,8 @@ export class TGRToken extends BaseContract {
       BigNumber,
       BigNumber
     ] & {
-      latestTime: BigNumber;
-      cycle: BigNumber;
+      latestBNumber: BigNumber;
+      cycleBlocks: BigNumber;
       decayRate: BigNumber;
       account: string;
       accDecayPer1e12: BigNumber;
@@ -1224,7 +1224,7 @@ export class TGRToken extends BaseContract {
         account_balances: BigNumber;
         account_balanceOf: BigNumber;
         account_pending_burn: BigNumber;
-        account_debtToPendingBurn: BigNumber;
+        account_latestDecayRound: BigNumber;
       }
     >;
 
@@ -1251,8 +1251,8 @@ export class TGRToken extends BaseContract {
         BigNumber,
         BigNumber
       ] & {
-        latestTime: BigNumber;
-        cycle: BigNumber;
+        latestBNumber: BigNumber;
+        cycleBlocks: BigNumber;
         decayRate: BigNumber;
         account: string;
         accDecayPer1e12: BigNumber;
@@ -1409,8 +1409,8 @@ export class TGRToken extends BaseContract {
         BigNumber,
         BigNumber
       ] & {
-        latestTime: BigNumber;
-        cycle: BigNumber;
+        latestBNumber: BigNumber;
+        cycleBlocks: BigNumber;
         decayRate: BigNumber;
         account: string;
         accDecayPer1e12: BigNumber;
@@ -1433,8 +1433,8 @@ export class TGRToken extends BaseContract {
         BigNumber,
         BigNumber
       ] & {
-        latestTime: BigNumber;
-        cycle: BigNumber;
+        latestBNumber: BigNumber;
+        cycleBlocks: BigNumber;
         decayRate: BigNumber;
         account: string;
         accDecayPer1e12: BigNumber;

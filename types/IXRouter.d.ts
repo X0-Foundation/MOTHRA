@@ -362,7 +362,7 @@ export class IXRouter extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -372,7 +372,7 @@ export class IXRouter extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -421,7 +421,7 @@ export class IXRouter extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -431,7 +431,7 @@ export class IXRouter extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -441,7 +441,7 @@ export class IXRouter extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -451,7 +451,7 @@ export class IXRouter extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       approveMax: boolean,
       v: BigNumberish,
       r: BytesLike,
@@ -465,7 +465,7 @@ export class IXRouter extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       approveMax: boolean,
       v: BigNumberish,
       r: BytesLike,
@@ -480,7 +480,7 @@ export class IXRouter extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       approveMax: boolean,
       v: BigNumberish,
       r: BytesLike,
@@ -492,7 +492,7 @@ export class IXRouter extends BaseContract {
       amountOut: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -500,7 +500,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -508,7 +508,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -517,7 +517,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -526,7 +526,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -535,7 +535,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -544,7 +544,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -553,7 +553,7 @@ export class IXRouter extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -562,7 +562,7 @@ export class IXRouter extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
@@ -577,7 +577,7 @@ export class IXRouter extends BaseContract {
     amountAMin: BigNumberish,
     amountBMin: BigNumberish,
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -587,7 +587,7 @@ export class IXRouter extends BaseContract {
     amountTokenMin: BigNumberish,
     amountETHMin: BigNumberish,
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -636,7 +636,7 @@ export class IXRouter extends BaseContract {
     amountAMin: BigNumberish,
     amountBMin: BigNumberish,
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -646,7 +646,7 @@ export class IXRouter extends BaseContract {
     amountTokenMin: BigNumberish,
     amountETHMin: BigNumberish,
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -656,7 +656,7 @@ export class IXRouter extends BaseContract {
     amountTokenMin: BigNumberish,
     amountETHMin: BigNumberish,
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -666,7 +666,7 @@ export class IXRouter extends BaseContract {
     amountTokenMin: BigNumberish,
     amountETHMin: BigNumberish,
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     approveMax: boolean,
     v: BigNumberish,
     r: BytesLike,
@@ -680,7 +680,7 @@ export class IXRouter extends BaseContract {
     amountTokenMin: BigNumberish,
     amountETHMin: BigNumberish,
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     approveMax: boolean,
     v: BigNumberish,
     r: BytesLike,
@@ -695,7 +695,7 @@ export class IXRouter extends BaseContract {
     amountAMin: BigNumberish,
     amountBMin: BigNumberish,
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     approveMax: boolean,
     v: BigNumberish,
     r: BytesLike,
@@ -707,7 +707,7 @@ export class IXRouter extends BaseContract {
     amountOut: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -715,7 +715,7 @@ export class IXRouter extends BaseContract {
     amountOutMin: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -723,7 +723,7 @@ export class IXRouter extends BaseContract {
     amountOutMin: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -732,7 +732,7 @@ export class IXRouter extends BaseContract {
     amountOutMin: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -741,7 +741,7 @@ export class IXRouter extends BaseContract {
     amountOutMin: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -750,7 +750,7 @@ export class IXRouter extends BaseContract {
     amountOutMin: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -759,7 +759,7 @@ export class IXRouter extends BaseContract {
     amountOutMin: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -768,7 +768,7 @@ export class IXRouter extends BaseContract {
     amountInMax: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -777,7 +777,7 @@ export class IXRouter extends BaseContract {
     amountInMax: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -792,7 +792,7 @@ export class IXRouter extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
@@ -808,7 +808,7 @@ export class IXRouter extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
@@ -863,7 +863,7 @@ export class IXRouter extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber] & { amountA: BigNumber; amountB: BigNumber }
@@ -875,7 +875,7 @@ export class IXRouter extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber] & { amountToken: BigNumber; amountETH: BigNumber }
@@ -887,7 +887,7 @@ export class IXRouter extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -897,7 +897,7 @@ export class IXRouter extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       approveMax: boolean,
       v: BigNumberish,
       r: BytesLike,
@@ -913,7 +913,7 @@ export class IXRouter extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       approveMax: boolean,
       v: BigNumberish,
       r: BytesLike,
@@ -928,7 +928,7 @@ export class IXRouter extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       approveMax: boolean,
       v: BigNumberish,
       r: BytesLike,
@@ -942,7 +942,7 @@ export class IXRouter extends BaseContract {
       amountOut: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
@@ -950,7 +950,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
@@ -958,7 +958,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -967,7 +967,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
@@ -976,7 +976,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -985,7 +985,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
@@ -994,7 +994,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1003,7 +1003,7 @@ export class IXRouter extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
@@ -1012,7 +1012,7 @@ export class IXRouter extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
   };
@@ -1030,7 +1030,7 @@ export class IXRouter extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1040,7 +1040,7 @@ export class IXRouter extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1089,7 +1089,7 @@ export class IXRouter extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1099,7 +1099,7 @@ export class IXRouter extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1109,7 +1109,7 @@ export class IXRouter extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1119,7 +1119,7 @@ export class IXRouter extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       approveMax: boolean,
       v: BigNumberish,
       r: BytesLike,
@@ -1133,7 +1133,7 @@ export class IXRouter extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       approveMax: boolean,
       v: BigNumberish,
       r: BytesLike,
@@ -1148,7 +1148,7 @@ export class IXRouter extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       approveMax: boolean,
       v: BigNumberish,
       r: BytesLike,
@@ -1160,7 +1160,7 @@ export class IXRouter extends BaseContract {
       amountOut: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1168,7 +1168,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1176,7 +1176,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1185,7 +1185,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1194,7 +1194,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1203,7 +1203,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1212,7 +1212,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1221,7 +1221,7 @@ export class IXRouter extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1230,7 +1230,7 @@ export class IXRouter extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
@@ -1246,7 +1246,7 @@ export class IXRouter extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1256,7 +1256,7 @@ export class IXRouter extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1305,7 +1305,7 @@ export class IXRouter extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1315,7 +1315,7 @@ export class IXRouter extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1325,7 +1325,7 @@ export class IXRouter extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1335,7 +1335,7 @@ export class IXRouter extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       approveMax: boolean,
       v: BigNumberish,
       r: BytesLike,
@@ -1349,7 +1349,7 @@ export class IXRouter extends BaseContract {
       amountTokenMin: BigNumberish,
       amountETHMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       approveMax: boolean,
       v: BigNumberish,
       r: BytesLike,
@@ -1364,7 +1364,7 @@ export class IXRouter extends BaseContract {
       amountAMin: BigNumberish,
       amountBMin: BigNumberish,
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       approveMax: boolean,
       v: BigNumberish,
       r: BytesLike,
@@ -1376,7 +1376,7 @@ export class IXRouter extends BaseContract {
       amountOut: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1384,7 +1384,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1392,7 +1392,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1401,7 +1401,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1410,7 +1410,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1419,7 +1419,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1428,7 +1428,7 @@ export class IXRouter extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1437,7 +1437,7 @@ export class IXRouter extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1446,7 +1446,7 @@ export class IXRouter extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };

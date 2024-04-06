@@ -13,7 +13,7 @@ interface IXMaker {
         uint amountAMin,
         uint amountBMin,
         address to,
-        uint deadline
+        uint deadlineBNumber
     )
         external
         returns (
@@ -30,7 +30,7 @@ interface IXMaker {
         uint amountAMin,
         uint amountBMin,
         address to,
-        uint deadline
+        uint deadlineBNumber
     )
         external
         returns (
@@ -45,7 +45,7 @@ interface IXMaker {
         uint amountTokenMin,
         uint amountETHMin,
         address to,
-        uint deadline
+        uint deadlineBNumber
     )
         external
         payable
@@ -62,7 +62,7 @@ interface IXMaker {
         uint amountAMin,
         uint amountBMin,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external returns (uint amountA, uint amountB);
 
     function wired_removeLiquidity(
@@ -72,7 +72,7 @@ interface IXMaker {
         uint amountAMin,
         uint amountBMin,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external returns (uint amountA, uint amountB);
 
     function sim_removeLiquidity(
@@ -87,7 +87,7 @@ interface IXMaker {
         uint amountTokenMin,
         uint amountETHMin,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external returns (uint amountToken, uint amountETH);
 
     function removeLiquidityWithPermit(
@@ -97,7 +97,7 @@ interface IXMaker {
         uint amountAMin,
         uint amountBMin,
         address to,
-        uint deadline,
+        uint deadlineBNumber,
         bool approveMax,
         uint8 v,
         bytes32 r,
@@ -110,7 +110,7 @@ interface IXMaker {
         uint amountTokenMin,
         uint amountETHMin,
         address to,
-        uint deadline,
+        uint deadlineBNumber,
         bool approveMax,
         uint8 v,
         bytes32 r,
@@ -123,7 +123,7 @@ interface IXMaker {
         uint amountTokenMin,
         uint amountETHMin,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external returns (uint amountETH);
 
     function removeLiquidityETHWithPermitSupportingFeeOnTransferTokens(
@@ -132,7 +132,7 @@ interface IXMaker {
         uint amountTokenMin,
         uint amountETHMin,
         address to,
-        uint deadline,
+        uint deadlineBNumber,
         bool approveMax,
         uint8 v,
         bytes32 r,
@@ -145,7 +145,7 @@ interface IXMaker {
         uint amountTokenMin,
         uint amountETHMin,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external returns (uint amountToken, uint amountETH);
 
     function diluteLiquidityForETH(
@@ -153,7 +153,7 @@ interface IXMaker {
         uint liquidity,
         uint amountETHMin,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external returns (uint amountWETH);
 
     function quote(

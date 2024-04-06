@@ -372,7 +372,7 @@ export class XPair extends BaseContract {
       [BigNumber, BigNumber, number] & {
         _reserve0: BigNumber;
         _reserve1: BigNumber;
-        _blockTimestampLast: number;
+        _blockNumberLast: number;
       }
     >;
 
@@ -397,7 +397,7 @@ export class XPair extends BaseContract {
       owner: string,
       spender: string,
       value: BigNumberish,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       v: BigNumberish,
       r: BytesLike,
       s: BytesLike,
@@ -509,7 +509,7 @@ export class XPair extends BaseContract {
     [BigNumber, BigNumber, number] & {
       _reserve0: BigNumber;
       _reserve1: BigNumber;
-      _blockTimestampLast: number;
+      _blockNumberLast: number;
     }
   >;
 
@@ -534,7 +534,7 @@ export class XPair extends BaseContract {
     owner: string,
     spender: string,
     value: BigNumberish,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     v: BigNumberish,
     r: BytesLike,
     s: BytesLike,
@@ -650,7 +650,7 @@ export class XPair extends BaseContract {
       [BigNumber, BigNumber, number] & {
         _reserve0: BigNumber;
         _reserve1: BigNumber;
-        _blockTimestampLast: number;
+        _blockNumberLast: number;
       }
     >;
 
@@ -672,7 +672,7 @@ export class XPair extends BaseContract {
       owner: string,
       spender: string,
       value: BigNumberish,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       v: BigNumberish,
       r: BytesLike,
       s: BytesLike,
@@ -947,7 +947,7 @@ export class XPair extends BaseContract {
       owner: string,
       spender: string,
       value: BigNumberish,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       v: BigNumberish,
       r: BytesLike,
       s: BytesLike,
@@ -1081,7 +1081,7 @@ export class XPair extends BaseContract {
       owner: string,
       spender: string,
       value: BigNumberish,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       v: BigNumberish,
       r: BytesLike,
       s: BytesLike,

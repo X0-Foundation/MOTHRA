@@ -36,7 +36,7 @@ abstract contract Keep3rJobWorkable is IKeep3rJobWorkable, Keep3rJobMigration {
       _keepers.contains(_keeper) &&
       bonds[_keeper][_bond] >= _minBond &&
       workCompleted[_keeper] >= _earned &&
-      block.timestamp - firstSeen[_keeper] >= _age
+      block.number - firstSeen[_keeper] >= _age
     ) {
       emit KeeperValidation(_initialGas);
       return true;
@@ -60,8 +60,8 @@ abstract contract Keep3rJobWorkable is IKeep3rJobWorkable, Keep3rJobMigration {
 
     // if (_payment > _jobLiquidityCredits[_job]) {
     //   _rewardJobCredits(_job);
-    //     // _jobLiquidityCredits[_job] += _phase(block.timestamp - rewardedAt[_job], _jobPeriodCredits[_job]);
-    //     // rewardedAt[_job] = block.timestamp;
+    //     // _jobLiquidityCredits[_job] += _phase(block.number - rewardedAt[_job], _jobPeriodCredits[_job]);
+    //     // rewardedAt[_job] = block.number;
     //   emit LiquidityCreditsReward(_job, rewardedAt[_job], _jobLiquidityCredits[_job], _jobPeriodCredits[_job]);
 
     //   _gasLeft = _getGasLeft();
@@ -85,8 +85,8 @@ abstract contract Keep3rJobWorkable is IKeep3rJobWorkable, Keep3rJobMigration {
 
     // if (_payment > _jobLiquidityCredits[_job]) {
     //   _rewardJobCredits(_job);
-    //     // _jobLiquidityCredits[_job] += _phase(block.timestamp - rewardedAt[_job], _jobPeriodCredits[_job]);
-    //     // rewardedAt[_job] = block.timestamp;
+    //     // _jobLiquidityCredits[_job] += _phase(block.number - rewardedAt[_job], _jobPeriodCredits[_job]);
+    //     // rewardedAt[_job] = block.number;
     //   emit LiquidityCreditsReward(_job, rewardedAt[_job], _jobLiquidityCredits[_job], _jobPeriodCredits[_job]);
     // }
 
@@ -119,7 +119,7 @@ abstract contract Keep3rJobWorkable is IKeep3rJobWorkable, Keep3rJobMigration {
     if (_payment > _jobLiquidityCredits[_job]) revert InsufficientFunds();
 
     // MODIFY
-    // workedAt[_job] = block.timestamp;
+    // workedAt[_job] = block.number;
     // _jobLiquidityCredits[_job] -= _payment;
     bonds[_keeper][keep3rV1] += _payment;
     workCompleted[_keeper] += _payment;

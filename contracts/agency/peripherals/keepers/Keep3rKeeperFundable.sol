@@ -20,7 +20,7 @@ abstract contract Keep3rKeeperFundable is IKeep3rKeeperFundable, ReentrancyGuard
   function bond(address _bonding, uint _amount) external override nonReentrant {
     if (disputes[msg.sender]) revert Disputed();
     if (_jobs.contains(msg.sender)) revert AlreadyAJob();
-    canActivateAfter[msg.sender][_bonding] = block.timestamp + bondTime;
+    canActivateAfter[msg.sender][_bonding] = block.number + bondTime;
 
     uint _before = IERC20(_bonding).balanceOf(address(this));
     IERC20(_bonding).safeTransferFrom(msg.sender, address(this), _amount);
@@ -36,7 +36,7 @@ abstract contract Keep3rKeeperFundable is IKeep3rKeeperFundable, ReentrancyGuard
   function activate(address _bonding) external override {
     if (disputes[msg.sender]) revert Disputed();
     if (canActivateAfter[msg.sender][_bonding] == 0) revert BondsUnexistent();
-    if (canActivateAfter[msg.sender][_bonding] >= block.timestamp) revert BondsLocked();
+    if (canActivateAfter[msg.sender][_bonding] >= block.number) revert BondsLocked();
 
     delete canActivateAfter[msg.sender][_bonding];
 
@@ -46,7 +46,7 @@ abstract contract Keep3rKeeperFundable is IKeep3rKeeperFundable, ReentrancyGuard
 
   /// @inheritdoc IKeep3rKeeperFundable
   function unbond(address _bonding, uint _amount) external override {
-    canWithdrawAfter[msg.sender][_bonding] = block.timestamp + unbondTime;
+    canWithdrawAfter[msg.sender][_bonding] = block.number + unbondTime;
     bonds[msg.sender][_bonding] -= _amount;
     pendingUnbonds[msg.sender][_bonding] += _amount;
 
@@ -56,7 +56,7 @@ abstract contract Keep3rKeeperFundable is IKeep3rKeeperFundable, ReentrancyGuard
   /// @inheritdoc IKeep3rKeeperFundable
   function withdraw(address _bonding) external override nonReentrant {
     if (pendingUnbonds[msg.sender][_bonding] == 0) revert UnbondsUnexistent();
-    if (canWithdrawAfter[msg.sender][_bonding] >= block.timestamp) revert UnbondsLocked();
+    if (canWithdrawAfter[msg.sender][_bonding] >= block.number) revert UnbondsLocked();
     if (disputes[msg.sender]) revert Disputed();
 
     uint _amount = pendingUnbonds[msg.sender][_bonding];
@@ -75,7 +75,7 @@ abstract contract Keep3rKeeperFundable is IKeep3rKeeperFundable, ReentrancyGuard
 
   function _activate(address _keeper, address _bonding) internal returns (uint _amount) {
     if (firstSeen[_keeper] == 0) {
-      firstSeen[_keeper] = block.timestamp;
+      firstSeen[_keeper] = block.number;
     }
     _keepers.add(_keeper);
     _amount = pendingBonds[_keeper][_bonding];

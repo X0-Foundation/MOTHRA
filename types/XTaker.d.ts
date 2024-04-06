@@ -487,7 +487,7 @@ export class XTaker extends BaseContract {
       amountOut: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -495,7 +495,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -503,7 +503,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -512,7 +512,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -521,7 +521,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -530,7 +530,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -539,7 +539,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -548,7 +548,7 @@ export class XTaker extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -557,7 +557,7 @@ export class XTaker extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -699,7 +699,7 @@ export class XTaker extends BaseContract {
     amountOut: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -707,7 +707,7 @@ export class XTaker extends BaseContract {
     amountOutMin: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -715,7 +715,7 @@ export class XTaker extends BaseContract {
     amountOutMin: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -724,7 +724,7 @@ export class XTaker extends BaseContract {
     amountOutMin: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -733,7 +733,7 @@ export class XTaker extends BaseContract {
     amountOutMin: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -742,7 +742,7 @@ export class XTaker extends BaseContract {
     amountOutMin: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -751,7 +751,7 @@ export class XTaker extends BaseContract {
     amountOutMin: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -760,7 +760,7 @@ export class XTaker extends BaseContract {
     amountInMax: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -769,7 +769,7 @@ export class XTaker extends BaseContract {
     amountInMax: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -906,7 +906,7 @@ export class XTaker extends BaseContract {
       amountOut: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
@@ -914,7 +914,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
@@ -922,7 +922,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -931,7 +931,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
@@ -940,7 +940,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -949,7 +949,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
@@ -958,7 +958,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -967,7 +967,7 @@ export class XTaker extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
@@ -976,7 +976,7 @@ export class XTaker extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
@@ -1202,7 +1202,7 @@ export class XTaker extends BaseContract {
       amountOut: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1210,7 +1210,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1218,7 +1218,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1227,7 +1227,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1236,7 +1236,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1245,7 +1245,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1254,7 +1254,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1263,7 +1263,7 @@ export class XTaker extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1272,7 +1272,7 @@ export class XTaker extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1412,7 +1412,7 @@ export class XTaker extends BaseContract {
       amountOut: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1420,7 +1420,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1428,7 +1428,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1437,7 +1437,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1446,7 +1446,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1455,7 +1455,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1464,7 +1464,7 @@ export class XTaker extends BaseContract {
       amountOutMin: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1473,7 +1473,7 @@ export class XTaker extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1482,7 +1482,7 @@ export class XTaker extends BaseContract {
       amountInMax: BigNumberish,
       path: string[],
       to: string,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

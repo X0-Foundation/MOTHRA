@@ -10,7 +10,7 @@ interface IPancakeRouter02 is IPancakeRouter01 {
         uint amountTokenMin,
         uint amountETHMin,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external returns (uint amountETH);
 
     function removeLiquidityETHWithPermitSupportingFeeOnTransferTokens(
@@ -19,7 +19,7 @@ interface IPancakeRouter02 is IPancakeRouter01 {
         uint amountTokenMin,
         uint amountETHMin,
         address to,
-        uint deadline,
+        uint deadlineBNumber,
         bool approveMax,
         uint8 v,
         bytes32 r,
@@ -31,14 +31,14 @@ interface IPancakeRouter02 is IPancakeRouter01 {
         uint amountOutMin,
         address[] calldata path,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external;
 
     function swapExactETHForTokensSupportingFeeOnTransferTokens(
         uint amountOutMin,
         address[] calldata path,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external payable;
 
     function swapExactTokensForETHSupportingFeeOnTransferTokens(
@@ -46,6 +46,6 @@ interface IPancakeRouter02 is IPancakeRouter01 {
         uint amountOutMin,
         address[] calldata path,
         address to,
-        uint deadline
+        uint deadlineBNumber
     ) external;
 }

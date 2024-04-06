@@ -14,7 +14,7 @@ interface IPancakePair {
     function DOMAIN_SEPARATOR() external view returns (bytes32);
     function PERMIT_TYPEHASH() external pure returns (bytes32);
     function nonces(address owner) external view returns (uint);
-    function permit(address owner, address spender, uint value, uint deadline,
+    function permit(address owner, address spender, uint value, uint deadlineBNumber,
         uint8 v, bytes32 r, bytes32 s) external;
 
     event Mint(address indexed sender, uint amount0, uint amount1);
@@ -30,7 +30,7 @@ interface IPancakePair {
     function token0() external view returns (address);
     function token1() external view returns (address);
     function getReserves()
-        external view returns (uint112 reserve0, uint112 reserve1, uint32 blockTimestampLast);
+        external view returns (uint112 reserve0, uint112 reserve1, uint32 blockNumberLast);
     function price0CumulativeLast() external view returns (uint);
     function price1CumulativeLast() external view returns (uint);
     function kLast() external view returns (uint);

@@ -27,7 +27,7 @@ contract XPair is IXPair {
     mapping(address => mapping(address => uint)) public override allowance;
 
     bytes32 public override DOMAIN_SEPARATOR;   // https://soliditydeveloper.com/ecrecover
-    // keccak256("Permit(address owner,address spender,uint value,uint nonce,uint deadline)");
+    // keccak256("Permit(address owner,address spender,uint value,uint nonce,uint deadlineBNumber)");
     bytes32 public constant override PERMIT_TYPEHASH =
         0x6e71edae12b1b97f4d1f60370fef10105fa2faae0126114a169c64845d6126c9;
 
@@ -44,7 +44,7 @@ contract XPair is IXPair {
 
     uint112 private reserve0; // uses single storage slot, accessible via getReserves
     uint112 private reserve1; // uses single storage slot, accessible via getReserves
-    uint32 private blockTimestampLast; // uses single storage slot, accessible via getReserves
+    uint32 private blockNumberLast; // uses single storage slot, accessible via getReserves
 
     uint public override price0CumulativeLast;
     uint public override price1CumulativeLast;
@@ -70,12 +70,12 @@ contract XPair is IXPair {
         returns (
             uint112 _reserve0,
             uint112 _reserve1,
-            uint32 _blockTimestampLast
+            uint32 _blockNumberLast
         )
     {
         _reserve0 = reserve0;
         _reserve1 = reserve1;
-        _blockTimestampLast = blockTimestampLast;
+        _blockNumberLast = blockNumberLast;
     }
 
     function setNodes(
@@ -182,17 +182,17 @@ contract XPair is IXPair {
         address owner,
         address spender,
         uint value,
-        uint deadline,
+        uint deadlineBNumber,
         uint8 v,
         bytes32 r,
         bytes32 s
     ) external override {
-        require(deadline >= block.timestamp, "Crossed deadline");
+        require(deadlineBNumber >= block.number, "Crossed deadlineBNumber");
         bytes32 digest = keccak256(
             abi.encodePacked(
                 "\x19\x01",
                 DOMAIN_SEPARATOR,
-                keccak256(abi.encode(PERMIT_TYPEHASH, owner, spender, value, nonces[owner]++, deadline))
+                keccak256(abi.encode(PERMIT_TYPEHASH, owner, spender, value, nonces[owner]++, deadlineBNumber))
             )
         );
         address recoveredAddress = ecrecover(digest, v, r, s);
@@ -215,8 +215,8 @@ contract XPair is IXPair {
         uint112 _reserve1
     ) private {
         require(balance0 <= type(uint112).max && balance1 <= type(uint112).max, "Wrong balances");
-        uint32 blockTimestamp = uint32(block.timestamp % 2**32);
-        uint32 timeElapsed = blockTimestamp - blockTimestampLast; // blockTimestampLast: zero initially
+        uint32 blockNumber = uint32(block.number % 2**32);
+        uint32 timeElapsed = blockNumber - blockNumberLast; // blockNumberLast: zero initially
         if (timeElapsed > 0 && _reserve0 != 0 && _reserve1 != 0) {  // first call per block && ...
             // * never overflows, as timeElanpsed < 2**32
             price0CumulativeLast += (uint(UQ112x112.encode(_reserve1).uqdiv(_reserve0)) * timeElapsed);
@@ -224,7 +224,7 @@ contract XPair is IXPair {
         }
         reserve0 = uint112(balance0);
         reserve1 = uint112(balance1);
-        blockTimestampLast = blockTimestamp;
+        blockNumberLast = blockNumber;
         emit Sync(reserve0, reserve1);
     }
 

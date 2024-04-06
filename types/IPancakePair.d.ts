@@ -314,7 +314,7 @@ export class IPancakePair extends BaseContract {
       [BigNumber, BigNumber, number] & {
         reserve0: BigNumber;
         reserve1: BigNumber;
-        blockTimestampLast: number;
+        blockNumberLast: number;
       }
     >;
 
@@ -333,7 +333,7 @@ export class IPancakePair extends BaseContract {
       owner: string,
       spender: string,
       value: BigNumberish,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       v: BigNumberish,
       r: BytesLike,
       s: BytesLike,
@@ -418,7 +418,7 @@ export class IPancakePair extends BaseContract {
     [BigNumber, BigNumber, number] & {
       reserve0: BigNumber;
       reserve1: BigNumber;
-      blockTimestampLast: number;
+      blockNumberLast: number;
     }
   >;
 
@@ -437,7 +437,7 @@ export class IPancakePair extends BaseContract {
     owner: string,
     spender: string,
     value: BigNumberish,
-    deadline: BigNumberish,
+    deadlineBNumber: BigNumberish,
     v: BigNumberish,
     r: BytesLike,
     s: BytesLike,
@@ -524,7 +524,7 @@ export class IPancakePair extends BaseContract {
       [BigNumber, BigNumber, number] & {
         reserve0: BigNumber;
         reserve1: BigNumber;
-        blockTimestampLast: number;
+        blockNumberLast: number;
       }
     >;
 
@@ -540,7 +540,7 @@ export class IPancakePair extends BaseContract {
       owner: string,
       spender: string,
       value: BigNumberish,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       v: BigNumberish,
       r: BytesLike,
       s: BytesLike,
@@ -762,7 +762,7 @@ export class IPancakePair extends BaseContract {
       owner: string,
       spender: string,
       value: BigNumberish,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       v: BigNumberish,
       r: BytesLike,
       s: BytesLike,
@@ -865,7 +865,7 @@ export class IPancakePair extends BaseContract {
       owner: string,
       spender: string,
       value: BigNumberish,
-      deadline: BigNumberish,
+      deadlineBNumber: BigNumberish,
       v: BigNumberish,
       r: BytesLike,
       s: BytesLike,
