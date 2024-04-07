@@ -331,11 +331,11 @@ async function mintTime(seconds) {
 
 async function checkConsistency() {
     report = await tgr.checkForConsistency();
-    console.log("\tConsistency report:".red);
-    console.log("\tpending_collective %s, pending_marginal %s, \
-    \treport.abs_error %s, error_rate (trillionths) === %s".green,
-    report.pending_collective, report.pending_marginal,
-    report.abs_error, report.error_rate);
+    console.log("\tConsistency report:".bold.yellow);
+    console.log("\tpending_collective %s, pending_marginal %s",
+    report.pending_collective, report.pending_marginal)
+    console.log("\ttreport.abs_error %s, error_rate (trillionths) === %s",
+    report.abs_error, report.error_rate)
 }
 
 async function transfer(sender, recipient, amount) {
@@ -847,9 +847,13 @@ describe("====================== Stage 1: Deploy ======================\n".yello
         mock2 = await deployMockToken(owner, "Mock2", "MCK2");
         console.log("\tmock2 deployed at %s", mock2.address);
 
+        await showStatus(owner)
+        await showStatus(alice)
         await checkConsistency();
-        await mintBlocks(10000);
-        await pulse_user_burn();
+        // await mintBlocks(500);
+        // await pulse_user_burn();
+        await showStatus(owner)
+        await showStatus(alice)
         await checkConsistency();
 
     });
@@ -874,12 +878,12 @@ describe("====================== Stage 1: Deploy ======================\n".yello
     it("1.3 Total supply and owner balance of TGR are checked.\n".green, async function () {
       const totalSupply = await tgr.totalSupply();
       console.log("\tTGR total supply: %s gways",BigInt(totalSupply));
-      expectEqual(BigInt(totalSupply), INITIAL_SUPPLY);
+      expectEqual(weiToEth(totalSupply), weiToEth(INITIAL_SUPPLY));
 
       console.log("\tTotal supply amount was minted to owner.");
       const ownerTgrBalance = await tgr.balanceOf(owner.address);
       console.log("\tTGR owner balance: %s gways", BigInt(ownerTgrBalance));
-      expectEqual(BigInt(ownerTgrBalance), BigInt(INITIAL_SUPPLY));
+      expectEqual(weiToEth(ownerTgrBalance), weiToEth(INITIAL_SUPPLY));
 
       await checkConsistency();
     });

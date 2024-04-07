@@ -235,16 +235,16 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         // uint latestNet;
         // uint LNISLR;
 
-        uint cycleBlocks = 2;   // small for test
+        uint cycleBlocks = 30;   // small for test
         lp_reward = Pulse(block.number, cycleBlocks, 690, tgrFtm, 0, 0, 0, block.number / cycleBlocks, block.number / cycleBlocks, 0, 0);
         // 0.69% of XDAO/FTM LP has the XDAO side sold for FTM, 
         // then the FTM is used to buy HTZ which is added to XDAO lps airdrop rewards every 12 hours.        
         
-        cycleBlocks = 2;    // small for test
+        cycleBlocks = 30;    // small for test
         vote_burn = Pulse(block.number, cycleBlocks, 70, voteAccount, 0, 0, 0, block.number / cycleBlocks, block.number / cycleBlocks, 0, 0);
         // 0.07% of tokens in the Agency dapp actively being used for voting burned every 12 hours.
 
-        cycleBlocks = 4;    // small for test
+        cycleBlocks = 30;    // small for test
         user_burn = Pulse(block.number, cycleBlocks, 777, zero_address, 0, 0, 0, block.number / cycleBlocks, block.number / cycleBlocks, 0, 0);
         // 0.777% of tokens(not in Cyberswap/Agency dapp) burned each 24 hours from users wallets. 
 
@@ -568,57 +568,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         // event
     }
 
-    // function pulse_user_burn() external {
-    //     // 0.777% of tokens(not in Cyberswap/Agency dapp) burned each 24 hours from users wallets.
-    //     // Interpretation: TGR tokens not in Cyberswap accounts (tgrftm and tgrhtz), and not in Agency account (voteAccount account), 
-    //     // will be burned at the above rate and interval.
-
-    //     // This part of code is an invention: What's diffent from preceeding approach?
-    //     // - deltaAccPer1e12 encodes history.
-    //     // - deltaAccPer1e12 is defined first.
-    //     // - deltaAccPer1e12 decides new_burn.
-    //     checkForConsistency();
-    //     uint decay12 = _writePulseDecay12(user_burn);
-    //     // Dust computing: decayPer1e12 may only be less than its true real value. See _writePulseDecay12 for more.
-    //     if (decay12 > 0) {
-    //         checkForConsistency();
-    //         // _safeSubract doesn't manipulate data, but protects operation from possible dust coming from numerical error.
-    //         // Note. user_burn.burnDone may be either less or greater that its true real value. See Dust computiong below.
-    //         uint net_collective = _safeSubtract(user_burn.sum_tokens, user_burn.burnDone);
-                        
-    //         uint deltaAccPer1e12 = decay12; // 1st choise: 
-    //         // uint deltaAccPer1e12 = (uint(1e12)-user_burn.accDecayPer1e12) * decay12 / uint(1e12); // 2nd choice: 
-            
-    //         // Dust computing: deltaAccPer1e12 may be either less or greater than its true value.
-    //         // deltaAccPer1e12 was less than its true real value due to the division initially, when user_burn.accDecayPer1e12 was zero.
-    //         // So was user_burn.accDecayPer1e12, initially, which was the same as deltaAccPer1e12.
-    //         // Later, user_burn.accDecayPer1e12, which was less initially, may makes deltaAccPer1e12 greater than its true real value.
-    //         // So we don't know exactly it will be only less or greater.
-
-    //         checkForConsistency();
-    //         // uint new_burn = net_collective * decayPer1e12 / 1e12;  // smaller than its real value
-    //         uint new_burn = net_collective * deltaAccPer1e12 / uint(1e12);
-
-    //         new_burn = user_burn.sum_tokens * deltaAccPer1e12 / uint(1e12);
-
-    //         // Dust computing: user_burn.burnDone may be either less or greater than its true real value,
-    //         // because deltaAccPer1e12 may be.
-    //         user_burn.burnDone += new_burn;
-
-    //         // increased user_burn.accDecayPer1e12 will increase users' pending burn, and decrease _balanceOf(account)
-    //         user_burn.accDecayPer1e12 += deltaAccPer1e12;
-    //         // Dust computing: user_burn.accDecayPer1e12 may be either less or greater than its true real value.
-    //         // Initially, it was the same, but later it fluctuate around its true real value, together with deltaAccPer1e12.
-    //     }
-    // }
-
     function pulse_user_burn() external {
-        // 0.777% of tokens(not in Cyberswap/Agency dapp) burned each 24 hours from users wallets.
-        // Interpretation: TGR tokens not in Cyberswap accounts (tgrftm and tgrhtz), and not in Agency account (voteAccount account), 
-        // will be burned at the above rate and interval.
-
-        uint decay12 = _writePulseDecay12(user_burn);
-
     }
 
     function checkForConsistency() public view returns(uint pending_collective, uint pending_marginal, uint abs_error, uint error_rate) {
