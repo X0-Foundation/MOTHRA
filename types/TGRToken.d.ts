@@ -21,6 +21,7 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface TGRTokenInterface extends ethers.utils.Interface {
   functions: {
+    "MAX_SUPPLY()": FunctionFragment;
     "_decreaseAllowance(address,address,uint256)": FunctionFragment;
     "allowance(address,address)": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
@@ -41,7 +42,6 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     "increaseAllowance(address,uint256)": FunctionFragment;
     "lastSession()": FunctionFragment;
     "lp_reward()": FunctionFragment;
-    "maxSupply()": FunctionFragment;
     "mint(address,uint256)": FunctionFragment;
     "name()": FunctionFragment;
     "nextNode()": FunctionFragment;
@@ -79,6 +79,10 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     "wire(address,address)": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "MAX_SUPPLY",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "_decreaseAllowance",
     values: [string, string, BigNumberish]
@@ -135,7 +139,6 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "lp_reward", values?: undefined): string;
-  encodeFunctionData(functionFragment: "maxSupply", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "mint",
     values: [string, BigNumberish]
@@ -235,6 +238,7 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     values: [string, string]
   ): string;
 
+  decodeFunctionResult(functionFragment: "MAX_SUPPLY", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "_decreaseAllowance",
     data: BytesLike
@@ -279,7 +283,6 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "lp_reward", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "maxSupply", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "nextNode", data: BytesLike): Result;
@@ -476,6 +479,8 @@ export class TGRToken extends BaseContract {
   interface: TGRTokenInterface;
 
   functions: {
+    MAX_SUPPLY(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     _decreaseAllowance(
       _owner: string,
       _spender: string,
@@ -525,7 +530,14 @@ export class TGRToken extends BaseContract {
 
     checkForConsistency(
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { abs_error: BigNumber }>;
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber] & {
+        pending_collective: BigNumber;
+        pending_marginal: BigNumber;
+        abs_error: BigNumber;
+        error_rate: BigNumber;
+      }
+    >;
 
     decimals(overrides?: CallOverrides): Promise<[number]>;
 
@@ -549,7 +561,7 @@ export class TGRToken extends BaseContract {
     getOwner(overrides?: CallOverrides): Promise<[string]>;
 
     getStatus(
-      account: string,
+      user: string,
       overrides?: CallOverrides
     ): Promise<
       [
@@ -561,17 +573,19 @@ export class TGRToken extends BaseContract {
         BigNumber,
         BigNumber,
         BigNumber,
+        BigNumber,
         BigNumber
       ] & {
         totalSupply: BigNumber;
-        ub_accDecayPer1e12: BigNumber;
         ub_sum_tokens: BigNumber;
-        ub_pending_burn: BigNumber;
-        _nonUserSumTokens: BigNumber;
-        account_balances: BigNumber;
-        account_balanceOf: BigNumber;
-        account_pending_burn: BigNumber;
-        account_latestDecayRound: BigNumber;
+        nonUserSumTokens: BigNumber;
+        burnPending: BigNumber;
+        latestRound: BigNumber;
+        LNISLR: BigNumber;
+        u_balances: BigNumber;
+        u_pending: BigNumber;
+        u_latestDecayRound: BigNumber;
+        u_LNISLR: BigNumber;
       }
     >;
 
@@ -614,8 +628,6 @@ export class TGRToken extends BaseContract {
         LNISLR: BigNumber;
       }
     >;
-
-    maxSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     mint(
       to: string,
@@ -829,6 +841,8 @@ export class TGRToken extends BaseContract {
     ): Promise<ContractTransaction>;
   };
 
+  MAX_SUPPLY(overrides?: CallOverrides): Promise<BigNumber>;
+
   _decreaseAllowance(
     _owner: string,
     _spender: string,
@@ -876,7 +890,16 @@ export class TGRToken extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  checkForConsistency(overrides?: CallOverrides): Promise<BigNumber>;
+  checkForConsistency(
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber, BigNumber] & {
+      pending_collective: BigNumber;
+      pending_marginal: BigNumber;
+      abs_error: BigNumber;
+      error_rate: BigNumber;
+    }
+  >;
 
   decimals(overrides?: CallOverrides): Promise<number>;
 
@@ -895,7 +918,7 @@ export class TGRToken extends BaseContract {
   getOwner(overrides?: CallOverrides): Promise<string>;
 
   getStatus(
-    account: string,
+    user: string,
     overrides?: CallOverrides
   ): Promise<
     [
@@ -907,17 +930,19 @@ export class TGRToken extends BaseContract {
       BigNumber,
       BigNumber,
       BigNumber,
+      BigNumber,
       BigNumber
     ] & {
       totalSupply: BigNumber;
-      ub_accDecayPer1e12: BigNumber;
       ub_sum_tokens: BigNumber;
-      ub_pending_burn: BigNumber;
-      _nonUserSumTokens: BigNumber;
-      account_balances: BigNumber;
-      account_balanceOf: BigNumber;
-      account_pending_burn: BigNumber;
-      account_latestDecayRound: BigNumber;
+      nonUserSumTokens: BigNumber;
+      burnPending: BigNumber;
+      latestRound: BigNumber;
+      LNISLR: BigNumber;
+      u_balances: BigNumber;
+      u_pending: BigNumber;
+      u_latestDecayRound: BigNumber;
+      u_LNISLR: BigNumber;
     }
   >;
 
@@ -960,8 +985,6 @@ export class TGRToken extends BaseContract {
       LNISLR: BigNumber;
     }
   >;
-
-  maxSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
   mint(
     to: string,
@@ -1175,6 +1198,8 @@ export class TGRToken extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    MAX_SUPPLY(overrides?: CallOverrides): Promise<BigNumber>;
+
     _decreaseAllowance(
       _owner: string,
       _spender: string,
@@ -1219,7 +1244,16 @@ export class TGRToken extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    checkForConsistency(overrides?: CallOverrides): Promise<BigNumber>;
+    checkForConsistency(
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber] & {
+        pending_collective: BigNumber;
+        pending_marginal: BigNumber;
+        abs_error: BigNumber;
+        error_rate: BigNumber;
+      }
+    >;
 
     decimals(overrides?: CallOverrides): Promise<number>;
 
@@ -1238,7 +1272,7 @@ export class TGRToken extends BaseContract {
     getOwner(overrides?: CallOverrides): Promise<string>;
 
     getStatus(
-      account: string,
+      user: string,
       overrides?: CallOverrides
     ): Promise<
       [
@@ -1250,17 +1284,19 @@ export class TGRToken extends BaseContract {
         BigNumber,
         BigNumber,
         BigNumber,
+        BigNumber,
         BigNumber
       ] & {
         totalSupply: BigNumber;
-        ub_accDecayPer1e12: BigNumber;
         ub_sum_tokens: BigNumber;
-        ub_pending_burn: BigNumber;
-        _nonUserSumTokens: BigNumber;
-        account_balances: BigNumber;
-        account_balanceOf: BigNumber;
-        account_pending_burn: BigNumber;
-        account_latestDecayRound: BigNumber;
+        nonUserSumTokens: BigNumber;
+        burnPending: BigNumber;
+        latestRound: BigNumber;
+        LNISLR: BigNumber;
+        u_balances: BigNumber;
+        u_pending: BigNumber;
+        u_latestDecayRound: BigNumber;
+        u_LNISLR: BigNumber;
       }
     >;
 
@@ -1303,8 +1339,6 @@ export class TGRToken extends BaseContract {
         LNISLR: BigNumber;
       }
     >;
-
-    maxSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
     mint(
       to: string,
@@ -1634,6 +1668,8 @@ export class TGRToken extends BaseContract {
   };
 
   estimateGas: {
+    MAX_SUPPLY(overrides?: CallOverrides): Promise<BigNumber>;
+
     _decreaseAllowance(
       _owner: string,
       _spender: string,
@@ -1699,7 +1735,7 @@ export class TGRToken extends BaseContract {
 
     getOwner(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getStatus(account: string, overrides?: CallOverrides): Promise<BigNumber>;
+    getStatus(user: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     htzFtm(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1712,8 +1748,6 @@ export class TGRToken extends BaseContract {
     lastSession(overrides?: CallOverrides): Promise<BigNumber>;
 
     lp_reward(overrides?: CallOverrides): Promise<BigNumber>;
-
-    maxSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
     mint(
       to: string,
@@ -1863,6 +1897,8 @@ export class TGRToken extends BaseContract {
   };
 
   populateTransaction: {
+    MAX_SUPPLY(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     _decreaseAllowance(
       _owner: string,
       _spender: string,
@@ -1939,7 +1975,7 @@ export class TGRToken extends BaseContract {
     getOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getStatus(
-      account: string,
+      user: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1954,8 +1990,6 @@ export class TGRToken extends BaseContract {
     lastSession(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     lp_reward(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    maxSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     mint(
       to: string,

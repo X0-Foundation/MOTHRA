@@ -23,7 +23,7 @@ interface ITGRToken is IERC20 {
         uint LNISLR;
     }
 
-    function maxSupply() external view returns (uint);
+    function MAX_SUPPLY() external view returns (uint);
     function mint(address to, uint amount) external;
     function burn(address from, uint amount) external;
 

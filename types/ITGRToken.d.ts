@@ -21,11 +21,11 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface ITGRTokenInterface extends ethers.utils.Interface {
   functions: {
+    "MAX_SUPPLY()": FunctionFragment;
     "allowance(address,address)": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "burn(address,uint256)": FunctionFragment;
-    "maxSupply()": FunctionFragment;
     "mint(address,uint256)": FunctionFragment;
     "returnVotes(uint256)": FunctionFragment;
     "takeVotes(uint256)": FunctionFragment;
@@ -35,6 +35,10 @@ interface ITGRTokenInterface extends ethers.utils.Interface {
     "transferFrom(address,address,uint256)": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "MAX_SUPPLY",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "allowance",
     values: [string, string]
@@ -48,7 +52,6 @@ interface ITGRTokenInterface extends ethers.utils.Interface {
     functionFragment: "burn",
     values: [string, BigNumberish]
   ): string;
-  encodeFunctionData(functionFragment: "maxSupply", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "mint",
     values: [string, BigNumberish]
@@ -78,11 +81,11 @@ interface ITGRTokenInterface extends ethers.utils.Interface {
     values: [string, string, BigNumberish]
   ): string;
 
+  decodeFunctionResult(functionFragment: "MAX_SUPPLY", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "maxSupply", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "returnVotes",
@@ -168,6 +171,8 @@ export class ITGRToken extends BaseContract {
   interface: ITGRTokenInterface;
 
   functions: {
+    MAX_SUPPLY(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     allowance(
       owner: string,
       spender: string,
@@ -187,8 +192,6 @@ export class ITGRToken extends BaseContract {
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
-
-    maxSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     mint(
       to: string,
@@ -229,6 +232,8 @@ export class ITGRToken extends BaseContract {
     ): Promise<ContractTransaction>;
   };
 
+  MAX_SUPPLY(overrides?: CallOverrides): Promise<BigNumber>;
+
   allowance(
     owner: string,
     spender: string,
@@ -248,8 +253,6 @@ export class ITGRToken extends BaseContract {
     amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
-
-  maxSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
   mint(
     to: string,
@@ -290,6 +293,8 @@ export class ITGRToken extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    MAX_SUPPLY(overrides?: CallOverrides): Promise<BigNumber>;
+
     allowance(
       owner: string,
       spender: string,
@@ -309,8 +314,6 @@ export class ITGRToken extends BaseContract {
       amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
-
-    maxSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
     mint(
       to: string,
@@ -384,6 +387,8 @@ export class ITGRToken extends BaseContract {
   };
 
   estimateGas: {
+    MAX_SUPPLY(overrides?: CallOverrides): Promise<BigNumber>;
+
     allowance(
       owner: string,
       spender: string,
@@ -403,8 +408,6 @@ export class ITGRToken extends BaseContract {
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
-
-    maxSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
     mint(
       to: string,
@@ -446,6 +449,8 @@ export class ITGRToken extends BaseContract {
   };
 
   populateTransaction: {
+    MAX_SUPPLY(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     allowance(
       owner: string,
       spender: string,
@@ -468,8 +473,6 @@ export class ITGRToken extends BaseContract {
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
-
-    maxSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     mint(
       to: string,

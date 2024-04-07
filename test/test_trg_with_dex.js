@@ -15,6 +15,7 @@ const {
     deployFarm,
     deployCenter,
     deployXLibrary,
+    deployIntegralMathLibrary,
     deployRouterLibrary,
     deployMaker,
     deployTaker,
@@ -35,15 +36,19 @@ const {
     const { doesNotMatch } = require("assert");
     const zero_address = "0x0000000000000000000000000000000000000000";
     
-    let wireLib, factory, wbnb, center, crossLib, routerLib, maker, taker, tgr, mock, mock2, farm, farmLib, xTgr, referral, rTgr, rSyrup, repay;
+    let wireLib, factory, wbnb, center, crossLib, integralMathLib, routerLib, maker, taker, tgr, mock, mock2, farm, farmLib, xTgr, referral, rTgr, rSyrup, repay;
     let tgr_bnb, mck_bnb, tgr_mck, tgr_mck2;
     let owner, alice, bob, carol, tgrFtm, tgrHtz, votes;
     let tx;
     
-    // These constants come from TGRToken.sol.
-    const FeeMagnifier = Number(1e5); // 
+    // These constants come from IConstants.sol.
+    const FeeMagnifierPower = 5;
+    const FeeMagnifier = 10 ** FeeMagnifierPower;
+    const SqaureMagnifier = FeeMagnifier * FeeMagnifier;
+    const LiquiditySafety = 10**3;
     const DECIMALS = 18;
-    const INITIAL_SUPPLY = 1e12;
+    const INITIAL_SUPPLY = BigInt(10**(DECIMALS+6));
+    const MAX_SUPPLY = BigInt(10**(DECIMALS+8))
 
 function weiToEthEn(wei) {
     return Number(utils.formatUnits( BigInt(wei).toString(), DECIMALS)).toLocaleString("en");
@@ -285,25 +290,25 @@ async function pulse_lp_reward() {
     console.log("\tPulse_lp_reward-ed".green);
 }
 
+
 async function showStatus(user) {
     const s = await tgr.getStatus(user.address);
-    console.log("\tstatus: %s", user.name);
-    console.log("\t_totalSupply %s, ub_accDecayPer1e12 %s, \
-    \n\tub.sum_tokens %s, ub.pending_burn %s, \
-    \n\t_balances[acc] %s, _balanceOf(acc) %s, \
-    \n\t_pendingBurn(acc) %s, \
-    \n\tUsers[acc].debtToPendingBurn %s, \
-    \n\t_totalSupply-nonUserTokenSum-ub.sum_tokens === %s, \
-    \n\t_balances[acc]-balanceOf(acc)-pendingBurn(acc) === %s".green,
-    s.totalSupply, s.ub_accDecayPer1e12, 
-    s.ub_sum_tokens, s.ub_pending_burn,
-    s.account_balances, s.account_balanceOf,
-    s.account_pending_burn,
-    s.account_debtToPendingBurn,
-    BigInt(s.totalSupply)-BigInt(s._nonUserSumTokens)-BigInt(s.ub_sum_tokens),
-    BigInt(s.account_balances)-BigInt(s.account_balanceOf)-BigInt(s.account_pending_burn)
+    console.log("\tstatus: %s".yellow, user.name);
+    console.log("\ttalSupply %s, ub_sum_tokens %s, \
+    \n\tnonUserSumTokens %s, burnPending %s, \
+    \n\tlatestRound %s, LNISLR %s, \
+    \n\tu_balances %s, u_pending %s, \
+    \n\tu_latestDecayRound %s, u_LNISLR %s, \
+    \n\t_totalSupply-nonUserTokenSum-ub.sum_tokens === %s".green,
+    s.totalSupply, s.ub_sum_tokens, 
+    s.nonUserSumTokens, s.burnPending,
+    s.latestRound, s.LNISLR,
+    s.u_balances, s.u_pending,
+    s.u_latestDecayRound, s.u_LNISLR,
+    BigInt(s.totalSupply)-BigInt(s.nonUserSumTokens)-BigInt(s.ub_sum_tokens),
     );
 }
+
 
 // function getStatus(address account) external view returns (
 //     uint totalSupply, uint ub_accDecayPer1e12, uint ub_sum_tokens, uint ub_pending_burn,
@@ -325,23 +330,27 @@ async function mintTime(seconds) {
 }
 
 async function checkConsistency() {
-    let user_burn = await tgr.user_burn();
-    // console.log("\n\tuser_burn: \n\tsum_tokens: %s, pending_burn: %s, \n\ttotalSupply()=_ts-pending_burn: %s", 
-    // user_burn.sum_tokens, user_burn.pending_burn, await tgr.totalSupply());
-    await tgr.checkForConsistency();
-    console.log("\tConsistency test PASS!");
+    report = await tgr.checkForConsistency();
+    console.log("\tConsistency report:".red);
+    console.log("\tpending_collective %s, pending_marginal %s, \
+    \treport.abs_error %s, error_rate (trillionths) === %s".green,
+    report.pending_collective, report.pending_marginal,
+    report.abs_error, report.error_rate);
 }
 
 async function transfer(sender, recipient, amount) {
     let amountWei = ethToWei(amount);
     let balance = await tgr.balanceOf(sender.address);
-    if (amountWei > balance) amountWei = balance;
+    if (amountWei > balance) {
+        amountWei = balance;
+        amount = weiToEth(amountWei);
+    }
     let symbol = await tgr.symbol();
     //console.log("\t%s is transferring %s %s TGR ...".yellow, sender.name, recipient.name, weiToEth(amountWei));
-    console.log("\t%s is transferring to %s %s %s(s) ...".yellow, 
+    console.log("\t%s is transferring %s TGR to %s...".yellow, 
     sender.name == undefined ? "undefined" : sender.name,
-    recipient.hasOwnProperty("name") ? (recipient.name == undefined ? "undefined" : recipient.name) : "NoName",
-    amount, symbol);
+    amount,
+    recipient.hasOwnProperty("name") ? (recipient.name == undefined ? "undefined" : recipient.name) : "NoName");
 
     tx = tgr.connect(sender).transfer(recipient.address, amountWei );
     (await tx).wait();
@@ -366,8 +375,9 @@ async function transfer2(token_contract, sender, recipient, amount) {
 
 async function mint(minter, to, amount) {
     let amountWei = ethToWei(amount);
-    await console.log("\t%s is minting to %s ...".yellow, 
+    await console.log("\t%s is minting %s TGR to %s ...".yellow, 
     minter.name == undefined ? "undefined" : minter.name,
+    amount,
     to.hasOwnProperty("name") ? (to.name == undefined ? "undefined" : to.name) : "NoName" );
 
     tx = tgr.connect(minter).mint(to.address, amountWei );
@@ -377,9 +387,16 @@ async function mint(minter, to, amount) {
 }
 
 async function burn(burner, from, amount) {
+
     let amountWei = ethToWei(amount);
-    await console.log("\t%s is burning from %s ...".yellow, 
+    let balance = await tgr.balanceOf(from.address);
+    if (amountWei > balance) {
+        amountWei = balance;
+        amount = weiToEth(amountWei);
+    }
+    await console.log("\t%s is burning %s TGR from %s ...".yellow, 
     burner.name == undefined ? "undefined" : burner.name,
+    amount,
     from.hasOwnProperty("name") ? (from.name == undefined ? "undefined" : from.name) : "NoName" );
 
     tx = tgr.connect(burner).burn(from.address, amountWei );
@@ -759,18 +776,23 @@ describe("====================== Stage 1: Deploy ======================\n".yello
         const AnalyticMath = await ethers.getContractFactory("AnalyticMath", owner);
         analyticMath = await AnalyticMath.deploy();
         await analyticMath.init();
-        await Pow(analyticMath, 2,1,3,1); // 2 ** 3
         console.log("\tAnalyticMath contract was deployed at: ", analyticMath.address);
+
+
 
         tgr = await deployTGR(owner, analyticMath.address, wireLib.address);
         console.log("\tTGR contract deployed at: %s", tgr.address);
         console.log("\tOwner's balance: %s", await tgr.balanceOf(owner.address));
+        await showStatus(owner);
+        await checkConsistency();
+
+
 
         // Factory Deployment.
         factory = await deployFactory(owner, wireLib.address);
         console.log("\tFactory deployed at %s", factory.address);
 
-        console.log("\tXFactory contract was deployed at: %s", factory.address);
+        console.log("\n\tXFactory contract was deployed at: %s", factory.address);
         console.log("\t!!! Pair's bytecode hash = \n\t", (await factory.INIT_CODE_PAIR_HASH()).substring(2));
         console.log("\t!!! Please make sure the pairFor(...) function of XLibrary.sol file has the same hash.\n\n");
 
@@ -784,6 +806,9 @@ describe("====================== Stage 1: Deploy ======================\n".yello
 
         crossLib = await deployXLibrary(owner);
         console.log("\tXLibrary deployed at %s", crossLib.address);
+
+        integralMathLib = await deployIntegralMathLibrary(owner);
+        console.log("\tIntegralMath deployed at %s", integralMathLib.address);
 
         // // RouterLibrary Deployment for Maker and Taker.
         // routerLib = await deployRouterLibrary(owner);
@@ -823,7 +848,7 @@ describe("====================== Stage 1: Deploy ======================\n".yello
         console.log("\tmock2 deployed at %s", mock2.address);
 
         await checkConsistency();
-        await mintBlocks(1000);
+        await mintBlocks(10000);
         await pulse_user_burn();
         await checkConsistency();
 
@@ -842,21 +867,19 @@ describe("====================== Stage 1: Deploy ======================\n".yello
       console.log("\tTGR decimals: %s", decimals);
       expectEqual(decimals, 18);
 
-      
-      await Pow(analyticMath, 1,2,3,4);
-
+ 
       await checkConsistency();
     });
 
     it("1.3 Total supply and owner balance of TGR are checked.\n".green, async function () {
       const totalSupply = await tgr.totalSupply();
-      console.log("\tTGR total supply: %s",weiToEthEn(totalSupply));
-      expectEqual(weiToEth(totalSupply), INITIAL_SUPPLY);
+      console.log("\tTGR total supply: %s gways",BigInt(totalSupply));
+      expectEqual(BigInt(totalSupply), INITIAL_SUPPLY);
 
       console.log("\tTotal supply amount was minted to owner.");
       const ownerTgrBalance = await tgr.balanceOf(owner.address);
-      console.log("\tTGR owner balance: %s", weiToEthEn(ownerTgrBalance));
-      expectEqual(weiToEth(ownerTgrBalance), INITIAL_SUPPLY);
+      console.log("\tTGR owner balance: %s gways", BigInt(ownerTgrBalance));
+      expectEqual(BigInt(ownerTgrBalance), BigInt(INITIAL_SUPPLY));
 
       await checkConsistency();
     });
@@ -919,7 +942,8 @@ describe("====================== Stage 2: Test pulses ======================\n".
     await checkConsistency();
 
     blocks = 50 // Test pulse cycles are less than 5.
-    mintburn = 100
+    mintAmount = 1000
+    burnAmount = 900
 
     for(i=0; i<1; i++) {
         await showMilestone("Milestone 0");
@@ -933,20 +957,33 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await transfer(owner, alice, 0);
         await showStatus(owner);
         await showStatus(alice);
+        await checkConsistency();
+        
+        await transfer(owner, alice, 100);
+        await showStatus(owner);
+        await showStatus(alice);
+        await checkConsistency();
+
 
         await showMilestone("Milestone 2");
         await showStatus(owner);
         await showStatus(alice);
-        await mint(owner, alice, mintburn);
+        await mint(owner, alice, mintAmount);
         await showStatus(owner);
         await showStatus(alice);
+        await checkConsistency();
+        // await burn(owner, alice, mintAmount);
+        // await showStatus(owner);
+        // await showStatus(alice);
+        // await checkConsistency();
 
         await showMilestone("Milestone 3");
         await showStatus(owner);
         await showStatus(alice);
-        await burn(owner, alice, mintburn);
+        await burn(owner, alice, burnAmount);
         await showStatus(owner);
         await showStatus(alice);
+        await checkConsistency();
 
         await showMilestone("Milestone 4");
         await checkConsistency();
@@ -958,13 +995,14 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await showMilestone("Milestone 5");
         await showStatus(owner);
         await showStatus(bob);
-        await mint(owner, bob, mintburn);
+        await mint(owner, bob, mintAmount);
         await showStatus(owner);
         await showStatus(bob);
+        await checkConsistency();
 
         await showMilestone("Milestone 6");
-        await burn(owner, bob, mintburn);
-        await transfer(owner, bob, 1000);
+        await burn(owner, bob, burnAmount);
+        await transfer(owner, bob, 100);
         await checkConsistency();
         await mintBlocks(blocks);
         await checkConsistency();
@@ -973,42 +1011,42 @@ describe("====================== Stage 2: Test pulses ======================\n".
 
         await showMilestone("Milestone 7");
         await checkConsistency();
-        await mint(owner, carol, mintburn);
+        await mint(owner, carol, mintAmount);
         await checkConsistency();
-        await burn(owner, carol, mintburn);
+        await burn(owner, carol, burnAmount);
         await checkConsistency();
-        await transfer(owner, carol, 5000);
+        await transfer(owner, carol, 500);
         await mintBlocks(blocks);
         await checkConsistency();
         // await pulse_user_burn();
         await checkConsistency();
 
         await showMilestone("Milestone 8");
-        await mint(owner, alice, mintburn);
-        await burn(owner, alice, mintburn);
+        await mint(owner, alice, mintAmount);
+        await burn(owner, alice, burnAmount);
         await mintBlocks(blocks);
         // await pulse_user_burn();
         await checkConsistency();
 
         await showMilestone("Milestone 9");
-        await mint(owner, alice, mintburn);
-        await burn(owner, alice, mintburn);
+        await mint(owner, alice, mintAmount);
+        await burn(owner, alice, burnAmount);
         await transfer(owner, carol, 100);
         await mintBlocks(blocks);
         // await pulse_user_burn();
         await checkConsistency();
 
         await showMilestone("Milestone 10");
-        await mint(owner, bob, mintburn);
-        await burn(owner, bob, mintburn);
+        await mint(owner, bob, mintAmount);
+        await burn(owner, bob, burnAmount);
         await transfer(carol, carol, 100);
         await mintBlocks(blocks);
         // await pulse_user_burn();
         await checkConsistency();
 
         await showMilestone("Milestone 11");
-        await mint(owner, alice, mintburn);
-        await burn(owner, alice, mintburn);
+        await mint(owner, alice, mintAmount);
+        await burn(owner, alice, burnAmount);
         await transfer(carol, alice, 100);
         await mintBlocks(blocks);
         // await pulse_user_burn();

@@ -4,7 +4,10 @@ pragma solidity ^0.8.0;
 uint constant FeeMagnifierPower = 5;
 uint constant FeeMagnifier = uint(10) ** FeeMagnifierPower;
 uint constant SqaureMagnifier = FeeMagnifier * FeeMagnifier;
-uint constant LiquiditySafety = uint(1e2);
+uint constant LiquiditySafety = uint(1e3);
+uint constant DECIMALS = 18;
+uint constant INITIAL_SUPPLY = uint(10 ** (DECIMALS + 6));
+uint constant MAX_SUPPLY = uint(10 ** (DECIMALS + 8));
 
 enum ActionType {
     None,

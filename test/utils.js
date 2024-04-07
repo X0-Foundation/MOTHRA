@@ -98,6 +98,16 @@ exports.deployXLibrary = async function (deployer) {
   return lib;
 };
 
+exports.deployIntegralMathLibrary = async function (deployer) {
+  const Lib = await ethers.getContractFactory("IntegralMath", {
+    signer: deployer,
+  });
+  const lib = await Lib.deploy();
+  await lib.deployed();
+
+  return lib;
+};
+
 exports.deployRouterLibrary = async function (deployer) {
   const RouterLib = await ethers.getContractFactory("RouterLibrary", {
     signer: deployer,
