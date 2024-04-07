@@ -12,11 +12,15 @@ interface ITGRToken is IERC20 {
         address account;
         uint accDecayPer1e12;
         uint sum_tokens;
-        uint pending_burn;
+        uint burnDone;
         uint latestRound;
+        uint initialRound;
+        uint latestNet;
+        uint LNISLR;
     }
     struct User {
-        uint latestDecayRound;        
+        uint latestDecayRound; 
+        uint LNISLR;
     }
 
     function maxSupply() external view returns (uint);

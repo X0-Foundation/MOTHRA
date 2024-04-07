@@ -57,7 +57,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     Pulse public vote_burn;
 
     Pulse public user_burn;
-    uint avgNetAtAvgLastRound;
+    uint avgNetAtAvgLastRound;  // thisValue * exp(decayRate, nowRound) == collective_decay_amount at nowRound
     mapping(address => User) Users;
     uint nonUserSumTokens;
     uint buysell_burn_rate;
@@ -73,11 +73,11 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         totalSupply = _totalSupply; // user_burn.sum_tokens + nonUserSumTokens; // _totalSupply;
         ub_accDecayPer1e12 = user_burn.accDecayPer1e12;
         ub_sum_tokens = user_burn.sum_tokens;
-        ub_pending_burn = user_burn.pending_burn;
+        ub_pending_burn = user_burn.burnDone;
         _nonUserSumTokens = nonUserSumTokens;
         account_balances = _balances[account];
         account_balanceOf = _balanceOf(account);
-        account_pending_burn = _userPendingBurn(account);
+        (, account_pending_burn) = _viewPending(account);
         account_latestDecayRound = Users[account].latestDecayRound / uint(1e12);
     }
 
@@ -95,90 +95,48 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         return pairs[account].token0 == address(0) && account != voteAccount; // not a pair's token && not a voteAccount account
     }
 
-    function _userPendingBurn(address account) internal view returns (uint pendingBurn) {
+    function _viewPending(address account) internal view returns (uint, uint) {
         // decay12, if non-zero, comes from time passed no less than the cycleBlocks 
         // since the latest non-zero-decay12-call to this function for this account.
-        (uint decay12,) = _getDecay12(user_burn, Users[account]);   // Dust: decay12 has positive dusts.
-        uint pendingBurn = _balances[account] * decay12;    // Dust: pendingBurn has positive dusts.
+        (uint decayRound, uint decay12) = _viewDecay12(user_burn, Users[account]);   // Dust: decay12 has positive dusts.
+        uint pending = _balances[account] * decay12 / uint(1e12);    // Dust: pendingBurn has positive dusts.
+        console.log("_viewPending. decay12, pending:", decay12, pending);
+        return (decayRound, pending);  
     }
 
-    // function _changeBalance(address account, uint amount, bool creditNotDebit) internal {
-    //     if (_isUserAccount(account)) {
-    //         // _balances[account] and Users[account].debtToPendingBurnPer1e12 didn't change since the previous call to this function.
-    //         // user_burn.accDecayPer1e12 may have changed since the last debiting. See _userPendingBurn for more.
+    // function _writePending(address account) internal returns (uint decayRound, uint pendingBurn) {
+    //     // decay12, if non-zero, comes from time passed no less than the cycleBlocks 
+    //     // since the latest non-zero-decay12-call to this function for this account.
 
-    //         // This pending burn, if non-zero, comes from user_burn.accDecayPer1e12 increased since the previous call to this function.
-    //         // See _userPendingBurn for more.
-    //         uint pendingBurn = _userPendingBurn(account);
-    //         // Dust computing: pendingBurn may be either less or greater than its true real value. See _userPendingBurn for detail.
-    //         if (pendingBurn > 0) {
-    //             // The control has come here, because user_burn.accDecayPer1e12 increased since the previous call to this function.
-    //             // We need to settle with the pending burn that was incurred by the increment.
-
-    //             // _safeSubtract doesn't manipulate data, but protects the operation from dust coming from numerical error. 
-    //             // Note pendingBurn may be either less or greater than its true real value.
-    //             _balances[account] = _safeSubtract(_balances[account], pendingBurn); // This is core burn.
-    //             user_burn.sum_tokens = _safeSubtract(user_burn.sum_tokens, pendingBurn);
-    //             user_burn.pending_burn = _safeSubtract(user_burn.pending_burn, pendingBurn);
-    //             _totalSupply = _safeSubtract(_totalSupply, pendingBurn); // not less than its true value
-
-    //             // At this moment of code, net_collective = user_burn.sum_tokens - user_burn.pending_burn didn't change,
-    //             // _balanceOf(account) = _balances[account] - _userPendingBurn(account) 
-    //             // = _balances[account] - (_balances[account]*user_burn.accDecayPer1e12 - Users[account].debtToPendingBurnPer1e12)
-    //             // will not change too keeping consistency, if we un-comment the next line:
-    //             // Users[account].debtToPendingBurnPer1e12 - _balances[account]*user_burn.accDecayPer1e12
-    //             // I commented out the above line for gas saving. The same line will be put at the end of this function.
-    //         }
-
-    //         if (creditNotDebit) {
-    //             _balances[account] += amount;
-    //             user_burn.sum_tokens += amount;
-    //             _totalSupply += amount;
-    //         } else {
-    //             // Dust computing: _safeSubtract doesn't manipulate data, but projects the operation from dust coming from numerical error.
-    //             // amount may be greater than its true real value, if it was gotten by amount = amount - fees.
-    //             // fees = amount * rate / rage_magnifier may only be less that its true real value, due to the division operation.
-    //             _balances[account] = _safeSubtract(_balances[account] , amount);
-    //             user_burn.sum_tokens = _safeSubtract(user_burn.sum_tokens, amount);
-    //             _totalSupply  = _safeSubtract(_totalSupply, amount);
-    //         }
-
-    //         // account has now zero pendingBurn and _balances[account] is now its true balance.
-    //         // This is the only place to change debt, which is only used by _userPendingBurn with possibly increased user_burn.accDecayPer1e12.
-    //         // user_burn.accDecayPer1e12 is maintained by the pulse_user_burn function.
-    //         Users[account].debtToPendingBurnPer1e12 =  _balances[account] * user_burn.accDecayPer1e12;
-
-    //     } else {
-    //         if (creditNotDebit) {
-    //             _balances[account] += amount;
-    //             nonUserSumTokens += amount;
-    //             _totalSupply += amount;
-    //         } else {
-    //             // Dust compting: See the above Dust computing.
-    //             _balances[account] = _safeSubtract(_balances[account], amount);
-    //             nonUserSumTokens = _safeSubtract(nonUserSumTokens, amount);
-    //             _totalSupply = _safeSubtract(_totalSupply, amount);
-    //         }
-    //     }
+    //     // Users[account].latestDecayRound is updated
+    //     (decayRound, uint decay12) = _writeDecay12(user_burn, Users[account]);   // Dust: decay12 has positive dusts.
+    //     pendingBurn = _balances[account] * decay12 / uint(1e12);    // Dust: pendingBurn has positive dusts.
+    //     console.log("_writePending. decay12, pendingBurn:", decay12, pendingBurn);    
     // }
 
     function _changeBalance(address account, uint amount, bool creditNotDebit) internal {
         if (_isUserAccount(account)) {
             // _balances[account] didn't change since the previous call to this function.
 
-            uint pendingBurn = _userPendingBurn(account);
+            {
+                _safeSubtract(user_burn.latestNet, _balances[account]);
+                _safeSubtract(user_burn.LNISLR, Users[account].LNISLR);
+            }
+
+            (uint decayRound, uint pendingBurn) = _viewPending(account);
+            Users[account].latestDecayRound = decayRound;
+
             if (pendingBurn > 0) {
                 // _safeSubtract doesn't manipulate data, but protects the operation from dust. 
                 // Dust: _balances[account] gets negative dusts.
                 _balances[account] = _safeSubtract(_balances[account], pendingBurn); // This is core burn.
                 // Dust: user_burn.sum_tokens gets negative dusts.
                 user_burn.sum_tokens = _safeSubtract(user_burn.sum_tokens, pendingBurn);
-                // Dust: user_burn.pending_burn gets negative dusts.
-                user_burn.pending_burn = _safeSubtract(user_burn.pending_burn, pendingBurn);
                 // Dust: _totalSupply gets negative dusts.
                 _totalSupply = _safeSubtract(_totalSupply, pendingBurn); // not less than its true value
-
-                // At this moment of code, net_collective = user_burn.sum_tokens - user_burn.pending_burn didn't change,
+                
+                user_burn.burnDone += pendingBurn;
+                // At this moment of code, net_collective = user_burn.sum_tokens - user_burn.burnDone didn't change,
             }
 
             if (creditNotDebit) {
@@ -194,6 +152,18 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
                 _totalSupply  = _safeSubtract(_totalSupply, amount);
             }
 
+            {
+                user_burn.latestNet += _balances[account];            
+                (uint numerator, uint denominator) = analyticMath.pow(
+                    FeeMagnifier, FeeMagnifier - user_burn.decayRate, Users[account].latestDecayRound, uint(1)  // mind of order. minus sign...
+                );
+                uint user_LNISLR = _balances[account]  * numerator / denominator;
+                Users[account].LNISLR = user_LNISLR;
+                user_burn.LNISLR += user_LNISLR;
+            }
+
+            // add new amount from avgNetAtAvgLastRound
+
         } else {
             if (creditNotDebit) {
                 _balances[account] += amount;
@@ -207,6 +177,11 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             }
         }
     }
+
+    function _burnPending() internal view returns(uint burnPending) {
+
+    }
+
 
     AnalyticMath analyticMath;
 
@@ -225,27 +200,29 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         voteAccount = address(uint160(uint(keccak256(abi.encodePacked("vote", blockhash(block.number))))));
         
         // struct Pulse {
-        //     uint latestBNumber;
-        //     uint cycleBlocks;
-        //     uint decayRate;
-        //     address account;
-        //     uint accDecayPer1e12;
-        //     uint sum_tokens;
-        //     uint pending_burn;
-        //     uint latestRound;
-        // }
+        // uint latestBNumber;
+        // uint cycleBlocks;
+        // uint decayRate;
+        // address account;
+        // uint accDecayPer1e12;
+        // uint sum_tokens;
+        // uint burnDone;
+        // uint latestRound;
+        // uint initialRound;
+        // uint latestNet;
+        // uint LNISLR;
 
         uint cycleBlocks = 2;   // small for test
-        lp_reward = Pulse(block.number, cycleBlocks, 690, tgrFtm, 0, 0, 0, block.number / cycleBlocks);
+        lp_reward = Pulse(block.number, cycleBlocks, 690, tgrFtm, 0, 0, 0, block.number / cycleBlocks, block.number / cycleBlocks, 0, 0);
         // 0.69% of XDAO/FTM LP has the XDAO side sold for FTM, 
         // then the FTM is used to buy HTZ which is added to XDAO lps airdrop rewards every 12 hours.        
         
         cycleBlocks = 2;    // small for test
-        vote_burn = Pulse(block.number, cycleBlocks, 70, voteAccount, 0, 0, 0, block.number / cycleBlocks);
+        vote_burn = Pulse(block.number, cycleBlocks, 70, voteAccount, 0, 0, 0, block.number / cycleBlocks, block.number / cycleBlocks, 0, 0);
         // 0.07% of tokens in the Agency dapp actively being used for voting burned every 12 hours.
 
         cycleBlocks = 4;    // small for test
-        user_burn = Pulse(block.number, cycleBlocks, 777, zero_address, 0, 0, 0, block.number / cycleBlocks);
+        user_burn = Pulse(block.number, cycleBlocks, 777, zero_address, 0, 0, 0, block.number / cycleBlocks, block.number / cycleBlocks, 0, 0);
         // 0.777% of tokens(not in Cyberswap/Agency dapp) burned each 24 hours from users wallets. 
 
         // ------------ What to do with this requirement ?
@@ -268,24 +245,24 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
 
     function _totalSupply_() internal view returns (uint) {
         // _safeSubtract doesn't manipulate data, but protects operation from possible dust coming from numerical error.
-        // user_burn.pending_burn may be either less or greater than its true real value. See pulse_user_burn for details.
-        return _totalSupply; //_safeSubtract(_totalSupply, user_burn.pending_burn);
-        // return user_burn.sum_tokens + nonUserSumTokens - user_burn.pending_burn;
+        // user_burn.burnDone may be either less or greater than its true real value. See pulse_user_burn for details.
+        return _totalSupply; //_safeSubtract(_totalSupply, user_burn.burnDone);
+        // return user_burn.sum_tokens + nonUserSumTokens - user_burn.burnDone;
     }
 
     function _balanceOf(address account) internal view returns (uint balance) {
         if (_isUserAccount(account)) {
-            // This line of code produces dust, due to numerical error. pendingBurn becomes less than its true value.
-            uint pendingBurn = _userPendingBurn(account);
+            // This line of code produces dust, due to numerical error. pending becomes less than its true value.
+            (, uint pending) = _viewPending(account);
             // so, balance becomes greater than its true value.
             // console.log("_balanceOf. 1e6 user_burn.accDecayPer1e12/1e12:", 1e6 *user_burn.accDecayPer1e12/1e12);
-            if(pendingBurn > _balances[account]) {
-                console.log("_balanceOf. pendingBurn > _balances[account]");
+            if(pending > _balances[account]) {
+                console.log("_balanceOf. pending > _balances[account]");
             }
             // if (user_burn.accDecayPer1e12 > 1e12) {
             //     console.log("!!!_balanceOf. user_burn.accDecayPer1e12 is greater than 1e12");    // no problem
             // } 
-            balance = _balances[account] - pendingBurn; // not less than its true value
+            balance = _balances[account] - pending; // not less than its true value
         } else {
             balance = _balances[account];
         }
@@ -444,14 +421,14 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
 
     //==================== Pulse public functions ====================
 
-    function _getDecayPer1e12(Pulse storage pulse) internal returns (uint decayPer1e12) {
+    function _writePulseDecay12(Pulse storage pulse) internal returns (uint decayPer1e12) {
         // Assumption: The amount subject to decay did not change since the pulse.latestRound or pulse/latestBNumber
 
         // pulse.lastTime, pulse.cycleBlocks, pulse.decayRate
-        uint round = block.number / pulse.cycleBlocks;  // the fraction is saved in the number for later use
-        if (round > pulse.latestRound) {
-            uint missingRounds = round - pulse.latestRound;
-            pulse.latestRound = round;
+        uint decayRound = block.number / pulse.cycleBlocks;  // the fraction is saved in the number for later use
+        if (decayRound > pulse.latestRound) {
+            uint missingRounds = decayRound - pulse.latestRound;
+            pulse.latestRound = decayRound;
             pulse.latestBNumber = block.number; // Not used.
 
             decayPer1e12 = uint(0);
@@ -463,45 +440,54 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         }
     }
 
-    function _getDecay12(Pulse storage pulse, User storage user) internal view 
-    returns (uint decay12, uint decayRound) {
+    function _viewDecay12(Pulse storage pulse, User storage user) internal view 
+    returns (uint decayRound, uint decay12) {
         // The balance subject to decay did not change since the user.latestDecayRound was changed.
-        // Proof: _getDecay12 is called only by change_balance, which is the only place where the balance is changed.
+        // Proof: _viewDecay12 is called only by change_balance, which is the only place where the balance is changed.
         // And, this function is called before the balance is actually changed, in the change_balance function.
         // And, this funciton is the only place where user.latestDecayRound is changed.
         // So, the balance did not change since the user.latestDecayRound was changed.
 
         // Dust: negative dusts for decayRound incurs no problem, as they will work at later calls.
-        uint decayRound = block.number / pulse.cycleBlocks;  // the fraction is saved in the number for later use
-        uint latestRound = user.latestDecayRound;
-        if (latestRound == 0) {
-            latestRound = pulse.latestRound;
+        decayRound = block.number / pulse.cycleBlocks - pulse.initialRound;  // the fraction is saved in the number for later use
+        // console.log("_viewDecay12. decayRouun, block.number:", decayRound, block.number);
+
+        uint user_latestDecayRound = user.latestDecayRound;
+        if (user_latestDecayRound == 0) {   // not initialized yet
+            user_latestDecayRound = pulse.initialRound; // initialize
         }
-        if (decayRound > user.latestDecayRound) {
-            uint missingRounds = decayRound - latestRound;
-            uint survive12 = uint(1e12);
-            // Dust: surviveRate has negative dusts.
-            uint surviveRate = (FeeMagnifier - pulse.decayRate) / FeeMagnifier; 
-            for(uint i = 0; i < missingRounds; i++) {
-                // Dust: survive12 has negative dusts, accumulated.
-                survive12 = survive12 * surviveRate;
-            }
-            
-            // Dust: decay12 has postive dusts.
-            decay12 = uint(1e12) - survive12;
-        }
+
+        uint missingRounds = _safeSubtract(decayRound, user_latestDecayRound);
+        // console.log("_viewDecay12. user_latestDecayRound, missingRounds", user_latestDecayRound, missingRounds);
+        
+        // uint survive12 = uint(1e12);
+        // Dust: surviveRate has negative dusts.
+        // for(uint i = 0; i < missingRounds; i++) {
+        //     // Dust: survive12 has negative dusts, accumulated.
+        //     survive12 = survive12 * (FeeMagnifier - pulse.decayRate) / FeeMagnifier;
+        // }
+        // decay12 = uint(1e12) - survive12;
+
+        // No remove: or choose this if missingRounds ia large.
+        (uint numerator, uint denominator) = analyticMath.pow(
+            FeeMagnifier - pulse.decayRate, FeeMagnifier, missingRounds, uint(1)
+            );
+        uint survive12 = uint(1e12) * numerator / denominator;
+        // Dust: decay12 has postive dusts.
+        decay12 = uint(1e12) - survive12;
     }
 
-    function _writeDecay12(Pulse storage pulse, User storage user) internal returns (uint decay12) {
-        (decay12, user.latestDecayRound) = _getDecay12(pulse, user);
-        pulse.latestBNumber = block.number;
-    }
+    // function _writeDecay12(Pulse storage pulse, User storage user) internal returns (uint decay12) {
+    //     (decay12, user.latestDecayRound) = _viewDecay12(pulse, user);
+    //     // console.log("_writeDecay12. user.latestDecayRound:", user.latestDecayRound);
+    //     pulse.latestBNumber = block.number;
+    // }
 
     function pulse_lp_reward() external {
         // 0.69% of XDAO/FTM LP has the XDAO side sold for FTM, 
         // then the FTM is used to buy HTZ which is added to XDAO lps airdrop rewards every 12 hours.
 
-        uint dilute12 = _getDecayPer1e12(lp_reward); // not greater than its true value.
+        uint dilute12 = _writePulseDecay12(lp_reward); // not greater than its true value.
         // Delute by decayPar1e12 (ie, remove decayPer1e12 portion from tgrFtm pool), use the TGR part to buy FTM, 
         // and use the FTM tokens to buy HTZ tokens at the htzftm pool, 
         // then add them to airdrop rewards.
@@ -540,7 +526,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     function pulse_vote_burn() external {
         // 0.07% of tokens in the Agency dapp actively being used for voting burned every 12 hours.
 
-        uint decayP12 = _getDecayPer1e12(vote_burn); // not greater than its true value.
+        uint decayP12 = _writePulseDecay12(vote_burn); // not greater than its true value.
 
         if (decayP12 > 0) {
             // burn decayPer1e12 portion of voteAccount account's TRG balance.
@@ -602,13 +588,13 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         // - deltaAccPer1e12 is defined first.
         // - deltaAccPer1e12 decides new_burn.
         checkForConsistency();
-        uint decay12 = _getDecayPer1e12(user_burn);
-        // Dust computing: decayPer1e12 may only be less than its true real value. See _getDecayPer1e12 for more.
+        uint decay12 = _writePulseDecay12(user_burn);
+        // Dust computing: decayPer1e12 may only be less than its true real value. See _writePulseDecay12 for more.
         if (decay12 > 0) {
             checkForConsistency();
             // _safeSubract doesn't manipulate data, but protects operation from possible dust coming from numerical error.
-            // Note. user_burn.pending_burn may be either less or greater that its true real value. See Dust computiong below.
-            uint net_collective = _safeSubtract(user_burn.sum_tokens, user_burn.pending_burn);
+            // Note. user_burn.burnDone may be either less or greater that its true real value. See Dust computiong below.
+            uint net_collective = _safeSubtract(user_burn.sum_tokens, user_burn.burnDone);
                         
             uint deltaAccPer1e12 = decay12; // 1st choise: 
             // uint deltaAccPer1e12 = (uint(1e12)-user_burn.accDecayPer1e12) * decay12 / uint(1e12); // 2nd choice: 
@@ -625,22 +611,17 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
 
             new_burn = user_burn.sum_tokens * deltaAccPer1e12 / uint(1e12);
 
-            // Dust computing: user_burn.pending_burn may be either less or greater than its true real value,
+            // Dust computing: user_burn.burnDone may be either less or greater than its true real value,
             // because deltaAccPer1e12 may be.
-            user_burn.pending_burn += new_burn;
-            if (user_burn.pending_burn > user_burn.sum_tokens) {
-                console.log("pulse_user_burn: numerical error. user_burn.pending_burn - user_burn.sum_tokens = ", user_burn.pending_burn - user_burn.sum_tokens, "gway(s) > 0");
-                user_burn.pending_burn = user_burn.sum_tokens;
+            user_burn.burnDone += new_burn;
+            if (user_burn.burnDone > user_burn.sum_tokens) {
+                console.log("pulse_user_burn: numerical error. user_burn.burnDone - user_burn.sum_tokens = ", user_burn.burnDone - user_burn.sum_tokens, "gway(s) > 0");
+                user_burn.burnDone = user_burn.sum_tokens;
             }
             // increased user_burn.accDecayPer1e12 will increase users' pending burn, and decrease _balanceOf(account)
             user_burn.accDecayPer1e12 += deltaAccPer1e12;
             // Dust computing: user_burn.accDecayPer1e12 may be either less or greater than its true real value.
             // Initially, it was the same, but later it fluctuate around its true real value, together with deltaAccPer1e12.
-
-            if( checkForConsistency() > 0 ) {
-                uint net_collective = _safeSubtract(user_burn.sum_tokens, user_burn.pending_burn);
-                uint net_marginal = balanceOf(admin) + balanceOf(alice) + balanceOf(bob) + balanceOf(carol);
-            }
         }
     }
 
@@ -648,31 +629,43 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
 
         // Defines user_burn attributes, based on the ERC20 core data.
         // require(user_burn.sum_tokens + nonUserSumTokens == _totalSupply, "sum_tokens + nonUserSumTokens != _totalSupply");
-        // This implies that user_burn.sum_tokens - user_burn.pending_burn + nonUserSumTokens == _totalSupply
+        // This implies that user_burn.sum_tokens - user_burn.burnDone + nonUserSumTokens == _totalSupply
         // See totalSupply()
 
-        require(user_burn.pending_burn <= user_burn.sum_tokens, "user_pending_burn exceeds user_sum_total");
+        require(user_burn.burnDone <= user_burn.sum_tokens, "user_pending_burn exceeds user_sum_total");
 
 
         // Be careful, there are more userAccounts. Look at _isUserAccount().
-        if (_balances[admin] + _balances[alice] + _balances[bob] + _balances[carol] != user_burn.sum_tokens) {
-            console.log("!!! inconsistent", _balances[admin] + _balances[alice] + _balances[bob] + _balances[carol], user_burn.sum_tokens);
+        if (_balances[admin] + _balances[alice] + _balances[bob] + _balances[carol] != _totalSupply - nonUserSumTokens) {
+            console.log("!!! inconsistent", _balances[admin] + _balances[alice] + _balances[bob] + _balances[carol], _totalSupply, nonUserSumTokens);
         }
 
-        uint net_collective = user_burn.sum_tokens; //_safeSubtract(user_burn.sum_tokens, user_burn.pending_burn);
-        uint net_marginal = balanceOf(admin) + balanceOf(alice) + balanceOf(bob) + balanceOf(carol);
-        
-        if (net_collective < net_marginal) {
-            abs_error = net_marginal - net_collective;
+        // uint net_collective = user_burn.sum_tokens; //_safeSubtract(user_burn.sum_tokens, user_burn.burnDone);
+        // uint net_marginal = balanceOf(admin) + balanceOf(alice) + balanceOf(bob) + balanceOf(carol);
+        uint pending_marginal; uint pending;
+        (, pending) = _viewPending(admin);   pending_marginal =  pending;
+        (, pending) = _viewPending(alice);   pending_marginal =  pending;
+        (, pending) = _viewPending(bob);   pending_marginal =  pending;
+        (, pending) = _viewPending(carol);   pending_marginal =  pending;
+
+        uint pending_collective = user_burn.burnDone;
+
+        console.log("marginal, collective", pending_marginal, pending_collective);
+
+        if (pending_collective < pending_marginal) {
+            abs_error = pending_marginal - pending_collective;
             // console.log("check --- marginal greater");
 
         } else {
-            abs_error = net_collective - net_marginal;
+            abs_error = pending_collective - pending_marginal;
             // console.log("check --- collective greater");
         }
 
-        console.log("error_rate:", 1e12 * abs_error/net_collective, "trillion-th(s)");
+        if (pending_collective > 0) {
+            console.log("error_rate:", 1e12 * abs_error/pending_collective, "trillion-th(s)");
+        }
         console.log("absolute_error: ", abs_error, "gway(s)");
+        console.log("pending_collective: ", pending_collective, "gway(s)");
     }
 
     //======================= DEX cooperations ===============================

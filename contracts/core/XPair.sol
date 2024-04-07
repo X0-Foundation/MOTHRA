@@ -33,7 +33,7 @@ contract XPair is IXPair {
 
     mapping(address => uint) public override nonces;
 
-    uint public constant override MINIMUM_LIQUIDITY = 10**3;
+    uint public constant override MINIMUM_LIQUIDITY = LiquiditySafety;
     bytes4 private constant TRANSFER = bytes4(keccak256(bytes("transfer(address,uint)")));
 
     ListStatus public override status;

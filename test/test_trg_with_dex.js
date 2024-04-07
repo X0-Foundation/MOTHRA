@@ -250,6 +250,12 @@ async function showMilestone(text) {
     console.log("\t%s".blue, text);
 }
 
+async function Pow(analyticMath, a, b, c, d) {
+    console.log("\tcalling analyticMath.pow with \n\t%s, \n\t%s, \n\t%s, \n\t%s...".yellow, a, b, c, d);
+    const pq = await analyticMath.pow(a, b, c, d);
+    console.log(BigInt(pq[0]), BigInt(pq[1]), BigInt(pq[0])/BigInt(pq[1]));
+}
+
 async function mintBlocks(blocks) {
     console.log("\tchain is minting %s blocks...".yellow, blocks);
 
@@ -318,7 +324,7 @@ async function mintTime(seconds) {
     console.log("\t%s seconds minted.", (await ethers.provider.getBlock("latest")).timestamp - tm0);
 }
 
-async function showConsistency() {
+async function checkConsistency() {
     let user_burn = await tgr.user_burn();
     // console.log("\n\tuser_burn: \n\tsum_tokens: %s, pending_burn: %s, \n\ttotalSupply()=_ts-pending_burn: %s", 
     // user_burn.sum_tokens, user_burn.pending_burn, await tgr.totalSupply());
@@ -730,11 +736,13 @@ async function test_swap(tokenA, amountA, tokenB, amountB, caller, to, log) {
     return [report, computedAmount];
 }
 
+let analyticMath;
 
 describe("====================== Stage 1: Deploy ======================\n".yellow, async function () {
     it("1.1 Main contracts are deployed.\n".green, async function () {
         // For the sake of transfer test, the pools tgrFtm, tgrHtz and votes are wallet accounts.
         // This way we can simulate a transfer from/to/between those pools.
+
 
         [owner, alice, bob, carol, votes] = await ethers.getSigners();
         owner.name = "Owner"; alice.name = "Alice"; bob.name = "Bob"; carol.name = "Carol"; votes.name = "Votes";
@@ -751,6 +759,7 @@ describe("====================== Stage 1: Deploy ======================\n".yello
         const AnalyticMath = await ethers.getContractFactory("AnalyticMath", owner);
         analyticMath = await AnalyticMath.deploy();
         await analyticMath.init();
+        await Pow(analyticMath, 2,1,3,1); // 2 ** 3
         console.log("\tAnalyticMath contract was deployed at: ", analyticMath.address);
 
         tgr = await deployTGR(owner, analyticMath.address, wireLib.address);
@@ -813,7 +822,10 @@ describe("====================== Stage 1: Deploy ======================\n".yello
         mock2 = await deployMockToken(owner, "Mock2", "MCK2");
         console.log("\tmock2 deployed at %s", mock2.address);
 
-        await showConsistency();
+        await checkConsistency();
+        await mintBlocks(1000);
+        await pulse_user_burn();
+        await checkConsistency();
 
     });
 
@@ -830,7 +842,10 @@ describe("====================== Stage 1: Deploy ======================\n".yello
       console.log("\tTGR decimals: %s", decimals);
       expectEqual(decimals, 18);
 
-      await showConsistency();
+      
+      await Pow(analyticMath, 1,2,3,4);
+
+      await checkConsistency();
     });
 
     it("1.3 Total supply and owner balance of TGR are checked.\n".green, async function () {
@@ -843,7 +858,7 @@ describe("====================== Stage 1: Deploy ======================\n".yello
       console.log("\tTGR owner balance: %s", weiToEthEn(ownerTgrBalance));
       expectEqual(weiToEth(ownerTgrBalance), INITIAL_SUPPLY);
 
-      await showConsistency();
+      await checkConsistency();
     });
 
     it("1.4 Allowance control functions were checked.\n".green, async function () {
@@ -866,7 +881,7 @@ describe("====================== Stage 1: Deploy ======================\n".yello
       console.log("\tallowance[owner][alice]: %s", weiToEthEn(allowanceOwnerAlice));
       expectEqual(weiToEth(allowanceOwnerAlice), 1000);
 
-      await showConsistency();
+      await checkConsistency();
     });
 
     it("1.5 1e6 Mock(MCK) tokens were minted to owner.\n".green, async function () {
@@ -877,7 +892,7 @@ describe("====================== Stage 1: Deploy ======================\n".yello
       mockOwnerBalance = await mock.balanceOf(owner.address);
       console.log("\tOwner's mock token balance after mint: %s", weiToEthEn(mockOwnerBalance));
 
-      await showConsistency();
+      await checkConsistency();
     });
 
     it("1.6 1e6 Mock2(MCK2) tokens were minted to owner.\n".green, async function () {
@@ -888,12 +903,12 @@ describe("====================== Stage 1: Deploy ======================\n".yello
       mockOwnerBalance = await mock2.balanceOf(owner.address);
       console.log("\tOwner's mock2 token balance after mint: %s", weiToEthEn(mockOwnerBalance));
 
-      await showConsistency();
+      await checkConsistency();
     });
 
     it("1.7 Setup the chain of nodes.\n".green, async function () {
       await setupNodeChain();
-      await showConsistency();
+      await checkConsistency();
     });
 });
 
@@ -901,7 +916,7 @@ describe("====================== Stage 1: Deploy ======================\n".yello
 describe("====================== Stage 2: Test pulses ======================\n".yellow, async function () {
 
   it("2.1 Test Pulses.\n".green, async function () {
-    await showConsistency();
+    await checkConsistency();
 
     blocks = 50 // Test pulse cycles are less than 5.
     mintburn = 100
@@ -910,7 +925,7 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await showMilestone("Milestone 0");
         await mintBlocks(blocks);
         // await pulse_user_burn();
-        await showConsistency();
+        await checkConsistency();
 
         await showMilestone("Milestone 1");
         await showStatus(owner);
@@ -934,11 +949,11 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await showStatus(alice);
 
         await showMilestone("Milestone 4");
-        await showConsistency();
+        await checkConsistency();
         await mintBlocks(blocks);
-        await showConsistency();
+        await checkConsistency();
         // await pulse_user_burn();
-        await showConsistency();
+        await checkConsistency();
 
         await showMilestone("Milestone 5");
         await showStatus(owner);
@@ -950,30 +965,30 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await showMilestone("Milestone 6");
         await burn(owner, bob, mintburn);
         await transfer(owner, bob, 1000);
-        await showConsistency();
+        await checkConsistency();
         await mintBlocks(blocks);
-        await showConsistency();
+        await checkConsistency();
         // await pulse_user_burn();
-        await showConsistency();    // outputs a non-zero error
+        await checkConsistency();    // outputs a non-zero error
 
         await showMilestone("Milestone 7");
-        await showConsistency();
+        await checkConsistency();
         await mint(owner, carol, mintburn);
-        await showConsistency();
+        await checkConsistency();
         await burn(owner, carol, mintburn);
-        await showConsistency();
+        await checkConsistency();
         await transfer(owner, carol, 5000);
         await mintBlocks(blocks);
-        await showConsistency();
+        await checkConsistency();
         // await pulse_user_burn();
-        await showConsistency();
+        await checkConsistency();
 
         await showMilestone("Milestone 8");
         await mint(owner, alice, mintburn);
         await burn(owner, alice, mintburn);
         await mintBlocks(blocks);
         // await pulse_user_burn();
-        await showConsistency();
+        await checkConsistency();
 
         await showMilestone("Milestone 9");
         await mint(owner, alice, mintburn);
@@ -981,7 +996,7 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await transfer(owner, carol, 100);
         await mintBlocks(blocks);
         // await pulse_user_burn();
-        await showConsistency();
+        await checkConsistency();
 
         await showMilestone("Milestone 10");
         await mint(owner, bob, mintburn);
@@ -989,7 +1004,7 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await transfer(carol, carol, 100);
         await mintBlocks(blocks);
         // await pulse_user_burn();
-        await showConsistency();
+        await checkConsistency();
 
         await showMilestone("Milestone 11");
         await mint(owner, alice, mintburn);
@@ -997,31 +1012,31 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await transfer(carol, alice, 100);
         await mintBlocks(blocks);
         // await pulse_user_burn();
-        await showConsistency();
+        await checkConsistency();
 
         await showMilestone("Milestone 12");
         await showStatus(owner);
-        await showConsistency();
+        await checkConsistency();
         await takeVotes(owner, 1);
         await showStatus(owner);
-        await showConsistency();
+        await checkConsistency();
 
         await showMilestone("Milestone 13");
         await showStatus(owner);
-        await showConsistency();
+        await checkConsistency();
         await returnVotes(owner, 1);
         await showStatus(owner);
-        await showConsistency();
+        await checkConsistency();
 
         await showMilestone("Milestone 14");
         await mintBlocks(blocks);
         await pulse_vote_burn();
-        await showConsistency();
+        await checkConsistency();
 
         // await showMilestone("Milestone 15");
         // await mintBlocks(blocks);
         // await pulse_lp_reward();
-        // await showConsistency();
+        // await checkConsistency();
     }
 
 });
@@ -1047,7 +1062,7 @@ describe("====================== Stage 3: Test Dex ======================\n".yel
         expectEqual(factoryOwner, owner.address);
         console.log("\tOwner address: %s", factoryOwner.address);
 
-        await showConsistency();
+        await checkConsistency();
     });
 
     it("3.2 setFeeTo function was checked.\n".green, async function () {
@@ -1059,7 +1074,7 @@ describe("====================== Stage 3: Test Dex ======================\n".yel
         await expectNotReverted(tx);
         console.log("\tThe current owner could set feeTo to Bob.");
 
-        await showConsistency();
+        await checkConsistency();
     });  
 
     // --------------------------------- Liquidity -------------------------------
@@ -1082,13 +1097,13 @@ describe("====================== Stage 3: Test Dex ======================\n".yel
 
         await mintBlocks(50);
         // await pulse_user_burn();
-        await showConsistency();
+        await checkConsistency();
 
         await transfer(owner, alice, 1);
         await transfer2(mock2, owner, alice, 1);
         await mintBlocks(50);
         // await pulse_user_burn();
-        await showConsistency();
+        await checkConsistency();
 
         let poolValue = initialTgrBnbValue;
         let tgrAmount = poolValue / 2 / initialTgrPrice;
@@ -1097,17 +1112,17 @@ describe("====================== Stage 3: Test Dex ======================\n".yel
 
         await mintBlocks(50);
         // await pulse_user_burn();
-        await showConsistency();
+        await checkConsistency();
 
         [tgr_bnb, report] = await test_addLiquidity(tgr, tgrAmount / 3, wbnb, bnbAmount / 3, owner, bob, true);
         await mintBlocks(50);
         // await pulse_user_burn();
-        await showConsistency();
+        await checkConsistency();
 
         [tgr_bnb, report] = await test_addLiquidity(tgr, tgrAmount / 3, wbnb, bnbAmount / 3, owner, carol, true);
         await mintBlocks(50);
         // await pulse_user_burn();
-        await showConsistency();    //-----------------------------
+        await checkConsistency();    //-----------------------------
 
         [mck_bnb, report] = await test_addLiquidity(mock, tgrAmount / 3, wbnb, bnbAmount / 3, owner, carol, true); // ------------ mck_bnb
         await mintBlocks(50);
@@ -1115,24 +1130,24 @@ describe("====================== Stage 3: Test Dex ======================\n".yel
         // [report, tgrAmount] = await test_swap(wbnb, 1, tgr, undefined, alice, bob, true);
         // await mintBlocks(50);
         // await pulse_user_burn();
-        // await showConsistency();
+        // await checkConsistency();
 
         // [report, bnbAmount] = await test_swap(tgr, tgrAmount * 0.99, wbnb, undefined, bob, alice, true);
         // await mintBlocks(50);
         // await pulse_user_burn();
-        // await showConsistency();
+        // await checkConsistency();
 
         // ------------------------ This doesn't work for TGR contract which collect fees.        
         // [report, tgrAmount] = await test_swap(tgr, undefined, wbnb, bnbAmount * 0.99, alice, bob, true); //----------------------------
         // await mintBlocks(50);
         // await pulse_user_burn();
-        // await showConsistency();
+        // await checkConsistency();
 
         // let liquidityAmount = 0.001;
         // report = await test_removeLiquidity(tgr, wbnb, liquidityAmount, alice, alice, true);
         // await mintBlocks(50);
         // await pulse_user_burn();
-        // await showConsistency();
+        // await checkConsistency();
         // console.log("\n\t9");
 
         // poolValue = initialTgrMckValue;
@@ -1142,14 +1157,14 @@ describe("====================== Stage 3: Test Dex ======================\n".yel
 
         // await mintBlocks(50);
         // await pulse_user_burn();
-        // await showConsistency();
+        // await checkConsistency();
         // console.log("\n\t10");
 
         // [tgr_mck, report] = await test_addLiquidity(tgr, tgrAmount, mock, mckAmount, owner, bob, true);
         
         // await mintBlocks(50);
         // await pulse_user_burn();
-        // await showConsistency();
+        // await checkConsistency();
         // console.log("\n\t11");
 
         // [tgr_mck, report] = await test_addLiquidity(tgr, tgrAmount, mock, mckAmount, owner, carol, true);
@@ -1157,142 +1172,143 @@ describe("====================== Stage 3: Test Dex ======================\n".yel
 
         // await mintBlocks(50);
         // await pulse_user_burn();
-        // await showConsistency();
+        // await checkConsistency();
         // console.log("\n\t13");
 
         // [tgr_mck2, report] = await test_addLiquidity(tgr, tgrAmount, mock2, mckAmount, owner, alice, true); // ===========
         // await mintBlocks(50);
         // await pulse_user_burn();
-        // await showConsistency();
+        // await checkConsistency();
         // console.log("\n\t14");
 
         // [tgr_mck2, report] = await test_addLiquidity(tgr, tgrAmount, mock2, mckAmount, owner, bob, true);
         // await mintBlocks(50);
         // await pulse_user_burn();
-        // await showConsistency();
+        // await checkConsistency();
         // console.log("\n\t15");
 
         // [tgr_mck2, report] = await test_addLiquidity(tgr, tgrAmount, mock2, mckAmount, owner, carol, true);
         // await mintBlocks(50);
         // await pulse_user_burn();
-        // await showConsistency();
+        // await checkConsistency();
         // console.log("\n\t16");
 
         // let balances = await tgr_mck2.connect(owner).getReserves();
         // [report, tgrAmount] = await test_swap(mock2, undefined, tgr, 100, alice, bob, true); //----------------------------------
         // await mintBlocks(50);
         // await pulse_user_burn();
-        // await showConsistency();
+        // await checkConsistency();
         // console.log("\n\t17");
 
         // console.log("\n\tOwner transferring to alice... 15000 Tgr");
         // await tgr.connect(owner).transfer(alice.address, ethToWei(15000));
         // await mintBlocks(50);
         // await pulse_user_burn();
-        // await showConsistency();
+        // await checkConsistency();
         // console.log("\n\t18");
 
         // [report, mockAmount] = await test_swap(tgr, 10, mock, undefined, alice, alice, true);
         // await mintBlocks(50);
         // await pulse_user_burn();
-        // await showConsistency();
+        // await checkConsistency();
         // console.log("\n\t19");
 
         // [report, tgrAmount] = await test_swap(mock, mockAmount * 0.99, tgr, undefined, alice, bob, true);
         // await mintBlocks(50);
         // await pulse_user_burn();
-        // await showConsistency();
+        // await checkConsistency();
         // console.log("\n\t20");
 
         // liquidityAmount = 0.001;
         // report = await test_removeLiquidity(tgr, mock, liquidityAmount, alice, alice, true);
         // await mintBlocks(50);
         // await pulse_user_burn();
-        // await showConsistency();
+        // await checkConsistency();
         // console.log("\n\t21");
 
         // console.log("\n\tOwner transferring to alice... 15000 Trg");
         // await tgr.connect(owner).transfer(alice.address, ethToWei(15000));
         // await mintBlocks(50);
         // await pulse_user_burn();
-        // await showConsistency();
+        // await checkConsistency();
         // console.log("\n\t22");
 
         // [report, mockAmount] = await test_swap(tgr, 10, mock2, undefined, alice, alice, true);
         // await mintBlocks(50);
         // await pulse_user_burn();
-        // await showConsistency();
+        // await checkConsistency();
         // console.log("\n\t23");
 
         // [report, tgrAmount] = await test_swap(mock2, mockAmount * 0.99, tgr, undefined, alice, bob, true);
         // await mintBlocks(50);
         // await pulse_user_burn();
-        // await showConsistency();
+        // await checkConsistency();
         // console.log("\n\t24");
 
         // liquidityAmount = 0.001;
         // report = await test_removeLiquidity(tgr, mock2, liquidityAmount, alice, alice, true);
         // await mintBlocks(50);
         // await pulse_user_burn();
-        // await showConsistency();
+        // await checkConsistency();
         // console.log("\n\t25");
 
     });
 
     it ("3.4 Test Pulses, extended.\n".green, async function () {
-        await showConsistency();
+        await checkConsistency();
 
         await mintBlocks(50);
         // await pulse_user_burn();
-        await showConsistency();
+        await checkConsistency();
 
         await transfer(owner, alice, 10);
         await mintBlocks(5);
         // await pulse_user_burn();
-        await showConsistency();
+        await checkConsistency();
 
         await transfer(owner, bob, 1000);
         await mintBlocks(50);
         // await pulse_user_burn();
-        await showConsistency();
+        await checkConsistency();
 
         await transfer(owner, carol, 5000);
         await mintBlocks(50);
         // await pulse_user_burn();
-        await showConsistency();
+        await checkConsistency();
 
         await transfer(owner, carol, 100);
         await mintBlocks(50);
         // await pulse_user_burn();
-        await showConsistency();
+        await checkConsistency();
 
         await transfer(carol, carol, 100);
         await mintBlocks(50);
         // await pulse_user_burn();
-        await showConsistency();
+        await checkConsistency();
 
         await transfer(carol, alice, 100);
         await mintBlocks(50);
         // await pulse_user_burn();
-        await showConsistency();
+        await checkConsistency();
 
         // await transfer(owner, tgr_bnb, 100);
         // await mintBlocks(50);
         // await pulse_user_burn();
-        // await showConsistency();
+        // await checkConsistency();
 
         // tgr_mck.name = "_tgrHtz";
         // console.log("tgr_mck", tgr_mck.address, tgr_mck.name);
         // await transfer(tgr_bnb, tgr_mck, 101);
         // await mintBlocks(50);
         // await pulse_user_burn();
-        // await showConsistency();
+        // await checkConsistency();
 
         // await tgr.pulse_lp_reward();
 
         await mintBlocks(5);
         // await pulse_user_burn();
-        await showConsistency();
+        await checkConsistency();
+
 
     });
 
