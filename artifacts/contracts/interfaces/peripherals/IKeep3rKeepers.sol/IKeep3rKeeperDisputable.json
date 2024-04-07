@@ -1,0 +1,96 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IKeep3rKeeperDisputable",
+  "sourceName": "contracts/interfaces/peripherals/IKeep3rKeepers.sol",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "_keeper",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "_slasher",
+          "type": "address"
+        }
+      ],
+      "name": "KeeperRevoke",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "_keeper",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "_slasher",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "KeeperSlash",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_keeper",
+          "type": "address"
+        }
+      ],
+      "name": "revoke",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_keeper",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_bonded",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_bondAmount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_unbondAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "slash",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

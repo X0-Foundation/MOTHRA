@@ -1,0 +1,16 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IBaseErrors",
+  "sourceName": "contracts/interfaces/peripherals/IBaseErrors.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "ZeroAddress",
+      "type": "error"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

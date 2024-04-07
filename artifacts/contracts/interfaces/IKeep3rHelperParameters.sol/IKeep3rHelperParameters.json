@@ -1,0 +1,287 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IKeep3rHelperParameters",
+  "sourceName": "contracts/interfaces/IKeep3rHelperParameters.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "InvalidKp3rPool",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_keep3rV2",
+          "type": "address"
+        }
+      ],
+      "name": "Keep3rV2Change",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_address",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "_isKP3RToken0",
+          "type": "bool"
+        }
+      ],
+      "name": "Kp3rWethPoolChange",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_maxBoost",
+          "type": "uint256"
+        }
+      ],
+      "name": "MaxBoostChange",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_minBoost",
+          "type": "uint256"
+        }
+      ],
+      "name": "MinBoostChange",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_targetBond",
+          "type": "uint256"
+        }
+      ],
+      "name": "TargetBondChange",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_workExtraGas",
+          "type": "uint256"
+        }
+      ],
+      "name": "WorkExtraGasChange",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "BOOST_BASE",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "_base",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "KP3R",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "_kp3r",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "keep3rV2",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "_keep3rV2",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "kp3rWethPool",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "poolAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "isKP3RToken0",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "maxBoost",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "_multiplier",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "minBoost",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "_multiplier",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_keep3rV2",
+          "type": "address"
+        }
+      ],
+      "name": "setKeep3rV2",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_poolAddress",
+          "type": "address"
+        }
+      ],
+      "name": "setKp3rWethPool",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_maxBoost",
+          "type": "uint256"
+        }
+      ],
+      "name": "setMaxBoost",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_minBoost",
+          "type": "uint256"
+        }
+      ],
+      "name": "setMinBoost",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_targetBond",
+          "type": "uint256"
+        }
+      ],
+      "name": "setTargetBond",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_workExtraGas",
+          "type": "uint256"
+        }
+      ],
+      "name": "setWorkExtraGas",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "targetBond",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "_target",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "workExtraGas",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "_workExtraGas",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

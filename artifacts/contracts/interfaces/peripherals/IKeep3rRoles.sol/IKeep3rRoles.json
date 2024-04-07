@@ -1,0 +1,183 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IKeep3rRoles",
+  "sourceName": "contracts/interfaces/peripherals/IKeep3rRoles.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "DisputerExistent",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "DisputerUnexistent",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "OnlyDisputer",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "OnlySlasher",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "SlasherExistent",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "SlasherUnexistent",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_disputer",
+          "type": "address"
+        }
+      ],
+      "name": "DisputerAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_disputer",
+          "type": "address"
+        }
+      ],
+      "name": "DisputerRemoved",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_slasher",
+          "type": "address"
+        }
+      ],
+      "name": "SlasherAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_slasher",
+          "type": "address"
+        }
+      ],
+      "name": "SlasherRemoved",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_disputer",
+          "type": "address"
+        }
+      ],
+      "name": "addDisputer",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_slasher",
+          "type": "address"
+        }
+      ],
+      "name": "addSlasher",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_disputer",
+          "type": "address"
+        }
+      ],
+      "name": "disputers",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "_isDisputer",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_disputer",
+          "type": "address"
+        }
+      ],
+      "name": "removeDisputer",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_slasher",
+          "type": "address"
+        }
+      ],
+      "name": "removeSlasher",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_slasher",
+          "type": "address"
+        }
+      ],
+      "name": "slashers",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "_isSlasher",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}
