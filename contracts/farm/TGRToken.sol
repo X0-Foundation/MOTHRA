@@ -67,19 +67,21 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     address admin; address alice; address bob; address carol;
 
     function getStatus(address user) external view returns (
-        uint totalSupply, uint ub_sum_tokens, uint nonUserSumTokens, uint burnPending, uint latestRound, uint VIRTUAL,
-        uint u_balances, uint u_pending, uint u_latestDecayRound, uint u_VIRTUAL
+        uint totalSupply, uint ub_sum_tokens, uint nonUserSumTokens, uint burnPending, uint burnDone, uint latestRound,
+        uint latestNet, uint VIRTUAL, uint u_VIRTUAL, uint u_balances, uint u_pending, uint u_latestDecayRound
     ) {
         totalSupply = _totalSupply; // user_burn.sum_tokens + _nonUserSumTokens; // _totalSupply;
         ub_sum_tokens = user_burn.sum_tokens;
         nonUserSumTokens = _nonUserSumTokens;
         burnPending = _burnPending();
+        burnDone = user_burn.burnDone;
         latestRound = user_burn.latestRound;
+        latestNet = user_burn.latestNet;
+        u_VIRTUAL = Users[user].VIRTUAL;
         VIRTUAL = user_burn.VIRTUAL;
         u_balances = _balances[user];
         (, u_pending) = _viewPending(user);
         u_latestDecayRound = Users[user].latestRound;
-        u_VIRTUAL = Users[user].VIRTUAL;
     }
 
     function _safeSubtract(uint a, uint b) internal pure returns (uint delta) {
@@ -108,11 +110,10 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         uint missingRounds = _safeSubtract(decayRound, _user.latestRound);
         
         (uint numerator, uint denominator) = analyticMath.pow(
-            FeeMagnifier - _user_burn.decayRate, FeeMagnifier, missingRounds, uint(1)
+            RateMagnifier - _user_burn.decayRate, RateMagnifier, missingRounds, uint(1)
             );
-        uint survive12 =  IntegralMath.mulDivF(uint(1e12), numerator, denominator);
+        uint survive12 =  IntegralMath.mulDivC(uint(1e12), numerator, denominator); // Ceil for more survival, generouse burning
         decay12 = uint(1e12) - survive12;
-
 
         uint pending = _balances[account] * decay12 / uint(1e12);    // Dust: pendingBurn has positive dusts.
         return (decayRound, pending);
@@ -133,12 +134,11 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             // _balances[account] didn't change since the previous call to this function.
 
             {
-                _safeSubtract(user_burn.latestNet, _balances[account]);
-                _safeSubtract(user_burn.VIRTUAL, Users[account].VIRTUAL);
+                user_burn.latestNet = _safeSubtract(user_burn.latestNet, _balances[account]);
+                user_burn.VIRTUAL = _safeSubtract(user_burn.VIRTUAL, Users[account].VIRTUAL);
             }
 
             (uint decayRound, uint pending) = _viewPending(account);
-            Users[account].latestRound = decayRound;
 
             if (pending > 0) {
                 // _safeSubtract doesn't manipulate data, but protects the operation from dust. 
@@ -151,7 +151,9 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
                 
                 user_burn.burnDone += pending;
                 // At this moment of code, net_collective = user_burn.sum_tokens - user_burn.burnDone didn't change,
-            }
+            } 
+            
+            // no pending now. _balances[account] is the net balance of account.
 
             if (creditNotDebit) {
                 _balances[account] += amount;
@@ -167,13 +169,15 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             }
 
             {
-                user_burn.latestNet += _balances[account];            
+                user_burn.latestNet += _balances[account];
+
                 (uint numerator, uint denominator) = analyticMath.pow(
-                    FeeMagnifier, FeeMagnifier - user_burn.decayRate, Users[account].latestRound, uint(1)  // mind of order. minus sign...
+                    RateMagnifier, RateMagnifier - user_burn.decayRate, decayRound, uint(1)  // mind of order. minus sign...
                 );
-                uint user_VIRTUAL = _balances[account]  * numerator / denominator;
+                uint user_VIRTUAL = IntegralMath.mulDivC(_balances[account], numerator, denominator); // Ceil for mode survival
                 Users[account].VIRTUAL = user_VIRTUAL;
                 user_burn.VIRTUAL += user_VIRTUAL;
+                Users[account].latestRound = decayRound;
             }
 
             // add new amount from avgNetAtAvgLastRound
@@ -196,11 +200,13 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         uint decayRound = _viewPulseRound(user_burn);
                      
         (uint numerator, uint denominator) = analyticMath.pow(
-            FeeMagnifier - user_burn.decayRate, FeeMagnifier,  decayRound, uint(1)
+            RateMagnifier - user_burn.decayRate, RateMagnifier,  decayRound, uint(1)
         );  // less than 1
 
+        // Choose Ceil for more survival, and for making 1-gway-error to 0-gway-error in checkConsistency
+        // Otherwise, 1 and 0 will give (1-0) / 1 == 100 % error.
         uint survival = IntegralMath.mulDivC(user_burn.VIRTUAL, numerator, denominator);
-        burnPending = user_burn.latestNet - survival;
+        burnPending = _safeSubtract(user_burn.latestNet, survival);
         // console.log("_burnPending. decayRound, numerator, denominator: ", decayRound, numerator, denominator);
         // console.log("_burnPending. user_burn.VIRTUAL, burnPending: ", user_burn.VIRTUAL, burnPending);
     }
@@ -307,6 +313,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     function _burn(address from, uint amount) internal virtual {
         require(from != address(0), sZeroAddress);
         uint accountBalance = _balanceOf(from);
+        console.log("_burn. accountBalance, amount:", accountBalance, amount);
         require(accountBalance >= amount, sExceedsBalance);
 
         _beforeTokenTransfer(from, address(0), amount);
@@ -339,7 +346,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         if (amount > 0) {
             // if (actionParams.isUserAction) {  // Shift transfer
             //     // Dust computing: burnAmount may only be less than its true real value.
-            //     uint burnAmount = amount * _buysell_burn_rate / FeeMagnifier;
+            //     uint burnAmount = amount * _buysell_burn_rate / RateMagnifier;
             //     _burn(sender, burnAmount);
             //     amount -= burnAmount;
             // }
@@ -455,7 +462,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
 
             decayPer1e12 = uint(0);
             for(uint i = 0; i < missingRounds; i++) {
-                decayPer1e12 = decayPer1e12 + (uint(1e12) - decayPer1e12) * pulse.decayRate / FeeMagnifier;
+                decayPer1e12 = decayPer1e12 + (uint(1e12) - decayPer1e12) * pulse.decayRate / RateMagnifier;
             }
 
             // Dust computing: decayPer1e12 may be less than its true real value, due to the division operation.
@@ -638,7 +645,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
                 revert("Inconsistenct 2");
             }
 
-            uint burnAmount = amount * _buysell_burn_rate / FeeMagnifier;
+            uint burnAmount = amount * _buysell_burn_rate / RateMagnifier;
             _burn(sender, burnAmount);
             amount -= burnAmount;
 
@@ -646,7 +653,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             if (pairs[msgSender].token0 != address(0)) { // Remove/Buy/Dilute
                 ActionType action = _getCurrentActionType();
                 if(action == ActionType.Swap) { // Buy
-                    uint burnAmount = amount * _buysell_burn_rate / FeeMagnifier;
+                    uint burnAmount = amount * _buysell_burn_rate / RateMagnifier;
                     _burn(sender, burnAmount);
                     amount -= burnAmount;
                     console.log("Buy");
@@ -671,7 +678,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     }
 
     function changeBurnRates(uint _buysell_burn_rate, uint _shift_burn_rate) external onlyOwner {
-        require(_buysell_burn_rate <= FeeMagnifier && _shift_burn_rate <= FeeMagnifier, "Invalid burn rates");
+        require(_buysell_burn_rate <= RateMagnifier && _shift_burn_rate <= RateMagnifier, "Invalid burn rates");
         _buysell_burn_rate = _buysell_burn_rate;
         _shift_burn_rate = _shift_burn_rate;
     }

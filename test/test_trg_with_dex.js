@@ -43,8 +43,8 @@ const {
     
     // These constants come from IConstants.sol.
     const FeeMagnifierPower = 5;
-    const FeeMagnifier = 10 ** FeeMagnifierPower;
-    const SqaureMagnifier = FeeMagnifier * FeeMagnifier;
+    const RateMagnifier = 10 ** FeeMagnifierPower;
+    const SqaureMagnifier = RateMagnifier * RateMagnifier;
     const LiquiditySafety = 10**3;
     const DECIMALS = 18;
     const INITIAL_SUPPLY = 10**(DECIMALS+6);
@@ -196,11 +196,11 @@ async function setupNodeChain() {
 
     const FeeRates = [
         //(Accountant). Order is critical.
-        [FeeMagnifier], // None. (Let them pay 100% fee if they are suspicious.)
-        [FeeMagnifier * 0.001],  // Transfer
-        [FeeMagnifier * 0.001],  // Swap
-        [FeeMagnifier * 0.001],  // AddLiquidity
-        [FeeMagnifier * 0.001],  // RemoveLiquidity
+        [RateMagnifier], // None. (Let them pay 100% fee if they are suspicious.)
+        [RateMagnifier * 0.001],  // Transfer
+        [RateMagnifier * 0.001],  // Swap
+        [RateMagnifier * 0.001],  // AddLiquidity
+        [RateMagnifier * 0.001],  // RemoveLiquidity
         [0]     // Dilute
         // [100], // Deposit
         // [100], // Withdraw
@@ -295,15 +295,19 @@ async function showStatus(user) {
     console.log("\tstatus: %s".yellow, user.name);
     console.log("\ttalSupply %s, ub_sum_tokens %s, \
     \n\tnonUserSumTokens %s, burnPending %s, \
-    \n\tlatestRound %s, VIRTUAL %s, \
+    \n\tburnDone %s, latestRound %s, \
+    \n\tlatestNet %s, VIRTUAL %s, u_VIRTUAL %s, \
     \n\tu_balances %s, u_pending %s, \
-    \n\tu_latestDecayRound %s, u_VIRTUAL %s, \
+    \n\tu_latestDecayRound %s, \
+    \n\tburnPending + bernDone ===== %s, \
     \n\t_totalSupply-nonUserTokenSum-ub.sum_tokens ===== %s".green,
     s.totalSupply, s.ub_sum_tokens, 
-    s.nonUserSumTokens, s.burnPending,
-    s.latestRound, s.VIRTUAL,
+    s.nonUserSumTokens, s.burnPending, 
+    s.burnDone, s.latestRound, 
+    s.latestNet, s.VIRTUAL, s.u_VIRTUAL,
     s.u_balances, s.u_pending,
-    s.u_latestDecayRound, s.u_VIRTUAL,
+    s.u_latestDecayRound,
+    BigInt(s.burnPending) + BigInt(s.burnDone),
     BigInt(s.totalSupply)-BigInt(s.nonUserSumTokens)-BigInt(s.ub_sum_tokens),
     );
 }
@@ -389,10 +393,11 @@ async function burn(burner, from, amount) {
 
     let amountWei = ethToWei(amount);
     let balance = await tgr.balanceOf(from.address);
-    if (amountWei > balance) {
-        amountWei = balance;
-        amount = weiToEth(amountWei);
-    }
+    // if (amountWei > balance) {
+    //     console.log("amount %s reduced", amount, BigInt(balance), BigInt(amountWei));
+    //     amountWei = balance;
+    //     amount = weiToEth(amountWei);
+    // }
     await console.log("\t%s is burning %s TGR from %s ...".yellow, 
     burner.name == undefined ? "undefined" : burner.name,
     amount,
@@ -938,36 +943,49 @@ describe("====================== Stage 2: Test pulses ======================\n".
   it("2.1 Test Pulses.\n".green, async function () {
     await checkConsistency();
 
-    blocks = 50 // Test pulse cycles are less than 5.
+    blocks = 60 // twice the cycle
     mintAmount = 1000
-    burnAmount = 900
+    burnAmount = 700
 
     for(i=0; i<1; i++) {
         await showMilestone("Milestone 0");
-        await mintBlocks(blocks);
-        // await pulse_user_burn();
         await checkConsistency();
-
-        // await mintBlocks(500);
-        // await pulse_user_burn();
         await showStatus(owner)
-        await showStatus(alice)
+        await mintBlocks(blocks);
+        await mint(owner, owner, 0);    // 0 just for calling _changeBlance
+        await showStatus(owner)
         await checkConsistency();
-        await mintBlocks(50);
+        await mintBlocks(blocks);
+        await mint(owner, owner, 0);    // 0 just for calling _changeBlance
+        await showStatus(owner)
         await checkConsistency();
-        await mintBlocks(50);
+        await mintBlocks(blocks);
+        await mint(owner, owner, 0);    // 0 just for calling _changeBlance
+        await showStatus(owner)
         await checkConsistency();
-        await mintBlocks(50);
+        await mintBlocks(blocks);
+        await mint(owner, owner, 0);    // 0 just for calling _changeBlance
+        await showStatus(owner)
         await checkConsistency();
-        await mintBlocks(50);
+        await mintBlocks(blocks);
+        await mint(owner, owner, 0);    // 0 just for calling _changeBlance
+        await showStatus(owner)
         await checkConsistency();
-        await mintBlocks(50);
+        await mintBlocks(blocks);
+        await mint(owner, owner, 0);    // 0 just for calling _changeBlance
+        await showStatus(owner)
         await checkConsistency();
-        await mintBlocks(50);
+        await mintBlocks(blocks);
+        await mint(owner, owner, 0);    // 0 just for calling _changeBlance
+        await showStatus(owner)
         await checkConsistency();
-        await mintBlocks(50);
+        await mintBlocks(blocks);
+        await mint(owner, owner, 0);    // 0 just for calling _changeBlance
+        await showStatus(owner)
         await checkConsistency();
-        await mintBlocks(50);
+        await mintBlocks(blocks);
+        await mint(owner, owner, 0);    // 0 just for calling _changeBlance
+        await showStatus(owner)
         await checkConsistency();
 
         await showMilestone("Milestone 1");
@@ -991,7 +1009,7 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await showStatus(owner);
         await showStatus(alice);
         await checkConsistency();
-        // await burn(owner, alice, mintAmount);
+        // await burn(owner, alice, burnAmount);
         // await showStatus(owner);
         // await showStatus(alice);
         // await checkConsistency();
@@ -1020,6 +1038,7 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await checkConsistency();
 
         await showMilestone("Milestone 6");
+        await checkConsistency();
         await burn(owner, bob, burnAmount);
         await transfer(owner, bob, 100);
         await checkConsistency();

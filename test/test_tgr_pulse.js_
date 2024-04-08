@@ -37,7 +37,7 @@ const {
     let owner, alice, bob, carol, tgrFtm, tgrHtz, votes;
     let tx;
     
-    const FeeMagnifier = Number(1e5); // 
+    const RateMagnifier = Number(1e5); // 
     const DECIMALS = 18;
     const INITIAL_SUPPLY = 1e6;
 

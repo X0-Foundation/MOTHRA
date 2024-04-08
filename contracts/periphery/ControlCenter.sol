@@ -31,7 +31,7 @@ contract ControlCenter is IControlCenter, Node, Ownable {
 
     uint public sessionLiquidityChangeLimit = 5000; // 5% remove.
 
-    uint constant sqaureMagnifier = FeeMagnifier * FeeMagnifier;
+    uint constant sqaureMagnifier = RateMagnifier * RateMagnifier;
     uint private constant safety = 1e2;
 
     constructor() Ownable() Node(NodeType.Center) {
@@ -48,7 +48,7 @@ contract ControlCenter is IControlCenter, Node, Ownable {
     function ruleOutInvalidLiquidity(PairSnapshot memory ps) external view override virtual {
         uint squareLiquidity = ps.reserve0 * ps.reserve1 * safety;
         uint prevSquareLiquidity = pairStateAtSessionDetect[ps.pair].reserve0 * pairStateAtSessionDetect[ps.pair].reserve1;
-        uint squareExponent = (FeeMagnifier + sessionLiquidityChangeLimit);
+        uint squareExponent = (RateMagnifier + sessionLiquidityChangeLimit);
         squareExponent = squareExponent * squareExponent;
         uint squareMin = prevSquareLiquidity * sqaureMagnifier * safety / squareExponent; // uint can accommodate 1e77. 1e15 tokens possible.
         uint squareMax = prevSquareLiquidity * squareExponent * safety / sqaureMagnifier;
@@ -72,9 +72,9 @@ contract ControlCenter is IControlCenter, Node, Ownable {
     function _ruleOutDeviateFromInitialPrice(PairSnapshot memory ps) internal view virtual {
         uint price = ps.reserve0 * 1e12 / ps.reserve1;
         uint prevPrice = pairStateAtSessionDetect[ps.pair].reserve0 * 1e12 / pairStateAtSessionDetect[ps.pair].reserve1;
-        uint exponent = FeeMagnifier + sessionPriceChangeLimit;
-        uint min = prevPrice * FeeMagnifier / exponent;
-        uint max = prevPrice * exponent / FeeMagnifier;
+        uint exponent = RateMagnifier + sessionPriceChangeLimit;
+        uint min = prevPrice * RateMagnifier / exponent;
+        uint max = prevPrice * exponent / RateMagnifier;
         require(min <= price && price <= max, "Excessive deviation from initial price");
         //console.log("Price control 1: OK", min, price, max);
     }
@@ -109,7 +109,7 @@ contract ControlCenter is IControlCenter, Node, Ownable {
     }
 
 
-    // i-th: excludes most less likely prices, total (i)% on the two sides. i in [1, 10] // based on FeeMagnifier.
+    // i-th: excludes most less likely prices, total (i)% on the two sides. i in [1, 10] // based on RateMagnifier.
     //int32[] public zValuePerRuleOutPercent = [int32(257600), 232600, 217000, 205300, 195900, 188000, 181200, 175100, 169500, 164400];
     //int32[] public zValuePerRuleOutPercent = [int32(257600), 232600, 217000, 205300, 195900, 188000, 181200, 175100, 169500, 164400];
     //.99498, .98994, .98488, .97979, .97467, .96953, .96436, .95916, .95393, .94868, 
@@ -143,7 +143,7 @@ contract ControlCenter is IControlCenter, Node, Ownable {
         // G = 10 ** (2M+8) * (1 + zScore * priceFeed0.deviation * 10**(-M-4) ) (1 + zScore * priceFeed1.deviation * 10**(-M-4))
         // Let D be 23.
         // R0, R1: price value returned by ChainLink.
-        // 10**M: FeeMagnifier.
+        // 10**M: RateMagnifier.
 
         require( 1 <= ruleOutPercent && ruleOutPercent <= zValuePerRuleOutPercent.length, "RuleOutPercent out of range");
         int256 zScore = int256(zValuePerRuleOutPercent[ruleOutPercent-1]);

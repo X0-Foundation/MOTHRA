@@ -51,7 +51,7 @@ library WireLibrary {
         FeeRates memory _feeRates
     ) external {
         require(uint(_sessionType) < NumberSessionTypes, "Wrong ActionType");
-        require(_feeRates.accountant <= FeeMagnifier, "Fee rates exceed limit");
+        require(_feeRates.accountant <= RateMagnifier, "Fee rates exceed limit");
 
         feeRates[_sessionType].accountant = _feeRates.accountant;
     }

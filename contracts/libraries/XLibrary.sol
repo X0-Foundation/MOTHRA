@@ -34,7 +34,7 @@ library XLibrary {
                             hex"ff",
                             factory,
                             keccak256(abi.encodePacked(token0, token1)),
-                            hex"44b1cdaf1af10ffc1f9ac7cfd384f0da9de561c3c8bb5cd70ce609588113f93a" // init code hash
+                            hex"24cc5c3298c1b6e9d893589f7f0ab910fdd390e1452f4ca2cc4402d747ef4127" // init code hash
                         )
                     )
                 )
@@ -132,7 +132,7 @@ library XLibrary {
         uint fee;
         if (principal != 0) {
             if (rates.accountant != 0) {
-                fee = (principal * rates.accountant) / FeeMagnifier;
+                fee = (principal * rates.accountant) / RateMagnifier;
                 lightTransferFrom(token, payer, feeStores.accountant, fee, tgrToken);
                 feesPaid += fee;
             }
