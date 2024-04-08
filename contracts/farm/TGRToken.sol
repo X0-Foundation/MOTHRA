@@ -78,7 +78,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         VIRTUAL = user_burn.VIRTUAL;
         u_balances = _balances[user];
         (, u_pending) = _viewPending(user);
-        u_latestDecayRound = Users[user].latestDecayRound;
+        u_latestDecayRound = Users[user].latestRound;
         u_VIRTUAL = Users[user].VIRTUAL;
     }
 
@@ -105,7 +105,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
 
         uint decayRound; uint decay12;
         decayRound = block.number / _user_burn.cycleBlocks - _user_burn.initialRound;
-        uint missingRounds = _safeSubtract(decayRound, _user.latestDecayRound);
+        uint missingRounds = _safeSubtract(decayRound, _user.latestRound);
         
         (uint numerator, uint denominator) = analyticMath.pow(
             FeeMagnifier - _user_burn.decayRate, FeeMagnifier, missingRounds, uint(1)
@@ -122,7 +122,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     //     // decay12, if non-zero, comes from time passed no less than the cycleBlocks 
     //     // since the latest non-zero-decay12-call to this function for this account.
 
-    //     // Users[account].latestDecayRound is updated
+    //     // Users[account].latestRound is updated
     //     (decayRound, uint decay12) = _writeDecay12(user_burn, Users[account]);   // Dust: decay12 has positive dusts.
     //     pendingBurn = _balances[account] * decay12 / uint(1e12);    // Dust: pendingBurn has positive dusts.
     //     console.log("_writePending. decay12, pendingBurn:", decay12, pendingBurn);    
@@ -138,7 +138,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             }
 
             (uint decayRound, uint pending) = _viewPending(account);
-            Users[account].latestDecayRound = decayRound;
+            Users[account].latestRound = decayRound;
 
             if (pending > 0) {
                 // _safeSubtract doesn't manipulate data, but protects the operation from dust. 
@@ -169,7 +169,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             {
                 user_burn.latestNet += _balances[account];            
                 (uint numerator, uint denominator) = analyticMath.pow(
-                    FeeMagnifier, FeeMagnifier - user_burn.decayRate, Users[account].latestDecayRound, uint(1)  // mind of order. minus sign...
+                    FeeMagnifier, FeeMagnifier - user_burn.decayRate, Users[account].latestRound, uint(1)  // mind of order. minus sign...
                 );
                 uint user_VIRTUAL = _balances[account]  * numerator / denominator;
                 Users[account].VIRTUAL = user_VIRTUAL;
@@ -467,8 +467,8 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     }
 
     // function _writeDecay12(Pulse storage pulse, User storage user) internal returns (uint decay12) {
-    //     (decay12, user.latestDecayRound) = _viewDecay12(pulse, user);
-    //     // console.log("_writeDecay12. user.latestDecayRound:", user.latestDecayRound);
+    //     (decay12, user.latestRound) = _viewDecay12(pulse, user);
+    //     // console.log("_writeDecay12. user.latestRound:", user.latestRound);
     //     pulse.latestBNumber = block.number;
     // }
 
@@ -617,7 +617,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             if (pairs[recipient].token0 != address(0)) {
                 ActionType action = _getCurrentActionType();
                 if (action == ActionType.AddLiquidity) {    // Add
-                    console.log("Add");
+                    console.log("\ttransferDirectSafe: Add");
                 // } else if (action == ActionType.Dilute) {    // Dilute
                 //     console.log("Dilute");
                 } else {

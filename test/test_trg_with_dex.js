@@ -47,8 +47,8 @@ const {
     const SqaureMagnifier = FeeMagnifier * FeeMagnifier;
     const LiquiditySafety = 10**3;
     const DECIMALS = 18;
-    const INITIAL_SUPPLY = BigInt(10**(DECIMALS+6));
-    const MAX_SUPPLY = BigInt(10**(DECIMALS+8))
+    const INITIAL_SUPPLY = 10**(DECIMALS+6);
+    const MAX_SUPPLY = 10**(DECIMALS+8)
 
 function weiToEthEn(wei) {
     return Number(utils.formatUnits( BigInt(wei).toString(), DECIMALS)).toLocaleString("en");
@@ -849,12 +849,6 @@ describe("====================== Stage 1: Deploy ======================\n".yello
         await showStatus(owner)
         await showStatus(alice)
         await checkConsistency();
-        // await mintBlocks(500);
-        // await pulse_user_burn();
-        await showStatus(owner)
-        await showStatus(alice)
-        await checkConsistency();
-
     });
 
     it("1.2 TGR token name, symbol and decimals were checked.\n".green, async function () {
@@ -952,6 +946,28 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await showMilestone("Milestone 0");
         await mintBlocks(blocks);
         // await pulse_user_burn();
+        await checkConsistency();
+
+        // await mintBlocks(500);
+        // await pulse_user_burn();
+        await showStatus(owner)
+        await showStatus(alice)
+        await checkConsistency();
+        await mintBlocks(50);
+        await checkConsistency();
+        await mintBlocks(50);
+        await checkConsistency();
+        await mintBlocks(50);
+        await checkConsistency();
+        await mintBlocks(50);
+        await checkConsistency();
+        await mintBlocks(50);
+        await checkConsistency();
+        await mintBlocks(50);
+        await checkConsistency();
+        await mintBlocks(50);
+        await checkConsistency();
+        await mintBlocks(50);
         await checkConsistency();
 
         await showMilestone("Milestone 1");
@@ -1349,8 +1365,18 @@ describe("====================== Stage 3: Test Dex ======================\n".yel
         await mintBlocks(5);
         // await pulse_user_burn();
         await checkConsistency();
+    });
+});
 
 
+describe("====================== Stage 7: Test Dex ======================\n".yellow,
+    async function () {
+
+    it ("7.1 Concluding.\n".green, async function () {
+
+        console.log("\n\tXFactory contract was deployed at: %s", factory.address);
+        console.log("\t!!! Pair's bytecode hash = \n\t%s".bold.yellow, (await factory.INIT_CODE_PAIR_HASH()).substring(2));
+        console.log("\t!!! Please make sure the pairFor(...) function of XLibrary.sol file has the same hash.\n\n".bold.yellow);
     });
 
 });

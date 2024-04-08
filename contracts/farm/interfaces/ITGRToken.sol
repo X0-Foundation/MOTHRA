@@ -18,7 +18,7 @@ interface ITGRToken is IERC20 {
         uint VIRTUAL;   // 
     }
     struct User {
-        uint latestDecayRound; 
+        uint latestRound; 
         uint VIRTUAL;
     }
 

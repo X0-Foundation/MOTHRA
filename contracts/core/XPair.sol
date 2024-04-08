@@ -260,7 +260,6 @@ contract XPair is IXPair {
         bool feeOn = _mintFee(_reserve0, _reserve1);
         uint _totalSupply = totalSupply; // gas savings, must be defined here since totalSupply can update in _mintFee
         if (_totalSupply == 0) {
-            console.log("mint. amount0, amount1, MINIMUM_LIQUIDITY:", amount0, amount1, MINIMUM_LIQUIDITY);
             liquidity = SafeMath.sqrt(amount0.mul(amount1)).sub(MINIMUM_LIQUIDITY);
             _mint(address(0), MINIMUM_LIQUIDITY); // ensure less shares than assets
         } else {
