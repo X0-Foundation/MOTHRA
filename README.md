@@ -21,3 +21,34 @@ The absolute error is normally zero gway, some times one or two grway.
 The new version is equipped with safety mechanism for numerical errors:
 The whole system will stuck, freezing users' precious assets in the blockchain, if there is a negative amount, however small it is. Terrible.
 I added safety mechanism that prevents a negative amount from happening, at the small expense of gas fee.
+
+
+Mike Gates
+  11:05 AM
+The off-chain side has no longer to make an on-chain call to burn assets periodically.
+I created a new algorithm that frees the on-chain system from having to rely on the, small yet existing, uncertainty of off-chain part.
+11:08
+The new technique was demonstrated with periodic burning of users' tgr tokens.
+The technique can be applied to periodic burning of tokens used for voting.
+Periodic diluting tgr/ftm liquidity for the purpose of generating htz rewards, is an exception.
+11:11
+There is no free lunch. This elegant freedom is at an expense of a bit increased gas spending for user calls.
+11:13
+This is a complete new approach, industry-wide, to handle with periodic maintenance of smart contracts, for the burning aspect.
+11:14
+Specifically, periodic burning is free from periodic maintenance call.
+
+
+Mike Gates
+  11:24 AM
+This algorithm assumes the following:
+burning rate is less than 1% every round/period. Xavier's burning rate is 0.777% every 24 hours.
+There will be a maximum of 10,000 rounds. This is equivalent to over 27 years if a round/period is 24 hours.
+The maximum supply of TGR token is a quadrillion ( = a million billions ).
+There is no limit of the number of users.
+Pls check if these assumptions are acceptable, 
+@Zer 0
+, 
+@Ash
+11:24
+Different combinations of limits are also possible.

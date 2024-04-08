@@ -99,15 +99,12 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     }
 
     function _viewPending(address account) internal view returns (uint, uint) {
-        // decay12, if non-zero, comes from time passed no less than the cycleBlocks 
-        // since the latest non-zero-decay12-call to this function for this account.
-        Pulse memory _user_burn = user_burn;
-        User memory _user = Users[account];
-
+        Pulse memory _user_burn = user_burn;    // gas saving
+        User memory _user = Users[account];     // gas saving
 
         uint decayRound; uint decay12;
         decayRound = block.number / _user_burn.cycleBlocks - _user_burn.initialRound;
-        uint missingRounds = _safeSubtract(decayRound, _user.latestRound);
+        uint missingRounds = decayRound - _user.latestRound;
         
         (uint numerator, uint denominator) = analyticMath.pow(
             RateMagnifier - _user_burn.decayRate, RateMagnifier, missingRounds, uint(1)
@@ -119,29 +116,20 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         return (decayRound, pending);
     }
 
-    // function _writePending(address account) internal returns (uint decayRound, uint pendingBurn) {
-    //     // decay12, if non-zero, comes from time passed no less than the cycleBlocks 
-    //     // since the latest non-zero-decay12-call to this function for this account.
-
-    //     // Users[account].latestRound is updated
-    //     (decayRound, uint decay12) = _writeDecay12(user_burn, Users[account]);   // Dust: decay12 has positive dusts.
-    //     pendingBurn = _balances[account] * decay12 / uint(1e12);    // Dust: pendingBurn has positive dusts.
-    //     console.log("_writePending. decay12, pendingBurn:", decay12, pendingBurn);    
-    // }
-
     function _changeBalance(address account, uint amount, bool creditNotDebit) internal {
         if (_isUserAccount(account)) {
             // _balances[account] didn't change since the previous call to this function.
-
             {
-                user_burn.latestNet = _safeSubtract(user_burn.latestNet, _balances[account]);
-                user_burn.VIRTUAL = _safeSubtract(user_burn.VIRTUAL, Users[account].VIRTUAL);
+                user_burn.latestNet = _safeSubtract(user_burn.latestNet, _balances[account]);   // subtract previously added value.
+                user_burn.VIRTUAL = _safeSubtract(user_burn.VIRTUAL, Users[account].VIRTUAL);   // subtract previously added value.
             }
 
+            // decayRound: the current round of decay.
+            // pending: pending amount of burn for the 'account' user.
             (uint decayRound, uint pending) = _viewPending(account);
 
             if (pending > 0) {
-                // _safeSubtract doesn't manipulate data, but protects the operation from dust. 
+                // _safeSubtract doesn't manipulate data, but protects the operation from dusts. 
                 // Dust: _balances[account] gets negative dusts.
                 _balances[account] = _safeSubtract(_balances[account], pending); // This is core burn.
                 // Dust: user_burn.sum_tokens gets negative dusts.
