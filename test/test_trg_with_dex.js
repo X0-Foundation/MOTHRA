@@ -290,25 +290,21 @@ async function pulse_lp_reward() {
 }
 
 
-async function showStatus(user) {
-    const s = await tgr.getStatus(user.address);
+async function showState(user) {
+    const s = await tgr.getState(user.address);
     console.log("\tstatus: %s".yellow, user.name);
-    console.log("\ttalSupply %s, ub_sum_tokens %s, \
-    \n\tnonUserSumTokens %s, burnPending %s, \
-    \n\tburnDone %s, latestRound %s, \
-    \n\tlatestNet %s, VIRTUAL %s, u_VIRTUAL %s, \
-    \n\tu_balances %s, u_pending %s, \
-    \n\tu_latestDecayRound %s, \
-    \n\tburnPending + bernDone ===== %s, \
-    \n\t_totalSupply-nonUserTokenSum-ub.sum_tokens ===== %s".green,
-    s.totalSupply, s.ub_sum_tokens, 
-    s.nonUserSumTokens, s.burnPending, 
-    s.burnDone, s.latestRound, 
-    s.latestNet, s.VIRTUAL, s.u_VIRTUAL,
+    console.log("\ttotalSupply %s, \
+    \n\ttotal.burnPending %s, total.burnDone %s, \
+    \n\ttotal.latestNet %s, \
+    \n\ttotal.VIRTUAL %s, user.VIRTUAL %s, \
+    \n\tuser.balance %s, user.pending %s, \
+    \n\tuser.latestDecayRound %s,".green,
+    s.totalSupply, 
+    s.burnPending, s.burnDone, 
+    s.latestNet, 
+    s.VIRTUAL, s.u_VIRTUAL,
     s.u_balances, s.u_pending,
     s.u_latestDecayRound,
-    BigInt(s.burnPending) + BigInt(s.burnDone),
-    BigInt(s.totalSupply)-BigInt(s.nonUserSumTokens)-BigInt(s.ub_sum_tokens),
     );
 }
 
@@ -337,7 +333,7 @@ async function checkConsistency() {
     console.log("\tConsistency report:".bold.yellow);
     console.log("\tpending_collective %s, pending_marginal %s",
     report.pending_collective, report.pending_marginal)
-    console.log("\ttreport.abs_error %s, error_rate (trillionths) === %s",
+    console.log("\tabs_error %s, error_rate (trillionths) === %s",
     report.abs_error, report.error_rate)
 }
 
@@ -787,7 +783,7 @@ describe("====================== Stage 1: Deploy ======================\n".yello
         tgr = await deployTGR(owner, analyticMath.address, wireLib.address);
         console.log("\tTGR contract deployed at: %s", tgr.address);
         console.log("\tOwner's balance: %s", await tgr.balanceOf(owner.address));
-        await showStatus(owner);
+        await showState(owner);
         await checkConsistency();
 
 
@@ -851,8 +847,8 @@ describe("====================== Stage 1: Deploy ======================\n".yello
         mock2 = await deployMockToken(owner, "Mock2", "MCK2");
         console.log("\tmock2 deployed at %s", mock2.address);
 
-        await showStatus(owner)
-        await showStatus(alice)
+        await showState(owner)
+        await showState(alice)
         await checkConsistency();
     });
 
@@ -949,77 +945,97 @@ describe("====================== Stage 2: Test pulses ======================\n".
 
     for(i=0; i<1; i++) {
         await showMilestone("Milestone 0");
+
+        await showState(owner)
+        await showState(alice)
+        await showState(bob)
+        await showState(carol)
         await checkConsistency();
-        await showStatus(owner)
+
         await mintBlocks(blocks);
-        await mint(owner, owner, 0);    // 0 just for calling _changeBlance
-        await showStatus(owner)
+        // await mint(owner, owner, 0);    // 0 just for calling _changeBlance
+        await showState(owner)
         await checkConsistency();
+
         await mintBlocks(blocks);
-        await mint(owner, owner, 0);    // 0 just for calling _changeBlance
-        await showStatus(owner)
+        // await mint(owner, owner, 0);    // 0 just for calling _changeBlance
+        await showState(owner)
         await checkConsistency();
+
         await mintBlocks(blocks);
-        await mint(owner, owner, 0);    // 0 just for calling _changeBlance
-        await showStatus(owner)
+        // await mint(owner, owner, 0);    // 0 just for calling _changeBlance
+        await showState(owner)
         await checkConsistency();
+
         await mintBlocks(blocks);
-        await mint(owner, owner, 0);    // 0 just for calling _changeBlance
-        await showStatus(owner)
+        // await mint(owner, owner, 0);    // 0 just for calling _changeBlance
+        await showState(owner)
         await checkConsistency();
+
         await mintBlocks(blocks);
-        await mint(owner, owner, 0);    // 0 just for calling _changeBlance
-        await showStatus(owner)
+        // await mint(owner, owner, 0);    // 0 just for calling _changeBlance
+        await showState(owner)
         await checkConsistency();
+
         await mintBlocks(blocks);
-        await mint(owner, owner, 0);    // 0 just for calling _changeBlance
-        await showStatus(owner)
+        // await mint(owner, owner, 0);    // 0 just for calling _changeBlance
+        await showState(owner)
         await checkConsistency();
+
         await mintBlocks(blocks);
-        await mint(owner, owner, 0);    // 0 just for calling _changeBlance
-        await showStatus(owner)
+        // await mint(owner, owner, 0);    // 0 just for calling _changeBlance
+        await showState(owner)
         await checkConsistency();
+
         await mintBlocks(blocks);
-        await mint(owner, owner, 0);    // 0 just for calling _changeBlance
-        await showStatus(owner)
+        // await mint(owner, owner, 0);    // 0 just for calling _changeBlance
+        await showState(owner)
         await checkConsistency();
+
         await mintBlocks(blocks);
-        await mint(owner, owner, 0);    // 0 just for calling _changeBlance
-        await showStatus(owner)
+        // await mint(owner, owner, 0);    // 0 just for calling _changeBlance
+        await showState(owner)
+        await checkConsistency();
+
+        await mintBlocks(blocks);
+        // await mint(owner, owner, 0);    // 0 just for calling _changeBlance
+        await showState(owner)
         await checkConsistency();
 
         await showMilestone("Milestone 1");
-        await showStatus(owner);
-        await showStatus(alice);
-        await transfer(owner, alice, 0);
-        await showStatus(owner);
-        await showStatus(alice);
+
+        await showState(owner);
+        await showState(alice);
+        await transfer(owner, alice, 1000);
+        await showState(owner);
+        await showState(alice);
         await checkConsistency();
-        
-        await transfer(owner, alice, 100);
-        await showStatus(owner);
-        await showStatus(alice);
+
+        await showState(bob);
+        await transfer(alice, bob, 100);
+        await showState(alice);
+        await showState(bob);
         await checkConsistency();
 
 
         await showMilestone("Milestone 2");
-        await showStatus(owner);
-        await showStatus(alice);
+        await showState(owner);
+        await showState(alice);
         await mint(owner, alice, mintAmount);
-        await showStatus(owner);
-        await showStatus(alice);
+        await showState(owner);
+        await showState(alice);
         await checkConsistency();
         // await burn(owner, alice, burnAmount);
-        // await showStatus(owner);
-        // await showStatus(alice);
+        // await showState(owner);
+        // await showState(alice);
         // await checkConsistency();
 
         await showMilestone("Milestone 3");
-        await showStatus(owner);
-        await showStatus(alice);
+        await showState(owner);
+        await showState(alice);
         await burn(owner, alice, burnAmount);
-        await showStatus(owner);
-        await showStatus(alice);
+        await showState(owner);
+        await showState(alice);
         await checkConsistency();
 
         await showMilestone("Milestone 4");
@@ -1030,11 +1046,11 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await checkConsistency();
 
         await showMilestone("Milestone 5");
-        await showStatus(owner);
-        await showStatus(bob);
+        await showState(owner);
+        await showState(bob);
         await mint(owner, bob, mintAmount);
-        await showStatus(owner);
-        await showStatus(bob);
+        await showState(owner);
+        await showState(bob);
         await checkConsistency();
 
         await showMilestone("Milestone 6");
@@ -1091,17 +1107,17 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await checkConsistency();
 
         await showMilestone("Milestone 12");
-        await showStatus(owner);
+        await showState(owner);
         await checkConsistency();
         await takeVotes(owner, 1);
-        await showStatus(owner);
+        await showState(owner);
         await checkConsistency();
 
         await showMilestone("Milestone 13");
-        await showStatus(owner);
+        await showState(owner);
         await checkConsistency();
         await returnVotes(owner, 1);
-        await showStatus(owner);
+        await showState(owner);
         await checkConsistency();
 
         await showMilestone("Milestone 14");

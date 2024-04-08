@@ -59,20 +59,17 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
 
     Pulse public user_burn;
     mapping(address => User) Users;
-    uint _nonUserSumTokens;
     uint _buysell_burn_rate;
     uint _shift_burn_rate;
 
     // test user
     address admin; address alice; address bob; address carol;
 
-    function getStatus(address user) external view returns (
-        uint totalSupply, uint ub_sum_tokens, uint nonUserSumTokens, uint burnPending, uint burnDone, uint latestRound,
+    function getState(address user) external view returns (
+        uint totalSupply, uint burnPending, uint burnDone, uint latestRound, 
         uint latestNet, uint VIRTUAL, uint u_VIRTUAL, uint u_balances, uint u_pending, uint u_latestDecayRound
     ) {
-        totalSupply = _totalSupply; // user_burn.sum_tokens + _nonUserSumTokens; // _totalSupply;
-        ub_sum_tokens = user_burn.sum_tokens;
-        nonUserSumTokens = _nonUserSumTokens;
+        totalSupply = _totalSupply;
         burnPending = _burnPending();
         burnDone = user_burn.burnDone;
         latestRound = user_burn.latestRound;
@@ -132,27 +129,22 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
                 // _safeSubtract doesn't manipulate data, but protects the operation from dusts. 
                 // Dust: _balances[account] gets negative dusts.
                 _balances[account] = _safeSubtract(_balances[account], pending); // This is core burn.
-                // Dust: user_burn.sum_tokens gets negative dusts.
-                user_burn.sum_tokens = _safeSubtract(user_burn.sum_tokens, pending);
                 // Dust: _totalSupply gets negative dusts.
                 _totalSupply = _safeSubtract(_totalSupply, pending); // not less than its true value
                 
                 user_burn.burnDone += pending;
-                // At this moment of code, net_collective = user_burn.sum_tokens - user_burn.burnDone didn't change,
             } 
             
             // no pending now. _balances[account] is the net balance of account.
 
             if (creditNotDebit) {
                 _balances[account] += amount;
-                user_burn.sum_tokens += amount;
                 _totalSupply += amount;
             } else {
                 // Dust computing: _safeSubtract doesn't manipulate data, but projects the operation from dust coming from numerical error.
                 // amount may be greater than its true real value, if it was gotten by amount = amount - fees.
                 // fees = amount * rate / rage_magnifier may only be less that its true real value, due to the division operation.
                 _balances[account] = _safeSubtract(_balances[account] , amount);
-                user_burn.sum_tokens = _safeSubtract(user_burn.sum_tokens, amount);
                 _totalSupply  = _safeSubtract(_totalSupply, amount);
             }
 
@@ -173,12 +165,10 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         } else {
             if (creditNotDebit) {
                 _balances[account] += amount;
-                _nonUserSumTokens += amount;
                 _totalSupply += amount;
             } else {
                 // Dust compting: See the above Dust computing.
                 _balances[account] = _safeSubtract(_balances[account], amount);
-                _nonUserSumTokens = _safeSubtract(_nonUserSumTokens, amount);
                 _totalSupply = _safeSubtract(_totalSupply, amount);
             }
         }
@@ -217,16 +207,16 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         voteAccount = address(uint160(uint(keccak256(abi.encodePacked("vote", blockhash(block.number))))));
         
         // struct Pulse {
-        // uint latestBNumber;
-        // uint cycleBlocks;
-        // uint decayRate;
-        // address account;
-        // uint sum_tokens;
-        // uint burnDone;
-        // uint latestRound;
-        // uint initialRound;
-        // uint latestNet;
-        // uint VIRTUAL;
+        //     uint latestBNumber;
+        //     uint cycleBlocks;
+        //     uint decayRate;
+        //     address account;
+        //     uint burnDone;
+        //     uint latestRound;
+        //     uint initialRound;
+        //     uint latestNet;
+        //     uint VIRTUAL;
+        // }
 
         uint cycleBlocks = 30;   // small for test
         lp_reward = Pulse(block.number, cycleBlocks, 690, tgrFtm, 0, 0, block.number / cycleBlocks, block.number / cycleBlocks, 0, 0);
@@ -263,7 +253,6 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         // _safeSubtract doesn't manipulate data, but protects operation from possible dust coming from numerical error.
         // user_burn.burnDone may be either less or greater than its true real value. See pulse_user_burn for details.
         return _safeSubtract(_totalSupply, _burnPending()); //_safeSubtract(_totalSupply, user_burn.burnDone);
-        // return user_burn.sum_tokens + _nonUserSumTokens - user_burn.burnDone;
     }
 
     function _balanceOf(address account) internal view returns (uint balance) {
@@ -578,8 +567,13 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             // console.log("check --- collective greater");
         }
 
-        if (pending_collective > 0) {
-            error_rate = 1e12 * abs_error/pending_collective;
+        uint pending_max = pending_collective;
+        if (pending_max < pending_marginal) {
+            pending_max = pending_marginal;
+        }
+
+        if (pending_max > 0) {
+            error_rate = 1e12 * abs_error/pending_max;
         }
     }
 

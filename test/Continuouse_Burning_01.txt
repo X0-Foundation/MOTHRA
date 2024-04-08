@@ -1,0 +1,541 @@
+  ====================== Stage 2: Test pulses ======================
+
+        Consistency report:
+        pending_collective 7769999999999999999999, pending_marginal 7769999999000000000000
+        treport.abs_error 999999999999, error_rate (trillionths) === 128
+        Milestone 0
+        Consistency report:
+        pending_collective 7769999999999999999999, pending_marginal 7769999999000000000000
+        treport.abs_error 999999999999, error_rate (trillionths) === 128
+        status: Owner
+        talSupply 1000000000000000000000000, ub_sum_tokens 1000000000000000000000000,
+        nonUserSumTokens 0, burnPending 7769999999999999999999,
+        burnDone 0, latestRound 0,
+        latestNet 1000000000000000000000000, VIRTUAL 1000000000000000000000000, u_VIRTUAL 1000000000000000000000000, 
+
+        u_balances 1000000000000000000000000, u_pending 7769999999000000000000,
+        u_latestDecayRound 0,
+        burnPending + bernDone ===== 7769999999999999999999n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        chain is minting 60 blocks...
+        60/60 blocks minted
+        Owner is minting 0 TGR to Owner ...
+        Mint done
+        status: Owner
+        talSupply 976870649603000000000000, ub_sum_tokens 976870649603000000000000,
+        nonUserSumTokens 0, burnPending 0,
+        burnDone 23129350397000000000000, latestRound 0,
+        latestNet 976870649603000000000000, VIRTUAL 1000000000000443252133920, u_VIRTUAL 1000000000000443252133920,  
+
+        u_balances 976870649603000000000000, u_pending 0,
+        u_latestDecayRound 3,
+        burnPending + bernDone ===== 23129350397000000000000n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        Consistency report:
+        pending_collective 0, pending_marginal 0
+        treport.abs_error 0, error_rate (trillionths) === 0
+        chain is minting 60 blocks...
+        60/60 blocks minted
+        Owner is minting 0 TGR to Owner ...
+        Mint done
+        status: Owner
+        talSupply 961749056223187667608303, ub_sum_tokens 961749056223187667608303,
+        nonUserSumTokens 0, burnPending 0,
+        burnDone 38250943776812332391697, latestRound 0,
+        latestNet 961749056223187667608303, VIRTUAL 1000000000001458975147406, u_VIRTUAL 1000000000001458975147406,  
+
+        u_balances 961749056223187667608303, u_pending 0,
+        u_latestDecayRound 5,
+        burnPending + bernDone ===== 38250943776812332391697n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        Consistency report:
+        pending_collective 0, pending_marginal 0
+        treport.abs_error 0, error_rate (trillionths) === 0
+        chain is minting 60 blocks...
+        60/60 blocks minted
+        Owner is minting 0 TGR to Owner ...
+        Mint done
+        status: Owner
+        talSupply 946861539470037537196631, ub_sum_tokens 946861539470037537196631,
+        nonUserSumTokens 0, burnPending 0,
+        burnDone 53138460529962462803369, latestRound 0,
+        latestNet 946861539470037537196631, VIRTUAL 1000000000002474698160894, u_VIRTUAL 1000000000002474698160894,  
+
+        u_balances 946861539470037537196631, u_pending 0,
+        u_latestDecayRound 7,
+        burnPending + bernDone ===== 53138460529962462803369n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        Consistency report:
+        pending_collective 0, pending_marginal 0
+        treport.abs_error 0, error_rate (trillionths) === 0
+        chain is minting 60 blocks...
+        60/60 blocks minted
+        Owner is minting 0 TGR to Owner ...
+        Mint done
+        status: Owner
+        talSupply 932204475924656286037295, ub_sum_tokens 932204475924656286037295,
+        nonUserSumTokens 0, burnPending 0,
+        burnDone 67795524075343713962705, latestRound 0,
+        latestNet 932204475924656286037295, VIRTUAL 1000000000003490421174382, u_VIRTUAL 1000000000003490421174382,  
+
+        u_balances 932204475924656286037295, u_pending 0,
+        u_latestDecayRound 9,
+        burnPending + bernDone ===== 67795524075343713962705n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        Consistency report:
+        pending_collective 0, pending_marginal 0
+        treport.abs_error 0, error_rate (trillionths) === 0
+        chain is minting 60 blocks...
+        60/60 blocks minted
+        Owner is minting 0 TGR to Owner ...
+        Mint done
+        status: Owner
+        talSupply 917774298257323883509692, ub_sum_tokens 917774298257323883509692,
+        nonUserSumTokens 0, burnPending 0,
+        burnDone 82225701742676116490308, latestRound 0,
+        latestNet 917774298257323883509692, VIRTUAL 1000000000004506144187872, u_VIRTUAL 1000000000004506144187872,  
+
+        u_balances 917774298257323883509692, u_pending 0,
+        u_latestDecayRound 11,
+        burnPending + bernDone ===== 82225701742676116490308n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        Consistency report:
+        pending_collective 0, pending_marginal 0
+        treport.abs_error 0, error_rate (trillionths) === 0
+        chain is minting 60 blocks...
+        60/60 blocks minted
+        Owner is minting 0 TGR to Owner ...
+        Mint done
+        status: Owner
+        talSupply 903567494359254104247296, ub_sum_tokens 903567494359254104247296,
+        nonUserSumTokens 0, burnPending 0,
+        burnDone 96432505640745895752704, latestRound 0,
+        latestNet 903567494359254104247296, VIRTUAL 1000000000005521867201363, u_VIRTUAL 1000000000005521867201363,  
+
+        u_balances 903567494359254104247296, u_pending 0,
+        u_latestDecayRound 13,
+        burnPending + bernDone ===== 96432505640745895752704n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        Consistency report:
+        pending_collective 0, pending_marginal 0
+        treport.abs_error 0, error_rate (trillionths) === 0
+        chain is minting 60 blocks...
+        60/60 blocks minted
+        Owner is minting 0 TGR to Owner ...
+        Mint done
+        status: Owner
+        talSupply 889580606487795064773763, ub_sum_tokens 889580606487795064773763,
+        nonUserSumTokens 0, burnPending 0,
+        burnDone 110419393512204935226237, latestRound 0,
+        latestNet 889580606487795064773763, VIRTUAL 1000000000006537590214854, u_VIRTUAL 1000000000006537590214854,  
+
+        u_balances 889580606487795064773763, u_pending 0,
+        u_latestDecayRound 15,
+        burnPending + bernDone ===== 110419393512204935226237n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        Consistency report:
+        pending_collective 0, pending_marginal 0
+        treport.abs_error 0, error_rate (trillionths) === 0
+        chain is minting 60 blocks...
+        60/60 blocks minted
+        Owner is minting 0 TGR to Owner ...
+        Mint done
+        status: Owner
+        talSupply 875810230424861737076333, ub_sum_tokens 875810230424861737076333,
+        nonUserSumTokens 0, burnPending 0,
+        burnDone 124189769575138262923667, latestRound 0,
+        latestNet 875810230424861737076333, VIRTUAL 1000000000007553313228347, u_VIRTUAL 1000000000007553313228347,  
+
+        u_balances 875810230424861737076333, u_pending 0,
+        u_latestDecayRound 17,
+        burnPending + bernDone ===== 124189769575138262923667n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        Consistency report:
+        pending_collective 0, pending_marginal 0
+        treport.abs_error 0, error_rate (trillionths) === 0
+        chain is minting 60 blocks...
+        60/60 blocks minted
+        Owner is minting 0 TGR to Owner ...
+        Mint done
+        status: Owner
+        talSupply 862253014648395613047758, ub_sum_tokens 862253014648395613047758,
+        nonUserSumTokens 0, burnPending 0,
+        burnDone 137746985351604386952242, latestRound 0,
+        latestNet 862253014648395613047758, VIRTUAL 1000000000008569036241841, u_VIRTUAL 1000000000008569036241841,  
+
+        u_balances 862253014648395613047758, u_pending 0,
+        u_latestDecayRound 19,
+        burnPending + bernDone ===== 137746985351604386952242n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        Consistency report:
+        pending_collective 0, pending_marginal 0
+        treport.abs_error 0, error_rate (trillionths) === 0
+        Milestone 1
+        status: Owner
+        talSupply 862253014648395613047758, ub_sum_tokens 862253014648395613047758,
+        nonUserSumTokens 0, burnPending 0,
+        burnDone 137746985351604386952242, latestRound 0,
+        latestNet 862253014648395613047758, VIRTUAL 1000000000008569036241841, u_VIRTUAL 1000000000008569036241841,  
+
+        u_balances 862253014648395613047758, u_pending 0,
+        u_latestDecayRound 19,
+        burnPending + bernDone ===== 137746985351604386952242n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        status: Alice
+        talSupply 862253014648395613047758, ub_sum_tokens 862253014648395613047758,
+        nonUserSumTokens 0, burnPending 0,
+        burnDone 137746985351604386952242, latestRound 0,
+        latestNet 862253014648395613047758, VIRTUAL 1000000000008569036241841, u_VIRTUAL 0,
+        u_balances 0, u_pending 0,
+        u_latestDecayRound 0,
+        burnPending + bernDone ===== 137746985351604386952242n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        Owner is transferring 0 TGR to Alice...
+        Transfer done
+        status: Owner
+        talSupply 862253014648395613047758, ub_sum_tokens 862253014648395613047758,
+        nonUserSumTokens 0, burnPending 0,
+        burnDone 137746985351604386952242, latestRound 0,
+        latestNet 862253014648395613047758, VIRTUAL 1000000000008569036241841, u_VIRTUAL 1000000000008569036241841,  
+
+        u_balances 862253014648395613047758, u_pending 0,
+        u_latestDecayRound 19,
+        burnPending + bernDone ===== 137746985351604386952242n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        status: Alice
+        talSupply 862253014648395613047758, ub_sum_tokens 862253014648395613047758,
+        nonUserSumTokens 0, burnPending 0,
+        burnDone 137746985351604386952242, latestRound 0,
+        latestNet 862253014648395613047758, VIRTUAL 1000000000008569036241841, u_VIRTUAL 0,
+        u_balances 0, u_pending 0,
+        u_latestDecayRound 0,
+        burnPending + bernDone ===== 137746985351604386952242n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        Consistency report:
+        pending_collective 0, pending_marginal 0
+        treport.abs_error 0, error_rate (trillionths) === 0
+        Owner is transferring 100 TGR to Alice...
+        Transfer done
+        status: Owner
+        talSupply 862221599648395613047758, ub_sum_tokens 862221599648395613047758,
+        nonUserSumTokens 0, burnPending 0,
+        burnDone 137746985351604386952242, latestRound 0,
+        latestNet 862221599648395613047758, VIRTUAL 999963566387037333720120, u_VIRTUAL 999884024768932867145165,    
+
+        u_balances 862153014648395613047758, u_pending 0,
+        u_latestDecayRound 19,
+        burnPending + bernDone ===== 137746985351604386952242n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        status: Alice
+        talSupply 862221599648395613047758, ub_sum_tokens 862221599648395613047758,
+        nonUserSumTokens 0, burnPending 0,
+        burnDone 137746985351604386952242, latestRound 0,
+        latestNet 862221599648395613047758, VIRTUAL 999963566387037333720120, u_VIRTUAL 79541618104466574955,        
+        u_balances 68585000000000000000, u_pending 0,
+        u_latestDecayRound 19,
+        burnPending + bernDone ===== 137746985351604386952242n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        Consistency report:
+        pending_collective 0, pending_marginal 0
+        treport.abs_error 0, error_rate (trillionths) === 0
+        Milestone 2
+        status: Owner
+        talSupply 862221599648395613047758, ub_sum_tokens 862221599648395613047758,
+        nonUserSumTokens 0, burnPending 0,
+        burnDone 137746985351604386952242, latestRound 0,
+        latestNet 862221599648395613047758, VIRTUAL 999963566387037333720120, u_VIRTUAL 999884024768932867145165,    
+
+        u_balances 862153014648395613047758, u_pending 0,
+        u_latestDecayRound 19,
+        burnPending + bernDone ===== 137746985351604386952242n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        status: Alice
+        talSupply 862221599648395613047758, ub_sum_tokens 862221599648395613047758,
+        nonUserSumTokens 0, burnPending 0,
+        burnDone 137746985351604386952242, latestRound 0,
+        latestNet 862221599648395613047758, VIRTUAL 999963566387037333720120, u_VIRTUAL 79541618104466574955,        
+        u_balances 68585000000000000000, u_pending 0,
+        u_latestDecayRound 19,
+        burnPending + bernDone ===== 137746985351604386952242n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        Owner is minting 1000 TGR to Alice ...
+        Mint done
+        status: Owner
+        talSupply 863221599648395613047758, ub_sum_tokens 863221599648395613047758,
+        nonUserSumTokens 0, burnPending 0,
+        burnDone 137746985351604386952242, latestRound 0,
+        latestNet 863221599648395613047758, VIRTUAL 1001123318783399024686873, u_VIRTUAL 999884024768932867145165,   
+
+        u_balances 862153014648395613047758, u_pending 0,
+        u_latestDecayRound 19,
+        burnPending + bernDone ===== 137746985351604386952242n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        status: Alice
+        talSupply 863221599648395613047758, ub_sum_tokens 863221599648395613047758,
+        nonUserSumTokens 0, burnPending 0,
+        burnDone 137746985351604386952242, latestRound 0,
+        latestNet 863221599648395613047758, VIRTUAL 1001123318783399024686873, u_VIRTUAL 1239294014466157541708,     
+        u_balances 1068585000000000000000, u_pending 0,
+        u_latestDecayRound 19,
+        burnPending + bernDone ===== 137746985351604386952242n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        Consistency report:
+        pending_collective 0, pending_marginal 0
+        treport.abs_error 0, error_rate (trillionths) === 0
+        Milestone 3
+        status: Owner
+        talSupply 863221599648395613047758, ub_sum_tokens 863221599648395613047758,
+        nonUserSumTokens 0, burnPending 0,
+        burnDone 137746985351604386952242, latestRound 0,
+        latestNet 863221599648395613047758, VIRTUAL 1001123318783399024686873, u_VIRTUAL 999884024768932867145165,   
+
+        u_balances 862153014648395613047758, u_pending 0,
+        u_latestDecayRound 19,
+        burnPending + bernDone ===== 137746985351604386952242n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        status: Alice
+        talSupply 863221599648395613047758, ub_sum_tokens 863221599648395613047758,
+        nonUserSumTokens 0, burnPending 0,
+        burnDone 137746985351604386952242, latestRound 0,
+        latestNet 863221599648395613047758, VIRTUAL 1001123318783399024686873, u_VIRTUAL 1239294014466157541708,     
+        u_balances 1068585000000000000000, u_pending 0,
+        u_latestDecayRound 19,
+        burnPending + bernDone ===== 137746985351604386952242n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        Owner is burning 700 TGR from Alice ...
+        Burn done
+        status: Owner
+        talSupply 862521599648395613047758, ub_sum_tokens 862521599648395613047758,
+        nonUserSumTokens 0, burnPending 0,
+        burnDone 137746985351604386952242, latestRound 0,
+        latestNet 862521599648395613047758, VIRTUAL 1000311492105945841010146, u_VIRTUAL 999884024768932867145165,   
+
+        u_balances 862153014648395613047758, u_pending 0,
+        u_latestDecayRound 19,
+        burnPending + bernDone ===== 137746985351604386952242n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        status: Alice
+        talSupply 862521599648395613047758, ub_sum_tokens 862521599648395613047758,
+        nonUserSumTokens 0, burnPending 0,
+        burnDone 137746985351604386952242, latestRound 0,
+        latestNet 862521599648395613047758, VIRTUAL 1000311492105945841010146, u_VIRTUAL 427467337012973864981,      
+        u_balances 368585000000000000000, u_pending 0,
+        u_latestDecayRound 19,
+        burnPending + bernDone ===== 137746985351604386952242n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        Consistency report:
+        pending_collective 0, pending_marginal 0
+        treport.abs_error 0, error_rate (trillionths) === 0
+        Milestone 4
+        Consistency report:
+        pending_collective 0, pending_marginal 0
+        treport.abs_error 0, error_rate (trillionths) === 0
+        chain is minting 60 blocks...
+        60/60 blocks minted
+        Consistency report:
+        pending_collective 13351512728252655203254, pending_marginal 13351512727390133603606
+        treport.abs_error 862521599648, error_rate (trillionths) === 64
+        Consistency report:
+        pending_collective 13351512728252655203254, pending_marginal 13351512727390133603606
+        treport.abs_error 862521599648, error_rate (trillionths) === 64
+        Milestone 5
+        status: Owner
+        talSupply 862521599648395613047758, ub_sum_tokens 862521599648395613047758,
+        nonUserSumTokens 0, burnPending 13351512728252655203254,
+        burnDone 137746985351604386952242, latestRound 0,
+        latestNet 862521599648395613047758, VIRTUAL 1000311492105945841010146, u_VIRTUAL 999884024768932867145165,   
+
+        u_balances 862153014648395613047758, u_pending 13345807169035848688606,
+        u_latestDecayRound 19,
+        burnPending + bernDone ===== 151098498079857042155496n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        status: Bob
+        talSupply 862521599648395613047758, ub_sum_tokens 862521599648395613047758,
+        nonUserSumTokens 0, burnPending 13351512728252655203254,
+        burnDone 137746985351604386952242, latestRound 0,
+        latestNet 862521599648395613047758, VIRTUAL 1000311492105945841010146, u_VIRTUAL 0,
+        u_balances 0, u_pending 0,
+        u_latestDecayRound 0,
+        burnPending + bernDone ===== 151098498079857042155496n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        Owner is minting 1000 TGR to Bob ...
+        Mint done
+        status: Owner
+        talSupply 863521599648395613047758, ub_sum_tokens 863521599648395613047758,
+        nonUserSumTokens 0, burnPending 13351512728252655203254,
+        burnDone 137746985351604386952242, latestRound 0,
+        latestNet 863521599648395613047758, VIRTUAL 1001489479304875537192925, u_VIRTUAL 999884024768932867145165,   
+
+        u_balances 862153014648395613047758, u_pending 13345807169035848688606,
+        u_latestDecayRound 19,
+        burnPending + bernDone ===== 151098498079857042155496n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        status: Bob
+        talSupply 863521599648395613047758, ub_sum_tokens 863521599648395613047758,
+        nonUserSumTokens 0, burnPending 13351512728252655203254,
+        burnDone 137746985351604386952242, latestRound 0,
+        latestNet 863521599648395613047758, VIRTUAL 1001489479304875537192925, u_VIRTUAL 1177987198929696182779,     
+        u_balances 1000000000000000000000, u_pending 0,
+        u_latestDecayRound 21,
+        burnPending + bernDone ===== 151098498079857042155496n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        Consistency report:
+        pending_collective 13351512728252655203254, pending_marginal 13351512727390133603606
+        treport.abs_error 862521599648, error_rate (trillionths) === 64
+        Milestone 6
+        Consistency report:
+        pending_collective 13351512728252655203254, pending_marginal 13351512727390133603606
+        treport.abs_error 862521599648, error_rate (trillionths) === 64
+        Owner is burning 700 TGR from Bob ...
+        Burn done
+        Owner is transferring 100 TGR to Bob...
+        Transfer done
+        Consistency report:
+        pending_collective 8525131616237842303, pending_marginal 8525131616078245000
+        treport.abs_error 159597303, error_rate (trillionths) === 18
+        chain is minting 60 blocks...
+        60/60 blocks minted
+        Consistency report:
+        pending_collective 13055263362589231450937, pending_marginal 13055263361746679230260
+        treport.abs_error 842552220677, error_rate (trillionths) === 64
+        Consistency report:
+        pending_collective 13055263362589231450937, pending_marginal 13055263361746679230260
+        treport.abs_error 842552220677, error_rate (trillionths) === 64
+        Milestone 7
+        Consistency report:
+        pending_collective 13055263362589231450937, pending_marginal 13055263361746679230260
+        treport.abs_error 842552220677, error_rate (trillionths) === 64
+        Owner is minting 1000 TGR to Carol ...
+        Mint done
+        Consistency report:
+        pending_collective 13055263362589231450936, pending_marginal 13055263361746679230260
+        treport.abs_error 842552220676, error_rate (trillionths) === 64
+        Owner is burning 700 TGR from Carol ...
+        Burn done
+        Consistency report:
+        pending_collective 13055263362589231450936, pending_marginal 13055263361746679230260
+        treport.abs_error 842552220676, error_rate (trillionths) === 64
+        Owner is transferring 500 TGR to Carol...
+        Transfer done
+        chain is minting 60 blocks...
+        60/60 blocks minted
+        Consistency report:
+        pending_collective 12866676019767116616585, pending_marginal 12866676018937479764984
+        treport.abs_error 829636851601, error_rate (trillionths) === 64
+        Consistency report:
+        pending_collective 12866676019767116616585, pending_marginal 12866676018937479764984
+        treport.abs_error 829636851601, error_rate (trillionths) === 64
+        Milestone 8
+        Owner is minting 1000 TGR to Alice ...
+        Mint done
+        Owner is burning 700 TGR from Alice ...
+        Burn done
+        chain is minting 60 blocks...
+        60/60 blocks minted
+        Consistency report:
+        pending_collective 25499859236690902551134, pending_marginal 25499859235989587140023
+        treport.abs_error 701315411111, error_rate (trillionths) === 27
+        Milestone 9
+        Owner is minting 1000 TGR to Alice ...
+        Mint done
+        Owner is burning 700 TGR from Alice ...
+        Burn done
+        Owner is transferring 100 TGR to Carol...
+        Transfer done
+        chain is minting 60 blocks...
+        60/60 blocks minted
+        Consistency report:
+        pending_collective 12477564511246625053952, pending_marginal 12477564510441621648076
+        treport.abs_error 805003405876, error_rate (trillionths) === 64
+        Milestone 10
+        Owner is minting 1000 TGR to Bob ...
+        Mint done
+        Owner is burning 700 TGR from Bob ...
+        Burn done
+        Carol is transferring 100 TGR to Carol...
+        Transfer done
+        chain is minting 60 blocks...
+        60/60 blocks minted
+        Consistency report:
+        pending_collective 24717360252155995514349, pending_marginal 24717360251475402926678
+        treport.abs_error 680592587671, error_rate (trillionths) === 27
+        Milestone 11
+        Owner is minting 1000 TGR to Alice ...
+        Mint done
+        Owner is burning 700 TGR from Alice ...
+        Burn done
+        Carol is transferring 100 TGR to Alice...
+        Transfer done
+        chain is minting 60 blocks...
+        60/60 blocks minted
+        Consistency report:
+        pending_collective 36764977948797907958656, pending_marginal 36764977948748359396043
+        treport.abs_error 49548562613, error_rate (trillionths) === 1
+        Milestone 12
+        status: Owner
+        talSupply 805480092349580568213668, ub_sum_tokens 805480092349580568213668,
+        nonUserSumTokens 0, burnPending 36764977948797907958656,
+        burnDone 196305757650419431786332, latestRound 0,
+        latestNet 805480092349580568213668, VIRTUAL 1002179217430836636609462, u_VIRTUAL 999037954738913685530583,   
+
+        u_balances 803022831377304400905947, u_pending 36717202293656464338301,
+        u_latestDecayRound 28,
+        burnPending + bernDone ===== 233070735599217339744988n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        Consistency report:
+        pending_collective 36764977948797907958656, pending_marginal 36764977948748359396043
+        treport.abs_error 49548562613, error_rate (trillionths) === 1
+        Owner is taking 1 votes ...
+        TakeVotes done
+        status: Owner
+        talSupply 768762890055924103875367, ub_sum_tokens 768662890055924103875367,
+        nonUserSumTokens 100000000000000000000, burnPending 47775655094253240916,
+        burnDone 233022959944075896124633, latestRound 0,
+        latestNet 768662890055924103875367, VIRTUAL 1002048846738471740381835, u_VIRTUAL 998907584046548789302956,   
+
+        u_balances 766205629083647936567646, u_pending 0,
+        u_latestDecayRound 34,
+        burnPending + bernDone ===== 233070735599170149365549n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        Consistency report:
+        pending_collective 47775655094253240916, pending_marginal 47775655091895057742
+        treport.abs_error 2358183174, error_rate (trillionths) === 49
+        Milestone 13
+        status: Owner
+        talSupply 768762890055924103875367, ub_sum_tokens 768662890055924103875367,
+        nonUserSumTokens 100000000000000000000, burnPending 47775655094253240916,
+        burnDone 233022959944075896124633, latestRound 0,
+        latestNet 768662890055924103875367, VIRTUAL 1002048846738471740381835, u_VIRTUAL 998907584046548789302956,   
+
+        u_balances 766205629083647936567646, u_pending 0,
+        u_latestDecayRound 34,
+        burnPending + bernDone ===== 233070735599170149365549n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        Consistency report:
+        pending_collective 47775655094253240916, pending_marginal 47775655091895057742
+        treport.abs_error 2358183174, error_rate (trillionths) === 49
+        Owner is returning 1 votes ...
+        TakeVotes done
+        status: Owner
+        talSupply 768762890055924103875367, ub_sum_tokens 768762890055924103875367,
+        nonUserSumTokens 0, burnPending 47775655094253240916,
+        burnDone 233022959944075896124633, latestRound 0,
+        latestNet 768762890055924103875367, VIRTUAL 1002179217430898159033896, u_VIRTUAL 999037954738975207955017,   
+
+        u_balances 766305629083647936567646, u_pending 0,
+        u_latestDecayRound 34,
+        burnPending + bernDone ===== 233070735599170149365549n,
+        _totalSupply-nonUserTokenSum-ub.sum_tokens ===== 0n
+        Consistency report:
+        pending_collective 47775655094253240916, pending_marginal 47775655091895057742
+        treport.abs_error 2358183174, error_rate (trillionths) === 49
+        Milestone 14
+        chain is minting 60 blocks...
+        60/60 blocks minted
+        System is pulse_vote_burn-ing ...
+        Pulse_vote_burn-ed
+        Consistency report:
+        pending_collective 11947198972152939259286, pending_marginal 11947198971385059737193
+        treport.abs_error 767879522093, error_rate (trillionths) === 64
+    ✔ 2.1 Test Pulses.
+ (3226ms)

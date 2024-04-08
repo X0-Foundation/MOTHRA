@@ -37,7 +37,7 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     "feeStores()": FunctionFragment;
     "getCurrentActionType()": FunctionFragment;
     "getOwner()": FunctionFragment;
-    "getStatus(address)": FunctionFragment;
+    "getState(address)": FunctionFragment;
     "htzFtm()": FunctionFragment;
     "increaseAllowance(address,uint256)": FunctionFragment;
     "lastSession()": FunctionFragment;
@@ -128,7 +128,7 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "getOwner", values?: undefined): string;
-  encodeFunctionData(functionFragment: "getStatus", values: [string]): string;
+  encodeFunctionData(functionFragment: "getState", values: [string]): string;
   encodeFunctionData(functionFragment: "htzFtm", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "increaseAllowance",
@@ -272,7 +272,7 @@ interface TGRTokenInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "getOwner", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "getStatus", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getState", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "htzFtm", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "increaseAllowance",
@@ -560,7 +560,7 @@ export class TGRToken extends BaseContract {
 
     getOwner(overrides?: CallOverrides): Promise<[string]>;
 
-    getStatus(
+    getState(
       user: string,
       overrides?: CallOverrides
     ): Promise<
@@ -574,13 +574,9 @@ export class TGRToken extends BaseContract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber,
-        BigNumber,
         BigNumber
       ] & {
         totalSupply: BigNumber;
-        ub_sum_tokens: BigNumber;
-        nonUserSumTokens: BigNumber;
         burnPending: BigNumber;
         burnDone: BigNumber;
         latestRound: BigNumber;
@@ -915,7 +911,7 @@ export class TGRToken extends BaseContract {
 
   getOwner(overrides?: CallOverrides): Promise<string>;
 
-  getStatus(
+  getState(
     user: string,
     overrides?: CallOverrides
   ): Promise<
@@ -929,13 +925,9 @@ export class TGRToken extends BaseContract {
       BigNumber,
       BigNumber,
       BigNumber,
-      BigNumber,
-      BigNumber,
       BigNumber
     ] & {
       totalSupply: BigNumber;
-      ub_sum_tokens: BigNumber;
-      nonUserSumTokens: BigNumber;
       burnPending: BigNumber;
       burnDone: BigNumber;
       latestRound: BigNumber;
@@ -1267,7 +1259,7 @@ export class TGRToken extends BaseContract {
 
     getOwner(overrides?: CallOverrides): Promise<string>;
 
-    getStatus(
+    getState(
       user: string,
       overrides?: CallOverrides
     ): Promise<
@@ -1281,13 +1273,9 @@ export class TGRToken extends BaseContract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber,
-        BigNumber,
         BigNumber
       ] & {
         totalSupply: BigNumber;
-        ub_sum_tokens: BigNumber;
-        nonUserSumTokens: BigNumber;
         burnPending: BigNumber;
         burnDone: BigNumber;
         latestRound: BigNumber;
@@ -1729,7 +1717,7 @@ export class TGRToken extends BaseContract {
 
     getOwner(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getStatus(user: string, overrides?: CallOverrides): Promise<BigNumber>;
+    getState(user: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     htzFtm(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1968,7 +1956,7 @@ export class TGRToken extends BaseContract {
 
     getOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getStatus(
+    getState(
       user: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
