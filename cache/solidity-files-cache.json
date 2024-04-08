@@ -2157,8 +2157,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\libraries\\WireLibrary.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "4aceaf1a03ae06f5ea97af6f6679c36f",
+      "lastModificationDate": 1712558706215,
+      "contentHash": "b3911018f3574196a4f17ffbc86a67d6",
       "sourceName": "contracts/libraries/WireLibrary.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -2290,8 +2290,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\libraries\\XLibrary.sol": {
-      "lastModificationDate": 1712537276141,
-      "contentHash": "27a7370a76c839cd86bc651d8b42eb23",
+      "lastModificationDate": 1712565304090,
+      "contentHash": "328d8b11aed163a4ba0cc1cbd637bf4e",
       "sourceName": "contracts/libraries/XLibrary.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -2695,8 +2695,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\session\\interfaces\\IConstants.sol": {
-      "lastModificationDate": 1712512253834,
-      "contentHash": "5400eea972ac74f58dbc3e32fa7be33a",
+      "lastModificationDate": 1712558706215,
+      "contentHash": "07f2126eb0dd80f907c5474e6fd01cf7",
       "sourceName": "contracts/session/interfaces/IConstants.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -3092,7 +3092,7 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\periphery\\XMaker.sol": {
-      "lastModificationDate": 1712365304372,
+      "lastModificationDate": 1712565318290,
       "contentHash": "80eeba4ded547e29a7e29a40d7b360ed",
       "sourceName": "contracts/periphery/XMaker.sol",
       "solcConfig": {
@@ -3194,8 +3194,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\farm\\TGRToken.sol": {
-      "lastModificationDate": 1712535219138,
-      "contentHash": "a047cc39e22296ac94208ed030fdae64",
+      "lastModificationDate": 1712566238206,
+      "contentHash": "ac8fdb5d4d523e6c7170263fb6381c83",
       "sourceName": "contracts/farm/TGRToken.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -3382,8 +3382,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\periphery\\ControlCenter.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "b7a59d09a1ec6d0be32d157890caaa2d",
+      "lastModificationDate": 1712558706217,
+      "contentHash": "102230690097a7c44880adc79b389422",
       "sourceName": "contracts/periphery/ControlCenter.sol",
       "solcConfig": {
         "version": "0.8.14",

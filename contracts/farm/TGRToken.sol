@@ -313,7 +313,6 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     function _burn(address from, uint amount) internal virtual {
         require(from != address(0), sZeroAddress);
         uint accountBalance = _balanceOf(from);
-        console.log("_burn. accountBalance, amount:", accountBalance, amount);
         require(accountBalance >= amount, sExceedsBalance);
 
         _beforeTokenTransfer(from, address(0), amount);
