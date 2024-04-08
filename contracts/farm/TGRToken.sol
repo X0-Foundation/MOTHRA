@@ -331,12 +331,12 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         _openAction(ActionType.Transfer, true);
 
         if (amount > 0) {
-            // if (actionParams.isUserAction) {  // Shift transfer
-            //     // Dust computing: burnAmount may only be less than its true real value.
-            //     uint burnAmount = amount * _buysell_burn_rate / RateMagnifier;
-            //     _burn(sender, burnAmount);
-            //     amount -= burnAmount;
-            // }
+            if (actionParams.isUserAction) {  // Shift transfer
+                // Dust computing: burnAmount may only be less than its true real value.
+                uint burnAmount = amount * _buysell_burn_rate / RateMagnifier;
+                _burn(sender, burnAmount);
+                amount -= burnAmount;
+            }
             _transfer(sender, recipient, amount);
         }
 
@@ -460,12 +460,6 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         decayRound = block.number / pulse.cycleBlocks - pulse.initialRound;
     }
 
-    // function _writeDecay12(Pulse storage pulse, User storage user) internal returns (uint decay12) {
-    //     (decay12, user.latestRound) = _viewDecay12(pulse, user);
-    //     // console.log("_writeDecay12. user.latestRound:", user.latestRound);
-    //     pulse.latestBNumber = block.number;
-    // }
-
     function pulse_lp_reward() external {
         // 0.69% of XDAO/FTM LP has the XDAO side sold for FTM, 
         // then the FTM is used to buy HTZ which is added to XDAO lps airdrop rewards every 12 hours.
@@ -564,16 +558,8 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     function pulse_user_burn() external {
     }
 
-    function checkForConsistency() public view returns(uint pending_collective, uint pending_marginal, uint abs_error, uint error_rate) {
-
-        // Defines user_burn attributes, based on the ERC20 core data.
-        // require(user_burn.sum_tokens + _nonUserSumTokens == _totalSupply, "sum_tokens + _nonUserSumTokens != _totalSupply");
-        // This implies that user_burn.sum_tokens - user_burn.burnDone + _nonUserSumTokens == _totalSupply
-        // See totalSupply()
-
-        // uint net_collective = user_burn.sum_tokens; //_safeSubtract(user_burn.sum_tokens, user_burn.burnDone);
-        // uint net_marginal = balanceOf(admin) + balanceOf(alice) + balanceOf(bob) + balanceOf(carol);
-
+    function checkForConsistency() public view 
+    returns(uint pending_collective, uint pending_marginal, uint abs_error, uint error_rate) {
 
         pending_collective = _burnPending();
 

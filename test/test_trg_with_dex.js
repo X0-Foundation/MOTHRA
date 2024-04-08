@@ -1203,17 +1203,17 @@ describe("====================== Stage 3: Test Dex ======================\n".yel
         [mck_bnb, report] = await test_addLiquidity(mock, tgrAmount / 3, wbnb, bnbAmount / 3, owner, carol, true); // ------------ mck_bnb
         await mintBlocks(50);
 
-        // [report, tgrAmount] = await test_swap(wbnb, 1, tgr, undefined, alice, bob, true);
-        // await mintBlocks(50);
-        // await pulse_user_burn();
-        // await checkConsistency();
+        [report, tgrAmount] = await test_swap(wbnb, 1, tgr, undefined, alice, bob, true);
+        await mintBlocks(50);
+        await pulse_user_burn();
+        await checkConsistency();
 
         // [report, bnbAmount] = await test_swap(tgr, tgrAmount * 0.99, wbnb, undefined, bob, alice, true);
         // await mintBlocks(50);
         // await pulse_user_burn();
         // await checkConsistency();
 
-        // ------------------------ This doesn't work for TGR contract which collect fees.        
+        // // ------------------------ This doesn't work for TGR contract which collect fees.        
         // [report, tgrAmount] = await test_swap(tgr, undefined, wbnb, bnbAmount * 0.99, alice, bob, true); //----------------------------
         // await mintBlocks(50);
         // await pulse_user_burn();
