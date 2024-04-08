@@ -67,19 +67,19 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     address admin; address alice; address bob; address carol;
 
     function getStatus(address user) external view returns (
-        uint totalSupply, uint ub_sum_tokens, uint nonUserSumTokens, uint burnPending, uint latestRound, uint LNISLR,
-        uint u_balances, uint u_pending, uint u_latestDecayRound, uint u_LNISLR
+        uint totalSupply, uint ub_sum_tokens, uint nonUserSumTokens, uint burnPending, uint latestRound, uint VIRTUAL,
+        uint u_balances, uint u_pending, uint u_latestDecayRound, uint u_VIRTUAL
     ) {
         totalSupply = _totalSupply; // user_burn.sum_tokens + _nonUserSumTokens; // _totalSupply;
         ub_sum_tokens = user_burn.sum_tokens;
         nonUserSumTokens = _nonUserSumTokens;
         burnPending = _burnPending();
         latestRound = user_burn.latestRound;
-        LNISLR = user_burn.LNISLR;
+        VIRTUAL = user_burn.VIRTUAL;
         u_balances = _balances[user];
         (, u_pending) = _viewPending(user);
         u_latestDecayRound = Users[user].latestDecayRound;
-        u_LNISLR = Users[user].LNISLR;
+        u_VIRTUAL = Users[user].VIRTUAL;
     }
 
     function _safeSubtract(uint a, uint b) internal pure returns (uint delta) {
@@ -134,7 +134,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
 
             {
                 _safeSubtract(user_burn.latestNet, _balances[account]);
-                _safeSubtract(user_burn.LNISLR, Users[account].LNISLR);
+                _safeSubtract(user_burn.VIRTUAL, Users[account].VIRTUAL);
             }
 
             (uint decayRound, uint pending) = _viewPending(account);
@@ -171,9 +171,9 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
                 (uint numerator, uint denominator) = analyticMath.pow(
                     FeeMagnifier, FeeMagnifier - user_burn.decayRate, Users[account].latestDecayRound, uint(1)  // mind of order. minus sign...
                 );
-                uint user_LNISLR = _balances[account]  * numerator / denominator;
-                Users[account].LNISLR = user_LNISLR;
-                user_burn.LNISLR += user_LNISLR;
+                uint user_VIRTUAL = _balances[account]  * numerator / denominator;
+                Users[account].VIRTUAL = user_VIRTUAL;
+                user_burn.VIRTUAL += user_VIRTUAL;
             }
 
             // add new amount from avgNetAtAvgLastRound
@@ -199,10 +199,10 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             FeeMagnifier - user_burn.decayRate, FeeMagnifier,  decayRound, uint(1)
         );  // less than 1
 
-        uint survival = IntegralMath.mulDivC(user_burn.LNISLR, numerator, denominator);
+        uint survival = IntegralMath.mulDivC(user_burn.VIRTUAL, numerator, denominator);
         burnPending = user_burn.latestNet - survival;
         // console.log("_burnPending. decayRound, numerator, denominator: ", decayRound, numerator, denominator);
-        // console.log("_burnPending. user_burn.LNISLR, burnPending: ", user_burn.LNISLR, burnPending);
+        // console.log("_burnPending. user_burn.VIRTUAL, burnPending: ", user_burn.VIRTUAL, burnPending);
     }
 
 
@@ -227,25 +227,24 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         // uint cycleBlocks;
         // uint decayRate;
         // address account;
-        // uint accDecayPer1e12;
         // uint sum_tokens;
         // uint burnDone;
         // uint latestRound;
         // uint initialRound;
         // uint latestNet;
-        // uint LNISLR;
+        // uint VIRTUAL;
 
         uint cycleBlocks = 30;   // small for test
-        lp_reward = Pulse(block.number, cycleBlocks, 690, tgrFtm, 0, 0, 0, block.number / cycleBlocks, block.number / cycleBlocks, 0, 0);
+        lp_reward = Pulse(block.number, cycleBlocks, 690, tgrFtm, 0, 0, block.number / cycleBlocks, block.number / cycleBlocks, 0, 0);
         // 0.69% of XDAO/FTM LP has the XDAO side sold for FTM, 
         // then the FTM is used to buy HTZ which is added to XDAO lps airdrop rewards every 12 hours.        
         
         cycleBlocks = 30;    // small for test
-        vote_burn = Pulse(block.number, cycleBlocks, 70, voteAccount, 0, 0, 0, block.number / cycleBlocks, block.number / cycleBlocks, 0, 0);
+        vote_burn = Pulse(block.number, cycleBlocks, 70, voteAccount, 0, 0, block.number / cycleBlocks, block.number / cycleBlocks, 0, 0);
         // 0.07% of tokens in the Agency dapp actively being used for voting burned every 12 hours.
 
         cycleBlocks = 30;    // small for test
-        user_burn = Pulse(block.number, cycleBlocks, 777, zero_address, 0, 0, 0, block.number / cycleBlocks, block.number / cycleBlocks, 0, 0);
+        user_burn = Pulse(block.number, cycleBlocks, 777, zero_address, 0, 0, block.number / cycleBlocks, block.number / cycleBlocks, 0, 0);
         // 0.777% of tokens(not in Cyberswap/Agency dapp) burned each 24 hours from users wallets. 
 
         // ------------ What to do with this requirement ?

@@ -223,7 +223,6 @@ async function setupNodeChain() {
     console.log("\tAlice couldn't feed setFeeRates to the node chain");
 
     for (let st = 0; st < FeeRates.length; st++) {
-        console.log(FeeRates[st]);
         tx = tgr.connect(owner).setFeeRates(st, FeeRates[st], zero_address);
         (await tx).wait();
     }
@@ -296,15 +295,15 @@ async function showStatus(user) {
     console.log("\tstatus: %s".yellow, user.name);
     console.log("\ttalSupply %s, ub_sum_tokens %s, \
     \n\tnonUserSumTokens %s, burnPending %s, \
-    \n\tlatestRound %s, LNISLR %s, \
+    \n\tlatestRound %s, VIRTUAL %s, \
     \n\tu_balances %s, u_pending %s, \
-    \n\tu_latestDecayRound %s, u_LNISLR %s, \
-    \n\t_totalSupply-nonUserTokenSum-ub.sum_tokens === %s".green,
+    \n\tu_latestDecayRound %s, u_VIRTUAL %s, \
+    \n\t_totalSupply-nonUserTokenSum-ub.sum_tokens ===== %s".green,
     s.totalSupply, s.ub_sum_tokens, 
     s.nonUserSumTokens, s.burnPending,
-    s.latestRound, s.LNISLR,
+    s.latestRound, s.VIRTUAL,
     s.u_balances, s.u_pending,
-    s.u_latestDecayRound, s.u_LNISLR,
+    s.u_latestDecayRound, s.u_VIRTUAL,
     BigInt(s.totalSupply)-BigInt(s.nonUserSumTokens)-BigInt(s.ub_sum_tokens),
     );
 }
@@ -793,8 +792,8 @@ describe("====================== Stage 1: Deploy ======================\n".yello
         console.log("\tFactory deployed at %s", factory.address);
 
         console.log("\n\tXFactory contract was deployed at: %s", factory.address);
-        console.log("\t!!! Pair's bytecode hash = \n\t", (await factory.INIT_CODE_PAIR_HASH()).substring(2));
-        console.log("\t!!! Please make sure the pairFor(...) function of XLibrary.sol file has the same hash.\n\n");
+        console.log("\t!!! Pair's bytecode hash = \n\t%s".bold.yellow, (await factory.INIT_CODE_PAIR_HASH()).substring(2));
+        console.log("\t!!! Please make sure the pairFor(...) function of XLibrary.sol file has the same hash.\n\n".bold.yellow);
 
         // WBNB Deployment.
         wbnb = await deployWBNB(owner);
@@ -1128,14 +1127,14 @@ describe("====================== Stage 3: Test Dex ======================\n".yel
         let initialTgrMckValue = 1400000;
         let bnbPrice = 500, mckPrice = 1;
 
-        console.log("\t==========================================================================================================".yellow);
+        console.log("\t================================================".yellow);
         console.log("\tAssuming the following tokenomics parameters:".yellow);
         console.log("\tTgr/USD price initially targeted: %s".cyan.bold, initialTgrPrice);
         console.log("\tTgr/Bnb pool's assets value in USD, initially targeted: %s".cyan.bold, initialTgrBnbValue);
         console.log("\tTgr/Mck pool's assets value in USD, initially targeted: %s".cyan.bold, initialTgrMckValue);
         console.log("\tBnb/USD price at the time of Tgr/Bnb pool deployment: %s".cyan.bold, bnbPrice);
         console.log("\tMck/USD price at the time of Tgr/Mck pool deployment: %s".cyan.bold, mckPrice);
-        console.log("\t==========================================================================================================".yellow);
+        console.log("\t=================================================".yellow);
 
         await mintBlocks(50);
         // await pulse_user_burn();

@@ -2290,8 +2290,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\libraries\\XLibrary.sol": {
-      "lastModificationDate": 1712533488572,
-      "contentHash": "1bf8e51008e399988bffc585b1b69a32",
+      "lastModificationDate": 1712534815642,
+      "contentHash": "ddae29a1857cf0ab95c16ceff3db79e2",
       "sourceName": "contracts/libraries/XLibrary.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -2914,8 +2914,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\farm\\interfaces\\ITGRToken.sol": {
-      "lastModificationDate": 1712510994563,
-      "contentHash": "0186112ecbc3cfbd974c308a538d24f9",
+      "lastModificationDate": 1712534686416,
+      "contentHash": "a7ba5cb81862d8cf248cf5c982e8a230",
       "sourceName": "contracts/farm/interfaces/ITGRToken.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -3194,8 +3194,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\farm\\TGRToken.sol": {
-      "lastModificationDate": 1712533227570,
-      "contentHash": "a1e8b0c6d16ea1ea643294b6e6279968",
+      "lastModificationDate": 1712534686416,
+      "contentHash": "4a4f7c30e7660f6b3af2a449c27e01b3",
       "sourceName": "contracts/farm/TGRToken.sol",
       "solcConfig": {
         "version": "0.8.14",

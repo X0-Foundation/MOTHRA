@@ -581,11 +581,11 @@ export class TGRToken extends BaseContract {
         nonUserSumTokens: BigNumber;
         burnPending: BigNumber;
         latestRound: BigNumber;
-        LNISLR: BigNumber;
+        VIRTUAL: BigNumber;
         u_balances: BigNumber;
         u_pending: BigNumber;
         u_latestDecayRound: BigNumber;
-        u_LNISLR: BigNumber;
+        u_VIRTUAL: BigNumber;
       }
     >;
 
@@ -612,20 +612,18 @@ export class TGRToken extends BaseContract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber,
         BigNumber
       ] & {
         latestBNumber: BigNumber;
         cycleBlocks: BigNumber;
         decayRate: BigNumber;
         account: string;
-        accDecayPer1e12: BigNumber;
         sum_tokens: BigNumber;
         burnDone: BigNumber;
         latestRound: BigNumber;
         initialRound: BigNumber;
         latestNet: BigNumber;
-        LNISLR: BigNumber;
+        VIRTUAL: BigNumber;
       }
     >;
 
@@ -787,20 +785,18 @@ export class TGRToken extends BaseContract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber,
         BigNumber
       ] & {
         latestBNumber: BigNumber;
         cycleBlocks: BigNumber;
         decayRate: BigNumber;
         account: string;
-        accDecayPer1e12: BigNumber;
         sum_tokens: BigNumber;
         burnDone: BigNumber;
         latestRound: BigNumber;
         initialRound: BigNumber;
         latestNet: BigNumber;
-        LNISLR: BigNumber;
+        VIRTUAL: BigNumber;
       }
     >;
 
@@ -817,20 +813,18 @@ export class TGRToken extends BaseContract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber,
         BigNumber
       ] & {
         latestBNumber: BigNumber;
         cycleBlocks: BigNumber;
         decayRate: BigNumber;
         account: string;
-        accDecayPer1e12: BigNumber;
         sum_tokens: BigNumber;
         burnDone: BigNumber;
         latestRound: BigNumber;
         initialRound: BigNumber;
         latestNet: BigNumber;
-        LNISLR: BigNumber;
+        VIRTUAL: BigNumber;
       }
     >;
 
@@ -938,11 +932,11 @@ export class TGRToken extends BaseContract {
       nonUserSumTokens: BigNumber;
       burnPending: BigNumber;
       latestRound: BigNumber;
-      LNISLR: BigNumber;
+      VIRTUAL: BigNumber;
       u_balances: BigNumber;
       u_pending: BigNumber;
       u_latestDecayRound: BigNumber;
-      u_LNISLR: BigNumber;
+      u_VIRTUAL: BigNumber;
     }
   >;
 
@@ -969,20 +963,18 @@ export class TGRToken extends BaseContract {
       BigNumber,
       BigNumber,
       BigNumber,
-      BigNumber,
       BigNumber
     ] & {
       latestBNumber: BigNumber;
       cycleBlocks: BigNumber;
       decayRate: BigNumber;
       account: string;
-      accDecayPer1e12: BigNumber;
       sum_tokens: BigNumber;
       burnDone: BigNumber;
       latestRound: BigNumber;
       initialRound: BigNumber;
       latestNet: BigNumber;
-      LNISLR: BigNumber;
+      VIRTUAL: BigNumber;
     }
   >;
 
@@ -1144,20 +1136,18 @@ export class TGRToken extends BaseContract {
       BigNumber,
       BigNumber,
       BigNumber,
-      BigNumber,
       BigNumber
     ] & {
       latestBNumber: BigNumber;
       cycleBlocks: BigNumber;
       decayRate: BigNumber;
       account: string;
-      accDecayPer1e12: BigNumber;
       sum_tokens: BigNumber;
       burnDone: BigNumber;
       latestRound: BigNumber;
       initialRound: BigNumber;
       latestNet: BigNumber;
-      LNISLR: BigNumber;
+      VIRTUAL: BigNumber;
     }
   >;
 
@@ -1174,20 +1164,18 @@ export class TGRToken extends BaseContract {
       BigNumber,
       BigNumber,
       BigNumber,
-      BigNumber,
       BigNumber
     ] & {
       latestBNumber: BigNumber;
       cycleBlocks: BigNumber;
       decayRate: BigNumber;
       account: string;
-      accDecayPer1e12: BigNumber;
       sum_tokens: BigNumber;
       burnDone: BigNumber;
       latestRound: BigNumber;
       initialRound: BigNumber;
       latestNet: BigNumber;
-      LNISLR: BigNumber;
+      VIRTUAL: BigNumber;
     }
   >;
 
@@ -1292,11 +1280,11 @@ export class TGRToken extends BaseContract {
         nonUserSumTokens: BigNumber;
         burnPending: BigNumber;
         latestRound: BigNumber;
-        LNISLR: BigNumber;
+        VIRTUAL: BigNumber;
         u_balances: BigNumber;
         u_pending: BigNumber;
         u_latestDecayRound: BigNumber;
-        u_LNISLR: BigNumber;
+        u_VIRTUAL: BigNumber;
       }
     >;
 
@@ -1323,20 +1311,18 @@ export class TGRToken extends BaseContract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber,
         BigNumber
       ] & {
         latestBNumber: BigNumber;
         cycleBlocks: BigNumber;
         decayRate: BigNumber;
         account: string;
-        accDecayPer1e12: BigNumber;
         sum_tokens: BigNumber;
         burnDone: BigNumber;
         latestRound: BigNumber;
         initialRound: BigNumber;
         latestNet: BigNumber;
-        LNISLR: BigNumber;
+        VIRTUAL: BigNumber;
       }
     >;
 
@@ -1485,20 +1471,18 @@ export class TGRToken extends BaseContract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber,
         BigNumber
       ] & {
         latestBNumber: BigNumber;
         cycleBlocks: BigNumber;
         decayRate: BigNumber;
         account: string;
-        accDecayPer1e12: BigNumber;
         sum_tokens: BigNumber;
         burnDone: BigNumber;
         latestRound: BigNumber;
         initialRound: BigNumber;
         latestNet: BigNumber;
-        LNISLR: BigNumber;
+        VIRTUAL: BigNumber;
       }
     >;
 
@@ -1515,20 +1499,18 @@ export class TGRToken extends BaseContract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber,
         BigNumber
       ] & {
         latestBNumber: BigNumber;
         cycleBlocks: BigNumber;
         decayRate: BigNumber;
         account: string;
-        accDecayPer1e12: BigNumber;
         sum_tokens: BigNumber;
         burnDone: BigNumber;
         latestRound: BigNumber;
         initialRound: BigNumber;
         latestNet: BigNumber;
-        LNISLR: BigNumber;
+        VIRTUAL: BigNumber;
       }
     >;
 
