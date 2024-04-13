@@ -50,6 +50,51 @@ exports.deployTGR = async function (deployer, analyticMath, wireLib) {
   return token;
 };
 
+
+exports.deployDistTypeA = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("DistTypeA", {
+    signer: deployer,
+  });
+
+  const token = await Token.connect(deployer).deploy(analyticMath);
+  await token.deployed();
+
+  return token;
+};
+
+exports.deployDistTypeC = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("DistTypeC", {
+    signer: deployer,
+  });
+
+  const token = await Token.connect(deployer).deploy(analyticMath);
+  await token.deployed();
+
+  return token;
+};
+
+exports.deployDistTypeE = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("DistTypeE", {
+    signer: deployer,
+  });
+
+  const token = await Token.connect(deployer).deploy(analyticMath);
+  await token.deployed();
+
+  return token;
+};
+
+exports.deployDistTypeF = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("DistTypeF", {
+    signer: deployer,
+  });
+
+  const token = await Token.connect(deployer).deploy(analyticMath);
+  await token.deployed();
+
+  return token;
+};
+
 exports.deployMockToken = async function (deployer, name, symbol) {
   const MockToken = await ethers.getContractFactory("MockToken");
   const mock = await MockToken.connect(deployer).deploy(name, symbol);

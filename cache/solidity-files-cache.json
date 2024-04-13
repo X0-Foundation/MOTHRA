@@ -185,6 +185,52 @@
         "Keep3rAccountance"
       ]
     },
+    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\Keep3rRoles.sol": {
+      "lastModificationDate": 1712005544045,
+      "contentHash": "2a424100bf53719b6960c5fad806c6d0",
+      "sourceName": "contracts/agency/peripherals/Keep3rRoles.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../../interfaces/peripherals/IKeep3rRoles.sol",
+        "@openzeppelin/contracts/utils/structs/EnumerableSet.sol",
+        "./Governable.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "Keep3rRoles"
+      ]
+    },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\Keep3rParameters.sol": {
       "lastModificationDate": 1712196938816,
       "contentHash": "adb8623e2053eebd98955b3460b58f7f",
@@ -230,52 +276,6 @@
       ],
       "artifacts": [
         "Keep3rParameters"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\Keep3rRoles.sol": {
-      "lastModificationDate": 1712005544045,
-      "contentHash": "2a424100bf53719b6960c5fad806c6d0",
-      "sourceName": "contracts/agency/peripherals/Keep3rRoles.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../../interfaces/peripherals/IKeep3rRoles.sol",
-        "@openzeppelin/contracts/utils/structs/EnumerableSet.sol",
-        "./Governable.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "Keep3rRoles"
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\DustCollector.sol": {
@@ -370,6 +370,53 @@
         "Keep3rJobDisputable"
       ]
     },
+    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\jobs\\Keep3rJobWorkable.sol": {
+      "lastModificationDate": 1712568933811,
+      "contentHash": "9746a5f806ffc3a75f1a5cf7a410ad18",
+      "sourceName": "contracts/agency/peripherals/jobs/Keep3rJobWorkable.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./Keep3rJobMigration.sol",
+        "../../../interfaces/peripherals/IKeep3rJobs.sol",
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "Keep3rJobWorkable"
+      ]
+    },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\jobs\\Keep3rJobManager.sol": {
       "lastModificationDate": 1712005544045,
       "contentHash": "ec7d4ea6fd20b672886cd94641bab587",
@@ -415,53 +462,6 @@
       ],
       "artifacts": [
         "Keep3rJobManager"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\jobs\\Keep3rJobWorkable.sol": {
-      "lastModificationDate": 1712365453128,
-      "contentHash": "9746a5f806ffc3a75f1a5cf7a410ad18",
-      "sourceName": "contracts/agency/peripherals/jobs/Keep3rJobWorkable.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./Keep3rJobMigration.sol",
-        "../../../interfaces/peripherals/IKeep3rJobs.sol",
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
-        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "Keep3rJobWorkable"
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\Keep3rDisputable.sol": {
@@ -511,7 +511,7 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\jobs\\Keep3rJobFundableCredits.sol": {
-      "lastModificationDate": 1712365453128,
+      "lastModificationDate": 1712568933811,
       "contentHash": "d6c5c6546e8082c99c4444e610f6c1ea",
       "sourceName": "contracts/agency/peripherals/jobs/Keep3rJobFundableCredits.sol",
       "solcConfig": {
@@ -601,176 +601,6 @@
       ],
       "artifacts": [
         "IKeep3rDisputable"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\peripherals\\IKeep3rRoles.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "8257ae04fb828f82251129da2005c7c1",
-      "sourceName": "contracts/interfaces/peripherals/IKeep3rRoles.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "IKeep3rRoles"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\Governable.sol": {
-      "lastModificationDate": 1712005544045,
-      "contentHash": "5e12607beb9069d86cfbb716493b29b0",
-      "sourceName": "contracts/agency/peripherals/Governable.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../../interfaces/peripherals/IGovernable.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "Governable"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\node_modules\\@openzeppelin\\contracts\\utils\\structs\\EnumerableSet.sol": {
-      "lastModificationDate": 1711628400258,
-      "contentHash": "ee7890ed6993382898aeeed014cffab8",
-      "sourceName": "@openzeppelin/contracts/utils/structs/EnumerableSet.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "EnumerableSet"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\peripherals\\IGovernable.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "fff43ecdcb7cee74e3e8c28b84ce51a0",
-      "sourceName": "contracts/interfaces/peripherals/IGovernable.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "IGovernable"
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\IKeep3rHelper.sol": {
@@ -941,6 +771,176 @@
       ],
       "artifacts": [
         "IKeep3rAccountance"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\node_modules\\@openzeppelin\\contracts\\utils\\structs\\EnumerableSet.sol": {
+      "lastModificationDate": 1711628400258,
+      "contentHash": "ee7890ed6993382898aeeed014cffab8",
+      "sourceName": "@openzeppelin/contracts/utils/structs/EnumerableSet.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "EnumerableSet"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\peripherals\\IKeep3rRoles.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "8257ae04fb828f82251129da2005c7c1",
+      "sourceName": "contracts/interfaces/peripherals/IKeep3rRoles.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "IKeep3rRoles"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\Governable.sol": {
+      "lastModificationDate": 1712005544045,
+      "contentHash": "5e12607beb9069d86cfbb716493b29b0",
+      "sourceName": "contracts/agency/peripherals/Governable.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../../interfaces/peripherals/IGovernable.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "Governable"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\peripherals\\IGovernable.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "fff43ecdcb7cee74e3e8c28b84ce51a0",
+      "sourceName": "contracts/interfaces/peripherals/IGovernable.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "IGovernable"
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\peripherals\\IKeep3rJobs.sol": {
@@ -1250,7 +1250,7 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\jobs\\Keep3rJobMigration.sol": {
-      "lastModificationDate": 1712365453128,
+      "lastModificationDate": 1712568933811,
       "contentHash": "0417c1c8456c24e26c4ae155ef933318",
       "sourceName": "contracts/agency/peripherals/jobs/Keep3rJobMigration.sol",
       "solcConfig": {
@@ -1431,7 +1431,7 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\keepers\\Keep3rKeeperFundable.sol": {
-      "lastModificationDate": 1712365453129,
+      "lastModificationDate": 1712568933811,
       "contentHash": "4f1d94a5d71efddbe10ee49e6a311024",
       "sourceName": "contracts/agency/peripherals/keepers/Keep3rKeeperFundable.sol",
       "solcConfig": {
@@ -2051,8 +2051,673 @@
         "Ownable"
       ]
     },
+    "D:\\MachineLearning\\XContracts\\contracts\\research\\DistTypeF.sol": {
+      "lastModificationDate": 1712984333738,
+      "contentHash": "39e7dae9297055996c57edfece587977",
+      "sourceName": "contracts/research/DistTypeF.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../libraries/math/SafeMath.sol",
+        "../libraries/math/AnalyticMath.sol",
+        "../libraries/math/IntegralMath.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "DistTypeF"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\libraries\\math\\SafeMath.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "cb8ad92bed43fe4c92dc3c3b1c9e0470",
+      "sourceName": "contracts/libraries/math/SafeMath.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SafeMath"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\libraries\\math\\AnalyticMath.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "f85ba27e5c7443f3650e882c23a66871",
+      "sourceName": "contracts/libraries/math/AnalyticMath.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./IntegralMath.sol"
+      ],
+      "versionPragmas": [
+        "0.8.14"
+      ],
+      "artifacts": [
+        "AnalyticMath"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\libraries\\math\\IntegralMath.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "cd439eb2fd8fead3675609e0ad4fa3dd",
+      "sourceName": "contracts/libraries/math/IntegralMath.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.8.14"
+      ],
+      "artifacts": [
+        "IntegralMath"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\node_modules\\hardhat\\console.sol": {
+      "lastModificationDate": 1711628405420,
+      "contentHash": "896f68942c3a20e9ae3c3c5bfd3add54",
+      "sourceName": "hardhat/console.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.4.22 <0.9.0"
+      ],
+      "artifacts": [
+        "console"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\session\\SessionRegistrar.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "909f4a8d13c14892de5e3ee09b0cf2d6",
+      "sourceName": "contracts/session/SessionRegistrar.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./interfaces/IConstants.sol",
+        "./interfaces/ISessionRegistrar.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SessionRegistrar"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\session\\interfaces\\IConstants.sol": {
+      "lastModificationDate": 1712568933814,
+      "contentHash": "07f2126eb0dd80f907c5474e6fd01cf7",
+      "sourceName": "contracts/session/interfaces/IConstants.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": []
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\session\\interfaces\\ISessionRegistrar.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "ac04dac3aae073c48c898d415c94f903",
+      "sourceName": "contracts/session/interfaces/ISessionRegistrar.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./IConstants.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ISessionRegistrar"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\session\\SessionManager.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "ae8fdfbaabd000298c6b8b5f274b3e3a",
+      "sourceName": "contracts/session/SessionManager.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./interfaces/IConstants.sol",
+        "./interfaces/ISessionRegistrar.sol",
+        "./interfaces/ISessionManager.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SessionManager"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\session\\interfaces\\ISessionManager.sol": {
+      "lastModificationDate": 1712002476238,
+      "contentHash": "e3d16e02aab529528882596787cb8b08",
+      "sourceName": "contracts/session/interfaces/ISessionManager.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./IConstants.sol",
+        "./ISessionRegistrar.sol",
+        "./ISessionFees.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ISessionManager"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\session\\interfaces\\ISessionFees.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "90d33c48e159d1163ef8b878088b6959",
+      "sourceName": "contracts/session/interfaces/ISessionFees.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./IConstants.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ISessionFees"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\session\\SessionFees.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "2ba22bfcc353d16fb4764556c9d86be7",
+      "sourceName": "contracts/session/SessionFees.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./interfaces/IConstants.sol",
+        "./interfaces/ISessionRegistrar.sol",
+        "./interfaces/ISessionFees.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SessionFees"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\session\\interfaces\\INode.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "a2a9806e892a4019eabb4cfb5f26bf52",
+      "sourceName": "contracts/session/interfaces/INode.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./IConstants.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "INode"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\session\\Node.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "a240cef26fc4204c2168a68174696db6",
+      "sourceName": "contracts/session/Node.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./interfaces/INode.sol",
+        "../libraries/WireLibrary.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Node"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\libraries\\WireLibrary.sol": {
+      "lastModificationDate": 1712568933812,
+      "contentHash": "b3911018f3574196a4f17ffbc86a67d6",
+      "sourceName": "contracts/libraries/WireLibrary.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../session/interfaces/INode.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "WireLibrary"
+      ]
+    },
     "D:\\MachineLearning\\XContracts\\contracts\\periphery\\XTaker.sol": {
-      "lastModificationDate": 1712365453125,
+      "lastModificationDate": 1712568933813,
       "contentHash": "a6ad8753af1c1c552ba20a4880b5f443",
       "sourceName": "contracts/periphery/XTaker.sol",
       "solcConfig": {
@@ -2110,143 +2775,6 @@
         "XTaker"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\session\\Node.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "a240cef26fc4204c2168a68174696db6",
-      "sourceName": "contracts/session/Node.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./interfaces/INode.sol",
-        "../libraries/WireLibrary.sol",
-        "hardhat/console.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "Node"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\libraries\\WireLibrary.sol": {
-      "lastModificationDate": 1712558706215,
-      "contentHash": "b3911018f3574196a4f17ffbc86a67d6",
-      "sourceName": "contracts/libraries/WireLibrary.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../session/interfaces/INode.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "WireLibrary"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\session\\SessionManager.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "ae8fdfbaabd000298c6b8b5f274b3e3a",
-      "sourceName": "contracts/session/SessionManager.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./interfaces/IConstants.sol",
-        "./interfaces/ISessionRegistrar.sol",
-        "./interfaces/ISessionManager.sol",
-        "hardhat/console.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "SessionManager"
-      ]
-    },
     "D:\\MachineLearning\\XContracts\\contracts\\libraries\\utils\\TransferHelper.sol": {
       "lastModificationDate": 1712005544061,
       "contentHash": "70fee0891194a429099651673e4c3cbf",
@@ -2290,7 +2818,7 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\libraries\\XLibrary.sol": {
-      "lastModificationDate": 1712565304090,
+      "lastModificationDate": 1712568933812,
       "contentHash": "328d8b11aed163a4ba0cc1cbd637bf4e",
       "sourceName": "contracts/libraries/XLibrary.sol",
       "solcConfig": {
@@ -2392,48 +2920,6 @@
         "RouterLibrary"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\libraries\\math\\SafeMath.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "cb8ad92bed43fe4c92dc3c3b1c9e0470",
-      "sourceName": "contracts/libraries/math/SafeMath.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "SafeMath"
-      ]
-    },
     "D:\\MachineLearning\\XContracts\\contracts\\core\\interfaces\\IXFactory.sol": {
       "lastModificationDate": 1712196938818,
       "contentHash": "d6b5d9e95e04f8698cc8519b83c8190e",
@@ -2479,7 +2965,7 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\periphery\\interfaces\\IXTaker.sol": {
-      "lastModificationDate": 1712365304375,
+      "lastModificationDate": 1712568933814,
       "contentHash": "66756e71e46cc18358831975975138e9",
       "sourceName": "contracts/periphery/interfaces/IXTaker.sol",
       "solcConfig": {
@@ -2608,266 +3094,6 @@
         "IWETH"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\node_modules\\hardhat\\console.sol": {
-      "lastModificationDate": 1711628405420,
-      "contentHash": "896f68942c3a20e9ae3c3c5bfd3add54",
-      "sourceName": "hardhat/console.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.4.22 <0.9.0"
-      ],
-      "artifacts": [
-        "console"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\session\\interfaces\\INode.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "a2a9806e892a4019eabb4cfb5f26bf52",
-      "sourceName": "contracts/session/interfaces/INode.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./IConstants.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "INode"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\session\\interfaces\\IConstants.sol": {
-      "lastModificationDate": 1712558706215,
-      "contentHash": "07f2126eb0dd80f907c5474e6fd01cf7",
-      "sourceName": "contracts/session/interfaces/IConstants.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": []
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\session\\interfaces\\ISessionRegistrar.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "ac04dac3aae073c48c898d415c94f903",
-      "sourceName": "contracts/session/interfaces/ISessionRegistrar.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./IConstants.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ISessionRegistrar"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\session\\interfaces\\ISessionManager.sol": {
-      "lastModificationDate": 1712002476238,
-      "contentHash": "e3d16e02aab529528882596787cb8b08",
-      "sourceName": "contracts/session/interfaces/ISessionManager.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./IConstants.sol",
-        "./ISessionRegistrar.sol",
-        "./ISessionFees.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ISessionManager"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\session\\interfaces\\ISessionFees.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "90d33c48e159d1163ef8b878088b6959",
-      "sourceName": "contracts/session/interfaces/ISessionFees.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./IConstants.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ISessionFees"
-      ]
-    },
     "D:\\MachineLearning\\XContracts\\contracts\\core\\interfaces\\IXPair.sol": {
       "lastModificationDate": 1712005544061,
       "contentHash": "e1d0e0c493149c6e17b0c655f44af8bb",
@@ -2914,7 +3140,7 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\farm\\interfaces\\ITGRToken.sol": {
-      "lastModificationDate": 1712537222899,
+      "lastModificationDate": 1712619874529,
       "contentHash": "9b2a2e1f04358d3bb3337f71235e8245",
       "sourceName": "contracts/farm/interfaces/ITGRToken.sol",
       "solcConfig": {
@@ -2958,7 +3184,7 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\core\\interfaces\\IPancakePair.sol": {
-      "lastModificationDate": 1712365583238,
+      "lastModificationDate": 1712568933812,
       "contentHash": "56068479c6e5154d8b313bbd902f7d3d",
       "sourceName": "contracts/core/interfaces/IPancakePair.sol",
       "solcConfig": {
@@ -2999,100 +3225,8 @@
         "IPancakePair"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\session\\SessionRegistrar.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "909f4a8d13c14892de5e3ee09b0cf2d6",
-      "sourceName": "contracts/session/SessionRegistrar.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./interfaces/IConstants.sol",
-        "./interfaces/ISessionRegistrar.sol",
-        "hardhat/console.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "SessionRegistrar"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\session\\SessionFees.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "2ba22bfcc353d16fb4764556c9d86be7",
-      "sourceName": "contracts/session/SessionFees.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./interfaces/IConstants.sol",
-        "./interfaces/ISessionRegistrar.sol",
-        "./interfaces/ISessionFees.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "SessionFees"
-      ]
-    },
     "D:\\MachineLearning\\XContracts\\contracts\\periphery\\XMaker.sol": {
-      "lastModificationDate": 1712565318290,
+      "lastModificationDate": 1712568933813,
       "contentHash": "80eeba4ded547e29a7e29a40d7b360ed",
       "sourceName": "contracts/periphery/XMaker.sol",
       "solcConfig": {
@@ -3150,7 +3284,7 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\periphery\\interfaces\\IXMaker.sol": {
-      "lastModificationDate": 1712365304375,
+      "lastModificationDate": 1712568933813,
       "contentHash": "a1bceae01abf99ec3e5b68f7f57f1fc1",
       "sourceName": "contracts/periphery/interfaces/IXMaker.sol",
       "solcConfig": {
@@ -3193,196 +3327,8 @@
         "IXMaker"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\farm\\TGRToken.sol": {
-      "lastModificationDate": 1712597235281,
-      "contentHash": "0ddedb940cd7e0025cffa4e03e0bb60a",
-      "sourceName": "contracts/farm/TGRToken.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "./interfaces/ITGRToken.sol",
-        "../session/interfaces/IConstants.sol",
-        "../session/SessionRegistrar.sol",
-        "../session/SessionManager.sol",
-        "../session/SessionFees.sol",
-        "../session/Node.sol",
-        "../libraries/WireLibrary.sol",
-        "../periphery/interfaces/IXMaker.sol",
-        "../periphery/interfaces/IXTaker.sol",
-        "../core/interfaces/IXFactory.sol",
-        "../core/interfaces/IXPair.sol",
-        "../libraries/math/SafeMath.sol",
-        "../libraries/math/AnalyticMath.sol",
-        "../libraries/math/IntegralMath.sol",
-        "../libraries/GovLib.sol",
-        "hardhat/console.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "TGRToken"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\libraries\\math\\AnalyticMath.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "f85ba27e5c7443f3650e882c23a66871",
-      "sourceName": "contracts/libraries/math/AnalyticMath.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./IntegralMath.sol"
-      ],
-      "versionPragmas": [
-        "0.8.14"
-      ],
-      "artifacts": [
-        "AnalyticMath"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\libraries\\GovLib.sol": {
-      "lastModificationDate": 1696405587366,
-      "contentHash": "1031ce052f8f99478661e3a4f8d551a0",
-      "sourceName": "contracts/libraries/GovLib.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "GovLib"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\libraries\\math\\IntegralMath.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "cd439eb2fd8fead3675609e0ad4fa3dd",
-      "sourceName": "contracts/libraries/math/IntegralMath.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "0.8.14"
-      ],
-      "artifacts": [
-        "IntegralMath"
-      ]
-    },
     "D:\\MachineLearning\\XContracts\\contracts\\periphery\\ControlCenter.sol": {
-      "lastModificationDate": 1712558706217,
+      "lastModificationDate": 1712568933813,
       "contentHash": "102230690097a7c44880adc79b389422",
       "sourceName": "contracts/periphery/ControlCenter.sol",
       "solcConfig": {
@@ -3474,8 +3420,206 @@
         "AggregatorV3Interface"
       ]
     },
+    "D:\\MachineLearning\\XContracts\\contracts\\research\\DistTypeC.sol": {
+      "lastModificationDate": 1712973863746,
+      "contentHash": "1ddd1741e84f25b5803e0f0e6c95dcb7",
+      "sourceName": "contracts/research/DistTypeC.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../libraries/math/SafeMath.sol",
+        "../libraries/math/AnalyticMath.sol",
+        "../libraries/math/IntegralMath.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "DistTypeC"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\research\\DistTypeA.sol": {
+      "lastModificationDate": 1712972265016,
+      "contentHash": "f0a8f1b11e572ce47b92f8cfbe028441",
+      "sourceName": "contracts/research/DistTypeA.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../libraries/math/SafeMath.sol",
+        "../libraries/math/AnalyticMath.sol",
+        "../libraries/math/IntegralMath.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "DistTypeA"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\farm\\TGRToken.sol": {
+      "lastModificationDate": 1712937849725,
+      "contentHash": "0ca81fb47ad465fe1de4d1699e9b67bb",
+      "sourceName": "contracts/farm/TGRToken.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "./interfaces/ITGRToken.sol",
+        "../session/interfaces/IConstants.sol",
+        "../session/SessionRegistrar.sol",
+        "../session/SessionManager.sol",
+        "../session/SessionFees.sol",
+        "../session/Node.sol",
+        "../libraries/WireLibrary.sol",
+        "../periphery/interfaces/IXMaker.sol",
+        "../periphery/interfaces/IXTaker.sol",
+        "../core/interfaces/IXFactory.sol",
+        "../core/interfaces/IXPair.sol",
+        "../libraries/math/SafeMath.sol",
+        "../libraries/math/AnalyticMath.sol",
+        "../libraries/math/IntegralMath.sol",
+        "../libraries/GovLib.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "TGRToken"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\libraries\\GovLib.sol": {
+      "lastModificationDate": 1712935399943,
+      "contentHash": "1031ce052f8f99478661e3a4f8d551a0",
+      "sourceName": "contracts/libraries/GovLib.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "GovLib"
+      ]
+    },
     "D:\\MachineLearning\\XContracts\\contracts\\core\\XPair.sol": {
-      "lastModificationDate": 1712535072621,
+      "lastModificationDate": 1712568933811,
       "contentHash": "d8d0aa3c0177a3de1f221e15aa8e0501",
       "sourceName": "contracts/core/XPair.sol",
       "solcConfig": {
@@ -4381,10 +4525,10 @@
         "IUniswapV3Pool"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\node_modules\\@uniswap\\v3-core\\contracts\\interfaces\\pool\\IUniswapV3PoolImmutables.sol": {
-      "lastModificationDate": 1711628377224,
-      "contentHash": "e236e09a9d654fb2f20a6da5dba2bd2f",
-      "sourceName": "@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolImmutables.sol",
+    "D:\\MachineLearning\\XContracts\\node_modules\\@uniswap\\v3-core\\contracts\\interfaces\\pool\\IUniswapV3PoolState.sol": {
+      "lastModificationDate": 1711628377388,
+      "contentHash": "0488495ef9087b4513d3b43634035ef9",
+      "sourceName": "@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolState.sol",
       "solcConfig": {
         "version": "0.8.14",
         "settings": {
@@ -4420,49 +4564,7 @@
         ">=0.5.0"
       ],
       "artifacts": [
-        "IUniswapV3PoolImmutables"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\node_modules\\@uniswap\\v3-core\\contracts\\interfaces\\pool\\IUniswapV3PoolOwnerActions.sol": {
-      "lastModificationDate": 1711628377295,
-      "contentHash": "1b06ecc79e75f836c446ccf286e671e4",
-      "sourceName": "@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolOwnerActions.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.5.0"
-      ],
-      "artifacts": [
-        "IUniswapV3PoolOwnerActions"
+        "IUniswapV3PoolState"
       ]
     },
     "D:\\MachineLearning\\XContracts\\node_modules\\@uniswap\\v3-core\\contracts\\interfaces\\pool\\IUniswapV3PoolActions.sol": {
@@ -4507,48 +4609,6 @@
         "IUniswapV3PoolActions"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\node_modules\\@uniswap\\v3-core\\contracts\\interfaces\\pool\\IUniswapV3PoolState.sol": {
-      "lastModificationDate": 1711628377388,
-      "contentHash": "0488495ef9087b4513d3b43634035ef9",
-      "sourceName": "@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolState.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.5.0"
-      ],
-      "artifacts": [
-        "IUniswapV3PoolState"
-      ]
-    },
     "D:\\MachineLearning\\XContracts\\node_modules\\@uniswap\\v3-core\\contracts\\interfaces\\pool\\IUniswapV3PoolEvents.sol": {
       "lastModificationDate": 1711628377148,
       "contentHash": "05abb59ec113db1046f7dadc78bb297b",
@@ -4591,6 +4651,48 @@
         "IUniswapV3PoolEvents"
       ]
     },
+    "D:\\MachineLearning\\XContracts\\node_modules\\@uniswap\\v3-core\\contracts\\interfaces\\pool\\IUniswapV3PoolOwnerActions.sol": {
+      "lastModificationDate": 1711628377295,
+      "contentHash": "1b06ecc79e75f836c446ccf286e671e4",
+      "sourceName": "@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolOwnerActions.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.5.0"
+      ],
+      "artifacts": [
+        "IUniswapV3PoolOwnerActions"
+      ]
+    },
     "D:\\MachineLearning\\XContracts\\node_modules\\@uniswap\\v3-core\\contracts\\interfaces\\pool\\IUniswapV3PoolDerivedState.sol": {
       "lastModificationDate": 1711628377067,
       "contentHash": "25b71180ec9f5132a158334971ee2ace",
@@ -4631,6 +4733,48 @@
       ],
       "artifacts": [
         "IUniswapV3PoolDerivedState"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\node_modules\\@uniswap\\v3-core\\contracts\\interfaces\\pool\\IUniswapV3PoolImmutables.sol": {
+      "lastModificationDate": 1711628377224,
+      "contentHash": "e236e09a9d654fb2f20a6da5dba2bd2f",
+      "sourceName": "@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolImmutables.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.5.0"
+      ],
+      "artifacts": [
+        "IUniswapV3PoolImmutables"
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\for-test\\IUniswapV3PoolForTest.sol": {
@@ -5080,6 +5224,51 @@
         "IKeep3rHelperParameters"
       ]
     },
+    "D:\\MachineLearning\\XContracts\\contracts\\for-test\\libraries\\LiquidityAmountsForTest.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "c44cc54705652e3633f82a4b9794ec61",
+      "sourceName": "contracts/for-test/libraries/LiquidityAmountsForTest.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../../agency/libraries/FullMath.sol",
+        "../../agency/libraries/FixedPoint96.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "LiquidityAmountsForTest"
+      ]
+    },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\Keep3rHelper.sol": {
       "lastModificationDate": 1712005544045,
       "contentHash": "d89bf5e824015a7580777b866cc5c145",
@@ -5172,51 +5361,6 @@
       ],
       "artifacts": [
         "Keep3rHelperForTest"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\for-test\\libraries\\LiquidityAmountsForTest.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "c44cc54705652e3633f82a4b9794ec61",
-      "sourceName": "contracts/for-test/libraries/LiquidityAmountsForTest.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../../agency/libraries/FullMath.sol",
-        "../../agency/libraries/FixedPoint96.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "LiquidityAmountsForTest"
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\for-test\\peripherals\\jobs\\Keep3rJobDisputableForTest.sol": {
@@ -6092,7 +6236,7 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\periphery\\interfaces\\IPancakeRouter02.sol": {
-      "lastModificationDate": 1712365304375,
+      "lastModificationDate": 1712568933813,
       "contentHash": "0383f9fbd0ee6428b81bc00b5f378a11",
       "sourceName": "contracts/periphery/interfaces/IPancakeRouter02.sol",
       "solcConfig": {
@@ -6136,7 +6280,7 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\periphery\\interfaces\\IPancakeRouter01.sol": {
-      "lastModificationDate": 1712365304375,
+      "lastModificationDate": 1712568933813,
       "contentHash": "e868a8ea0dbf7fb280bfcd1964d59b2d",
       "sourceName": "contracts/periphery/interfaces/IPancakeRouter01.sol",
       "solcConfig": {
@@ -6178,7 +6322,7 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\farm\\XdaoAgency.sol": {
-      "lastModificationDate": 1712365453128,
+      "lastModificationDate": 1712568933812,
       "contentHash": "64e79ee43700415b600db2cffad2d734",
       "sourceName": "contracts/farm/XdaoAgency.sol",
       "solcConfig": {
@@ -6222,6 +6366,54 @@
       ],
       "artifacts": [
         "XdaoAgency"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\research\\DistTypeE.sol": {
+      "lastModificationDate": 1712988008740,
+      "contentHash": "f4af047cd4895804cdf00f68d7097720",
+      "sourceName": "contracts/research/DistTypeE.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../libraries/math/SafeMath.sol",
+        "../libraries/math/AnalyticMath.sol",
+        "../libraries/math/IntegralMath.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "DistTypeE"
       ]
     }
   }

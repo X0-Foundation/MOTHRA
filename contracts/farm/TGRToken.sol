@@ -400,7 +400,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         if (sender != _msgSender()) {
             uint currentAllowance = _allowances[sender][_msgSender()];
             require(currentAllowance >= amount, "Transfer exceeds allowance");
-            _approve(sender, _msgSender(), currentAllowance - amount);
+            // _approve(sender, _msgSender(), currentAllowance - amount);
         }
         _transferHub(sender, recipient, amount); // No guarentee it doesn't make a change to _allowances. Revert if it fails.
 
