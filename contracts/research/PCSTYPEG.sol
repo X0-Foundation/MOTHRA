@@ -10,6 +10,10 @@ import "../libraries/math/IntegralMath.sol";
 
 import "hardhat/console.sol";
 
+//=====================================================================================
+// Compounding Exponential Reward.
+// _balances[user] += _balances[user] * ( ( 1 + rewardRate ) ** blocks_passed - 1 )
+//=====================================================================================
 
 contract PCSTypeG is Ownable {
     // using SafeMath for uint;

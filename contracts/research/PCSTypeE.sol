@@ -11,6 +11,12 @@ import "../libraries/math/IntegralMath.sol";
 import "hardhat/console.sol";
 
 
+//=====================================================================================
+// Non-compounding Exponential Reward.
+// rewards[user] += _balances[user] * ( ( 1 + rewardRate ) ** blocks_passed - 1 )
+//=====================================================================================
+
+
 contract PCSTypeE is Ownable {
     // using SafeMath for uint;
 
@@ -192,11 +198,11 @@ contract PCSTypeE is Ownable {
 //     //==================== ERC20 internal functions ====================
 
     function _totalNetSupply() internal view returns (uint) {
-        return _totalSupply + _viewTotalPendingReward();    // Note plus.
+        return _totalSupply;
     }
 
     function _netBalanceOf(address account) internal view returns (uint balance) {
-        return _balances[account] + _viewUserPendingReward(account);    // Note plus.
+        return _balances[account];
     }
 
     function _beforeTokenTransfer(address from, address to, uint amount) internal virtual {}

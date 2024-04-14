@@ -10,6 +10,10 @@ import "../libraries/math/IntegralMath.sol";
 
 import "hardhat/console.sol";
 
+//=====================================================================================
+// Non-compounding Linear Reward.
+// rewards[user] += _rate * blocks_passed * _balances[user]
+//=====================================================================================
 
 contract PCSTypeC is Ownable {
     // using SafeMath for uint;

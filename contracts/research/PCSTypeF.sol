@@ -10,6 +10,10 @@ import "../libraries/math/IntegralMath.sol";
 
 import "hardhat/console.sol";
 
+//=====================================================================================
+// Non-compounding Exponential Burn.
+// rewards[user] += _balances[user] * (1 - ( 1 - burnRate ) ** blocks_passed )
+//=====================================================================================
 
 contract PCSTypeF is Ownable {
     // using SafeMath for uint;
@@ -192,11 +196,11 @@ contract PCSTypeF is Ownable {
 //     //==================== ERC20 internal functions ====================
 
     function _totalNetSupply() internal view returns (uint) {
-        return _totalSupply - _viewTotalPendingReward();    // Note minus.
+        return _totalSupply;    // Note minus.
     }
 
     function _netBalanceOf(address account) internal view returns (uint balance) {
-        return _balances[account] - _viewUserPendingReward(account); // Note minus.
+        return _balances[account]; // Note minus.
     }
 
     function _beforeTokenTransfer(address from, address to, uint amount) internal virtual {}

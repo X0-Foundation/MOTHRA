@@ -138,8 +138,9 @@ async function checkConsistency() {
 
 async function transfer(sender, recipient, amount) {
     let amountWei = ethToWei(amount);
-    let balance = await PCSTypeG.balanceOf(sender.address);
-    if (amountWei > balance) {
+    // The coming block will increase the balance a bit.
+    let balance = await PCSTypeG.balanceOf(sender.address); 
+    if (amountWei > balance) {  
         amountWei = balance;
         amount = weiToEth(amountWei);
     }

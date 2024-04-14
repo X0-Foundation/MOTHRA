@@ -55,10 +55,8 @@ exports.deployPCSTypeA = async function (deployer, analyticMath) {
   const Token = await ethers.getContractFactory("PCSTypeA", {
     signer: deployer,
   });
-
   const token = await Token.connect(deployer).deploy(analyticMath);
   await token.deployed();
-
   return token;
 };
 
@@ -66,10 +64,8 @@ exports.deployPCSTypeC = async function (deployer, analyticMath) {
   const Token = await ethers.getContractFactory("PCSTypeC", {
     signer: deployer,
   });
-
   const token = await Token.connect(deployer).deploy(analyticMath);
   await token.deployed();
-
   return token;
 };
 
@@ -77,10 +73,8 @@ exports.deployPCSTypeE = async function (deployer, analyticMath) {
   const Token = await ethers.getContractFactory("PCSTypeE", {
     signer: deployer,
   });
-
   const token = await Token.connect(deployer).deploy(analyticMath);
   await token.deployed();
-
   return token;
 };
 
@@ -88,10 +82,8 @@ exports.deployPCSTypeF = async function (deployer, analyticMath) {
   const Token = await ethers.getContractFactory("PCSTypeF", {
     signer: deployer,
   });
-
   const token = await Token.connect(deployer).deploy(analyticMath);
   await token.deployed();
-
   return token;
 };
 
@@ -99,21 +91,26 @@ exports.deployPCSTypeG = async function (deployer, analyticMath) {
   const Token = await ethers.getContractFactory("PCSTypeG", {
     signer: deployer,
   });
-
   const token = await Token.connect(deployer).deploy(analyticMath);
   await token.deployed();
-
   return token;
 };
 
-exports.deployNovelTypeF = async function (deployer, analyticMath) {
-  const Token = await ethers.getContractFactory("NovelTypeF", {
+exports.deployPCSTypeH = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("PCSTypeH", {
     signer: deployer,
   });
-
   const token = await Token.connect(deployer).deploy(analyticMath);
   await token.deployed();
+  return token;
+};
 
+exports.deployNovelTypeH = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("NovelTypeH", {
+    signer: deployer,
+  });
+  const token = await Token.connect(deployer).deploy(analyticMath);
+  await token.deployed();
   return token;
 };
 

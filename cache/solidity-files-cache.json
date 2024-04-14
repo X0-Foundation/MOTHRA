@@ -2052,8 +2052,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\PCSTYPEG.sol": {
-      "lastModificationDate": 1713118524240,
-      "contentHash": "e4eac805aa373fdf56d4ed7b26815dc5",
+      "lastModificationDate": 1713135737889,
+      "contentHash": "34e56a6368f041f13a3ae67076a089e8",
       "sourceName": "contracts/research/PCSTYPEG.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -3421,8 +3421,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\PCSTypeF.sol": {
-      "lastModificationDate": 1713119300384,
-      "contentHash": "ba036486daac776070d10fbb027b42c9",
+      "lastModificationDate": 1713135504426,
+      "contentHash": "ecf3a74d89543d72180f6d03bfedfa52",
       "sourceName": "contracts/research/PCSTypeF.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -3469,8 +3469,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\PCSTypeE.sol": {
-      "lastModificationDate": 1713119232135,
-      "contentHash": "5c8cbcfa66afa9d3311dc2808fd0dd1f",
+      "lastModificationDate": 1713135486138,
+      "contentHash": "70b8301a5f867f3a016cd5fbf4ec9f70",
       "sourceName": "contracts/research/PCSTypeE.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -3517,8 +3517,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\PCSTypeC.sol": {
-      "lastModificationDate": 1713117970269,
-      "contentHash": "c9d61fc51e50beeb46aa746432c7cbc1",
+      "lastModificationDate": 1713135119714,
+      "contentHash": "16d2b24c0a6bedd30fa0d7957ee5304c",
       "sourceName": "contracts/research/PCSTypeC.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -3565,8 +3565,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\PCSTypeA.sol": {
-      "lastModificationDate": 1713117641444,
-      "contentHash": "eb5ecaf651831559e8bdee86800e6f4a",
+      "lastModificationDate": 1713135202303,
+      "contentHash": "378929d72f16915f25c4ae9e00d3b1dd",
       "sourceName": "contracts/research/PCSTypeA.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -3610,54 +3610,6 @@
       ],
       "artifacts": [
         "PCSTypeA"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\research\\NovelTypeF.sol": {
-      "lastModificationDate": 1713110733613,
-      "contentHash": "72a5783600d58cdf5bbd94c3187eb4f4",
-      "sourceName": "contracts/research/NovelTypeF.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "../libraries/math/SafeMath.sol",
-        "../libraries/math/AnalyticMath.sol",
-        "../libraries/math/IntegralMath.sol",
-        "hardhat/console.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "NovelTypeF"
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\farm\\TGRToken.sol": {
@@ -6510,6 +6462,102 @@
       ],
       "artifacts": [
         "XdaoAgency"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\research\\PCSTYPEH.sol": {
+      "lastModificationDate": 1713137754107,
+      "contentHash": "926601c54f9a473cfebbef67e0f99187",
+      "sourceName": "contracts/research/PCSTYPEH.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../libraries/math/SafeMath.sol",
+        "../libraries/math/AnalyticMath.sol",
+        "../libraries/math/IntegralMath.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "PCSTypeH"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\research\\NovelTypeH.sol": {
+      "lastModificationDate": 1713136303267,
+      "contentHash": "bc25ff08c14f6ae15bbf9ead417328df",
+      "sourceName": "contracts/research/NovelTypeH.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../libraries/math/SafeMath.sol",
+        "../libraries/math/AnalyticMath.sol",
+        "../libraries/math/IntegralMath.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "NovelTypeH"
       ]
     }
   }
