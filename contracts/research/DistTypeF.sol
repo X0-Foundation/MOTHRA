@@ -83,7 +83,7 @@ contract DistTypeF is Ownable {
     }
 
     uint constant MAGNIFIER = 10 ** 5;
-    uint constant incPerCycle = 777;
+    uint constant DecPerCycle = 777;    // Burn % per cycle blocks. So reward means burn.
     uint constant CYCLE = 30;
 
     function upadateWithTotalShare() public {
@@ -91,32 +91,38 @@ contract DistTypeF is Ownable {
         uint missingBlocks = nowBlock - latestBlock;
         if (missingBlocks > 0) {
             latestBlock = nowBlock;
-            (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER + incPerCycle, MAGNIFIER, missingBlocks, CYCLE);
-            rewardPool = _safeSubtract(_totalSupply, IntegralMath.mulDivF(numerator, _totalSupply, denominator));
-            accRewardPerShare12 = IntegralMath.mulDivF(accRewardPerShare12 * 1e12, numerator, denominator);
+            (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missingBlocks, CYCLE);           
+            uint pending = _totalSupply - IntegralMath.mulDivF(_totalSupply, numerator, denominator);
+            rewardPool += pending;
+            accRewardPerShare12 += (1e12 - IntegralMath.mulDivC(1e12, numerator, denominator));
         }
     }
 
     function _changeUserShare(address user, uint amount, bool CreditNotDebit) internal {
         upadateWithTotalShare();
-        uint standardPending = (accRewardPerShare12 * _balances[user] - users[user].rewardDebt12) / 1e12;
-        rewardPool -= standardPending;
+        uint standardPending =( accRewardPerShare12 * _balances[user] - users[user].rewardDebt12 ) / 1e12;
+        rewardPool = _safeSubtract(rewardPool, standardPending);
         users[user].reward += standardPending;
         if (CreditNotDebit) {
             _balances[user] += amount;
             _totalSupply += amount;
         } else {
-            _balances[user] -= amount;
-            _totalSupply -= amount;            
+            _balances[user] = _safeSubtract(_balances[user], amount);
+            _totalSupply = _safeSubtract(_totalSupply, amount);            
         }
         users[user].rewardDebt12 = accRewardPerShare12 * _balances[user];
     }
 
     function _viewUserPendingReward(address user) internal view returns (uint) {
-        uint standardPending = (accRewardPerShare12 * _balances[user] - users[user].rewardDebt12) / 1e12;
+        uint debt12 = 1e12;
+        if (debt12 < users[user].rewardDebt12 ) {
+            debt12 = users[user].rewardDebt12;
+        }
+        uint standardPending = ( accRewardPerShare12 * _balances[user] - users[user].rewardDebt12 ) / 1e12;
+
         uint nowBlock = block.number - initialBlock;
         uint extraBlocks = nowBlock - latestBlock;
-        (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER + incPerCycle, MAGNIFIER, extraBlocks, CYCLE);
+        (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER + DecPerCycle, MAGNIFIER, extraBlocks, CYCLE);
         uint extraPending = IntegralMath.mulDivC(_balances[user], numerator, denominator) - _balances[user];
         return (standardPending + extraPending);
     }
@@ -124,8 +130,8 @@ contract DistTypeF is Ownable {
     function _viewTotalPendingReward() internal view returns (uint) {
         uint nowBlock = block.number - initialBlock;
         uint extraBlocks = nowBlock - latestBlock;
-        (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER + incPerCycle, MAGNIFIER, extraBlocks, CYCLE);
-        uint extraPending = IntegralMath.mulDivC(_totalSupply, numerator, denominator) - _totalSupply;
+        (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER + DecPerCycle, MAGNIFIER, extraBlocks, CYCLE);
+        uint extraPending = IntegralMath.mulDivF(_totalSupply, numerator, denominator) - _totalSupply;
         return extraPending;
     }
     
@@ -177,7 +183,7 @@ contract DistTypeF is Ownable {
         alice = 0x70997970C51812dc3A010C7d01b50e0d17dc79C8;
         bob = 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC;
         carol = 0x90F79bf6EB2c4f870365E785982E1f101E93b906;
-
+        
         //-----------------------------------------------
         _mint(owner(), INITIAL_SUPPLY);
 

@@ -84,7 +84,7 @@ contract DistTypeE is Ownable {
 
     uint constant MAGNIFIER = 10 ** 5;
     uint constant IncPerCycle = 777;
-    uint constant CYCLE = 1;
+    uint constant CYCLE = 30;
 
     function upadateWithTotalShare() public {
         uint nowBlock = block.number - initialBlock;
@@ -92,21 +92,15 @@ contract DistTypeE is Ownable {
         if (missingBlocks > 0) {
             latestBlock = nowBlock;
             (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missingBlocks, CYCLE);           
-            // rewardPool = _safeSubtract(_totalSupply, IntegralMath.mulDivF(numerator, _totalSupply, denominator)); //=========
-            rewardPool += (IntegralMath.mulDivF(numerator, _totalSupply, denominator) - _totalSupply);
-            accRewardPerShare12 = IntegralMath.mulDivF(accRewardPerShare12, numerator, denominator);
+            uint pending = IntegralMath.mulDivF(_totalSupply, numerator, denominator) - _totalSupply;
+            rewardPool += pending;
+            accRewardPerShare12 += (IntegralMath.mulDivC(1e12, numerator, denominator) - 1e12);
         }
     }
 
     function _changeUserShare(address user, uint amount, bool CreditNotDebit) internal {
         upadateWithTotalShare();
-        // uint standardPending = (accRewardPerShare12 * _balances[user] - users[user].rewardDebt12) / 1e12;   //===============
-        uint debt12 = 1e12;
-        if (debt12 < users[user].rewardDebt12 ) {
-            debt12 = users[user].rewardDebt12;
-        }
-        uint standardPending = IntegralMath.mulDivC(accRewardPerShare12, _balances[user], debt12);
-
+        uint standardPending =( accRewardPerShare12 * _balances[user] - users[user].rewardDebt12 ) / 1e12;
         rewardPool = _safeSubtract(rewardPool, standardPending);
         users[user].reward += standardPending;
         if (CreditNotDebit) {
@@ -116,17 +110,15 @@ contract DistTypeE is Ownable {
             _balances[user] = _safeSubtract(_balances[user], amount);
             _totalSupply = _safeSubtract(_totalSupply, amount);            
         }
-        // users[user].rewardDebt12 = accRewardPerShare12 * _balances[user];   //====================
-        users[user].rewardDebt12 = accRewardPerShare12;
+        users[user].rewardDebt12 = accRewardPerShare12 * _balances[user];
     }
 
     function _viewUserPendingReward(address user) internal view returns (uint) {
-        // uint standardPending = (accRewardPerShare12 * _balances[user] - users[user].rewardDebt12) / 1e12;   //====================
         uint debt12 = 1e12;
         if (debt12 < users[user].rewardDebt12 ) {
             debt12 = users[user].rewardDebt12;
         }
-        uint standardPending = IntegralMath.mulDivF(accRewardPerShare12, _balances[user], debt12);
+        uint standardPending = ( accRewardPerShare12 * _balances[user] - users[user].rewardDebt12 ) / 1e12;
 
         uint nowBlock = block.number - initialBlock;
         uint extraBlocks = nowBlock - latestBlock;
@@ -191,8 +183,6 @@ contract DistTypeE is Ownable {
         alice = 0x70997970C51812dc3A010C7d01b50e0d17dc79C8;
         bob = 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC;
         carol = 0x90F79bf6EB2c4f870365E785982E1f101E93b906;
-
-        accRewardPerShare12 = 1e12;
         
         //-----------------------------------------------
         _mint(owner(), INITIAL_SUPPLY);
