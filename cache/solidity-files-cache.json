@@ -6415,6 +6415,54 @@
       "artifacts": [
         "DistTypeE"
       ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\research\\Compounding.sol": {
+      "lastModificationDate": 1713055180959,
+      "contentHash": "e8c0b92c4df1f87a6f0c34fe391fce99",
+      "sourceName": "contracts/research/Compounding.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../libraries/math/SafeMath.sol",
+        "../libraries/math/AnalyticMath.sol",
+        "../libraries/math/IntegralMath.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Compounding"
+      ]
     }
   }
 }
