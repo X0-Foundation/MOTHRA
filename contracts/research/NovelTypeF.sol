@@ -51,12 +51,7 @@ contract NovelTypeF is Ownable {
         uint    VIRTUAL;
     }
 
-    uint public constant distCycle = 30;
-    uint public constant alpha = 12; // 1 for TypeC. 10 ** 22;
     uint initialBlock;
-    uint latestBlock;
-    uint public rewardPool;
-    uint public accRewardPerShare12;
     mapping(address => User) users;
 
     // test users
@@ -64,82 +59,76 @@ contract NovelTypeF is Ownable {
 
 
     function getTotalState() external view returns (
-        uint totalSupply, uint _latestBlock,  uint _accRewardPerShare12, uint _rewordPool, uint _totalPendingReward
+        uint totalSupply, uint _latestNet, uint _VIRTUAL, uint nowBlock, uint _totalPendingReward, uint _burnDone
     ) {
         totalSupply = _totalSupply;
-        _latestBlock = latestBlock;
-        _accRewardPerShare12 = accRewardPerShare12;
-        _rewordPool = rewardPool;
+        _latestNet = latestNet;
+        _VIRTUAL = VIRTUAL;
+        nowBlock = block.number - initialBlock;
         _totalPendingReward = _viewTotalPendingReward();
+        _burnDone = burnDone;
     }
 
     function getUserState(address user) external view returns (
-        uint _share, uint _reward, uint _rewardDebt, uint _userPendingReward
+        uint _share, uint _VIRTUAL, uint nowBlock, uint _userPendingReward, uint _latestBlock
     ) {
-        _share = _balances[user];
-        _reward = 0;    // busy, temoporary
-        _rewardDebt = 0; // users[user].rewardDebt12;
+       _share = _balances[user];
+        _VIRTUAL = users[user].VIRTUAL;
+        nowBlock = block.number - initialBlock;
         _userPendingReward = _viewUserPendingReward(user);
+        _latestBlock = users[user].latestBlock;
     }
 
     uint constant MAGNIFIER = 10 ** 5;
     uint constant DecPerCycle = 777;    // Burn % per cycle blocks. So reward means burn.
-    uint constant CYCLE = 30;
+    uint constant CYCLE = 10;
 
     uint latestNet; uint VIRTUAL; uint burnDone;
 
 
     function _changeUserShare(address user, uint amount, bool CreditNotDebit) internal {
         {
-            latestNet = _safeSubtract(latestNet, _balances[user]);
-            VIRTUAL = _safeSubtract(VIRTUAL, users[user].VIRTUAL);
+            latestNet -= _balances[user];
+            VIRTUAL -= users[user].VIRTUAL;
         }
 
-        uint pending = _viewUserPendingReward(user);    // 
+        uint pending = _viewUserPendingReward(user);
         if (pending > 0) {
-            _balances[user] = _safeSubtract(_balances[user], pending);
-            _totalSupply = _safeSubtract(_totalSupply, pending);
+            _balances[user] -= pending;
+            _totalSupply -= pending;
             burnDone += pending;
-            // users[user].latestBlock = nowBlock;
+            users[user].latestBlock = block.number - initialBlock;
         }
 
         if(CreditNotDebit) {
             _balances[user] += amount;
             _totalSupply += amount;
         } else {
-            _balances[user] = _safeSubtract(_balances[user], amount);
-            _totalSupply = _safeSubtract(_totalSupply, amount);
+            _balances[user] -= amount;
+            _totalSupply -= amount;
         }
 
         {
-            latestNet += _balances[user];
-            uint nowBlock = block.number - initialBlock;
-            uint missingBlocks = nowBlock - users[user].latestBlock;
-            (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER, MAGNIFIER - DecPerCycle, missingBlocks, CYCLE); // mind of order
+            uint latestBlock = users[user].latestBlock; //============ cycle
+            (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER, MAGNIFIER - DecPerCycle, latestBlock, CYCLE); // mind of order
             uint v = IntegralMath.mulDivC(_balances[user], numerator, denominator);
-            VIRTUAL += v;
             users[user].VIRTUAL = v;
-            users[user].latestBlock = nowBlock;
+            latestNet += _balances[user];
+            VIRTUAL += v;
         }
     }
 
     function _viewUserPendingReward(address user) internal view returns (uint) {
-        uint nowBlocks = block.number - initialBlock;
-        uint missingBlocks = nowBlocks - users[user].latestBlock;
-
+        uint missingBlocks = block.number - initialBlock - users[user].latestBlock; // ============ cycle
         (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missingBlocks, CYCLE);
-        uint decay12 = 1e12 - IntegralMath.mulDivC(1e12, numerator, denominator);
-        uint pending = _balances[user] * decay12 / 1e12;
+        uint pending = _balances[user] - _balances[user] * numerator / denominator;
         return pending;
     }
 
     function _viewTotalPendingReward() internal view returns (uint) {
-        uint nowBlock = block.number - initialBlock;
-        uint missingBlocks = nowBlock - latestBlock;
-
-        (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missingBlocks, CYCLE);
-        uint survival = IntegralMath.mulDivC(VIRTUAL, numerator, denominator);
-        return _safeSubtract(latestNet, survival);
+        uint nowBlock = (block.number - initialBlock); // =============== cycle
+        (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, nowBlock, CYCLE);
+        return _safeSubtract(latestNet, IntegralMath.mulDivC(VIRTUAL, numerator, denominator));
     }
     
 
@@ -199,11 +188,11 @@ contract NovelTypeF is Ownable {
 //     //==================== ERC20 internal functions ====================
 
     function _totalNetSupply() internal view returns (uint) {
-        return _totalSupply;
+        return _totalSupply - _viewTotalPendingReward();
     }
 
     function _netBalanceOf(address account) internal view returns (uint balance) {
-        return _balances[account];
+        return _balances[account] - _viewUserPendingReward(account);
     }
 
     function _beforeTokenTransfer(address from, address to, uint amount) internal virtual {}

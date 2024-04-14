@@ -2052,8 +2052,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\DistTypeF.sol": {
-      "lastModificationDate": 1713053496861,
-      "contentHash": "617bff2ad2df687d64721a1511f800c7",
+      "lastModificationDate": 1713112638090,
+      "contentHash": "9fc2df08b9d61a5ecb5873be1f3f7fba",
       "sourceName": "contracts/research/DistTypeF.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6369,8 +6369,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\DistTypeE.sol": {
-      "lastModificationDate": 1713052721570,
-      "contentHash": "0e09857218d2ddaf482addf3bce980a8",
+      "lastModificationDate": 1713112581118,
+      "contentHash": "4394d9a582a751856643a94be4691792",
       "sourceName": "contracts/research/DistTypeE.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6465,8 +6465,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\NovelTypeF.sol": {
-      "lastModificationDate": 1713069243584,
-      "contentHash": "9d8be8931fa3040aedfadcf290ef9385",
+      "lastModificationDate": 1713110733613,
+      "contentHash": "72a5783600d58cdf5bbd94c3187eb4f4",
       "sourceName": "contracts/research/NovelTypeF.sol",
       "solcConfig": {
         "version": "0.8.14",

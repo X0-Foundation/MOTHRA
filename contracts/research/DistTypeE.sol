@@ -192,11 +192,11 @@ contract DistTypeE is Ownable {
 //     //==================== ERC20 internal functions ====================
 
     function _totalNetSupply() internal view returns (uint) {
-        return _totalSupply;
+        return _totalSupply + _viewTotalPendingReward();    // Note plus.
     }
 
     function _netBalanceOf(address account) internal view returns (uint balance) {
-        return _balances[account];
+        return _balances[account] + _viewUserPendingReward(account);    // Note plus.
     }
 
     function _beforeTokenTransfer(address from, address to, uint amount) internal virtual {}

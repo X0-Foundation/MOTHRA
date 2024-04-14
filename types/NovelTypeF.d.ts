@@ -25,16 +25,13 @@ interface NovelTypeFInterface extends ethers.utils.Interface {
     "INITIAL_SUPPLY()": FunctionFragment;
     "MAX_SUPPLY()": FunctionFragment;
     "_decreaseAllowance(address,address,uint256)": FunctionFragment;
-    "accRewardPerShare12()": FunctionFragment;
     "allowance(address,address)": FunctionFragment;
-    "alpha()": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "burn(address,uint256)": FunctionFragment;
     "checkForConsistency()": FunctionFragment;
     "decimals()": FunctionFragment;
     "decreaseAllowance(address,uint256)": FunctionFragment;
-    "distCycle()": FunctionFragment;
     "getTotalState()": FunctionFragment;
     "getUserState(address)": FunctionFragment;
     "increaseAllowance(address,uint256)": FunctionFragment;
@@ -42,7 +39,6 @@ interface NovelTypeFInterface extends ethers.utils.Interface {
     "name()": FunctionFragment;
     "owner()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
-    "rewardPool()": FunctionFragment;
     "symbol()": FunctionFragment;
     "totalSupply()": FunctionFragment;
     "transfer(address,uint256)": FunctionFragment;
@@ -64,14 +60,9 @@ interface NovelTypeFInterface extends ethers.utils.Interface {
     values: [string, string, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "accRewardPerShare12",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "allowance",
     values: [string, string]
   ): string;
-  encodeFunctionData(functionFragment: "alpha", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "approve",
     values: [string, BigNumberish]
@@ -90,7 +81,6 @@ interface NovelTypeFInterface extends ethers.utils.Interface {
     functionFragment: "decreaseAllowance",
     values: [string, BigNumberish]
   ): string;
-  encodeFunctionData(functionFragment: "distCycle", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "getTotalState",
     values?: undefined
@@ -111,10 +101,6 @@ interface NovelTypeFInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "renounceOwnership",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "rewardPool",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
@@ -145,12 +131,7 @@ interface NovelTypeFInterface extends ethers.utils.Interface {
     functionFragment: "_decreaseAllowance",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "accRewardPerShare12",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "alpha", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
@@ -163,7 +144,6 @@ interface NovelTypeFInterface extends ethers.utils.Interface {
     functionFragment: "decreaseAllowance",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "distCycle", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getTotalState",
     data: BytesLike
@@ -183,7 +163,6 @@ interface NovelTypeFInterface extends ethers.utils.Interface {
     functionFragment: "renounceOwnership",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "rewardPool", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "totalSupply",
@@ -267,15 +246,11 @@ export class NovelTypeF extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    accRewardPerShare12(overrides?: CallOverrides): Promise<[BigNumber]>;
-
     allowance(
       _owner: string,
       _spender: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
-
-    alpha(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     approve(
       spender: string,
@@ -310,17 +285,16 @@ export class NovelTypeF extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    distCycle(overrides?: CallOverrides): Promise<[BigNumber]>;
-
     getTotalState(
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
+      [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
         totalSupply: BigNumber;
-        _latestBlock: BigNumber;
-        _accRewardPerShare12: BigNumber;
-        _rewordPool: BigNumber;
+        _latestNet: BigNumber;
+        _VIRTUAL: BigNumber;
+        nowBlock: BigNumber;
         _totalPendingReward: BigNumber;
+        _burnDone: BigNumber;
       }
     >;
 
@@ -328,11 +302,12 @@ export class NovelTypeF extends BaseContract {
       user: string,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, BigNumber, BigNumber, BigNumber] & {
+      [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
         _share: BigNumber;
-        _reward: BigNumber;
-        _rewardDebt: BigNumber;
+        _VIRTUAL: BigNumber;
+        nowBlock: BigNumber;
         _userPendingReward: BigNumber;
+        _latestBlock: BigNumber;
       }
     >;
 
@@ -355,8 +330,6 @@ export class NovelTypeF extends BaseContract {
     renounceOwnership(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
-
-    rewardPool(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     symbol(overrides?: CallOverrides): Promise<[string]>;
 
@@ -394,15 +367,11 @@ export class NovelTypeF extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  accRewardPerShare12(overrides?: CallOverrides): Promise<BigNumber>;
-
   allowance(
     _owner: string,
     _spender: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
-
-  alpha(overrides?: CallOverrides): Promise<BigNumber>;
 
   approve(
     spender: string,
@@ -437,17 +406,16 @@ export class NovelTypeF extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  distCycle(overrides?: CallOverrides): Promise<BigNumber>;
-
   getTotalState(
     overrides?: CallOverrides
   ): Promise<
-    [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
+    [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
       totalSupply: BigNumber;
-      _latestBlock: BigNumber;
-      _accRewardPerShare12: BigNumber;
-      _rewordPool: BigNumber;
+      _latestNet: BigNumber;
+      _VIRTUAL: BigNumber;
+      nowBlock: BigNumber;
       _totalPendingReward: BigNumber;
+      _burnDone: BigNumber;
     }
   >;
 
@@ -455,11 +423,12 @@ export class NovelTypeF extends BaseContract {
     user: string,
     overrides?: CallOverrides
   ): Promise<
-    [BigNumber, BigNumber, BigNumber, BigNumber] & {
+    [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
       _share: BigNumber;
-      _reward: BigNumber;
-      _rewardDebt: BigNumber;
+      _VIRTUAL: BigNumber;
+      nowBlock: BigNumber;
       _userPendingReward: BigNumber;
+      _latestBlock: BigNumber;
     }
   >;
 
@@ -482,8 +451,6 @@ export class NovelTypeF extends BaseContract {
   renounceOwnership(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
-
-  rewardPool(overrides?: CallOverrides): Promise<BigNumber>;
 
   symbol(overrides?: CallOverrides): Promise<string>;
 
@@ -521,15 +488,11 @@ export class NovelTypeF extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    accRewardPerShare12(overrides?: CallOverrides): Promise<BigNumber>;
-
     allowance(
       _owner: string,
       _spender: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
-
-    alpha(overrides?: CallOverrides): Promise<BigNumber>;
 
     approve(
       spender: string,
@@ -564,17 +527,16 @@ export class NovelTypeF extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    distCycle(overrides?: CallOverrides): Promise<BigNumber>;
-
     getTotalState(
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
+      [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
         totalSupply: BigNumber;
-        _latestBlock: BigNumber;
-        _accRewardPerShare12: BigNumber;
-        _rewordPool: BigNumber;
+        _latestNet: BigNumber;
+        _VIRTUAL: BigNumber;
+        nowBlock: BigNumber;
         _totalPendingReward: BigNumber;
+        _burnDone: BigNumber;
       }
     >;
 
@@ -582,11 +544,12 @@ export class NovelTypeF extends BaseContract {
       user: string,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, BigNumber, BigNumber, BigNumber] & {
+      [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
         _share: BigNumber;
-        _reward: BigNumber;
-        _rewardDebt: BigNumber;
+        _VIRTUAL: BigNumber;
+        nowBlock: BigNumber;
         _userPendingReward: BigNumber;
+        _latestBlock: BigNumber;
       }
     >;
 
@@ -607,8 +570,6 @@ export class NovelTypeF extends BaseContract {
     owner(overrides?: CallOverrides): Promise<string>;
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
-
-    rewardPool(overrides?: CallOverrides): Promise<BigNumber>;
 
     symbol(overrides?: CallOverrides): Promise<string>;
 
@@ -665,15 +626,11 @@ export class NovelTypeF extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    accRewardPerShare12(overrides?: CallOverrides): Promise<BigNumber>;
-
     allowance(
       _owner: string,
       _spender: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
-
-    alpha(overrides?: CallOverrides): Promise<BigNumber>;
 
     approve(
       spender: string,
@@ -699,8 +656,6 @@ export class NovelTypeF extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    distCycle(overrides?: CallOverrides): Promise<BigNumber>;
-
     getTotalState(overrides?: CallOverrides): Promise<BigNumber>;
 
     getUserState(user: string, overrides?: CallOverrides): Promise<BigNumber>;
@@ -724,8 +679,6 @@ export class NovelTypeF extends BaseContract {
     renounceOwnership(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
-
-    rewardPool(overrides?: CallOverrides): Promise<BigNumber>;
 
     symbol(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -764,17 +717,11 @@ export class NovelTypeF extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    accRewardPerShare12(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     allowance(
       _owner: string,
       _spender: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
-
-    alpha(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     approve(
       spender: string,
@@ -805,8 +752,6 @@ export class NovelTypeF extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    distCycle(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     getTotalState(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getUserState(
@@ -833,8 +778,6 @@ export class NovelTypeF extends BaseContract {
     renounceOwnership(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
-
-    rewardPool(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

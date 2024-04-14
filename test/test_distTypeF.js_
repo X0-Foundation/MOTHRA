@@ -76,6 +76,13 @@ function expectNotEqual(a, b) {
     expect(a).to.be.not.eq(b);
 }
 
+function expectGreater(a, b) {
+    expect(a).to.be.gt(b);
+}
+
+function expectLess(a, b) {
+    expect(a).to.be.lt(b);
+}
 
 async function showMilestone(text) {
     console.log("\t%s".blue, text);
@@ -102,7 +109,7 @@ async function mintBlocks(blocks) {
 async function showTotalState() {
     const s = await distTypeF.getTotalState();
     console.log("\tTotal:".yellow.bold);
-    console.log("\ttotalSupply %s, latestBlock %s", s.totalSupply, s._latestBlock);
+    console.log("\tlatestNet %s, VIRTUAL %s", s._latestNet, s._latestBlock);
     console.log("\trewardPool %s, totalPending %s", s._rewordPool, s._totalPendingReward);
     console.log("\taccRewardPerShare12 %s", s._accRewardPerShare12);
 }
@@ -111,7 +118,7 @@ async function showUserState(user) {
     const s = await distTypeF.getUserState(user.address);
     console.log("\tUser %s:".yellow, user.name);
     console.log("\tshare %s, reward %s", s._share, s._reward);
-    console.log("\trewardDebt %s, userPending %s", s._rewardDebt, s._userPendingReward);
+    console.log("\tdebt %s, pending %s", s._rewardDebt, s._userPendingReward);
 }
 
 async function mintTime(seconds) {
@@ -123,7 +130,7 @@ async function mintTime(seconds) {
 async function checkConsistency() {
     report = await distTypeF.checkForConsistency();
     console.log("\tConsistency report:".bold.yellow);
-    console.log("\tpending_collective %s, pending_marginal %s",
+    console.log("\tp_collective %s, p_marginal %s",
     report.pending_collective, report.pending_marginal)
     console.log("\tabs_error %s, error_rate (trillionths) === %s",
     report.abs_error, report.error_rate)
@@ -132,10 +139,10 @@ async function checkConsistency() {
 async function transfer(sender, recipient, amount) {
     let amountWei = ethToWei(amount);
     let balance = await distTypeF.balanceOf(sender.address);
-    if (amountWei > balance) {
-        amountWei = balance;
-        amount = weiToEth(amountWei);
+    if (amount > weiToEth(balance) * 0.9) {
+        amount = weiToEth(balance) * 0.9
     }
+    amountWei = ethToWei(amount);
     let symbol = await distTypeF.symbol();
     //console.log("\t%s is transferring %s %s TY_F ...".yellow, sender.name, recipient.name, weiToEth(amountWei));
     console.log("\t%s is transferring %s TY_F to %s...".yellow, 
@@ -248,12 +255,12 @@ describe("====================== Stage 1: Deploy ======================\n".yello
     it("1.3 Total supply and owner balance of TY_F are checked.\n".green, async function () {
       const totalSupply = await distTypeF.totalSupply();
       console.log("\tDistTypeF total supply: %s gways",BigInt(totalSupply));
-      expectEqual(weiToEth(totalSupply), weiToEth(INITIAL_SUPPLY));
+      expectLess(weiToEth(totalSupply), weiToEth(INITIAL_SUPPLY));
 
       console.log("\tTotal supply amount was minted to owner.");
       const ownerTgrBalance = await distTypeF.balanceOf(owner.address);
       console.log("\tDistTypeF owner balance: %s gways", BigInt(ownerTgrBalance));
-      expectEqual(weiToEth(ownerTgrBalance), weiToEth(INITIAL_SUPPLY));
+      expectLess(weiToEth(ownerTgrBalance), weiToEth(INITIAL_SUPPLY)); // no longer holds, as it decays
 
       await checkConsistency();
     });
@@ -315,8 +322,9 @@ describe("====================== Stage 2: Test pulses ======================\n".
 
         await mintBlocks(blocks);
         await mint(owner, bob, mintAmount);
-        await transfer(owner, carol, 10000);
-        await transfer(carol, bob, 10000);
+        await transfer(owner, carol, 10000); // Let Carol has no existing assets.
+        await mintBlocks(blocks);
+        await transfer(carol, bob, 10000);    // -200, as it decays.
         await mintBlocks(blocks);
         await showTotalState();
         await showUserState(owner);

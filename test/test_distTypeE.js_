@@ -76,6 +76,13 @@ function expectNotEqual(a, b) {
     expect(a).to.be.not.eq(b);
 }
 
+function expectGreater(a, b) {
+    expect(a).to.be.gt(b);
+}
+
+function expectLess(a, b) {
+    expect(a).to.be.lt(b);
+}
 
 async function showMilestone(text) {
     console.log("\t%s".blue, text);
@@ -248,12 +255,12 @@ describe("====================== Stage 1: Deploy ======================\n".yello
     it("1.3 Total supply and owner balance of TY_E are checked.\n".green, async function () {
       const totalSupply = await distTypeE.totalSupply();
       console.log("\tDistTypeE total supply: %s gways",BigInt(totalSupply));
-      expectEqual(weiToEth(totalSupply), weiToEth(INITIAL_SUPPLY));
+      expectGreater(weiToEth(totalSupply), weiToEth(INITIAL_SUPPLY));
 
       console.log("\tTotal supply amount was minted to owner.");
       const ownerTgrBalance = await distTypeE.balanceOf(owner.address);
       console.log("\tDistTypeE owner balance: %s gways", BigInt(ownerTgrBalance));
-      expectEqual(weiToEth(ownerTgrBalance), weiToEth(INITIAL_SUPPLY));
+      expectGreater(weiToEth(ownerTgrBalance), weiToEth(INITIAL_SUPPLY));
 
       await checkConsistency();
     });
@@ -315,8 +322,9 @@ describe("====================== Stage 2: Test pulses ======================\n".
 
         await mintBlocks(blocks);
         await mint(owner, bob, mintAmount);
-        await transfer(owner, carol, 10000);
-        await transfer(carol, bob, 10000);
+        await transfer(owner, carol, 10000);    // let Carol had no existing amount.
+        await mintBlocks(blocks);
+        await transfer(carol, bob, 10000 + 100);    // As Carol's amount increased.
         await mintBlocks(blocks);
         await showTotalState();
         await showUserState(owner);

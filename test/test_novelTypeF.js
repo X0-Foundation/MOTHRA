@@ -26,6 +26,8 @@ const {
     const INITIAL_SUPPLY = 10**(DECIMALS+6);
     const MAX_SUPPLY = 10**(DECIMALS+8)
 
+    const minOneBlockSurvival = 0.99 
+
 function weiToEthEn(wei) {
     return Number(utils.formatUnits( BigInt(wei).toString(), DECIMALS)).toLocaleString("en");
 }
@@ -77,6 +79,14 @@ function expectNotEqual(a, b) {
 }
 
 
+function expectGreater(a, b) {
+    expect(a).to.be.gt(b);
+}
+
+function expectLess(a, b) {
+    expect(a).to.be.lt(b);
+}
+
 async function showMilestone(text) {
     console.log("\t%s".blue, text);
 }
@@ -102,16 +112,16 @@ async function mintBlocks(blocks) {
 async function showTotalState() {
     const s = await novelTypeF.getTotalState();
     console.log("\tTotal:".yellow.bold);
-    console.log("\ttotalSupply %s, latestBlock %s", s.totalSupply, s._latestBlock);
-    console.log("\trewardPool %s, totalPending %s", s._rewordPool, s._totalPendingReward);
-    console.log("\taccRewardPerShare12 %s", s._accRewardPerShare12);
+    console.log("\ttotalSupply %s, latestNet %s", s.totalSupply, s._latestNet);
+    console.log("\tVIRTUAL %s, nowBlock %s", s._VIRTUAL, s.nowBlock);
+    console.log("\ttotalPending %s, burnDone %s", s._totalPendingReward, s._burnDone);
 }
 
 async function showUserState(user) {
     const s = await novelTypeF.getUserState(user.address);
     console.log("\tUser %s:".yellow, user.name);
-    console.log("\tshare %s, reward %s", s._share, s._reward);
-    console.log("\trewardDebt %s, userPending %s", s._rewardDebt, s._userPendingReward);
+    console.log("\tshare %s, VIRTUAL %s, nowBlock %s,", s._share, s._VIRTUAL, s.nowBlock);
+    console.log("\tuserPending %s, latestBlock %s", s._userPendingReward, s._latestBlock);
 }
 
 async function mintTime(seconds) {
@@ -123,7 +133,7 @@ async function mintTime(seconds) {
 async function checkConsistency() {
     report = await novelTypeF.checkForConsistency();
     console.log("\tConsistency report:".bold.yellow);
-    console.log("\tpending_collective %s, pending_marginal %s",
+    console.log("\tp_collective %s, p_marginal %s",
     report.pending_collective, report.pending_marginal)
     console.log("\tabs_error %s, error_rate (trillionths) === %s",
     report.abs_error, report.error_rate)
@@ -132,10 +142,10 @@ async function checkConsistency() {
 async function transfer(sender, recipient, amount) {
     let amountWei = ethToWei(amount);
     let balance = await novelTypeF.balanceOf(sender.address);
-    if (amountWei > balance) {
-        amountWei = balance;
-        amount = weiToEth(amountWei);
+    if (amount > weiToEth(balance) * minOneBlockSurvival) {
+        amount = weiToEth(balance) * minOneBlockSurvival
     }
+    amountWei = ethToWei(amount);
     let symbol = await novelTypeF.symbol();
     //console.log("\t%s is transferring %s %s NT_F ...".yellow, sender.name, recipient.name, weiToEth(amountWei));
     console.log("\t%s is transferring %s NT_F to %s...".yellow, 
@@ -165,11 +175,10 @@ async function burn(burner, from, amount) {
 
     let amountWei = ethToWei(amount);
     let balance = await novelTypeF.balanceOf(from.address);
-    // if (amountWei > balance) {
-    //     console.log("amount %s reduced", amount, BigInt(balance), BigInt(amountWei));
-    //     amountWei = balance;
-    //     amount = weiToEth(amountWei);
-    // }
+    if (amount > weiToEth(balance) * minOneBlockSurvival) {
+        amount = weiToEth(balance) * minOneBlockSurvival
+    }
+    amountWei = ethToWei(amount);
     await console.log("\t%s is burning %s NT_F from %s ...".yellow, 
     burner.name == undefined ? "undefined" : burner.name,
     amount,
@@ -248,12 +257,12 @@ describe("====================== Stage 1: Deploy ======================\n".yello
     it("1.3 Total supply and owner balance of NT_F are checked.\n".green, async function () {
       const totalSupply = await novelTypeF.totalSupply();
       console.log("\tNovelTypeF total supply: %s gways",BigInt(totalSupply));
-      expectEqual(weiToEth(totalSupply), weiToEth(INITIAL_SUPPLY));
+      expectLess(weiToEth(totalSupply), weiToEth(INITIAL_SUPPLY));
 
       console.log("\tTotal supply amount was minted to owner.");
       const ownerTgrBalance = await novelTypeF.balanceOf(owner.address);
       console.log("\tNovelTypeF owner balance: %s gways", BigInt(ownerTgrBalance));
-      expectEqual(weiToEth(ownerTgrBalance), weiToEth(INITIAL_SUPPLY));
+      expectLess(weiToEth(ownerTgrBalance), weiToEth(INITIAL_SUPPLY));
 
       await checkConsistency();
     });
@@ -304,19 +313,27 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await checkConsistency();
 
         await showMilestone("Milestone 0.0");
-        await mintBlocks(blocks);
-        await mint(owner, bob, mintAmount);
-        await transfer(owner, alice, 10000);
-        await mintBlocks(blocks);
-        await showTotalState();
+        await showTotalState()
         await showUserState(owner);
+        await showUserState(alice);
         await showUserState(bob);
+        await showUserState(carol);
+        await checkConsistency();
+        // await mintBlocks(blocks);
+        await mint(owner, owner, 0);
+        // await transfer(owner, bob, 0);
+        // await mintBlocks(blocks);
+        await showTotalState()
+        await showUserState(owner);
+        await showUserState(alice);
+        await showUserState(bob);
+        await showUserState(carol);
         await checkConsistency();
 
         await mintBlocks(blocks);
         await mint(owner, bob, mintAmount);
         await transfer(owner, carol, 10000);
-        await transfer(carol, bob, 10000);
+        await transfer(carol, bob, 10000 - 500);
         await mintBlocks(blocks);
         await showTotalState();
         await showUserState(owner);
