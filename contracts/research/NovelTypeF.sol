@@ -95,12 +95,12 @@ contract NovelTypeF is Ownable {
             VIRTUAL = _safeSubtract(VIRTUAL, users[user].VIRTUAL);
         }
 
-        uint pending = _viewUserPendingReward(user);
+        uint pending = _viewUserPendingReward(user);    // 
         if (pending > 0) {
             _balances[user] = _safeSubtract(_balances[user], pending);
             _totalSupply = _safeSubtract(_totalSupply, pending);
             burnDone += pending;
-            // latestBlock = block.number - latestBlock;
+            // users[user].latestBlock = nowBlock;
         }
 
         if(CreditNotDebit) {
@@ -114,18 +114,18 @@ contract NovelTypeF is Ownable {
         {
             latestNet += _balances[user];
             uint nowBlock = block.number - initialBlock;
-            uint missingBlocks = nowBlock - latestBlock;
-            (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER, MAGNIFIER - DecPerCycle, missingBlocks, CYCLE);
+            uint missingBlocks = nowBlock - users[user].latestBlock;
+            (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER, MAGNIFIER - DecPerCycle, missingBlocks, CYCLE); // mind of order
             uint v = IntegralMath.mulDivC(_balances[user], numerator, denominator);
-            users[user].VIRTUAL = v;
             VIRTUAL += v;
+            users[user].VIRTUAL = v;
             users[user].latestBlock = nowBlock;
         }
     }
 
     function _viewUserPendingReward(address user) internal view returns (uint) {
         uint nowBlocks = block.number - initialBlock;
-        uint missingBlocks = nowBlocks - latestBlock;
+        uint missingBlocks = nowBlocks - users[user].latestBlock;
 
         (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missingBlocks, CYCLE);
         uint decay12 = 1e12 - IntegralMath.mulDivC(1e12, numerator, denominator);
