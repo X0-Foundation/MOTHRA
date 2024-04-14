@@ -103,6 +103,7 @@ contract Compounding is Ownable {
         uint standardPending =( accRewardPerShare12 * _balances[user] - users[user].rewardDebt12 ) / 1e12;
         rewardPool = _safeSubtract(rewardPool, standardPending);
         // users[user].reward += standardPending;
+        // These two lines, replacing the above commented-out line, implement compounding.
         _balances[user] += standardPending;
         _totalSupply += standardPending;
         if (CreditNotDebit) {
