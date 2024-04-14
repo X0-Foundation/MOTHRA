@@ -76,6 +76,13 @@ function expectNotEqual(a, b) {
     expect(a).to.be.not.eq(b);
 }
 
+function expectGreater(a, b) {
+    expect(a).to.be.gt(b);
+}
+
+function expectLess(a, b) {
+    expect(a).to.be.lt(b);
+}
 
 async function showMilestone(text) {
     console.log("\t%s".blue, text);

@@ -3421,8 +3421,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\DistTypeC.sol": {
-      "lastModificationDate": 1713055865325,
-      "contentHash": "eaacc7a04151f990b1fdad60329bf560",
+      "lastModificationDate": 1713117146806,
+      "contentHash": "8612ceb06729b3156b402ca0cf8d7d4f",
       "sourceName": "contracts/research/DistTypeC.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -3465,7 +3465,7 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "NovelF"
+        "DistTypeC"
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\DistTypeA.sol": {

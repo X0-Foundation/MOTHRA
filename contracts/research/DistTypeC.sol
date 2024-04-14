@@ -11,7 +11,7 @@ import "../libraries/math/IntegralMath.sol";
 import "hardhat/console.sol";
 
 
-contract NovelF is Ownable {
+contract DistTypeC is Ownable {
     // using SafeMath for uint;
 
     //==================== Constants ====================
@@ -25,8 +25,8 @@ contract NovelF is Ownable {
     uint public constant MAX_SUPPLY = 10 * INITIAL_SUPPLY;
 
     //==================== ERC20 core data ====================
-    string private constant _name = "NovelF";
-    string private constant _symbol = "NO_F";
+    string private constant _name = "DistTypeC";
+    string private constant _symbol = "TY_C";
     uint8 private constant _decimals = DECIMALS;
     mapping(address => mapping(address => uint)) private _allowances;
     mapping(address => uint) private _balances;
@@ -52,7 +52,7 @@ contract NovelF is Ownable {
     }
 
     uint public constant distCycle = 30;
-    uint public constant alpha = 12; // 1 for TypeC. 10 ** 22;
+    uint public constant alpha = 10 ** 22;
     uint initialBlock;
     uint latestBlock;
     uint public rewardPool;
@@ -87,8 +87,7 @@ contract NovelF is Ownable {
         uint missingBlocks = nowBlock - latestBlock;
         if (missingBlocks > 0) {
             latestBlock = nowBlock;
-            // * _totalSupply and small alpha are what differentiate C from A
-            uint reward = alpha * missingBlocks * _totalSupply; 
+            uint reward = alpha * missingBlocks * _totalSupply; // * _totalSupply for TypeC
             rewardPool += reward;
             accRewardPerShare12 += reward * 1e12 / _totalSupply;
         }
