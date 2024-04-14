@@ -222,7 +222,7 @@ contract ControlCenter is IControlCenter, Node, Ownable {
         chainlinkFeeds[0xf9CeC8d50f6c8ad3Fb6dcCEC577e05aA32B224FE] = CLFeed(50, 1440, 8, 0, 0x1f771B2b1F3c3Db6C7A1d5F38961a49CEcD116dA);
         // COIN / USD 
         //chainlinkFeeds[] = CLFeed(50, 1440, 8, 0, 0x2d1AB79D059e21aE519d88F978cAF39d74E31AEB);
-        // COMP / USD 
+        // TP_G / USD 
         chainlinkFeeds[0x52CE071Bd9b1C4B00A0b92D298c512478CaD67e8] = CLFeed(50, 1440, 8, 0, 0x0Db8945f9aEf5651fa5bd52314C5aAe78DfDe540);
         // CREAM / USD 
         chainlinkFeeds[0xd4CB328A82bDf5f03eB737f37Fa6B370aef3e888] = CLFeed(50, 1440, 8, 0, 0xa12Fc27A873cf114e6D8bBAf8BD9b8AC56110b39);

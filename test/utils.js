@@ -51,8 +51,8 @@ exports.deployTGR = async function (deployer, analyticMath, wireLib) {
 };
 
 
-exports.deployDistTypeA = async function (deployer, analyticMath) {
-  const Token = await ethers.getContractFactory("DistTypeA", {
+exports.deployPCSTypeA = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("PCSTypeA", {
     signer: deployer,
   });
 
@@ -62,8 +62,8 @@ exports.deployDistTypeA = async function (deployer, analyticMath) {
   return token;
 };
 
-exports.deployDistTypeC = async function (deployer, analyticMath) {
-  const Token = await ethers.getContractFactory("DistTypeC", {
+exports.deployPCSTypeC = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("PCSTypeC", {
     signer: deployer,
   });
 
@@ -73,8 +73,8 @@ exports.deployDistTypeC = async function (deployer, analyticMath) {
   return token;
 };
 
-exports.deployDistTypeE = async function (deployer, analyticMath) {
-  const Token = await ethers.getContractFactory("DistTypeE", {
+exports.deployPCSTypeE = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("PCSTypeE", {
     signer: deployer,
   });
 
@@ -84,8 +84,8 @@ exports.deployDistTypeE = async function (deployer, analyticMath) {
   return token;
 };
 
-exports.deployDistTypeF = async function (deployer, analyticMath) {
-  const Token = await ethers.getContractFactory("DistTypeF", {
+exports.deployPCSTypeF = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("PCSTypeF", {
     signer: deployer,
   });
 
@@ -95,8 +95,8 @@ exports.deployDistTypeF = async function (deployer, analyticMath) {
   return token;
 };
 
-exports.deployCompounding = async function (deployer, analyticMath) {
-  const Token = await ethers.getContractFactory("Compounding", {
+exports.deployPCSTypeG = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("PCSTypeG", {
     signer: deployer,
   });
 
