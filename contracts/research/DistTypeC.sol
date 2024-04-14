@@ -11,7 +11,7 @@ import "../libraries/math/IntegralMath.sol";
 import "hardhat/console.sol";
 
 
-contract DistTypeC is Ownable {
+contract NovelF is Ownable {
     // using SafeMath for uint;
 
     //==================== Constants ====================
@@ -25,8 +25,8 @@ contract DistTypeC is Ownable {
     uint public constant MAX_SUPPLY = 10 * INITIAL_SUPPLY;
 
     //==================== ERC20 core data ====================
-    string private constant _name = "DistTypeC";
-    string private constant _symbol = "TY_C";
+    string private constant _name = "NovelF";
+    string private constant _symbol = "NO_F";
     uint8 private constant _decimals = DECIMALS;
     mapping(address => mapping(address => uint)) private _allowances;
     mapping(address => uint) private _balances;

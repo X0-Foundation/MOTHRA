@@ -106,6 +106,17 @@ exports.deployCompounding = async function (deployer, analyticMath) {
   return token;
 };
 
+exports.deployNovelTypeF = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("NovelTypeF", {
+    signer: deployer,
+  });
+
+  const token = await Token.connect(deployer).deploy(analyticMath);
+  await token.deployed();
+
+  return token;
+};
+
 exports.deployMockToken = async function (deployer, name, symbol) {
   const MockToken = await ethers.getContractFactory("MockToken");
   const mock = await MockToken.connect(deployer).deploy(name, symbol);

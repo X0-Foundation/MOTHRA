@@ -3421,8 +3421,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\DistTypeC.sol": {
-      "lastModificationDate": 1712973863746,
-      "contentHash": "1ddd1741e84f25b5803e0f0e6c95dcb7",
+      "lastModificationDate": 1713055865325,
+      "contentHash": "eaacc7a04151f990b1fdad60329bf560",
       "sourceName": "contracts/research/DistTypeC.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -3465,7 +3465,7 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "DistTypeC"
+        "NovelF"
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\DistTypeA.sol": {
@@ -6417,8 +6417,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\Compounding.sol": {
-      "lastModificationDate": 1713055180959,
-      "contentHash": "e8c0b92c4df1f87a6f0c34fe391fce99",
+      "lastModificationDate": 1713055479282,
+      "contentHash": "d165c9b29fbe8bc7c01be1f2129b837c",
       "sourceName": "contracts/research/Compounding.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6462,6 +6462,54 @@
       ],
       "artifacts": [
         "Compounding"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\research\\NovelTypeF.sol": {
+      "lastModificationDate": 1713060095697,
+      "contentHash": "2c811de2edc6118c99eac377616a8682",
+      "sourceName": "contracts/research/NovelTypeF.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../libraries/math/SafeMath.sol",
+        "../libraries/math/AnalyticMath.sol",
+        "../libraries/math/IntegralMath.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "NovelTypeF"
       ]
     }
   }
