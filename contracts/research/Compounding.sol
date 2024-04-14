@@ -195,11 +195,11 @@ contract Compounding is Ownable {
 //     //==================== ERC20 internal functions ====================
 
     function _totalNetSupply() internal view returns (uint) {
-        return _totalSupply;
+        return _totalSupply + _viewTotalPendingReward();
     }
 
     function _netBalanceOf(address account) internal view returns (uint balance) {
-        return _balances[account];
+        return _balances[account] + _viewUserPendingReward(account);
     }
 
     function _beforeTokenTransfer(address from, address to, uint amount) internal virtual {}

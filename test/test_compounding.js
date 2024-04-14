@@ -4,7 +4,7 @@ const { utils, BigNumber } = require("ethers");
 require("colors");
 
 const {
-    deployWireLibrary, deployNovelTypeF,
+    deployWireLibrary, deployCompounding,
     deployIntegralMathLibrary,
   } = require("./utils");
     const { assert } = require("console");
@@ -13,7 +13,7 @@ const {
     const { doesNotMatch } = require("assert");
     const zero_address = "0x0000000000000000000000000000000000000000";
     
-    let integralMathLib, distTypeA, distTypeB, distTypeC, distTypeD, distTypeE, distTypeF, novelTypeF;
+    let integralMathLib, distTypeA, distTypeB, distTypeC, distTypeD, distTypeE, distTypeF, compounding;
     let owner, alice, bob, carol, votes;
     let tx;
     
@@ -25,8 +25,6 @@ const {
     const DECIMALS = 18;
     const INITIAL_SUPPLY = 10**(DECIMALS+6);
     const MAX_SUPPLY = 10**(DECIMALS+8)
-
-    const minOneBlockSurvival = 0.99 
 
 function weiToEthEn(wei) {
     return Number(utils.formatUnits( BigInt(wei).toString(), DECIMALS)).toLocaleString("en");
@@ -78,7 +76,6 @@ function expectNotEqual(a, b) {
     expect(a).to.be.not.eq(b);
 }
 
-
 function expectGreater(a, b) {
     expect(a).to.be.gt(b);
 }
@@ -110,18 +107,18 @@ async function mintBlocks(blocks) {
 
 
 async function showTotalState() {
-    const s = await novelTypeF.getTotalState();
+    const s = await compounding.getTotalState();
     console.log("\tTotal:".yellow.bold);
-    console.log("\ttotalSupply %s, latestNet %s", s.totalSupply, s._latestNet);
-    console.log("\tVIRTUAL %s, nowBlock %s", s._VIRTUAL, s.nowBlock);
-    console.log("\ttotalPending %s, burnDone %s", s._totalPendingReward, s._burnDone);
+    console.log("\ttotalSupply %s, latestBlock %s", s.totalSupply, s._latestBlock);
+    console.log("\trewardPool %s, totalPending %s", s._rewordPool, s._totalPendingReward);
+    console.log("\taccRewardPerShare12 %s", s._accRewardPerShare12);
 }
 
 async function showUserState(user) {
-    const s = await novelTypeF.getUserState(user.address);
+    const s = await compounding.getUserState(user.address);
     console.log("\tUser %s:".yellow, user.name);
-    console.log("\tshare %s, VIRTUAL %s, nowBlock %s,", s._share, s._VIRTUAL, s.nowBlock);
-    console.log("\tuserPending %s, latestBlock %s", s._userPendingReward, s._latestBlock);
+    console.log("\tshare %s, reward %s", s._share, s._reward);
+    console.log("\trewardDebt %s, userPending %s", s._rewardDebt, s._userPendingReward);
 }
 
 async function mintTime(seconds) {
@@ -131,9 +128,9 @@ async function mintTime(seconds) {
 }
 
 async function checkConsistency() {
-    report = await novelTypeF.checkForConsistency();
+    report = await compounding.checkForConsistency();
     console.log("\tConsistency report:".bold.yellow);
-    console.log("\tp_collective %s, p_marginal %s",
+    console.log("\tpending_collective %s, pending_marginal %s",
     report.pending_collective, report.pending_marginal)
     console.log("\tabs_error %s, error_rate (trillionths) === %s",
     report.abs_error, report.error_rate)
@@ -141,31 +138,31 @@ async function checkConsistency() {
 
 async function transfer(sender, recipient, amount) {
     let amountWei = ethToWei(amount);
-    let balance = await novelTypeF.balanceOf(sender.address);
-    if (amount > weiToEth(balance) * minOneBlockSurvival) {
-        amount = weiToEth(balance) * minOneBlockSurvival
+    let balance = await compounding.balanceOf(sender.address);
+    if (amountWei > balance) {
+        amountWei = balance;
+        amount = weiToEth(amountWei);
     }
-    amountWei = ethToWei(amount);
-    let symbol = await novelTypeF.symbol();
-    //console.log("\t%s is transferring %s %s NT_F ...".yellow, sender.name, recipient.name, weiToEth(amountWei));
-    console.log("\t%s is transferring %s NT_F to %s...".yellow, 
+    let symbol = await compounding.symbol();
+    //console.log("\t%s is transferring %s %s COMP ...".yellow, sender.name, recipient.name, weiToEth(amountWei));
+    console.log("\t%s is transferring %s COMP to %s...".yellow, 
     sender.name == undefined ? "undefined" : sender.name,
     amount,
     recipient.hasOwnProperty("name") ? (recipient.name == undefined ? "undefined" : recipient.name) : "NoName");
 
-    tx = novelTypeF.connect(sender).transfer(recipient.address, amountWei );
+    tx = compounding.connect(sender).transfer(recipient.address, amountWei );
     (await tx).wait();
     console.log("\tTransfer done".green);
 }
 
 async function mint(minter, to, amount) {
     let amountWei = ethToWei(amount);
-    await console.log("\t%s is minting %s NT_F to %s ...".yellow, 
+    await console.log("\t%s is minting %s COMP to %s ...".yellow, 
     minter.name == undefined ? "undefined" : minter.name,
     amount,
     to.hasOwnProperty("name") ? (to.name == undefined ? "undefined" : to.name) : "NoName" );
 
-    tx = novelTypeF.connect(minter).mint(to.address, amountWei );
+    tx = compounding.connect(minter).mint(to.address, amountWei );
     (await tx).wait();
 
     await console.log("\tMint done".green);
@@ -174,17 +171,18 @@ async function mint(minter, to, amount) {
 async function burn(burner, from, amount) {
 
     let amountWei = ethToWei(amount);
-    let balance = await novelTypeF.balanceOf(from.address);
-    if (amount > weiToEth(balance) * minOneBlockSurvival) {
-        amount = weiToEth(balance) * minOneBlockSurvival
-    }
-    amountWei = ethToWei(amount);
-    await console.log("\t%s is burning %s NT_F from %s ...".yellow, 
+    let balance = await compounding.balanceOf(from.address);
+    // if (amountWei > balance) {
+    //     console.log("amount %s reduced", amount, BigInt(balance), BigInt(amountWei));
+    //     amountWei = balance;
+    //     amount = weiToEth(amountWei);
+    // }
+    await console.log("\t%s is burning %s COMP from %s ...".yellow, 
     burner.name == undefined ? "undefined" : burner.name,
     amount,
     from.hasOwnProperty("name") ? (from.name == undefined ? "undefined" : from.name) : "NoName" );
 
-    tx = novelTypeF.connect(burner).burn(from.address, amountWei );
+    tx = compounding.connect(burner).burn(from.address, amountWei );
     (await tx).wait();
 
     await console.log("\tBurn done".green);
@@ -215,9 +213,9 @@ describe("====================== Stage 1: Deploy ======================\n".yello
         console.log("\tAnalyticMath contract was deployed at: ", analyticMath.address);
 
 
-        novelTypeF = await deployNovelTypeF(owner, analyticMath.address);
-        console.log("\tNovelTypeF contract deployed at: %s", novelTypeF.address);
-        console.log("\tOwner's balance: %s", await novelTypeF.balanceOf(owner.address));
+        compounding = await deployCompounding(owner, analyticMath.address);
+        console.log("\tcompounding contract deployed at: %s", compounding.address);
+        console.log("\tOwner's balance: %s", await compounding.balanceOf(owner.address));
         await showTotalState()
         await showUserState(owner);
         await showUserState(alice);
@@ -238,52 +236,52 @@ describe("====================== Stage 1: Deploy ======================\n".yello
     });
 
     it("1.2 DistTyepA token name, symbol and decimals were checked.\n".green, async function () {
-      const name = await novelTypeF.name();
-      console.log("\tNovelTypeF token's name: %s", name);
-      expectEqual(name, "NovelTypeF");
+      const name = await compounding.name();
+      console.log("\tcompounding token's name: %s", name);
+      expectEqual(name, "Compounding");
 
-      const symbol = await novelTypeF.symbol();
-      console.log("\tNovelTypeF symbol: %s", symbol);
-      expectEqual(symbol, "NT_F");
+      const symbol = await compounding.symbol();
+      console.log("\tcompounding symbol: %s", symbol);
+      expectEqual(symbol, "COMP");
 
-      const decimals = await novelTypeF.decimals();
-      console.log("\tNovelTypeF decimals: %s", decimals);
+      const decimals = await compounding.decimals();
+      console.log("\tcompounding decimals: %s", decimals);
       expectEqual(decimals, 18);
 
  
       await checkConsistency();
     });
 
-    it("1.3 Total supply and owner balance of NT_F are checked.\n".green, async function () {
-      const totalSupply = await novelTypeF.totalSupply();
-      console.log("\tNovelTypeF total supply: %s gways",BigInt(totalSupply));
-      expectLess(weiToEth(totalSupply), weiToEth(INITIAL_SUPPLY));
+    it("1.3 Total supply and owner balance of COMP are checked.\n".green, async function () {
+      const totalSupply = await compounding.totalSupply();
+      console.log("\tcompounding total supply: %s gways",BigInt(totalSupply));
+      expectGreater(weiToEth(totalSupply), weiToEth(INITIAL_SUPPLY));
 
       console.log("\tTotal supply amount was minted to owner.");
-      const ownerTgrBalance = await novelTypeF.balanceOf(owner.address);
-      console.log("\tNovelTypeF owner balance: %s gways", BigInt(ownerTgrBalance));
-      expectLess(weiToEth(ownerTgrBalance), weiToEth(INITIAL_SUPPLY));
+      const ownerTgrBalance = await compounding.balanceOf(owner.address);
+      console.log("\tcompounding owner balance: %s gways", BigInt(ownerTgrBalance));
+      expectGreater(weiToEth(ownerTgrBalance), weiToEth(INITIAL_SUPPLY));
 
       await checkConsistency();
     });
 
     it("1.4 Allowance control functions were checked.\n".green, async function () {
-      console.log("Owner approves Alice to spend 1000 NT_F");
-      await novelTypeF.connect(owner).approve(alice.address, ethToWei(1000));
+      console.log("Owner approves Alice to spend 1000 COMP");
+      await compounding.connect(owner).approve(alice.address, ethToWei(1000));
 
-      let allowanceOwnerAlice = await novelTypeF.allowance(owner.address, alice.address);
+      let allowanceOwnerAlice = await compounding.allowance(owner.address, alice.address);
       console.log("\tallowance[owner][alice]: %s", weiToEthEn(allowanceOwnerAlice));
       expectEqual(weiToEth(allowanceOwnerAlice), 1000);
 
       console.log("\tIncrease it by 1000.");
-      await novelTypeF.connect(owner).increaseAllowance(alice.address, ethToWei(1000));
-      allowanceOwnerAlice = await novelTypeF.allowance(owner.address, alice.address);
+      await compounding.connect(owner).increaseAllowance(alice.address, ethToWei(1000));
+      allowanceOwnerAlice = await compounding.allowance(owner.address, alice.address);
       console.log("\tallowance[owner][alice]: %s", weiToEthEn(allowanceOwnerAlice));
       expectEqual(weiToEth(allowanceOwnerAlice), 2000);
 
       console.log("\tDecrease it by 1000.");
-      await novelTypeF.connect(owner).decreaseAllowance(alice.address, ethToWei(1000));
-      allowanceOwnerAlice = await novelTypeF.allowance(owner.address, alice.address);
+      await compounding.connect(owner).decreaseAllowance(alice.address, ethToWei(1000));
+      allowanceOwnerAlice = await compounding.allowance(owner.address, alice.address);
       console.log("\tallowance[owner][alice]: %s", weiToEthEn(allowanceOwnerAlice));
       expectEqual(weiToEth(allowanceOwnerAlice), 1000);
 
@@ -313,27 +311,19 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await checkConsistency();
 
         await showMilestone("Milestone 0.0");
-        await showTotalState()
+        await mintBlocks(blocks);
+        await mint(owner, bob, mintAmount);
+        await transfer(owner, alice, 10000);
+        await mintBlocks(blocks);
+        await showTotalState();
         await showUserState(owner);
-        await showUserState(alice);
         await showUserState(bob);
-        await showUserState(carol);
-        await checkConsistency();
-        // await mintBlocks(blocks);
-        await mint(owner, owner, 0);
-        // await transfer(owner, bob, 0);
-        // await mintBlocks(blocks);
-        await showTotalState()
-        await showUserState(owner);
-        await showUserState(alice);
-        await showUserState(bob);
-        await showUserState(carol);
         await checkConsistency();
 
         await mintBlocks(blocks);
         await mint(owner, bob, mintAmount);
         await transfer(owner, carol, 10000);
-        await transfer(carol, bob, 10000 - 500);
+        await transfer(carol, bob, 10000);
         await mintBlocks(blocks);
         await showTotalState();
         await showUserState(owner);

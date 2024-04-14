@@ -26,6 +26,8 @@ const {
     const INITIAL_SUPPLY = 10**(DECIMALS+6);
     const MAX_SUPPLY = 10**(DECIMALS+8)
 
+    const minOneBlockSurvival = 0.99;   // find it from decayPerCycle and Cycle, later
+
 function weiToEthEn(wei) {
     return Number(utils.formatUnits( BigInt(wei).toString(), DECIMALS)).toLocaleString("en");
 }
@@ -139,8 +141,8 @@ async function checkConsistency() {
 async function transfer(sender, recipient, amount) {
     let amountWei = ethToWei(amount);
     let balance = await distTypeF.balanceOf(sender.address);
-    if (amount > weiToEth(balance) * 0.9) {
-        amount = weiToEth(balance) * 0.9
+    if (amount > weiToEth(balance) * minOneBlockSurvival) {
+        amount = weiToEth(balance) * minOneBlockSurvival
     }
     amountWei = ethToWei(amount);
     let symbol = await distTypeF.symbol();
@@ -172,11 +174,9 @@ async function burn(burner, from, amount) {
 
     let amountWei = ethToWei(amount);
     let balance = await distTypeF.balanceOf(from.address);
-    // if (amountWei > balance) {
-    //     console.log("amount %s reduced", amount, BigInt(balance), BigInt(amountWei));
-    //     amountWei = balance;
-    //     amount = weiToEth(amountWei);
-    // }
+    if (amount > weiToEth(balance) * minOneBlockSurvival) {
+        amount = weiToEth(balance) * minOneBlockSurvival
+    }
     await console.log("\t%s is burning %s TY_F from %s ...".yellow, 
     burner.name == undefined ? "undefined" : burner.name,
     amount,
@@ -350,9 +350,6 @@ describe("====================== Stage 2: Test pulses ======================\n".
         await showUserState(owner);
         await showUserState(bob);
         await checkConsistency();
-
-
-
 
         await mintBlocks(blocks);
         await mint(owner, bob, mintAmount);

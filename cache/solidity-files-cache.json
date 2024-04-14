@@ -6417,8 +6417,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\Compounding.sol": {
-      "lastModificationDate": 1713055479282,
-      "contentHash": "d165c9b29fbe8bc7c01be1f2129b837c",
+      "lastModificationDate": 1713116386978,
+      "contentHash": "4e3e618defebc22472af64dd50173649",
       "sourceName": "contracts/research/Compounding.sol",
       "solcConfig": {
         "version": "0.8.14",
