@@ -251,7 +251,7 @@ async function setupNodeChain() {
 }
 
 async function showMilestone(text) {
-    console.log("\t%s".blue, text);
+    console.log("\n\t%s".blue, text);
 }
 
 async function Pow(analyticMath, a, b, c, d) {

@@ -88,7 +88,7 @@ function expectLess(a, b) {
 }
 
 async function showMilestone(text) {
-    console.log("\t%s".blue, text);
+    console.log("\n\t%s".blue, text);
 }
 
 async function Pow(analyticMath, a, b, c, d) {
@@ -111,7 +111,7 @@ async function mintBlocks(blocks) {
 
 async function showTotalState() {
     const s = await novelTypeH.getTotalState();
-    console.log("\tTotal:".yellow.bold);
+    console.log("\n\tTotal:".yellow.bold);
     console.log("\ttotalSupply %s, latestNet %s", s.totalSupply, s._latestNet);
     console.log("\tVIRTUAL %s, nowBlock %s", s._VIRTUAL, s.nowBlock);
     console.log("\ttotalPending %s, burnDone %s", s._totalPendingReward, s._burnDone);
@@ -119,8 +119,8 @@ async function showTotalState() {
 
 async function showUserState(user) {
     const s = await novelTypeH.getUserState(user.address);
-    console.log("\tUser %s:".yellow, user.name);
-    console.log("\tshare %s, VIRTUAL %s, nowBlock %s,", s._share, s._VIRTUAL, s.nowBlock);
+    console.log("\n\tUser %s:".yellow, user.name);
+    console.log("\tshare %s, VIRTUAL %s,", s._share, s._VIRTUAL);
     console.log("\tuserPending %s, latestBlock %s", s._userPendingReward, s._latestBlock);
 }
 
@@ -132,7 +132,7 @@ async function mintTime(seconds) {
 
 async function checkConsistency() {
     report = await novelTypeH.checkForConsistency();
-    console.log("\tConsistency report:".bold.yellow);
+    console.log("\n\tConsistency report:".bold.yellow);
     console.log("\tp_collective %s, p_marginal %s",
     report.pending_collective, report.pending_marginal)
     console.log("\tabs_error %s, error_rate (trillionths) === %s",

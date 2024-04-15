@@ -96,7 +96,7 @@ contract CompoundExpBurn is Ownable {
         if (missingBlocks > 0) {
             latestBlock = nowBlock;
             (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missingBlocks, CYCLE);           
-            uint pending = _totalSupply - IntegralMath.mulDivF(_totalSupply, numerator, denominator);
+            uint pending = _totalSupply - IntegralMath.mulDivC(_totalSupply, numerator, denominator);
             rewardPool += pending;
             accRewardPerShare12 += ( 1e12 - IntegralMath.mulDivC(1e12, numerator, denominator) );
         }
@@ -130,7 +130,7 @@ contract CompoundExpBurn is Ownable {
         uint nowBlock = block.number - initialBlock;
         uint extraBlocks = nowBlock - latestBlock;
         (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, extraBlocks, CYCLE);
-        uint extraPending = _balances[user] - IntegralMath.mulDivF(_balances[user], numerator, denominator);
+        uint extraPending = _balances[user] - IntegralMath.mulDivC(_balances[user], numerator, denominator);
         return (standardPending + extraPending);
     }
 
