@@ -140,10 +140,9 @@ async function checkConsistency() {
 
 async function transfer(sender, recipient, amount) {
     let amountWei = ethToWei(amount);
-    // The coming block will increase the balance a bit.
-    let balance = await CompoundExpBurn.balanceOf(sender.address); 
+    let balance = await CompoundExpBurn.balanceOf(sender.address);
     if (amount > weiToEth(balance) * minOneBlockSurvival) {
-        amount = weiToEth(balance) * minOneBlockSurvival
+        amount = Math.floor((weiToEth(balance) * minOneBlockSurvival)*100)/100;
     }
     amountWei = ethToWei(amount);
     let symbol = await CompoundExpBurn.symbol();
@@ -176,7 +175,7 @@ async function burn(burner, from, amount) {
     let amountWei = ethToWei(amount);
     let balance = await CompoundExpBurn.balanceOf(from.address);
     if (amount > weiToEth(balance) * minOneBlockSurvival) {
-        amount = weiToEth(balance) * minOneBlockSurvival
+        amount = Math.floor((weiToEth(balance) * minOneBlockSurvival)*100)/100;
     }
     amountWei = ethToWei(amount);
     await console.log("\t%s is burning %s CEBN from %s ...".yellow, 

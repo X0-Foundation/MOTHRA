@@ -6225,8 +6225,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundExpBurn.sol": {
-      "lastModificationDate": 1713150234127,
-      "contentHash": "66fd8827b6a00f8fddf835cca78f7218",
+      "lastModificationDate": 1713150750054,
+      "contentHash": "4415c8f05aef3eeb9a74d61ef9c728f3",
       "sourceName": "contracts/research/CompoundExpBurn.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6513,8 +6513,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundExpBurnNovel.sol": {
-      "lastModificationDate": 1713150453765,
-      "contentHash": "64a251798589a923b53f36617aa14787",
+      "lastModificationDate": 1713150580548,
+      "contentHash": "6b4780ecdef704ec2551a3a7ea11ad4b",
       "sourceName": "contracts/research/CompoundExpBurnNovel.sol",
       "solcConfig": {
         "version": "0.8.14",
