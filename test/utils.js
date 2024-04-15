@@ -51,8 +51,8 @@ exports.deployTGR = async function (deployer, analyticMath, wireLib) {
 };
 
 
-exports.deployPCSTypeA = async function (deployer, analyticMath) {
-  const Token = await ethers.getContractFactory("PCSTypeA", {
+exports.deploySimpleFixedReward = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("SimpleFixedReward", {
     signer: deployer,
   });
   const token = await Token.connect(deployer).deploy(analyticMath);
@@ -60,8 +60,8 @@ exports.deployPCSTypeA = async function (deployer, analyticMath) {
   return token;
 };
 
-exports.deployPCSTypeC = async function (deployer, analyticMath) {
-  const Token = await ethers.getContractFactory("PCSTypeC", {
+exports.deploySimpleLinearReward = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("SimpleLinearReward", {
     signer: deployer,
   });
   const token = await Token.connect(deployer).deploy(analyticMath);
@@ -69,8 +69,8 @@ exports.deployPCSTypeC = async function (deployer, analyticMath) {
   return token;
 };
 
-exports.deployPCSTypeE = async function (deployer, analyticMath) {
-  const Token = await ethers.getContractFactory("PCSTypeE", {
+exports.deploySimpleExpReward = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("SimpleExpReward", {
     signer: deployer,
   });
   const token = await Token.connect(deployer).deploy(analyticMath);
@@ -78,8 +78,8 @@ exports.deployPCSTypeE = async function (deployer, analyticMath) {
   return token;
 };
 
-exports.deployPCSTypeF = async function (deployer, analyticMath) {
-  const Token = await ethers.getContractFactory("PCSTypeF", {
+exports.deploySimpleExpBurn = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("SimpleExpBurn", {
     signer: deployer,
   });
   const token = await Token.connect(deployer).deploy(analyticMath);
@@ -87,8 +87,8 @@ exports.deployPCSTypeF = async function (deployer, analyticMath) {
   return token;
 };
 
-exports.deployPCSTypeG = async function (deployer, analyticMath) {
-  const Token = await ethers.getContractFactory("PCSTypeG", {
+exports.deployCompoundExpReward = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("CompoundExpReward", {
     signer: deployer,
   });
   const token = await Token.connect(deployer).deploy(analyticMath);
@@ -96,8 +96,8 @@ exports.deployPCSTypeG = async function (deployer, analyticMath) {
   return token;
 };
 
-exports.deployPCSTypeH = async function (deployer, analyticMath) {
-  const Token = await ethers.getContractFactory("PCSTypeH", {
+exports.deployCompoundExpBurn = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("CompoundExpBurn", {
     signer: deployer,
   });
   const token = await Token.connect(deployer).deploy(analyticMath);
@@ -105,8 +105,8 @@ exports.deployPCSTypeH = async function (deployer, analyticMath) {
   return token;
 };
 
-exports.deployNovelTypeH = async function (deployer, analyticMath) {
-  const Token = await ethers.getContractFactory("NovelTypeH", {
+exports.deployCompoundExpBurnNovel = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("CompoundExpBurnNovel", {
     signer: deployer,
   });
   const token = await Token.connect(deployer).deploy(analyticMath);
