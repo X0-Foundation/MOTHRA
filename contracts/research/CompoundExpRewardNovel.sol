@@ -162,7 +162,7 @@ contract CompoundExpRewardNovel is Ownable {
         }
 
         if (pending_max > 0) {
-            error_rate = 1e21 * abs_error/pending_max;
+            error_rate = 1e24 * abs_error/pending_max;
         }
 
         return (pending_collective, pending_marginal, abs_error, error_rate);

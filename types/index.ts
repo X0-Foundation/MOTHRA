@@ -124,6 +124,7 @@ export type { CompoundExpReward } from "./CompoundExpReward";
 export type { CompoundExpRewardNovel } from "./CompoundExpRewardNovel";
 export type { SimpleExpBurn } from "./SimpleExpBurn";
 export type { SimpleExpReward } from "./SimpleExpReward";
+export type { SimpleExpRewardNovel } from "./SimpleExpRewardNovel";
 export type { SimpleFixedReward } from "./SimpleFixedReward";
 export type { SimpleLinearReward } from "./SimpleLinearReward";
 export type { INode } from "./INode";
@@ -256,6 +257,7 @@ export { CompoundExpReward__factory } from "./factories/CompoundExpReward__facto
 export { CompoundExpRewardNovel__factory } from "./factories/CompoundExpRewardNovel__factory";
 export { SimpleExpBurn__factory } from "./factories/SimpleExpBurn__factory";
 export { SimpleExpReward__factory } from "./factories/SimpleExpReward__factory";
+export { SimpleExpRewardNovel__factory } from "./factories/SimpleExpRewardNovel__factory";
 export { SimpleFixedReward__factory } from "./factories/SimpleFixedReward__factory";
 export { SimpleLinearReward__factory } from "./factories/SimpleLinearReward__factory";
 export { INode__factory } from "./factories/INode__factory";

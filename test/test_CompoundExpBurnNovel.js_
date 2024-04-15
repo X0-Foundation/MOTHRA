@@ -1,8 +1,10 @@
+//=================== Paremeter Block that differentiate this testing script from others ======
+
 
 let CONTRACT = null;
 const CONTRACT_NAME = "CompoundExpBurnNovel";
 const CONTRACT_SYMBOL = "CEBNN";
-const minOneBlockSurvival = 0.99;
+const minOneBlockSurvival = 0.98;
 
 async function showTotalState() {
     const s = await CONTRACT.getTotalState();

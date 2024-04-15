@@ -3373,8 +3373,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\farm\\TGRToken.sol": {
-      "lastModificationDate": 1713069446514,
-      "contentHash": "0ca81fb47ad465fe1de4d1699e9b67bb",
+      "lastModificationDate": 1713171258650,
+      "contentHash": "90392eca09478c830abd7ef879a6b940",
       "sourceName": "contracts/farm/TGRToken.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6225,8 +6225,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundExpBurn.sol": {
-      "lastModificationDate": 1713158824574,
-      "contentHash": "3e11611dc1141c6360fae50e8017e146",
+      "lastModificationDate": 1713171258650,
+      "contentHash": "cc01a96a123623d9322468df95bf849d",
       "sourceName": "contracts/research/CompoundExpBurn.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6321,8 +6321,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleExpBurn.sol": {
-      "lastModificationDate": 1713159253592,
-      "contentHash": "ba10099b792c5af0fb1ada7786351136",
+      "lastModificationDate": 1713171258650,
+      "contentHash": "5082c19dcfa5a1fb203bba993473a8ce",
       "sourceName": "contracts/research/SimpleExpBurn.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6369,8 +6369,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleExpReward.sol": {
-      "lastModificationDate": 1713159402759,
-      "contentHash": "469fa0eddd314d455030e71889b06e8a",
+      "lastModificationDate": 1713177323541,
+      "contentHash": "382afd002265ed2d4f32fc7b03361489",
       "sourceName": "contracts/research/SimpleExpReward.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6417,8 +6417,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleLinearReward.sol": {
-      "lastModificationDate": 1713140357196,
-      "contentHash": "540b9c2c12e0bfbe75f28758dafa1e6f",
+      "lastModificationDate": 1713171258650,
+      "contentHash": "c13a22113a7be0aab8183d98dd71baf7",
       "sourceName": "contracts/research/SimpleLinearReward.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6465,8 +6465,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleFixedReward.sol": {
-      "lastModificationDate": 1713140530364,
-      "contentHash": "e9c3cf375989c615b6b0087935353208",
+      "lastModificationDate": 1713171258650,
+      "contentHash": "79a3da4cbc976bebb84720f257977c81",
       "sourceName": "contracts/research/SimpleFixedReward.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6513,8 +6513,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundExpBurnNovel.sol": {
-      "lastModificationDate": 1713170495291,
-      "contentHash": "fdbe3a6427890218b633f29e97440f1a",
+      "lastModificationDate": 1713172838492,
+      "contentHash": "2b9cf9a3d9608cdbeb29e1ddbc5c8209",
       "sourceName": "contracts/research/CompoundExpBurnNovel.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6561,8 +6561,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundExpRewardNovel.sol": {
-      "lastModificationDate": 1713170848127,
-      "contentHash": "142b8d350de3b5a28da5499080e08002",
+      "lastModificationDate": 1713172708358,
+      "contentHash": "ca997b231ccc5e60dbbe6d040b46b6dd",
       "sourceName": "contracts/research/CompoundExpRewardNovel.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6606,6 +6606,54 @@
       ],
       "artifacts": [
         "CompoundExpRewardNovel"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleExpRewardNovel.sol": {
+      "lastModificationDate": 1713174954245,
+      "contentHash": "78a2fcf21fc33c90cab65d834633e979",
+      "sourceName": "contracts/research/SimpleExpRewardNovel.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../libraries/math/SafeMath.sol",
+        "../libraries/math/AnalyticMath.sol",
+        "../libraries/math/IntegralMath.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SimpleExpRewardNovel"
       ]
     }
   }

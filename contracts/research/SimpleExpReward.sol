@@ -98,9 +98,9 @@ contract SimpleExpReward is Ownable {
         if (missingBlocks > 0) {
             latestBlock = nowBlock;
             (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missingBlocks, CYCLE);           
-            uint pending = IntegralMath.mulDivF(_totalSupply, numerator, denominator) - _totalSupply;
+            uint pending = IntegralMath.mulDivC(_totalSupply, numerator, denominator) - _totalSupply;
             rewardPool += pending;
-            accRewardPerShare12 += (IntegralMath.mulDivC(1e12, numerator, denominator) - 1e12);
+            accRewardPerShare12 += (IntegralMath.mulDivF(1e12, numerator, denominator) - 1e12);
         }
     }
 
