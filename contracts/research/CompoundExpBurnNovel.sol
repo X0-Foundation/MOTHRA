@@ -26,7 +26,7 @@ contract CompoundExpBurnNovel is Ownable {
 
     uint8 public constant DECIMALS = 18;
     uint public constant INITIAL_SUPPLY = 10 ** (DECIMALS+6);
-    uint public constant MAX_SUPPLY = 10 * INITIAL_SUPPLY;
+    uint public constant MAX_SUPPLY = 1000 * INITIAL_SUPPLY;
 
     //==================== ERC20 core data ====================
     string private constant _name = "CompoundExpBurnNovel";
@@ -125,7 +125,7 @@ contract CompoundExpBurnNovel is Ownable {
     function _viewUserPendingReward(address user) internal view returns (uint) {
         uint missingBlocks = block.number - initialBlock - users[user].latestBlock; // ============ cycle
         (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missingBlocks, CYCLE);
-        uint pending = _balances[user] - _balances[user] * numerator / denominator;
+        uint pending = _balances[user] - IntegralMath.mulDivF(_balances[user], numerator, denominator);
         return pending;
     }
 
@@ -162,7 +162,7 @@ contract CompoundExpBurnNovel is Ownable {
         }
 
         if (pending_max > 0) {
-            error_rate = 1e12 * abs_error/pending_max;
+            error_rate = 1e21 * abs_error/pending_max;
         }
 
         return (pending_collective, pending_marginal, abs_error, error_rate);

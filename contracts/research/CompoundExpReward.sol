@@ -26,7 +26,7 @@ contract CompoundExpReward is Ownable {
 
     uint8 public constant DECIMALS = 18;
     uint public constant INITIAL_SUPPLY = 10 ** (DECIMALS+6);
-    uint public constant MAX_SUPPLY = 10 * INITIAL_SUPPLY;
+    uint public constant MAX_SUPPLY = 1000 * INITIAL_SUPPLY;
 
     //==================== ERC20 core data ====================
     string private constant _name = "CompoundExpReward";
@@ -96,9 +96,9 @@ contract CompoundExpReward is Ownable {
         if (missingBlocks > 0) {
             latestBlock = nowBlock;
             (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missingBlocks, CYCLE);           
-            uint pending = IntegralMath.mulDivC(_totalSupply, numerator, denominator) - _totalSupply;
+            uint pending = IntegralMath.mulDivF(_totalSupply, numerator, denominator) - _totalSupply;
             rewardPool += pending;
-            accRewardPerShare12 += (IntegralMath.mulDivC(1e12, numerator, denominator) - 1e12);
+            accRewardPerShare12 += (IntegralMath.mulDivF(1e12, numerator, denominator) - 1e12);
         }
     }
 
@@ -130,7 +130,7 @@ contract CompoundExpReward is Ownable {
         uint nowBlock = block.number - initialBlock;
         uint extraBlocks = nowBlock - latestBlock;
         (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, extraBlocks, CYCLE);
-        uint extraPending = IntegralMath.mulDivC(_balances[user], numerator, denominator) - _balances[user];
+        uint extraPending = IntegralMath.mulDivF(_balances[user], numerator, denominator) - _balances[user];
         return (standardPending + extraPending);
     }
 
@@ -138,7 +138,7 @@ contract CompoundExpReward is Ownable {
         uint nowBlock = block.number - initialBlock;
         uint extraBlocks = nowBlock - latestBlock;
         (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, extraBlocks, CYCLE);
-        uint extraPending = IntegralMath.mulDivC(_totalSupply, numerator, denominator) - _totalSupply;
+        uint extraPending = IntegralMath.mulDivF(_totalSupply, numerator, denominator) - _totalSupply;
         return extraPending;
     }
     

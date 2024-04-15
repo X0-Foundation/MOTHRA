@@ -50,6 +50,14 @@ exports.deployTGR = async function (deployer, analyticMath, wireLib) {
   return token;
 };
 
+exports.deployResearchToken = async function (contract_name, deployer, analyticMath) {
+  const Token = await ethers.getContractFactory(contract_name, {
+    signer: deployer,
+  });
+  const token = await Token.connect(deployer).deploy(analyticMath);
+  await token.deployed();
+  return token;
+};
 
 exports.deploySimpleFixedReward = async function (deployer, analyticMath) {
   const Token = await ethers.getContractFactory("SimpleFixedReward", {

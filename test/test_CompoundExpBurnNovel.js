@@ -1,32 +1,39 @@
+
+
+let CONTRACT = null;
+const CONTRACT_NAME = "CompoundExpBurnNovel";
+const CONTRACT_SYMBOL = "CEBNN";
+const minOneBlockSurvival = 0.99;
+
+
 const { ethers, waffle, network, upgrades } = require("hardhat");
 const { expect, util } = require("chai");
 const { utils, BigNumber } = require("ethers");
 require("colors");
 
 const {
-    deployWireLibrary, deployCompoundExpBurn,
+    deployWireLibrary, deployResearchToken,
     deployIntegralMathLibrary,
   } = require("./utils");
-    const { assert } = require("console");
-    const { yellow, cyan } = require("colors");
-    const { zeroAddress } = require("ethereumjs-util");
-    const { doesNotMatch } = require("assert");
-    const zero_address = "0x0000000000000000000000000000000000000000";
-    
-    let integralMathLib, SimpleFixedReward, distTypeB, SimpleLinearReward, distTypeD, SimpleExpReward, SimpleExpBurn, CompoundExpReward, CompoundExpBurn;
-    let owner, alice, bob, carol, votes;
-    let tx;
-    
-    // These constants come from IConstants.sol.
-    const FeeMagnifierPower = 5;
-    const RateMagnifier = 10 ** FeeMagnifierPower;
-    const SqaureMagnifier = RateMagnifier * RateMagnifier;
-    const LiquiditySafety = 10**3;
-    const DECIMALS = 18;
-    const INITIAL_SUPPLY = 10**(DECIMALS+6);
-    const MAX_SUPPLY = 1000*INITIAL_SUPPLY;
+  
+const { assert } = require("console");
+const { yellow, cyan } = require("colors");
+const { zeroAddress } = require("ethereumjs-util");
+const { doesNotMatch } = require("assert");
+const zero_address = "0x0000000000000000000000000000000000000000";
 
-    const minOneBlockSurvival = 0.99;   // find it from decayPerCycle and Cycle, later
+let integralMathLib, SimpleFixedReward, distTypeB, SimpleLinearReward, distTypeD, SimpleExpReward, SimpleExpBurn, CompoundExpBurnNovel;
+let owner, alice, bob, carol, votes;
+let tx;
+
+// These constants come from IConstants.sol.
+const FeeMagnifierPower = 5;
+const RateMagnifier = 10 ** FeeMagnifierPower;
+const SqaureMagnifier = RateMagnifier * RateMagnifier;
+const LiquiditySafety = 10**3;
+const DECIMALS = 18;
+const INITIAL_SUPPLY = 10**(DECIMALS+6);
+const MAX_SUPPLY = 1000*INITIAL_SUPPLY;
 
 function weiToEthEn(wei) {
     return Number(utils.formatUnits( BigInt(wei).toString(), DECIMALS)).toLocaleString("en");
@@ -78,6 +85,7 @@ function expectNotEqual(a, b) {
     expect(a).to.be.not.eq(b);
 }
 
+
 function expectGreater(a, b) {
     expect(a).to.be.gt(b);
 }
@@ -109,18 +117,18 @@ async function mintBlocks(blocks) {
 
 
 async function showTotalState() {
-    const s = await CompoundExpBurn.getTotalState();
+    const s = await CONTRACT.getTotalState();
     console.log("\n\tTotal:".yellow.bold);
-    console.log("\ttotalSupply %s, latestBlock %s", s.totalSupply, s._latestBlock);
-    console.log("\trewardPool %s, totalPending %s", s._rewordPool, s._totalPendingReward);
-    console.log("\taccRewardPerShare12 %s", s._accRewardPerShare12);
+    console.log("\ttotalSupply %s, latestNet %s", s.totalSupply, s._latestNet);
+    console.log("\tVIRTUAL %s, nowBlock %s", s._VIRTUAL, s.nowBlock);
+    console.log("\ttotalPending %s, burnDone %s", s._totalPendingReward, s._burnDone);
 }
 
 async function showUserState(user) {
-    const s = await CompoundExpBurn.getUserState(user.address);
+    const s = await CONTRACT.getUserState(user.address);
     console.log("\n\tUser %s:".yellow, user.name);
-    console.log("\tshare %s, reward %s", s._share, s._reward);
-    console.log("\trewardDebt %s, userPending %s", s._rewardDebt, s._userPendingReward);
+    console.log("\tshare %s, VIRTUAL %s,", s._share, s._VIRTUAL);
+    console.log("\tuserPending %s, latestBlock %s", s._userPendingReward, s._latestBlock);
 }
 
 async function mintTime(seconds) {
@@ -130,31 +138,30 @@ async function mintTime(seconds) {
 }
 
 async function checkConsistency() {
-    report = await CompoundExpBurn.checkForConsistency();
+    report = await CONTRACT.checkForConsistency();
     console.log("\n\tConsistency report:".bold.yellow);
-    console.log("\tpending_collective %s, pending_marginal %s",
+    console.log("\tp_collective %s, p_marginal %s",
     report.pending_collective, report.pending_marginal)
     console.log("\tabs_error %s, error_rate (trillionths) === %s",
-    report.abs_error, report.error_rate);
-    return report.abs_error;
+    report.abs_error, report.error_rate)
 }
 
 async function transfer(sender, recipient, amount) {
     let amountWei = ethToWei(amount);
-    let balance = await CompoundExpBurn.balanceOf(sender.address);
+    let balance = await CONTRACT.balanceOf(sender.address);
     if (amount > weiToEth(balance) * minOneBlockSurvival) {
         amount = Math.floor((weiToEth(balance) * minOneBlockSurvival)*100)/100;
     }
     if (amount > 0) {
         amountWei = ethToWei(amount);
-        let symbol = await CompoundExpBurn.symbol();
+        let symbol = await CONTRACT.symbol();
         //console.log("\t%s is transferring %s %s CEBN ...".yellow, sender.name, recipient.name, weiToEth(amountWei));
         console.log("\t%s is transferring %s CEBN to %s...".yellow, 
         sender.name == undefined ? "undefined" : sender.name,
         amount,
         recipient.hasOwnProperty("name") ? (recipient.name == undefined ? "undefined" : recipient.name) : "NoName");
 
-        tx = CompoundExpBurn.connect(sender).transfer(recipient.address, amountWei );
+        tx = CONTRACT.connect(sender).transfer(recipient.address, amountWei );
         (await tx).wait();
         console.log("\tTransfer done".green);
         return true;
@@ -166,12 +173,12 @@ async function transfer(sender, recipient, amount) {
 
 async function mint(minter, to, amount) {
     let amountWei = ethToWei(amount);
-    await console.log("\t%s is minting %s CEBN to %s ...".yellow, 
+    await console.log("\t%s is minting %s CEBNN to %s ...".yellow, 
     minter.name == undefined ? "undefined" : minter.name,
     amount,
     to.hasOwnProperty("name") ? (to.name == undefined ? "undefined" : to.name) : "NoName" );
 
-    tx = CompoundExpBurn.connect(minter).mint(to.address, amountWei );
+    tx = CONTRACT.connect(minter).mint(to.address, amountWei );
     (await tx).wait();
 
     await console.log("\tMint done".green);
@@ -180,7 +187,7 @@ async function mint(minter, to, amount) {
 async function burn(burner, from, amount) {
 
     let amountWei = ethToWei(amount);
-    let balance = await CompoundExpBurn.balanceOf(from.address);
+    let balance = await CONTRACT.balanceOf(from.address);
     if (amount > weiToEth(balance) * minOneBlockSurvival) {
         amount = Math.floor((weiToEth(balance) * minOneBlockSurvival)*100)/100;
     }
@@ -191,7 +198,7 @@ async function burn(burner, from, amount) {
         amount,
         from.hasOwnProperty("name") ? (from.name == undefined ? "undefined" : from.name) : "NoName" );
 
-        tx = CompoundExpBurn.connect(burner).burn(from.address, amountWei );
+        tx = CONTRACT.connect(burner).burn(from.address, amountWei );
         (await tx).wait();
         console.log("\tBurn done".green);
         return true;
@@ -226,9 +233,9 @@ describe("====================== Stage 1: Deploy ======================\n".yello
         console.log("\tAnalyticMath contract was deployed at: ", analyticMath.address);
 
 
-        CompoundExpBurn = await deployCompoundExpBurn(owner, analyticMath.address);
-        console.log("\tCompoundExpBurn contract deployed at: %s", CompoundExpBurn.address);
-        console.log("\tOwner's balance: %s", await CompoundExpBurn.balanceOf(owner.address));
+        CONTRACT = await deployResearchToken(CONTRACT_NAME, owner, analyticMath.address);
+        console.log("\tCONTRACT contract deployed at: %s", CONTRACT.address);
+        console.log("\tOwner's balance: %s", await CONTRACT.balanceOf(owner.address));
         await showTotalState()
         await showUserState(owner);
         await showUserState(alice);
@@ -239,6 +246,7 @@ describe("====================== Stage 1: Deploy ======================\n".yello
 
         integralMathLib = await deployIntegralMathLibrary(owner);
         console.log("\tIntegralMath deployed at %s", integralMathLib.address);
+
         await showTotalState()
         await showUserState(owner);
         await showUserState(alice);
@@ -248,52 +256,61 @@ describe("====================== Stage 1: Deploy ======================\n".yello
     });
 
     it("1.2 DistTyepA token name, symbol and decimals were checked.\n".green, async function () {
-        const name = await CompoundExpBurn.name();
-        console.log("\tCompoundExpBurn token's name: %s", name);
-        expectEqual(name, "CompoundExpBurn");
+        const name = await CONTRACT.name();
+        console.log("\tCONTRACT token's name: %s", name);
+        expectEqual(name, CONTRACT_NAME);
 
-        const symbol = await CompoundExpBurn.symbol();
-        console.log("\tCompoundExpBurn symbol: %s", symbol);
-        expectEqual(symbol, "CEBN");
+        const symbol = await CONTRACT.symbol();
+        console.log("\tCONTRACT symbol: %s", symbol);
+        expectEqual(symbol, CONTRACT_SYMBOL);
 
-        const decimals = await CompoundExpBurn.decimals();
-        console.log("\tCompoundExpBurn decimals: %s", decimals);
+        const decimals = await CONTRACT.decimals();
+        console.log("\tCONTRACT decimals: %s", decimals);
         expectEqual(decimals, 18);
 
     
         await checkConsistency();
     });
 
-    it("1.3 Total supply and owner balance of CEBN are checked.\n".green, async function () {
-        const totalSupply = await CompoundExpBurn.totalSupply();
-        console.log("\tCompoundExpBurn total supply: %s gways",BigInt(totalSupply));
+    it("1.3 Total supply and owner balance of CEBNN are checked.\n".green, async function () {
+        const totalSupply = await CONTRACT.totalSupply();
+        console.log("\tCONTRACT total supply: %s gways",BigInt(totalSupply));
+        if (minOneBlockSurvival < 1.0) {
+            expectLess(weiToEth(totalSupply), weiToEth(INITIAL_SUPPLY));
+        } else {
+            expectGreater(weiToEth(totalSupply), weiToEth(INITIAL_SUPPLY));
+        }
+
         expectLess(weiToEth(totalSupply), weiToEth(INITIAL_SUPPLY));
 
         console.log("\tTotal supply amount was minted to owner.");
-        const ownerTgrBalance = await CompoundExpBurn.balanceOf(owner.address);
-        console.log("\tCompoundExpBurn owner balance: %s gways", BigInt(ownerTgrBalance));
-        expectLess(weiToEth(ownerTgrBalance), weiToEth(INITIAL_SUPPLY));
-
+        const ownerTgrBalance = await CONTRACT.balanceOf(owner.address);
+        console.log("\tCONTRACT owner balance: %s gways", BigInt(ownerTgrBalance));
+        if (minOneBlockSurvival < 1.0) {
+            expectLess(weiToEth(ownerTgrBalance), weiToEth(INITIAL_SUPPLY));
+        } else {
+            expectGreater(weiToEth(ownerTgrBalance), weiToEth(INITIAL_SUPPLY));
+        }
         await checkConsistency();
     });
 
     it("1.4 Allowance control functions were checked.\n".green, async function () {
-        console.log("Owner approves Alice to spend 1000 CEBN");
-        await CompoundExpBurn.connect(owner).approve(alice.address, ethToWei(1000));
+        console.log("Owner approves Alice to spend 1000 CEBNN");
+        await CONTRACT.connect(owner).approve(alice.address, ethToWei(1000));
 
-        let allowanceOwnerAlice = await CompoundExpBurn.allowance(owner.address, alice.address);
+        let allowanceOwnerAlice = await CONTRACT.allowance(owner.address, alice.address);
         console.log("\tallowance[owner][alice]: %s", weiToEthEn(allowanceOwnerAlice));
         expectEqual(weiToEth(allowanceOwnerAlice), 1000);
 
         console.log("\tIncrease it by 1000.");
-        await CompoundExpBurn.connect(owner).increaseAllowance(alice.address, ethToWei(1000));
-        allowanceOwnerAlice = await CompoundExpBurn.allowance(owner.address, alice.address);
+        await CONTRACT.connect(owner).increaseAllowance(alice.address, ethToWei(1000));
+        allowanceOwnerAlice = await CONTRACT.allowance(owner.address, alice.address);
         console.log("\tallowance[owner][alice]: %s", weiToEthEn(allowanceOwnerAlice));
         expectEqual(weiToEth(allowanceOwnerAlice), 2000);
 
         console.log("\tDecrease it by 1000.");
-        await CompoundExpBurn.connect(owner).decreaseAllowance(alice.address, ethToWei(1000));
-        allowanceOwnerAlice = await CompoundExpBurn.allowance(owner.address, alice.address);
+        await CONTRACT.connect(owner).decreaseAllowance(alice.address, ethToWei(1000));
+        allowanceOwnerAlice = await CONTRACT.allowance(owner.address, alice.address);
         console.log("\tallowance[owner][alice]: %s", weiToEthEn(allowanceOwnerAlice));
         expectEqual(weiToEth(allowanceOwnerAlice), 1000);
 
@@ -322,18 +339,27 @@ describe("====================== Stage 2: Test pulses ======================\n".
             await checkConsistency();
 
             await showMilestone("Milestone 0.0");
-            await mintBlocks(blocks);
-            await mint(owner, bob, mintAmount);
-            await transfer(owner, alice, 10000);
-            await mintBlocks(blocks);
-            await showTotalState();
+            await showTotalState()
             await showUserState(owner);
+            await showUserState(alice);
             await showUserState(bob);
+            await showUserState(carol);
+            await checkConsistency();
+            await mintBlocks(blocks);
+            await mint(owner, owner, mintAmount);
+            await transfer(owner, bob, 100);
+            await mintBlocks(blocks);
+            await showTotalState()
+            await showUserState(owner);
+            await showUserState(alice);
+            await showUserState(bob);
+            await showUserState(carol);
             await checkConsistency();
 
             await mintBlocks(blocks);
             await mint(owner, bob, mintAmount);
             await transfer(owner, carol, 10000);
+            await mintBlocks(blocks);
             await transfer(carol, bob, 10000);
             await mintBlocks(blocks);
             await showTotalState();
@@ -360,9 +386,6 @@ describe("====================== Stage 2: Test pulses ======================\n".
             await showUserState(owner);
             await showUserState(bob);
             await checkConsistency();
-
-
-
 
             await mintBlocks(blocks);
             await mint(owner, bob, mintAmount);
@@ -471,7 +494,8 @@ describe("====================== Stage 3: Random calls ======================\n"
         sender = users[generateRandomInteger(0, users.length - 1)];
         recipient = users[generateRandomInteger(0, users.length - 1)];
         amount = generateRandomInteger(10, 100);
-        return await transfer(sender, recipient, amount);
+        report = await transfer(sender, recipient, amount);
+        return report;
     }
     
     async function mintRandom() {
@@ -484,7 +508,8 @@ describe("====================== Stage 3: Random calls ======================\n"
     async function burnRandom() {
         recipient = users[generateRandomInteger(0, users.length - 1)];
         amount = generateRandomInteger(10, 100);
-        return await burn(owner, recipient, amount);
+        report = await burn(owner, recipient, amount);
+        return report;
     }
     
     async function mintBlocksRandom() {
@@ -498,28 +523,28 @@ describe("====================== Stage 3: Random calls ======================\n"
          mintRandom, burnRandom, mintBlocksRandom ];
 
 
-    it("3.1 Random calls.\n".green, async function () {
+         it("3.1 Random calls.\n".green, async function () {
   
-        blocks = 60 // twice the cycle
-        mintAmount = 1000
-        burnAmount = 700
-
-        for(i = 0; i < 25; i++) {
-
-            for( j = 0; j < 20; j++ ) {
-                rand = generateRandomInteger(0, functions.length - 1);
-                report = await functions[rand]();
-                if (report == true) {
-                    consistency = await CompoundExpBurn.checkForConsistency();
-                    error = consistency.error_rate;
-                    errors.push(Number(error));
+            blocks = 60 // twice the cycle
+            mintAmount = 1000
+            burnAmount = 700
+    
+            for(i = 0; i < 25; i++) {
+    
+                for( j = 0; j < 20; j++ ) {
+                    rand = generateRandomInteger(0, functions.length - 1);
+                    report = await functions[rand]();
+                    if (report == true) {
+                        consistency = await CONTRACT.checkForConsistency();
+                        error = consistency.error_rate;
+                        errors.push(Number(error));
+                    }
                 }
+                // await showTotalState();
+                // await showUserStateAll();
+                // await checkConsistency();
             }
-            // await showTotalState();
-            // await showUserStateAll();
-            // await checkConsistency();
-        }
-        json = JSON.stringify(errors);
-        console.log(json);
-    });    
+            json = JSON.stringify(errors);
+            console.log(json);
+        });     
 });

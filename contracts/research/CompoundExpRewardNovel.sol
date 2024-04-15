@@ -26,7 +26,7 @@ contract CompoundExpRewardNovel is Ownable {
 
     uint8 public constant DECIMALS = 18;
     uint public constant INITIAL_SUPPLY = 10 ** (DECIMALS+6);
-    uint public constant MAX_SUPPLY = 10 * INITIAL_SUPPLY;
+    uint public constant MAX_SUPPLY = 1000 * INITIAL_SUPPLY;
 
     //==================== ERC20 core data ====================
     string private constant _name = "CompoundExpRewardNovel";
@@ -125,7 +125,7 @@ contract CompoundExpRewardNovel is Ownable {
     function _viewUserPendingReward(address user) internal view returns (uint) {
         uint missingBlocks = block.number - initialBlock - users[user].latestBlock; // ============ cycle
         (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missingBlocks, CYCLE);
-        uint pending = _balances[user] * numerator / denominator - _balances[user];
+        uint pending = IntegralMath.mulDivC(_balances[user], numerator, denominator) - _balances[user];
         return pending;
     }
 
