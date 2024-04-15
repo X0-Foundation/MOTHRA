@@ -475,7 +475,7 @@ describe("====================== Stage 2: Test pulses ======================\n".
   });
 
 
-describe("====================== Stage 3: Random calls ======================\n".yellow, async function () {
+  describe("====================== Stage 3: Random calls ======================\n".yellow, async function () {
 
     const users = [];
     const errors = [];
@@ -531,6 +531,15 @@ describe("====================== Stage 3: Random calls ======================\n"
          mintRandom, burnRandom, mintBlocksRandom ];
 
 
+    async function writeStringToFile(path, data) {
+        const fs = require('fs')
+        fs.writeFile(path, data, (err) => {
+            if (err) throw err;
+        })
+    }
+
+
+
     it("3.1 Random calls.\n".green, async function () {
 
         blocks = 60 // twice the cycle
@@ -554,5 +563,6 @@ describe("====================== Stage 3: Random calls ======================\n"
         }
         json = JSON.stringify(errors);
         console.log(json);
+        await writeStringToFile("test_" + CONTRACT_NAME + ".txt", json);
     });     
 });
