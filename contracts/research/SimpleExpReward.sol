@@ -107,14 +107,14 @@ contract SimpleExpReward is Ownable {
     function _changeUserShare(address user, uint amount, bool CreditNotDebit) internal {
         upadateWithTotalShare();
         uint standardPending =( accRewardPerShare12 * _balances[user] - users[user].rewardDebt12 ) / 1e12;
-        rewardPool = _safeSubtract(rewardPool, standardPending);
+        rewardPool -= standardPending;
         users[user].reward += standardPending;
         if (CreditNotDebit) {
             _balances[user] += amount;
             _totalSupply += amount;
         } else {
-            _balances[user] = _safeSubtract(_balances[user], amount);
-            _totalSupply = _safeSubtract(_totalSupply, amount);            
+            _balances[user] -= amount;
+            _totalSupply -= amount;            
         }
         users[user].rewardDebt12 = accRewardPerShare12 * _balances[user];
     }

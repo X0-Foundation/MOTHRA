@@ -132,7 +132,7 @@ contract CompoundExpBurnNovel is Ownable {
     function _viewTotalPendingReward() internal view returns (uint) {
         uint nowBlock = (block.number - initialBlock); // =============== cycle
         (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, nowBlock, CYCLE);
-        return _safeSubtract(latestNet, IntegralMath.mulDivC(VIRTUAL, numerator, denominator));
+        return latestNet - IntegralMath.mulDivC(VIRTUAL, numerator, denominator);
     }
     
 

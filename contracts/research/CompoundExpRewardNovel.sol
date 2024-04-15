@@ -132,7 +132,7 @@ contract CompoundExpRewardNovel is Ownable {
     function _viewTotalPendingReward() internal view returns (uint) {
         uint nowBlock = (block.number - initialBlock); // =============== cycle
         (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, nowBlock, CYCLE);
-        return _safeSubtract(IntegralMath.mulDivC(VIRTUAL, numerator, denominator), latestNet);
+        return IntegralMath.mulDivC(VIRTUAL, numerator, denominator) - latestNet;
     }
     
 
