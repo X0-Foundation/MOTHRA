@@ -25,6 +25,7 @@ async function showUserState(user) {
 //==========================================================================================
 
 
+
 const { ethers, waffle, network, upgrades } = require("hardhat");
 const { expect, util } = require("chai");
 const { utils, BigNumber } = require("ethers");
@@ -43,6 +44,7 @@ const zero_address = "0x0000000000000000000000000000000000000000";
 
 let integralMathLib, SimpleFixedReward, distTypeB, SimpleLinearReward, distTypeD, SimpleExpReward, SimpleExpBurn, CompoundExpBurnNovel;
 let owner, alice, bob, carol, votes;
+let symbol = null;
 let tx;
 
 // These constants come from IConstants.sol.
@@ -158,10 +160,9 @@ async function transfer(sender, recipient, amount) {
     if (amount > 0) {
         amountWei = ethToWei(amount);
         let symbol = await CONTRACT.symbol();
-        //console.log("\t%s is transferring %s %s CEBN ...".yellow, sender.name, recipient.name, weiToEth(amountWei));
-        console.log("\t%s is transferring %s CEBN to %s...".yellow, 
+        console.log("\t%s is transferring %s %s to %s...".yellow, 
         sender.name == undefined ? "undefined" : sender.name,
-        amount,
+        amount,  symbol,
         recipient.hasOwnProperty("name") ? (recipient.name == undefined ? "undefined" : recipient.name) : "NoName");
 
         tx = CONTRACT.connect(sender).transfer(recipient.address, amountWei );
@@ -176,9 +177,10 @@ async function transfer(sender, recipient, amount) {
 
 async function mint(minter, to, amount) {
     let amountWei = ethToWei(amount);
-    await console.log("\t%s is minting %s CEBNN to %s ...".yellow, 
+    let symbol = await CONTRACT.symbol();
+    await console.log("\t%s is minting %s %s to %s ...".yellow, 
     minter.name == undefined ? "undefined" : minter.name,
-    amount,
+    amount, symbol,
     to.hasOwnProperty("name") ? (to.name == undefined ? "undefined" : to.name) : "NoName" );
 
     tx = CONTRACT.connect(minter).mint(to.address, amountWei );
@@ -196,9 +198,10 @@ async function burn(burner, from, amount) {
     }
     if (amount > 0) {
         amountWei = ethToWei(amount);
-        await console.log("\t%s is burning %s CEBN from %s ...".yellow, 
+        let symbol = await CONTRACT.symbol();
+        await console.log("\t%s is burning %s %s from %s ...".yellow, 
         burner.name == undefined ? "undefined" : burner.name,
-        amount,
+        amount, symbol,
         from.hasOwnProperty("name") ? (from.name == undefined ? "undefined" : from.name) : "NoName" );
 
         tx = CONTRACT.connect(burner).burn(from.address, amountWei );
@@ -275,7 +278,7 @@ describe("====================== Stage 1: Deploy ======================\n".yello
         await checkConsistency();
     });
 
-    it("1.3 Total supply and owner balance of CEBNN are checked.\n".green, async function () {
+    it("1.3 Total supply and owner balance are checked.\n".green, async function () {
         const totalSupply = await CONTRACT.totalSupply();
         console.log("\tCONTRACT total supply: %s gways",BigInt(totalSupply));
         if (minOneBlockSurvival == 0.98) {
@@ -300,7 +303,8 @@ describe("====================== Stage 1: Deploy ======================\n".yello
     });
 
     it("1.4 Allowance control functions were checked.\n".green, async function () {
-        console.log("Owner approves Alice to spend 1000 CEBNN");
+        let symbol = await CONTRACT.symbol();
+        console.log("Owner approves Alice to spend 1000 %s", symbol);
         await CONTRACT.connect(owner).approve(alice.address, ethToWei(1000));
 
         let allowanceOwnerAlice = await CONTRACT.allowance(owner.address, alice.address);
@@ -528,28 +532,28 @@ describe("====================== Stage 3: Random calls ======================\n"
          mintRandom, burnRandom, mintBlocksRandom ];
 
 
-         it("3.1 Random calls.\n".green, async function () {
-  
-            blocks = 60 // twice the cycle
-            mintAmount = 1000
-            burnAmount = 700
-    
-            for(i = 0; i < 20; i++) {
-    
-                for( j = 0; j < 20; j++ ) {
-                    rand = generateRandomInteger(0, functions.length - 1);
-                    report = await functions[rand]();
-                    if (report == true) {
-                        consistency = await CONTRACT.checkForConsistency();
-                        error = consistency.error_rate;
-                        errors.push(Number(error));
-                    }
+    it("3.1 Random calls.\n".green, async function () {
+
+        blocks = 60 // twice the cycle
+        mintAmount = 1000
+        burnAmount = 700
+
+        for(i = 0; i < 20; i++) {
+
+            for( j = 0; j < 20; j++ ) {
+                rand = generateRandomInteger(0, functions.length - 1);
+                report = await functions[rand]();
+                if (report == true) {
+                    consistency = await CONTRACT.checkForConsistency();
+                    error = consistency.error_rate;
+                    errors.push(Number(error));
                 }
-                // await showTotalState();
-                // await showUserStateAll();
-                // await checkConsistency();
             }
-            json = JSON.stringify(errors);
-            console.log(json);
-        });     
+            // await showTotalState();
+            // await showUserStateAll();
+            // await checkConsistency();
+        }
+        json = JSON.stringify(errors);
+        console.log(json);
+    });     
 });
