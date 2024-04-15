@@ -26,7 +26,7 @@ contract SimpleFixedReward is Ownable {
 
     uint8 public constant DECIMALS = 18;
     uint public constant INITIAL_SUPPLY = 10 ** (DECIMALS+6);
-    uint public constant MAX_SUPPLY = 10 * INITIAL_SUPPLY;
+    uint public constant MAX_SUPPLY = 1000 * INITIAL_SUPPLY;
 
     //==================== ERC20 core data ====================
     string private constant _name = "SimpleFixedReward";

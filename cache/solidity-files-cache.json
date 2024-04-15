@@ -6561,8 +6561,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundExpRewardNovel.sol": {
-      "lastModificationDate": 1713166424205,
-      "contentHash": "5855870205aa585fe8c3fbd4520ee29a",
+      "lastModificationDate": 1713170848127,
+      "contentHash": "142b8d350de3b5a28da5499080e08002",
       "sourceName": "contracts/research/CompoundExpRewardNovel.sol",
       "solcConfig": {
         "version": "0.8.14",

@@ -30,7 +30,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     string private constant sForbidden = "Forbidden";
     string private constant sZeroAddress = "Zero address";
     string private constant sExceedsBalance = "Exceeds balance";
-    uint public constant override MAX_SUPPLY = 10 * INITIAL_SUPPLY;
+    uint public constant override MAX_SUPPLY = 1000 * INITIAL_SUPPLY;
     address constant zero_address = 0x0000000000000000000000000000000000000000;
 
     //====================

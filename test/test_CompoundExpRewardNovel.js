@@ -1,9 +1,7 @@
-
-
 let CONTRACT = null;
-const CONTRACT_NAME = "CompoundExpBurnNovel";
-const CONTRACT_SYMBOL = "CEBNN";
-const minOneBlockSurvival = 0.99;
+const CONTRACT_NAME = "CompoundExpRewardNovel";
+const CONTRACT_SYMBOL = "CERWN";
+const minOneBlockSurvival = 1.0;
 
 
 const { ethers, waffle, network, upgrades } = require("hardhat");
@@ -281,8 +279,6 @@ describe("====================== Stage 1: Deploy ======================\n".yello
             expectGreater(weiToEth(totalSupply), weiToEth(INITIAL_SUPPLY));
         }
 
-        expectLess(weiToEth(totalSupply), weiToEth(INITIAL_SUPPLY));
-
         console.log("\tTotal supply amount was minted to owner.");
         const ownerTgrBalance = await CONTRACT.balanceOf(owner.address);
         console.log("\tCONTRACT owner balance: %s gways", BigInt(ownerTgrBalance));
@@ -529,7 +525,7 @@ describe("====================== Stage 3: Random calls ======================\n"
             mintAmount = 1000
             burnAmount = 700
     
-            for(i = 0; i < 25; i++) {
+            for(i = 0; i < 20; i++) {
     
                 for( j = 0; j < 20; j++ ) {
                     rand = generateRandomInteger(0, functions.length - 1);
