@@ -24,7 +24,6 @@ async function showUserState(user) {
 //==========================================================================================
 
 
-
 const { ethers, waffle, network, upgrades } = require("hardhat");
 const { expect, util } = require("chai");
 const { utils, BigNumber } = require("ethers");
@@ -176,16 +175,27 @@ async function transfer(sender, recipient, amount) {
 
 async function mint(minter, to, amount) {
     let amountWei = ethToWei(amount);
-    let symbol = await CONTRACT.symbol();
-    await console.log("\t%s is minting %s %s to %s ...".yellow, 
-    minter.name == undefined ? "undefined" : minter.name,
-    amount, symbol,
-    to.hasOwnProperty("name") ? (to.name == undefined ? "undefined" : to.name) : "NoName" );
+    let totalSupply = await CONTRACT.totalSupply();
+    if ( amount > weiToEth(MAX_SUPPLY) - weiToEth(totalSupply) ) {
+        amount = Math.floor((weiToEth(MAX_SUPPLY) - weiToEth(totalSupply) * minOneBlockSurvival)*100)/100;
+    }
 
-    tx = CONTRACT.connect(minter).mint(to.address, amountWei );
-    (await tx).wait();
+    if (amount > 0) {
+        amountWei = ethToWei(amount);
+        let symbol = await CONTRACT.symbol();
+        await console.log("\t%s is minting %s %s to %s ...".yellow, 
+        minter.name == undefined ? "undefined" : minter.name,
+        amount, symbol,
+        to.hasOwnProperty("name") ? (to.name == undefined ? "undefined" : to.name) : "NoName" );
 
-    await console.log("\tMint done".green);
+        tx = CONTRACT.connect(minter).mint(to.address, amountWei );
+        (await tx).wait();
+        await console.log("\tMint done".green);
+        return true;
+    } else {
+        return false;
+    }
+
 }
 
 async function burn(burner, from, amount) {
@@ -475,7 +485,7 @@ describe("====================== Stage 2: Test pulses ======================\n".
   });
 
 
-describe("====================== Stage 3: Random calls ======================\n".yellow, async function () {
+  describe("====================== Stage 3: Random calls ======================\n".yellow, async function () {
 
     const users = [];
     const errors = [];
@@ -509,8 +519,8 @@ describe("====================== Stage 3: Random calls ======================\n"
     async function mintRandom() {
         recipient = users[generateRandomInteger(0, users.length - 1)];
         amount = generateRandomInteger(10, 100);
-        await mint(owner, recipient, amount);
-        return true;
+        report = await mint(owner, recipient, amount);
+        return report;
     }
     
     async function burnRandom() {
@@ -538,6 +548,30 @@ describe("====================== Stage 3: Random calls ======================\n"
         })
     }
 
+    class Queue {
+        constructor() {
+            this.items = {}
+            this.frontIndex = 0
+            this.backIndex = 0
+        }
+        enqueue(item) {
+            this.items[this.backIndex] = item
+            this.backIndex++
+            return item + ' inserted'
+        }
+        dequeue() {
+            const item = this.items[this.frontIndex]
+            delete this.items[this.frontIndex]
+            this.frontIndex++
+            return item
+        }
+        peek() {
+            return this.items[this.frontIndex]
+        }
+        get printQueue() {
+            return this.items;
+        }
+    }
 
 
     it("3.1 Random calls.\n".green, async function () {
@@ -546,15 +580,34 @@ describe("====================== Stage 3: Random calls ======================\n"
         mintAmount = 1000
         burnAmount = 700
 
-        for(i = 0; i < 20; i++) {
+        let values = [];
+        let movingAvg = 0;
+        let count = 0; let window = 100;
+        const thresholdX = 2;
+        const queue = new Queue()
 
+
+        for(i = 0; i < 200; i++) {
             for( j = 0; j < 20; j++ ) {
                 rand = generateRandomInteger(0, functions.length - 1);
                 report = await functions[rand]();
                 if (report == true) {
                     consistency = await CONTRACT.checkForConsistency();
-                    error = consistency.error_rate;
-                    errors.push(Number(error));
+                    error = Number(consistency.error_rate);
+                    let item = error / window;
+                    queue.enqueue(item);
+                    movingAvg += item;
+                    count += 1;
+                    if (count > window) {
+                        movingAvg -= queue.dequeue();
+                    }
+                    if (count > window && error < thresholdX * movingAvg ) {
+                        errors.push(Number(error));
+                    } else {
+                        console.log("\tvalue thrown away".white);
+                    }
+                } else {
+                    console.log("\tRandom call failed.".red);
                 }
             }
             // await showTotalState();

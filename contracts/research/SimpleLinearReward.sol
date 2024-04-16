@@ -90,10 +90,10 @@ contract SimpleLinearReward is Ownable {
         uint nowBlock = block.number - initialBlock;
         uint missingBlocks = nowBlock - latestBlock;
         if (missingBlocks > 0) {
-            latestBlock = nowBlock;
             uint reward = alpha * missingBlocks * _totalSupply; // * _totalSupply for TypeC
             rewardPool += reward;
             accRewardPerShare12 += reward * 1e12 / _totalSupply;
+            latestBlock = nowBlock;
         }
     }
 
@@ -133,11 +133,10 @@ contract SimpleLinearReward is Ownable {
 
         pending_collective = _viewTotalPendingReward() + rewardPool;
 
-        uint pending;
-        pending = _viewUserPendingReward(owner());   pending_marginal +=  pending;
-        pending = _viewUserPendingReward(alice);   pending_marginal +=  pending;
-        pending = _viewUserPendingReward(bob);   pending_marginal += pending;
-        pending = _viewUserPendingReward(carol);   pending_marginal +=  pending;
+        pending_marginal += _viewUserPendingReward(owner());
+        pending_marginal += _viewUserPendingReward(alice);
+        pending_marginal += _viewUserPendingReward(bob);
+        pending_marginal += _viewUserPendingReward(carol);
 
         if (pending_collective < pending_marginal) {
             abs_error = pending_marginal - pending_collective;

@@ -141,11 +141,10 @@ contract SimpleExpRewardNovel is Ownable {
 
         pending_collective = _viewTotalPendingReward();
 
-        uint pending;
-        pending = _viewUserPendingReward(owner());   pending_marginal +=  pending;
-        pending = _viewUserPendingReward(alice);   pending_marginal +=  pending;
-        pending = _viewUserPendingReward(bob);   pending_marginal += pending;
-        pending = _viewUserPendingReward(carol);   pending_marginal +=  pending;
+        pending_marginal += _viewUserPendingReward(owner());
+        pending_marginal += _viewUserPendingReward(alice);
+        pending_marginal += _viewUserPendingReward(bob);
+        pending_marginal += _viewUserPendingReward(carol);
 
         if (pending_collective < pending_marginal) {
             abs_error = pending_marginal - pending_collective;

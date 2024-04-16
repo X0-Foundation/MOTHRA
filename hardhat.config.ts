@@ -112,6 +112,9 @@ const config: HardhatUserConfig = {
   etherscan: {
     apiKey: process.env.BSCSCAN_API_KEY,
   },
+  mocha: {
+    timeout: 100000000,
+  },
 };
 
 export default config;

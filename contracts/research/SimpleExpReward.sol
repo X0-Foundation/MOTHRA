@@ -96,11 +96,11 @@ contract SimpleExpReward is Ownable {
         uint nowBlock = block.number - initialBlock;
         uint missingBlocks = nowBlock - latestBlock;
         if (missingBlocks > 0) {
-            latestBlock = nowBlock;
             (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missingBlocks, CYCLE);           
             uint pending = IntegralMath.mulDivC(_totalSupply, numerator, denominator) - _totalSupply;
             rewardPool += pending;
             accRewardPerShare12 += (IntegralMath.mulDivF(1e12, numerator, denominator) - 1e12);
+            latestBlock = nowBlock;
         }
     }
 
@@ -120,10 +120,6 @@ contract SimpleExpReward is Ownable {
     }
 
     function _viewUserPendingReward(address user) internal view returns (uint) {
-        uint debt12 = 1e12;
-        if (debt12 < users[user].rewardDebt12 ) {
-            debt12 = users[user].rewardDebt12;
-        }
         uint standardPending = ( accRewardPerShare12 * _balances[user] - users[user].rewardDebt12 ) / 1e12;
 
         uint nowBlock = block.number - initialBlock;
@@ -147,11 +143,10 @@ contract SimpleExpReward is Ownable {
 
         pending_collective = _viewTotalPendingReward() + rewardPool;
 
-        uint pending;
-        pending = _viewUserPendingReward(owner());   pending_marginal +=  pending;
-        pending = _viewUserPendingReward(alice);   pending_marginal +=  pending;
-        pending = _viewUserPendingReward(bob);   pending_marginal += pending;
-        pending = _viewUserPendingReward(carol);   pending_marginal +=  pending;
+        pending_marginal += _viewUserPendingReward(owner());
+        pending_marginal += _viewUserPendingReward(alice);
+        pending_marginal += _viewUserPendingReward(bob);
+        pending_marginal += _viewUserPendingReward(carol);
 
         if (pending_collective < pending_marginal) {
             abs_error = pending_marginal - pending_collective;
