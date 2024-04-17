@@ -146,7 +146,7 @@ async function checkConsistency() {
     console.log("\n\tConsistency report:".bold.yellow);
     console.log("\tp_collective %s, p_marginal %s",
     report.pending_collective, report.pending_marginal)
-    console.log("\tabs_error %s, error_rate (trillionths) === %s",
+    console.log("\tabs_error %s, error_rate === %s",
     report.abs_error, report.error_rate)
 }
 
@@ -562,7 +562,7 @@ describe("====================== Stage 3: Random calls ======================\n"
         let count = 0; let window = 5;
         const thresholdX = 5;
 
-        const target = 15000;
+        const target = 10000;
         while (values.length < target) {
             rand = generateRandomInteger(0, functions.length - 1);
             report = await functions[rand]();

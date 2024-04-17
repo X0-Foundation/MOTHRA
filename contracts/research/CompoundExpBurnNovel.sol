@@ -11,8 +11,8 @@ import "../libraries/math/IntegralMath.sol";
 import "hardhat/console.sol";
 
 //=====================================================================================
-// Compounding Exponential Burn.
-// _balances[user] += _balances[user] * (1 - ( 1 - burnRate ) ** blocks_passed )
+// Simple Exponential Reward.
+// rewards[user] += _balances[user] * ( ( 1 + rewardRate ) ** blocks_passed - 1 )
 //=====================================================================================
 
 contract CompoundExpBurnNovel is Ownable {
@@ -51,8 +51,8 @@ contract CompoundExpBurnNovel is Ownable {
     // Reward: We just handle with the reward quantity numericals here, not reward itself.
 
     struct User {
+        uint    reward;
         uint    latestBlock;
-        uint    VIRTUAL;
     }
 
     uint initialBlock;
@@ -77,32 +77,36 @@ contract CompoundExpBurnNovel is Ownable {
         uint _share, uint _VIRTUAL, uint nowBlock, uint _userPendingReward, uint _latestBlock
     ) {
        _share = _balances[user];
-        _VIRTUAL = users[user].VIRTUAL;
+        _VIRTUAL = 0;
         nowBlock = block.number - initialBlock;
         _userPendingReward = _viewUserPendingReward(user);
         _latestBlock = users[user].latestBlock;
     }
 
     uint constant MAGNIFIER = 10 ** 5;
-    uint constant DecPerCycle = 777;    // Burn % per cycle blocks. So reward means burn.
+    uint constant DecPerCycle = 777;
     uint constant CYCLE = 10;
 
-    uint latestNet; uint VIRTUAL; uint burnDone;
+    uint latestNet; uint VIRTUAL; uint burnDone; uint latestBlock;
 
 
     function _changeUserShare(address user, uint amount, bool CreditNotDebit) internal {
         {
             latestNet -= _balances[user];
-            VIRTUAL -= users[user].VIRTUAL;
+            uint missingBlocks = block.number - initialBlock - latestBlock;
+            (uint p1, uint q1) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missingBlocks, CYCLE);           
+            missingBlocks = block.number - initialBlock - users[user].latestBlock;
+            (uint p2, uint q2) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missingBlocks, CYCLE);
+            VIRTUAL = IntegralMath.mulDivF(VIRTUAL, p1, q1) - IntegralMath.mulDivF(_balances[user], p2, q2);
+            latestBlock = block.number - initialBlock;
         }
 
         uint pending = _viewUserPendingReward(user);
         if (pending > 0) {
             _balances[user] -= pending;
-            _totalSupply -= pending;
             burnDone += pending;
-            users[user].latestBlock = block.number - initialBlock;
         }
+        users[user].latestBlock = block.number - initialBlock;
 
         if(CreditNotDebit) {
             _balances[user] += amount;
@@ -113,12 +117,9 @@ contract CompoundExpBurnNovel is Ownable {
         }
 
         {
-            uint latestBlock = users[user].latestBlock; //============ cycle
-            (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER, MAGNIFIER - DecPerCycle, latestBlock, CYCLE); // mind of order
-            uint v = IntegralMath.mulDivF(_balances[user], numerator, denominator);
-            users[user].VIRTUAL = v;
-            latestNet += _balances[user];
-            VIRTUAL += v;
+            uint newBalance = _balances[user];
+            latestNet += newBalance;
+            VIRTUAL += newBalance;
         }
     }
 
@@ -130,8 +131,8 @@ contract CompoundExpBurnNovel is Ownable {
     }
 
     function _viewTotalPendingReward() internal view returns (uint) {
-        uint nowBlock = (block.number - initialBlock); // =============== cycle
-        (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, nowBlock, CYCLE);
+        uint missingBlocks = block.number - initialBlock - latestBlock;
+        (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missingBlocks, CYCLE);
         return latestNet - IntegralMath.mulDivF(VIRTUAL, numerator, denominator);
     }
     
@@ -154,9 +155,12 @@ contract CompoundExpBurnNovel is Ownable {
 
         } else {
             abs_error = pending_collective - pending_marginal;
-            pending_marginal = pending_collective;
             pending_max = pending_collective;
-            console.log("check --- collective greater");
+            if (pending_collective > pending_marginal) {
+                console.log("check --- collective greater");
+            } else {
+                console.log("check --- balanced");
+            }
         }
 
         if (pending_max > 0) {

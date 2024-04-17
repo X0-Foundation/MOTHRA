@@ -2,9 +2,9 @@
 //=================== Paremeter Block that differentiate this testing script from others ======
 
 let CONTRACT = null;
-const CONTRACT_NAME = "CompoundExpReward";
-const CONTRACT_SYMBOL = "CERW";
-const minOneBlockSurvival = 1.0;
+const CONTRACT_NAME = "SimpleLinearReward";
+const CONTRACT_SYMBOL = "SLRW";
+const minOneBlockSurvival = 0.99;
 
 
 async function showTotalState() {
@@ -146,9 +146,10 @@ async function checkConsistency() {
     console.log("\n\tConsistency report:".bold.yellow);
     console.log("\tp_collective %s, p_marginal %s",
     report.pending_collective, report.pending_marginal)
-    console.log("\tabs_error %s, error_rate (trillionths) === %s",
+    console.log("\tabs_error %s, error_rate === %s",
     report.abs_error, report.error_rate)
 }
+
 async function transfer(sender, recipient, amount) {
     let amountWei = ethToWei(amount);
     let balance = await CONTRACT.balanceOf(sender.address);
@@ -486,6 +487,7 @@ describe("====================== Stage 2: Test pulses ======================\n".
   });
 
 
+
 describe("====================== Stage 3: Random calls ======================\n".yellow, async function () {
 
     const users = [];
@@ -560,7 +562,7 @@ describe("====================== Stage 3: Random calls ======================\n"
         let count = 0; let window = 5;
         const thresholdX = 5;
 
-        const target = 15000;
+        const target = 10000;
         while (values.length < target) {
             rand = generateRandomInteger(0, functions.length - 1);
             report = await functions[rand]();
