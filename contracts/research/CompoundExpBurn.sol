@@ -88,7 +88,7 @@ contract CompoundExpBurn is Ownable {
 
     uint constant MAGNIFIER = 10 ** 5;
     uint constant DecPerCycle = 777;
-    uint constant CYCLE = 30;
+    uint constant CYCLE = 10;
 
     function upadateWithTotalShare() public {
         uint nowBlock = block.number - initialBlock;
@@ -98,6 +98,8 @@ contract CompoundExpBurn is Ownable {
             uint pending = _totalSupply - IntegralMath.mulDivC(_totalSupply, numerator, denominator);
             rewardPool += pending;
             accRewardPerShare12 += ( 1e12 - IntegralMath.mulDivC(1e12, numerator, denominator) );
+            // Do NOT simplify the above line to the below, commented out, line. will lead a Solidity panic.      
+            // accRewardPerShare12 += ( 1e12 - 1e12 * numerator / denominator );
             latestBlock = nowBlock;
         }
     }
@@ -149,18 +151,16 @@ contract CompoundExpBurn is Ownable {
         pending_marginal += _viewUserPendingReward(bob);
         pending_marginal += _viewUserPendingReward(carol);
 
+        uint pending_max;
         if (pending_collective < pending_marginal) {
             abs_error = pending_marginal - pending_collective;
+            pending_max = pending_marginal;
             // console.log("check --- marginal greater");
 
         } else {
             abs_error = pending_collective - pending_marginal;
+            pending_max = pending_collective;
             // console.log("check --- collective greater");
-        }
-
-        uint pending_max = pending_collective;
-        if (pending_max < pending_marginal) {
-            pending_max = pending_marginal;
         }
 
         if (pending_max > 0) {

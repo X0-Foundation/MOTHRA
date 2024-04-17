@@ -6225,8 +6225,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundExpBurn.sol": {
-      "lastModificationDate": 1713279299405,
-      "contentHash": "6db9d802de4ec8bb2df0c50f585ef36b",
+      "lastModificationDate": 1713318512686,
+      "contentHash": "a13bdaa57f5e7acdcee56a5cdbfec3ea",
       "sourceName": "contracts/research/CompoundExpBurn.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6273,8 +6273,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundExpReward.sol": {
-      "lastModificationDate": 1713279299407,
-      "contentHash": "2118af4f22d1c6c5ed5883c105218bdd",
+      "lastModificationDate": 1713318512687,
+      "contentHash": "70408d565b54c02c5c34e0859eb4cfcb",
       "sourceName": "contracts/research/CompoundExpReward.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6321,8 +6321,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleExpBurn.sol": {
-      "lastModificationDate": 1713279299407,
-      "contentHash": "875921ba193da006cee30f32762f14a0",
+      "lastModificationDate": 1713318512687,
+      "contentHash": "7e47844225d5f8585e4f4a8f276627a1",
       "sourceName": "contracts/research/SimpleExpBurn.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6369,8 +6369,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleExpReward.sol": {
-      "lastModificationDate": 1713279186478,
-      "contentHash": "f51f4b855f44a878f4382393575ed95e",
+      "lastModificationDate": 1713318512687,
+      "contentHash": "fb23357f9cbd37a0e54b7b62a0c5861e",
       "sourceName": "contracts/research/SimpleExpReward.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6417,8 +6417,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleLinearReward.sol": {
-      "lastModificationDate": 1713279299408,
-      "contentHash": "bbd9574a7a6e86b0b4998abaa4bed2b8",
+      "lastModificationDate": 1713318512687,
+      "contentHash": "b5c85489d853fe2807e113c196a256fe",
       "sourceName": "contracts/research/SimpleLinearReward.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6465,8 +6465,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleFixedReward.sol": {
-      "lastModificationDate": 1713279299408,
-      "contentHash": "81173d14a5cd41a99666bb2ffc06aae8",
+      "lastModificationDate": 1713318512686,
+      "contentHash": "93baf5eab845663f4dd669eae30fe165",
       "sourceName": "contracts/research/SimpleFixedReward.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6513,8 +6513,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundExpBurnNovel.sol": {
-      "lastModificationDate": 1713279299405,
-      "contentHash": "d4f0224fd93e1e12c244e232a6d2ac49",
+      "lastModificationDate": 1713287039782,
+      "contentHash": "0b22b50e803efe2b665fee2ae04ab673",
       "sourceName": "contracts/research/CompoundExpBurnNovel.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6561,8 +6561,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundExpRewardNovel.sol": {
-      "lastModificationDate": 1713280240992,
-      "contentHash": "1db0279087125d1b851c34d4c8eb3822",
+      "lastModificationDate": 1713287020901,
+      "contentHash": "e4673e12b360a43ede675710fe3bc258",
       "sourceName": "contracts/research/CompoundExpRewardNovel.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6609,8 +6609,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleExpRewardNovel.sol": {
-      "lastModificationDate": 1713279299411,
-      "contentHash": "68de984481b977b55a3bc197aefa1b66",
+      "lastModificationDate": 1713287007861,
+      "contentHash": "e9a0576d2286872504133a026481381f",
       "sourceName": "contracts/research/SimpleExpRewardNovel.sol",
       "solcConfig": {
         "version": "0.8.14",

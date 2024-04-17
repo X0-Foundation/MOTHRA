@@ -88,7 +88,7 @@ contract CompoundExpReward is Ownable {
 
     uint constant MAGNIFIER = 10 ** 5;
     uint constant IncPerCycle = 777;
-    uint constant CYCLE = 30;
+    uint constant CYCLE = 10;
 
     function upadateWithTotalShare() public {
         uint nowBlock = block.number - initialBlock;
@@ -97,7 +97,8 @@ contract CompoundExpReward is Ownable {
             (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missingBlocks, CYCLE);           
             uint pending = IntegralMath.mulDivF(_totalSupply, numerator, denominator) - _totalSupply;
             rewardPool += pending;
-            accRewardPerShare12 += (IntegralMath.mulDivF(1e12, numerator, denominator) - 1e12);
+            // accRewardPerShare12 += (IntegralMath.mulDivF(1e12, numerator, denominator) - 1e12);
+            accRewardPerShare12 += (1e12 * numerator / denominator - 1e12);
             latestBlock = nowBlock;
         }
     }
@@ -149,18 +150,16 @@ contract CompoundExpReward is Ownable {
         pending_marginal += _viewUserPendingReward(bob);
         pending_marginal += _viewUserPendingReward(carol);
 
+        uint pending_max;
         if (pending_collective < pending_marginal) {
             abs_error = pending_marginal - pending_collective;
+            pending_max = pending_marginal;
             // console.log("check --- marginal greater");
 
         } else {
             abs_error = pending_collective - pending_marginal;
+            pending_max = pending_collective;
             // console.log("check --- collective greater");
-        }
-
-        uint pending_max = pending_collective;
-        if (pending_max < pending_marginal) {
-            pending_max = pending_marginal;
         }
 
         if (pending_max > 0) {

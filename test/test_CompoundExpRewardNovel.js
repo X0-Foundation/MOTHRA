@@ -155,7 +155,7 @@ async function transfer(sender, recipient, amount) {
     if (amount > weiToEth(balance) * minOneBlockSurvival) {
         amount = Math.floor((weiToEth(balance) * minOneBlockSurvival)*100)/100;
     }
-    if (amount > 0) {
+    if (amount >= 1) {
         amountWei = ethToWei(amount);
         let symbol = await CONTRACT.symbol();
         console.log("\t%s is transferring %s %s to %s...".yellow, 
@@ -168,7 +168,7 @@ async function transfer(sender, recipient, amount) {
         console.log("\tTransfer done".green);
         return true;
     } else {
-        console.log("\tNo amount to transfer!");
+        console.log("\tToo little amount to transfer!");
         return false;
     }
 }
@@ -180,7 +180,7 @@ async function mint(minter, to, amount) {
         amount = Math.floor((weiToEth(MAX_SUPPLY) - weiToEth(totalSupply) * minOneBlockSurvival)*100)/100;
     }
 
-    if (amount > 0) {
+    if (amount >= 1) {
         amountWei = ethToWei(amount);
         let symbol = await CONTRACT.symbol();
         await console.log("\t%s is minting %s %s to %s ...".yellow, 
@@ -193,6 +193,7 @@ async function mint(minter, to, amount) {
         await console.log("\tMint done".green);
         return true;
     } else {
+        console.log("\tToo little space to mint!");
         return false;
     }
 
@@ -205,7 +206,7 @@ async function burn(burner, from, amount) {
     if (amount > weiToEth(balance) * minOneBlockSurvival) {
         amount = Math.floor((weiToEth(balance) * minOneBlockSurvival)*100)/100;
     }
-    if (amount > 0) {
+    if (amount >= 1) {
         amountWei = ethToWei(amount);
         let symbol = await CONTRACT.symbol();
         await console.log("\t%s is burning %s %s from %s ...".yellow, 
@@ -218,7 +219,7 @@ async function burn(burner, from, amount) {
         console.log("\tBurn done".green);
         return true;
     } else {
-        console.log("\tNo amount to burn!");
+        console.log("\tToo little amount to burn!");
         return false;
     }
 }
@@ -485,16 +486,16 @@ describe("====================== Stage 2: Test pulses ======================\n".
   });
 
 
-  describe("====================== Stage 3: Random calls ======================\n".yellow, async function () {
+describe("====================== Stage 3: Random calls ======================\n".yellow, async function () {
 
     const users = [];
     const errors = [];
 
     it("3.0 Prepare.\n".green, async function () {
-        users.push(owner);
-        users.push(alice);
-        users.push(bob);
-        users.push(carol);  
+        users.push(owner); users.push(owner); users.push(owner); users.push(owner); users.push(owner); users.push(owner);
+        users.push(alice); users.push(alice); users.push(alice); users.push(alice); 
+        users.push(bob); users.push(bob); users.push(bob);
+        users.push(carol);
     });
 
     function generateRandomInteger(min, max) {
@@ -548,32 +549,6 @@ describe("====================== Stage 2: Test pulses ======================\n".
         })
     }
 
-    class Queue {
-        constructor() {
-            this.items = {}
-            this.frontIndex = 0
-            this.backIndex = 0
-        }
-        enqueue(item) {
-            this.items[this.backIndex] = item
-            this.backIndex++
-            return item + ' inserted'
-        }
-        dequeue() {
-            const item = this.items[this.frontIndex]
-            delete this.items[this.frontIndex]
-            this.frontIndex++
-            return item
-        }
-        peek() {
-            return this.items[this.frontIndex]
-        }
-        get printQueue() {
-            return this.items;
-        }
-    }
-
-
     it("3.1 Random calls.\n".green, async function () {
 
         blocks = 60 // twice the cycle
@@ -584,38 +559,21 @@ describe("====================== Stage 2: Test pulses ======================\n".
         let movingAvg = 0;
         let count = 0; let window = 5;
         const thresholdX = 5;
-        const queue = new Queue()
 
-
-        for(i = 0; i < 0; i++) {
-            for( j = 0; j < 20; j++ ) {
-                rand = generateRandomInteger(0, functions.length - 1);
-                report = await functions[rand]();
-                if (report == true) {
-                    consistency = await CONTRACT.checkForConsistency();
-                    error = Number(consistency.error_rate);
-                    let item = error / window;
-                    queue.enqueue(item);
-                    movingAvg += item;
-                    count += 1;
-                    if (count > window) {
-                        movingAvg -= queue.dequeue();
-                    }
-                    if (count > window && error < thresholdX * movingAvg ) {
-                        errors.push(Number(error));
-                    } else {
-                        console.log("\tvalue thrown away".red);
-                    }
-                } else {
-                    console.log("\tRandom call failed.".red);
-                }
+        const target = 15000;
+        while (values.length < target) {
+            rand = generateRandomInteger(0, functions.length - 1);
+            report = await functions[rand]();
+            if (report == true) {
+                consistency = await CONTRACT.checkForConsistency();
+                error = Number(consistency.error_rate);
+                values.push(error);
+            } else {
+                console.log("\tRandom call failed.".red);
             }
-            // await showTotalState();
-            // await showUserStateAll();
-            // await checkConsistency();
         }
-        json = JSON.stringify(errors);
+        json = JSON.stringify(values);
         console.log(json);
         await writeStringToFile("test_" + CONTRACT_NAME + ".txt", json);
-    });     
+    });   
 });

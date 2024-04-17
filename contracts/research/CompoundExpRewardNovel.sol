@@ -155,6 +155,7 @@ contract CompoundExpRewardNovel is Ownable {
         } else {
             abs_error = pending_collective - pending_marginal;
             pending_marginal = pending_collective;
+            pending_max = pending_collective;
             console.log("check --- collective greater");
         }
 

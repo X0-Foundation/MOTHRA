@@ -146,18 +146,17 @@ contract SimpleExpRewardNovel is Ownable {
         pending_marginal += _viewUserPendingReward(bob);
         pending_marginal += _viewUserPendingReward(carol);
 
+        uint pending_max;
         if (pending_collective < pending_marginal) {
             abs_error = pending_marginal - pending_collective;
-            // console.log("check --- marginal greater");
+            pending_max = pending_marginal;
+            console.log("check --- marginal greater");
 
         } else {
             abs_error = pending_collective - pending_marginal;
-            // console.log("check --- collective greater");
-        }
-
-        uint pending_max = pending_collective;
-        if (pending_max < pending_marginal) {
-            pending_max = pending_marginal;
+            pending_marginal = pending_collective;
+            pending_max = pending_collective;
+            console.log("check --- collective greater");
         }
 
         if (pending_max > 0) {

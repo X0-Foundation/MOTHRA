@@ -115,7 +115,7 @@ contract CompoundExpBurnNovel is Ownable {
         {
             uint latestBlock = users[user].latestBlock; //============ cycle
             (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER, MAGNIFIER - DecPerCycle, latestBlock, CYCLE); // mind of order
-            uint v = IntegralMath.mulDivC(_balances[user], numerator, denominator);
+            uint v = IntegralMath.mulDivF(_balances[user], numerator, denominator);
             users[user].VIRTUAL = v;
             latestNet += _balances[user];
             VIRTUAL += v;
@@ -125,14 +125,14 @@ contract CompoundExpBurnNovel is Ownable {
     function _viewUserPendingReward(address user) internal view returns (uint) {
         uint missingBlocks = block.number - initialBlock - users[user].latestBlock; // ============ cycle
         (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missingBlocks, CYCLE);
-        uint pending = _balances[user] - IntegralMath.mulDivF(_balances[user], numerator, denominator);
+        uint pending = _balances[user] - IntegralMath.mulDivC(_balances[user], numerator, denominator);
         return pending;
     }
 
     function _viewTotalPendingReward() internal view returns (uint) {
         uint nowBlock = (block.number - initialBlock); // =============== cycle
         (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, nowBlock, CYCLE);
-        return latestNet - IntegralMath.mulDivC(VIRTUAL, numerator, denominator);
+        return latestNet - IntegralMath.mulDivF(VIRTUAL, numerator, denominator);
     }
     
 
@@ -146,18 +146,17 @@ contract CompoundExpBurnNovel is Ownable {
         pending_marginal += _viewUserPendingReward(bob);
         pending_marginal += _viewUserPendingReward(carol);
 
+        uint pending_max;
         if (pending_collective < pending_marginal) {
             abs_error = pending_marginal - pending_collective;
-            // console.log("check --- marginal greater");
+            pending_max = pending_marginal;
+            console.log("check --- marginal greater");
 
         } else {
             abs_error = pending_collective - pending_marginal;
-            // console.log("check --- collective greater");
-        }
-
-        uint pending_max = pending_collective;
-        if (pending_max < pending_marginal) {
-            pending_max = pending_marginal;
+            pending_marginal = pending_collective;
+            pending_max = pending_collective;
+            console.log("check --- collective greater");
         }
 
         if (pending_max > 0) {

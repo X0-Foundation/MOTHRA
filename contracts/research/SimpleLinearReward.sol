@@ -55,7 +55,7 @@ contract SimpleLinearReward is Ownable {
         uint    reward;
     }
 
-    uint public constant distCycle = 30;
+    uint public constant distCycle = 10;
     uint public constant alpha = 10 ** 22;
     uint initialBlock;
     uint latestBlock;
@@ -138,18 +138,16 @@ contract SimpleLinearReward is Ownable {
         pending_marginal += _viewUserPendingReward(bob);
         pending_marginal += _viewUserPendingReward(carol);
 
+        uint pending_max;
         if (pending_collective < pending_marginal) {
             abs_error = pending_marginal - pending_collective;
+            pending_max = pending_marginal;
             // console.log("check --- marginal greater");
 
         } else {
             abs_error = pending_collective - pending_marginal;
+            pending_max = pending_collective;
             // console.log("check --- collective greater");
-        }
-
-        uint pending_max = pending_collective;
-        if (pending_max < pending_marginal) {
-            pending_max = pending_marginal;
         }
 
         if (pending_max > 0) {
