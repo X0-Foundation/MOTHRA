@@ -6609,8 +6609,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleExpRewardNovel.sol": {
-      "lastModificationDate": 1713287007861,
-      "contentHash": "e9a0576d2286872504133a026481381f",
+      "lastModificationDate": 1713342510314,
+      "contentHash": "b5ddd27410d2acf6bbdb21c2b858d844",
       "sourceName": "contracts/research/SimpleExpRewardNovel.sol",
       "solcConfig": {
         "version": "0.8.14",

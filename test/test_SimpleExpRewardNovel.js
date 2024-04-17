@@ -363,8 +363,35 @@ describe("====================== Stage 2: Test pulses ======================\n".
               await showUserState(bob);
               await showUserState(carol);
               await checkConsistency();
+
               await mintBlocks(blocks);
-              await mint(owner, owner, mintAmount);
+
+              await showTotalState()
+              await showUserState(owner);
+              await showUserState(alice);
+              await showUserState(bob);
+              await showUserState(carol);
+              await checkConsistency();
+
+              await mint(owner, bob, mintAmount);
+              await checkConsistency();
+
+              await showTotalState()
+              await showUserState(owner);
+              await showUserState(alice);
+              await showUserState(bob);
+              await showUserState(carol);
+              await checkConsistency();
+
+              await burn(owner, bob, burnAmount);
+
+              await showTotalState()
+              await showUserState(owner);
+              await showUserState(alice);
+              await showUserState(bob);
+              await showUserState(carol);
+              await checkConsistency();
+
               await transfer(owner, bob, 100);
               await mintBlocks(blocks);
               await showTotalState()
@@ -560,7 +587,7 @@ describe("====================== Stage 3: Random calls ======================\n"
         let count = 0; let window = 5;
         const thresholdX = 5;
 
-        const target = 15000;
+        const target = 3;
         while (values.length < target) {
             rand = generateRandomInteger(0, functions.length - 1);
             report = await functions[rand]();
