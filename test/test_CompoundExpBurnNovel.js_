@@ -1,10 +1,11 @@
-
 //=================== Paremeter Block that differentiate this testing script from others ======
 
+
 let CONTRACT = null;
-const CONTRACT_NAME = "SimpleExpRewardNovel";
-const CONTRACT_SYMBOL = "SERWN";
-const minOneBlockSurvival = 0.99;
+const CONTRACT_NAME = "CompoundExpBurnNovel";
+const CONTRACT_SYMBOL = "CEBNN";
+const minOneBlockSurvival = 0.98;
+const maxOneBlockSurvival = 1.10;
 
 async function showTotalState() {
     const s = await CONTRACT.getTotalState();
@@ -51,7 +52,7 @@ const RateMagnifier = 10 ** FeeMagnifierPower;
 const SqaureMagnifier = RateMagnifier * RateMagnifier;
 const LiquiditySafety = 10**3;
 const DECIMALS = 18;
-const INITIAL_SUPPLY = 10**(DECIMALS+6);
+const INITIAL_SUPPLY = 10**(DECIMALS+8);
 const MAX_SUPPLY = 1000*INITIAL_SUPPLY;
 
 function weiToEthEn(wei) {
@@ -142,9 +143,19 @@ async function mintTime(seconds) {
 
 async function checkConsistency() {
     report = await CONTRACT.checkForConsistency();
-    console.log("\n\tConsistency report:".bold.yellow);
-    console.log("\tp_collective %s, p_marginal %s",
-    report.pending_collective, report.pending_marginal)
+    // console.log("\n\tConsistency report:".bold.yellow);
+    // console.log("\tp_collective %s, p_marginal %s",
+    // report.pending_collective, report.pending_marginal)
+    let text
+    if (report.pending_marginal > report.pending_collective) {
+        text = "\tMarginal greater"
+    } else if (report.pending_marginal == report.pending_collective)
+    {
+        text = "\tMarginal == Collective"
+    } else {
+        text = "\tCollective greager"
+    }
+    console.log(text)
     console.log("\tabs_error %s, error_rate === %s",
     report.abs_error, report.error_rate)
 }
@@ -152,7 +163,7 @@ async function checkConsistency() {
 async function transfer(sender, recipient, amount) {
     let amountWei = ethToWei(amount);
     let balance = await CONTRACT.balanceOf(sender.address);
-    if (amount > weiToEth(balance) * minOneBlockSurvival) {
+    if (amountWei > balance * minOneBlockSurvival) {
         amount = Math.floor((weiToEth(balance) * minOneBlockSurvival)*100)/100;
     }
     if (amount >= 1) {
@@ -176,8 +187,8 @@ async function transfer(sender, recipient, amount) {
 async function mint(minter, to, amount) {
     let amountWei = ethToWei(amount);
     let totalSupply = await CONTRACT.totalSupply();
-    if ( amount > weiToEth(MAX_SUPPLY) - weiToEth(totalSupply) ) {
-        amount = Math.floor((weiToEth(MAX_SUPPLY) - weiToEth(totalSupply) * minOneBlockSurvival)*100)/100;
+    if ( amountWei > MAX_SUPPLY - totalSupply * maxOneBlockSurvival ) {
+        amount = Math.floor(weiToEth(MAX_SUPPLY - totalSupply * maxOneBlockSurvival)*100)/100;
     }
 
     if (amount >= 1) {
@@ -203,7 +214,7 @@ async function burn(burner, from, amount) {
 
     let amountWei = ethToWei(amount);
     let balance = await CONTRACT.balanceOf(from.address);
-    if (amount > weiToEth(balance) * minOneBlockSurvival) {
+    if (amountWei > balance * minOneBlockSurvival) {
         amount = Math.floor((weiToEth(balance) * minOneBlockSurvival)*100)/100;
     }
     if (amount >= 1) {
@@ -223,6 +234,7 @@ async function burn(burner, from, amount) {
         return false;
     }
 }
+
 
 
 let analyticMath;
@@ -363,35 +375,8 @@ describe("====================== Stage 2: Test pulses ======================\n".
               await showUserState(bob);
               await showUserState(carol);
               await checkConsistency();
-
               await mintBlocks(blocks);
-
-              await showTotalState()
-              await showUserState(owner);
-              await showUserState(alice);
-              await showUserState(bob);
-              await showUserState(carol);
-              await checkConsistency();
-
-              await mint(owner, bob, mintAmount);
-              await checkConsistency();
-
-              await showTotalState()
-              await showUserState(owner);
-              await showUserState(alice);
-              await showUserState(bob);
-              await showUserState(carol);
-              await checkConsistency();
-
-              await burn(owner, bob, burnAmount);
-
-              await showTotalState()
-              await showUserState(owner);
-              await showUserState(alice);
-              await showUserState(bob);
-              await showUserState(carol);
-              await checkConsistency();
-
+              await mint(owner, owner, mintAmount);
               await transfer(owner, bob, 100);
               await mintBlocks(blocks);
               await showTotalState()
@@ -512,7 +497,7 @@ describe("====================== Stage 2: Test pulses ======================\n".
   });
 
 
- 
+
 describe("====================== Stage 3: Random calls ======================\n".yellow, async function () {
 
     const users = [];
@@ -539,35 +524,34 @@ describe("====================== Stage 3: Random calls ======================\n"
     async function transferRandom() {        
         sender = users[generateRandomInteger(0, users.length - 1)];
         recipient = users[generateRandomInteger(0, users.length - 1)];
-        amount = generateRandomInteger(10, 100);
+        amount = generateRandomInteger(10, 50);
         report = await transfer(sender, recipient, amount);
         return report;
     }
     
     async function mintRandom() {
         recipient = users[generateRandomInteger(0, users.length - 1)];
-        amount = generateRandomInteger(10, 100);
+        amount = generateRandomInteger(10, 50);
         report = await mint(owner, recipient, amount);
         return report;
     }
     
     async function burnRandom() {
         recipient = users[generateRandomInteger(0, users.length - 1)];
-        amount = generateRandomInteger(10, 100);
+        amount = generateRandomInteger(10, 50);
         report = await burn(owner, recipient, amount);
         return report;
     }
     
     async function mintBlocksRandom() {
-        amount = generateRandomInteger(0, 100);
+        amount = generateRandomInteger(0, 50);
         await mintBlocks(amount);    
         return true;
     }
     
     const functions = [ transferRandom, transferRandom, transferRandom, transferRandom, transferRandom,
         transferRandom, transferRandom, transferRandom, transferRandom, transferRandom, transferRandom,
-         mintRandom, burnRandom, mintBlocksRandom ];
-
+         mintRandom, mintRandom, burnRandom, mintBlocksRandom ];
 
     async function writeStringToFile(path, data) {
         const fs = require('fs')
@@ -597,6 +581,10 @@ describe("====================== Stage 3: Random calls ======================\n"
                 values.push(error);
             } else {
                 console.log("\tRandom call failed.".red);
+            }
+            if (values.length % 50 == 0 ) {
+                console.log(CONTRACT_NAME);
+                await checkConsistency();
             }
         }
         json = JSON.stringify(values);

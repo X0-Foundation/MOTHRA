@@ -27,7 +27,7 @@ contract SimpleExpReward is Ownable {
     address constant zero_address = 0x0000000000000000000000000000000000000000;
 
     uint8 public constant DECIMALS = 18;
-    uint public constant INITIAL_SUPPLY = 10 ** (DECIMALS+6);
+    uint public constant INITIAL_SUPPLY = 10 ** (DECIMALS+8);
     uint public constant MAX_SUPPLY = 1000 * INITIAL_SUPPLY;
 
     //==================== ERC20 core data ====================
@@ -53,7 +53,7 @@ contract SimpleExpReward is Ownable {
     // Reward: We just handle with the reward quantity numericals here, not reward itself.
 
     struct User {
-        uint    rewardDebt12;
+        uint    rewardDebt;
         uint    reward;
     }
 
@@ -84,7 +84,7 @@ contract SimpleExpReward is Ownable {
     ) {
         _share = _balances[user];
         _reward = users[user].reward;
-        _rewardDebt = users[user].rewardDebt12;
+        _rewardDebt = users[user].rewardDebt;
         _userPendingReward = _viewUserPendingReward(user);
     }
 
@@ -107,7 +107,7 @@ contract SimpleExpReward is Ownable {
 
     function _changeUserShare(address user, uint amount, bool CreditNotDebit) internal {
         upadateWithTotalShare();
-        uint standardPending =( accRewardPerShare12 * _balances[user] - users[user].rewardDebt12 ) / 1e12;
+        uint standardPending = accRewardPerShare12 * _balances[user] / 1e12 - users[user].rewardDebt;
         rewardPool -= standardPending;
         users[user].reward += standardPending;
         if (CreditNotDebit) {
@@ -117,11 +117,11 @@ contract SimpleExpReward is Ownable {
             _balances[user] -= amount;
             _totalSupply -= amount;            
         }
-        users[user].rewardDebt12 = accRewardPerShare12 * _balances[user];
+        users[user].rewardDebt = accRewardPerShare12 * _balances[user] / 1e12;
     }
 
     function _viewUserPendingReward(address user) internal view returns (uint) {
-        uint standardPending = ( accRewardPerShare12 * _balances[user] - users[user].rewardDebt12 ) / 1e12;
+        uint standardPending = accRewardPerShare12 * _balances[user] / 1e12 - users[user].rewardDebt;
 
         uint nowBlock = block.number - initialBlock;
         uint extraBlocks = nowBlock - latestBlock;

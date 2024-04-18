@@ -11,11 +11,11 @@ import "../libraries/math/IntegralMath.sol";
 import "hardhat/console.sol";
 
 //=====================================================================================
-// Simple Exponential Burn.
-// rewards[user] += _balances[user] * (1 - ( 1 - burnRate ) ** blocks_passed )
+// Simple Exponential Reward.
+// rewards[user] += _balances[user] * ( ( 1 + rewardRate ) ** blocks_passed - 1 )
 //=====================================================================================
 
-contract SimpleExpBurn is Ownable {
+contract SimpleFixedRewardNovel is Ownable {
     // using SafeMath for uint;
 
     //==================== Constants ====================
@@ -29,8 +29,8 @@ contract SimpleExpBurn is Ownable {
     uint public constant MAX_SUPPLY = 1000 * INITIAL_SUPPLY;
 
     //==================== ERC20 core data ====================
-    string private constant _name = "SimpleExpBurn";
-    string private constant _symbol = "SEBN";
+    string private constant _name = "SimpleFixedRewardNovel";
+    string private constant _symbol = "SFRWN";
     uint8 private constant _decimals = DECIMALS;
     mapping(address => mapping(address => uint)) private _allowances;
     mapping(address => uint) private _balances;
@@ -51,16 +51,11 @@ contract SimpleExpBurn is Ownable {
     // Reward: We just handle with the reward quantity numericals here, not reward itself.
 
     struct User {
-        uint    rewardDebt;
         uint    reward;
+        uint    latestBlock;
     }
 
-    uint public constant distCycle = 30;
-    uint public constant alpha = 12; // 1 for TypeC. 10 ** 22;
     uint initialBlock;
-    uint latestBlock;
-    uint public rewardPool;
-    uint public accRewardPerShare12;
     mapping(address => User) users;
 
     // test users
@@ -68,80 +63,89 @@ contract SimpleExpBurn is Ownable {
 
 
     function getTotalState() external view returns (
-        uint totalSupply, uint _latestBlock,  uint _accRewardPerShare12, uint _rewordPool, uint _totalPendingReward
+        uint totalSupply, uint _latestNet, uint _VIRTUAL, uint nowBlock, uint _totalPendingReward, uint _burnDone
     ) {
         totalSupply = _totalSupply;
-        _latestBlock = latestBlock;
-        _accRewardPerShare12 = accRewardPerShare12;
-        _rewordPool = rewardPool;
+        _latestNet = latestNet;
+        _VIRTUAL = VIRTUAL;
+        nowBlock = block.number - initialBlock;
         _totalPendingReward = _viewTotalPendingReward();
+        _burnDone = burnDone;
     }
 
     function getUserState(address user) external view returns (
-        uint _share, uint _reward, uint _rewardDebt, uint _userPendingReward
+        uint _share, uint _VIRTUAL, uint nowBlock, uint _userPendingReward, uint _latestBlock
     ) {
-        _share = _balances[user];
-        _reward = users[user].reward;
-        _rewardDebt = users[user].rewardDebt;
+       _share = _balances[user];
+        _VIRTUAL = 0;
+        nowBlock = block.number - initialBlock;
         _userPendingReward = _viewUserPendingReward(user);
+        _latestBlock = users[user].latestBlock;
     }
 
+
+    uint public constant alpha = 10 ** 22;
     uint constant MAGNIFIER = 10 ** 5;
-    uint constant DecPerCycle = 777;    // Burn % per cycle blocks. So reward means burn.
+    uint constant IncPerCycle = 777;
     uint constant CYCLE = 10;
 
-    function upadateWithTotalShare() public {
-        uint nowBlock = block.number - initialBlock;
-        uint missingBlocks = nowBlock - latestBlock;
-        if (missingBlocks > 0) {
-            (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missingBlocks, CYCLE);           
-            uint pending = _totalSupply - IntegralMath.mulDivF(_totalSupply, numerator, denominator);
-            rewardPool += pending;
-            accRewardPerShare12 += (1e12 - IntegralMath.mulDivC(1e12, numerator, denominator));
-            // Using this line, instead of the above, will lead to a Solidity panic in _changeUserShare: rewardPool -= standardPending.
-            // accRewardPerShare12 += (1e12 - 1e12 * numerator / denominator);
-            latestBlock = nowBlock;
-        }
-    }
+    uint latestNet; uint VIRTUAL; uint burnDone; uint latestBlock;
+
 
     function _changeUserShare(address user, uint amount, bool CreditNotDebit) internal {
-        upadateWithTotalShare();
-        uint standardPending = accRewardPerShare12 * _balances[user] / 1e12 - users[user].rewardDebt;
-        rewardPool -= standardPending;
-        users[user].reward += standardPending;
-        if (CreditNotDebit) {
+        {
+            latestNet -= _balances[user];
+            uint missingBlocksUser = block.number - users[user].latestBlock;
+            uint missingBlocksTotal = block.number - initialBlock - latestBlock;
+            uint oldBalance = _balances[user];
+            
+            latestBlock = block.number - initialBlock;
+        }
+
+        uint pending = _viewUserPendingReward(user);
+        if (pending > 0) {
+            users[user].reward += pending;
+            burnDone += pending;
+        }
+        users[user].latestBlock = block.number -  initialBlock;
+
+        if(CreditNotDebit) {
             _balances[user] += amount;
             _totalSupply += amount;
         } else {
             _balances[user] -= amount;
-            _totalSupply -= amount;            
+            _totalSupply -= amount;
         }
-        users[user].rewardDebt = accRewardPerShare12 * _balances[user] / 1e12;
+
+        {
+            latestNet += _balances[user];
+
+            uint v;
+            if (oldBalance <= _balances[user]) {
+                v = VIRTUAL + alpha * (_balances[u] - oldBalance) * missingBlocksUser; 
+            } else {
+                v = VIRTUAL - alpha * (oldBalance - _balances[user]) * missingBlocksUser;
+            }
+            VIRTUAL = v * missingBlocksTotal;
+        }
     }
 
     function _viewUserPendingReward(address user) internal view returns (uint) {
-        uint standardPending = accRewardPerShare12 * _balances[user] / 1e12 - users[user].rewardDebt;
-
-        uint nowBlock = block.number - initialBlock;
-        uint extraBlocks = nowBlock - latestBlock;
-        (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER + DecPerCycle, MAGNIFIER, extraBlocks, CYCLE);
-        uint extraPending = IntegralMath.mulDivC(_balances[user], numerator, denominator) - _balances[user];
-        return (standardPending + extraPending);
+        uint missingBlocks = block.number - initialBlock - users[user].latestBlock;
+        uint pending = alpha * missingBlocks * _balances[user] / _totalSupply;
+        return pending;
     }
 
     function _viewTotalPendingReward() internal view returns (uint) {
-        uint nowBlock = block.number - initialBlock;
-        uint extraBlocks = nowBlock - latestBlock;
-        (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER + DecPerCycle, MAGNIFIER, extraBlocks, CYCLE);
-        uint extraPending = IntegralMath.mulDivF(_totalSupply, numerator, denominator) - _totalSupply;
-        return extraPending;
+        uint pending = VIRTUAL / latestNet;
+        return pending;
     }
     
 
     function checkForConsistency() public view 
     returns(uint pending_collective, uint pending_marginal, uint abs_error, uint error_rate) {
 
-        pending_collective = _viewTotalPendingReward() + rewardPool;
+        pending_collective = _viewTotalPendingReward();
 
         pending_marginal += _viewUserPendingReward(owner());
         pending_marginal += _viewUserPendingReward(alice);
@@ -152,16 +156,20 @@ contract SimpleExpBurn is Ownable {
         if (pending_collective < pending_marginal) {
             abs_error = pending_marginal - pending_collective;
             pending_max = pending_marginal;
-            // console.log("check --- marginal greater");
+            console.log("check --- marginal greater");
 
         } else {
             abs_error = pending_collective - pending_marginal;
             pending_max = pending_collective;
-            // console.log("check --- collective greater");
+            if (pending_collective > pending_marginal) {
+                console.log("check --- collective greater");
+            } else {
+                console.log("check --- balanced");
+            }
         }
 
         if (pending_max > 0) {
-            error_rate = 1e12 * abs_error/pending_max;
+            error_rate = 1e24 * abs_error/pending_max;
         }
 
         return (pending_collective, pending_marginal, abs_error, error_rate);
@@ -191,11 +199,11 @@ contract SimpleExpBurn is Ownable {
 //     //==================== ERC20 internal functions ====================
 
     function _totalNetSupply() internal view returns (uint) {
-        return _totalSupply;    // Note minus.
+        return _totalSupply;
     }
 
     function _netBalanceOf(address account) internal view returns (uint balance) {
-        return _balances[account]; // Note minus.
+        return _balances[account];
     }
 
     function _beforeTokenTransfer(address from, address to, uint amount) internal virtual {}

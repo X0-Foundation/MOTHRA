@@ -25,7 +25,7 @@ contract CompoundExpBurnNovel is Ownable {
     address constant zero_address = 0x0000000000000000000000000000000000000000;
 
     uint8 public constant DECIMALS = 18;
-    uint public constant INITIAL_SUPPLY = 10 ** (DECIMALS+6);
+    uint public constant INITIAL_SUPPLY = 10 ** (DECIMALS+8);
     uint public constant MAX_SUPPLY = 1000 * INITIAL_SUPPLY;
 
     //==================== ERC20 core data ====================

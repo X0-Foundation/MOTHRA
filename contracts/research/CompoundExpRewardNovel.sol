@@ -25,7 +25,7 @@ contract CompoundExpRewardNovel is Ownable {
     address constant zero_address = 0x0000000000000000000000000000000000000000;
 
     uint8 public constant DECIMALS = 18;
-    uint public constant INITIAL_SUPPLY = 10 ** (DECIMALS+6);
+    uint public constant INITIAL_SUPPLY = 10 ** (DECIMALS+8);
     uint public constant MAX_SUPPLY = 1000 * INITIAL_SUPPLY;
 
     //==================== ERC20 core data ====================
@@ -97,7 +97,7 @@ contract CompoundExpRewardNovel is Ownable {
             (uint p1, uint q1) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missingBlocks, CYCLE);           
             missingBlocks = block.number - initialBlock - users[user].latestBlock;
             (uint p2, uint q2) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missingBlocks, CYCLE);
-            VIRTUAL = IntegralMath.mulDivF(VIRTUAL, p1, q1) - IntegralMath.mulDivF(_balances[user], p2, q2);
+            VIRTUAL = IntegralMath.mulDivC(VIRTUAL, p1, q1) - IntegralMath.mulDivC(_balances[user], p2, q2);
             latestBlock = block.number - initialBlock;
         }
 
@@ -126,7 +126,7 @@ contract CompoundExpRewardNovel is Ownable {
     function _viewUserPendingReward(address user) internal view returns (uint) {
         uint missingBlocks = block.number - initialBlock - users[user].latestBlock; // ============ cycle
         (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missingBlocks, CYCLE);
-        uint pending = IntegralMath.mulDivC(_balances[user], numerator, denominator) - _balances[user];
+        uint pending = IntegralMath.mulDivF(_balances[user], numerator, denominator) - _balances[user];
         return pending;
     }
 
@@ -151,15 +151,15 @@ contract CompoundExpRewardNovel is Ownable {
         if (pending_collective < pending_marginal) {
             abs_error = pending_marginal - pending_collective;
             pending_max = pending_marginal;
-            console.log("check --- marginal greater");
+            // console.log("check --- marginal greater");
 
         } else {
             abs_error = pending_collective - pending_marginal;
             pending_max = pending_collective;
             if (pending_collective > pending_marginal) {
-                console.log("check --- collective greater");
+                // console.log("check --- collective greater");
             } else {
-                console.log("check --- balanced");
+                // console.log("check --- balanced");
             }
         }
 
@@ -290,7 +290,8 @@ contract CompoundExpRewardNovel is Ownable {
     }
 
     function mint(address to, uint amount) public onlyOwner {
-        require(_totalNetSupply() + amount <= MAX_SUPPLY, "Exceed Max Supply");
+        // Commented out, as we cannot control _totalNetSupply() growing over MAX_SUPPLY.
+        // require(_totalNetSupply() + amount <= MAX_SUPPLY, "Exceed Max Supply");
         _mint(to, amount);
     }
 
