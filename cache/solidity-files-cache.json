@@ -50,50 +50,6 @@
         "Keep3r"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\keepers\\Keep3rKeepers.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "df15f1d1d2f496a503a69a4df752c0dc",
-      "sourceName": "contracts/agency/peripherals/keepers/Keep3rKeepers.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./Keep3rKeeperDisputable.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "Keep3rKeepers"
-      ]
-    },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\jobs\\Keep3rJobs.sol": {
       "lastModificationDate": 1712005544045,
       "contentHash": "53466a33ca8d8983ba07a9a3644ec686",
@@ -140,10 +96,10 @@
         "Keep3rJobs"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\Keep3rAccountance.sol": {
-      "lastModificationDate": 1712196938815,
-      "contentHash": "c1ae4a4acd292182fc4d3dc806afa0b6",
-      "sourceName": "contracts/agency/peripherals/Keep3rAccountance.sol",
+    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\keepers\\Keep3rKeepers.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "df15f1d1d2f496a503a69a4df752c0dc",
+      "sourceName": "contracts/agency/peripherals/keepers/Keep3rKeepers.sol",
       "solcConfig": {
         "version": "0.8.14",
         "settings": {
@@ -175,14 +131,13 @@
         }
       },
       "imports": [
-        "@openzeppelin/contracts/utils/structs/EnumerableSet.sol",
-        "../../interfaces/peripherals/IKeep3rAccountance.sol"
+        "./Keep3rKeeperDisputable.sol"
       ],
       "versionPragmas": [
         ">=0.8.4 <0.9.0"
       ],
       "artifacts": [
-        "Keep3rAccountance"
+        "Keep3rKeepers"
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\Keep3rRoles.sol": {
@@ -325,10 +280,10 @@
         "DustCollector"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\keepers\\Keep3rKeeperDisputable.sol": {
-      "lastModificationDate": 1712196938817,
-      "contentHash": "c0441aaf5c0ef7d52c65e23fe035f2fb",
-      "sourceName": "contracts/agency/peripherals/keepers/Keep3rKeeperDisputable.sol",
+    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\Keep3rAccountance.sol": {
+      "lastModificationDate": 1712196938815,
+      "contentHash": "c1ae4a4acd292182fc4d3dc806afa0b6",
+      "sourceName": "contracts/agency/peripherals/Keep3rAccountance.sol",
       "solcConfig": {
         "version": "0.8.14",
         "settings": {
@@ -360,16 +315,895 @@
         }
       },
       "imports": [
-        "./Keep3rKeeperFundable.sol",
-        "../Keep3rDisputable.sol",
-        "../../../interfaces/external/IKeep3rV1.sol",
-        "../../../interfaces/peripherals/IKeep3rKeepers.sol"
+        "@openzeppelin/contracts/utils/structs/EnumerableSet.sol",
+        "../../interfaces/peripherals/IKeep3rAccountance.sol"
       ],
       "versionPragmas": [
         ">=0.8.4 <0.9.0"
       ],
       "artifacts": [
-        "Keep3rKeeperDisputable"
+        "Keep3rAccountance"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\jobs\\Keep3rJobWorkable.sol": {
+      "lastModificationDate": 1712568933811,
+      "contentHash": "9746a5f806ffc3a75f1a5cf7a410ad18",
+      "sourceName": "contracts/agency/peripherals/jobs/Keep3rJobWorkable.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./Keep3rJobMigration.sol",
+        "../../../interfaces/peripherals/IKeep3rJobs.sol",
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "Keep3rJobWorkable"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\jobs\\Keep3rJobManager.sol": {
+      "lastModificationDate": 1712005544045,
+      "contentHash": "ec7d4ea6fd20b672886cd94641bab587",
+      "sourceName": "contracts/agency/peripherals/jobs/Keep3rJobManager.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./Keep3rJobOwnership.sol",
+        "../Keep3rRoles.sol",
+        "../Keep3rParameters.sol",
+        "../../../interfaces/peripherals/IKeep3rJobs.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "Keep3rJobManager"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\jobs\\Keep3rJobDisputable.sol": {
+      "lastModificationDate": 1712196938816,
+      "contentHash": "34c8d6d41f0c8b8fa389bf96a80fafab",
+      "sourceName": "contracts/agency/peripherals/jobs/Keep3rJobDisputable.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./Keep3rJobFundableCredits.sol",
+        "../Keep3rDisputable.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "Keep3rJobDisputable"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\peripherals\\IKeep3rJobs.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "20ea89e3b833bfd584769ea42b4801d3",
+      "sourceName": "contracts/interfaces/peripherals/IKeep3rJobs.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "IKeep3rJobDisputable",
+        "IKeep3rJobFundableCredits",
+        "IKeep3rJobFundableLiquidity",
+        "IKeep3rJobManager",
+        "IKeep3rJobMigration",
+        "IKeep3rJobOwnership",
+        "IKeep3rJobWorkable",
+        "IKeep3rJobs"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\jobs\\Keep3rJobMigration.sol": {
+      "lastModificationDate": 1712568933811,
+      "contentHash": "0417c1c8456c24e26c4ae155ef933318",
+      "sourceName": "contracts/agency/peripherals/jobs/Keep3rJobMigration.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../../../interfaces/peripherals/IKeep3rJobs.sol",
+        "./Keep3rJobFundableCredits.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "Keep3rJobMigration"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\IERC20.sol": {
+      "lastModificationDate": 1711628402313,
+      "contentHash": "ad7c2d0af148c8f9f097d65deeb4da6b",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC20"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\utils\\SafeERC20.sol": {
+      "lastModificationDate": 1711628403934,
+      "contentHash": "76814c83c32552ed2b521c816b4d801a",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../IERC20.sol",
+        "../../../utils/Address.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SafeERC20"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\jobs\\Keep3rJobFundableCredits.sol": {
+      "lastModificationDate": 1712568933811,
+      "contentHash": "d6c5c6546e8082c99c4444e610f6c1ea",
+      "sourceName": "contracts/agency/peripherals/jobs/Keep3rJobFundableCredits.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./Keep3rJobOwnership.sol",
+        "../Keep3rAccountance.sol",
+        "../Keep3rParameters.sol",
+        "../../../interfaces/peripherals/IKeep3rJobs.sol",
+        "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "@openzeppelin/contracts/utils/math/Math.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "Keep3rJobFundableCredits"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\jobs\\Keep3rJobOwnership.sol": {
+      "lastModificationDate": 1712005544045,
+      "contentHash": "1afe423e5f8f888daaabe4f05b5314c0",
+      "sourceName": "contracts/agency/peripherals/jobs/Keep3rJobOwnership.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../../../interfaces/peripherals/IKeep3rJobs.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "Keep3rJobOwnership"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\node_modules\\@openzeppelin\\contracts\\security\\ReentrancyGuard.sol": {
+      "lastModificationDate": 1711628403900,
+      "contentHash": "92f9448b23a90ea3bb932ee55cc3ccce",
+      "sourceName": "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ReentrancyGuard"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\node_modules\\@openzeppelin\\contracts\\utils\\math\\Math.sol": {
+      "lastModificationDate": 1711628403789,
+      "contentHash": "339b9793dcbd7b5d55af725ef47de74c",
+      "sourceName": "@openzeppelin/contracts/utils/math/Math.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Math"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\peripherals\\IKeep3rAccountance.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "62d3623b41c7c2341ddb314a880abda0",
+      "sourceName": "contracts/interfaces/peripherals/IKeep3rAccountance.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "IKeep3rAccountance"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\node_modules\\@openzeppelin\\contracts\\utils\\structs\\EnumerableSet.sol": {
+      "lastModificationDate": 1711628400258,
+      "contentHash": "ee7890ed6993382898aeeed014cffab8",
+      "sourceName": "@openzeppelin/contracts/utils/structs/EnumerableSet.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "EnumerableSet"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\IKeep3rHelper.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "2048094888ed96f85bbd97037f7270db",
+      "sourceName": "contracts/interfaces/IKeep3rHelper.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "IKeep3rHelper"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\peripherals\\IKeep3rParameters.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "5f54c3d2ea72a1174e8675b0726538ea",
+      "sourceName": "contracts/interfaces/peripherals/IKeep3rParameters.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./IBaseErrors.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "IKeep3rParameters"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\peripherals\\IBaseErrors.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "38ebaef5aac17f28fb6b115cdfe63357",
+      "sourceName": "contracts/interfaces/peripherals/IBaseErrors.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "IBaseErrors"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\peripherals\\IKeep3rRoles.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "8257ae04fb828f82251129da2005c7c1",
+      "sourceName": "contracts/interfaces/peripherals/IKeep3rRoles.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "IKeep3rRoles"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\Governable.sol": {
+      "lastModificationDate": 1712005544045,
+      "contentHash": "5e12607beb9069d86cfbb716493b29b0",
+      "sourceName": "contracts/agency/peripherals/Governable.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../../interfaces/peripherals/IGovernable.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "Governable"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\peripherals\\IGovernable.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "fff43ecdcb7cee74e3e8c28b84ce51a0",
+      "sourceName": "contracts/interfaces/peripherals/IGovernable.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "IGovernable"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\node_modules\\@openzeppelin\\contracts\\utils\\Address.sol": {
+      "lastModificationDate": 1711628399539,
+      "contentHash": "ad714a6368ee7d43cded6bbe8af0b155",
+      "sourceName": "@openzeppelin/contracts/utils/Address.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.1"
+      ],
+      "artifacts": [
+        "Address"
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\Keep3rDisputable.sol": {
@@ -416,6 +1250,95 @@
       ],
       "artifacts": [
         "Keep3rDisputable"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\peripherals\\IKeep3rDisputable.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "90e35d6e63f52ba3e05f39264c0af35d",
+      "sourceName": "contracts/interfaces/peripherals/IKeep3rDisputable.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "IKeep3rDisputable"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\keepers\\Keep3rKeeperDisputable.sol": {
+      "lastModificationDate": 1712196938817,
+      "contentHash": "c0441aaf5c0ef7d52c65e23fe035f2fb",
+      "sourceName": "contracts/agency/peripherals/keepers/Keep3rKeeperDisputable.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./Keep3rKeeperFundable.sol",
+        "../Keep3rDisputable.sol",
+        "../../../interfaces/external/IKeep3rV1.sol",
+        "../../../interfaces/peripherals/IKeep3rKeepers.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "Keep3rKeeperDisputable"
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\external\\IKeep3rV1.sol": {
@@ -558,430 +1481,6 @@
         "Keep3rKeeperFundable"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\peripherals\\IKeep3rDisputable.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "90e35d6e63f52ba3e05f39264c0af35d",
-      "sourceName": "contracts/interfaces/peripherals/IKeep3rDisputable.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "IKeep3rDisputable"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\IKeep3rHelper.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "2048094888ed96f85bbd97037f7270db",
-      "sourceName": "contracts/interfaces/IKeep3rHelper.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "IKeep3rHelper"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\peripherals\\IKeep3rParameters.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "5f54c3d2ea72a1174e8675b0726538ea",
-      "sourceName": "contracts/interfaces/peripherals/IKeep3rParameters.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./IBaseErrors.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "IKeep3rParameters"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\peripherals\\IBaseErrors.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "38ebaef5aac17f28fb6b115cdfe63357",
-      "sourceName": "contracts/interfaces/peripherals/IBaseErrors.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "IBaseErrors"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\peripherals\\IKeep3rAccountance.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "62d3623b41c7c2341ddb314a880abda0",
-      "sourceName": "contracts/interfaces/peripherals/IKeep3rAccountance.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "IKeep3rAccountance"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\node_modules\\@openzeppelin\\contracts\\utils\\structs\\EnumerableSet.sol": {
-      "lastModificationDate": 1711628400258,
-      "contentHash": "ee7890ed6993382898aeeed014cffab8",
-      "sourceName": "@openzeppelin/contracts/utils/structs/EnumerableSet.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "EnumerableSet"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\peripherals\\IKeep3rRoles.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "8257ae04fb828f82251129da2005c7c1",
-      "sourceName": "contracts/interfaces/peripherals/IKeep3rRoles.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "IKeep3rRoles"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\Governable.sol": {
-      "lastModificationDate": 1712005544045,
-      "contentHash": "5e12607beb9069d86cfbb716493b29b0",
-      "sourceName": "contracts/agency/peripherals/Governable.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../../interfaces/peripherals/IGovernable.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "Governable"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\peripherals\\IGovernable.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "fff43ecdcb7cee74e3e8c28b84ce51a0",
-      "sourceName": "contracts/interfaces/peripherals/IGovernable.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "IGovernable"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\IERC20.sol": {
-      "lastModificationDate": 1711628402313,
-      "contentHash": "ad7c2d0af148c8f9f097d65deeb4da6b",
-      "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "IERC20"
-      ]
-    },
     "D:\\MachineLearning\\XContracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\extensions\\IERC20Metadata.sol": {
       "lastModificationDate": 1711628402325,
       "contentHash": "909ab67fc5c25033fe6cd364f8c056f9",
@@ -1068,505 +1567,6 @@
       ],
       "artifacts": [
         "IKeep3rV1Proxy"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\node_modules\\@openzeppelin\\contracts\\security\\ReentrancyGuard.sol": {
-      "lastModificationDate": 1711628403900,
-      "contentHash": "92f9448b23a90ea3bb932ee55cc3ccce",
-      "sourceName": "@openzeppelin/contracts/security/ReentrancyGuard.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ReentrancyGuard"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\utils\\SafeERC20.sol": {
-      "lastModificationDate": 1711628403934,
-      "contentHash": "76814c83c32552ed2b521c816b4d801a",
-      "sourceName": "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../IERC20.sol",
-        "../../../utils/Address.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "SafeERC20"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\node_modules\\@openzeppelin\\contracts\\utils\\Address.sol": {
-      "lastModificationDate": 1711628399539,
-      "contentHash": "ad714a6368ee7d43cded6bbe8af0b155",
-      "sourceName": "@openzeppelin/contracts/utils/Address.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.1"
-      ],
-      "artifacts": [
-        "Address"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\jobs\\Keep3rJobDisputable.sol": {
-      "lastModificationDate": 1712196938816,
-      "contentHash": "34c8d6d41f0c8b8fa389bf96a80fafab",
-      "sourceName": "contracts/agency/peripherals/jobs/Keep3rJobDisputable.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./Keep3rJobFundableCredits.sol",
-        "../Keep3rDisputable.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "Keep3rJobDisputable"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\jobs\\Keep3rJobWorkable.sol": {
-      "lastModificationDate": 1712568933811,
-      "contentHash": "9746a5f806ffc3a75f1a5cf7a410ad18",
-      "sourceName": "contracts/agency/peripherals/jobs/Keep3rJobWorkable.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./Keep3rJobMigration.sol",
-        "../../../interfaces/peripherals/IKeep3rJobs.sol",
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
-        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "Keep3rJobWorkable"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\jobs\\Keep3rJobManager.sol": {
-      "lastModificationDate": 1712005544045,
-      "contentHash": "ec7d4ea6fd20b672886cd94641bab587",
-      "sourceName": "contracts/agency/peripherals/jobs/Keep3rJobManager.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./Keep3rJobOwnership.sol",
-        "../Keep3rRoles.sol",
-        "../Keep3rParameters.sol",
-        "../../../interfaces/peripherals/IKeep3rJobs.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "Keep3rJobManager"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\jobs\\Keep3rJobFundableCredits.sol": {
-      "lastModificationDate": 1712568933811,
-      "contentHash": "d6c5c6546e8082c99c4444e610f6c1ea",
-      "sourceName": "contracts/agency/peripherals/jobs/Keep3rJobFundableCredits.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./Keep3rJobOwnership.sol",
-        "../Keep3rAccountance.sol",
-        "../Keep3rParameters.sol",
-        "../../../interfaces/peripherals/IKeep3rJobs.sol",
-        "@openzeppelin/contracts/security/ReentrancyGuard.sol",
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
-        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
-        "@openzeppelin/contracts/utils/math/Math.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "Keep3rJobFundableCredits"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\peripherals\\IKeep3rJobs.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "20ea89e3b833bfd584769ea42b4801d3",
-      "sourceName": "contracts/interfaces/peripherals/IKeep3rJobs.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "IKeep3rJobDisputable",
-        "IKeep3rJobFundableCredits",
-        "IKeep3rJobFundableLiquidity",
-        "IKeep3rJobManager",
-        "IKeep3rJobMigration",
-        "IKeep3rJobOwnership",
-        "IKeep3rJobWorkable",
-        "IKeep3rJobs"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\jobs\\Keep3rJobOwnership.sol": {
-      "lastModificationDate": 1712005544045,
-      "contentHash": "1afe423e5f8f888daaabe4f05b5314c0",
-      "sourceName": "contracts/agency/peripherals/jobs/Keep3rJobOwnership.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../../../interfaces/peripherals/IKeep3rJobs.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "Keep3rJobOwnership"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\node_modules\\@openzeppelin\\contracts\\utils\\math\\Math.sol": {
-      "lastModificationDate": 1711628403789,
-      "contentHash": "339b9793dcbd7b5d55af725ef47de74c",
-      "sourceName": "@openzeppelin/contracts/utils/math/Math.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "Math"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\agency\\peripherals\\jobs\\Keep3rJobMigration.sol": {
-      "lastModificationDate": 1712568933811,
-      "contentHash": "0417c1c8456c24e26c4ae155ef933318",
-      "sourceName": "contracts/agency/peripherals/jobs/Keep3rJobMigration.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../../../interfaces/peripherals/IKeep3rJobs.sol",
-        "./Keep3rJobFundableCredits.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "Keep3rJobMigration"
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\peripherals\\IDustCollector.sol": {
@@ -1657,10 +1657,10 @@
         "Keep3rForTest"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\for-test\\peripherals\\DustCollectorForTest.sol": {
+    "D:\\MachineLearning\\XContracts\\contracts\\for-test\\peripherals\\Keep3rAccountanceForTest.sol": {
       "lastModificationDate": 1712005544061,
-      "contentHash": "48824ab0143af48c8a72fcc1f6f6809f",
-      "sourceName": "contracts/for-test/peripherals/DustCollectorForTest.sol",
+      "contentHash": "f786e76eec567ddb29a43b1ed1f676db",
+      "sourceName": "contracts/for-test/peripherals/Keep3rAccountanceForTest.sol",
       "solcConfig": {
         "version": "0.8.14",
         "settings": {
@@ -1692,13 +1692,57 @@
         }
       },
       "imports": [
-        "../../agency/peripherals/DustCollector.sol"
+        "../../agency/peripherals/Keep3rAccountance.sol"
       ],
       "versionPragmas": [
         ">=0.8.4 <0.9.0"
       ],
       "artifacts": [
-        "DustCollectorForTest"
+        "Keep3rAccountanceForTest"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\for-test\\peripherals\\keepers\\Keep3rKeeperFundableForTest.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "bc1d37e0dca31484876092fc8d2bd838",
+      "sourceName": "contracts/for-test/peripherals/keepers/Keep3rKeeperFundableForTest.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../../../agency/peripherals/keepers/Keep3rKeeperFundable.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "Keep3rKeeperFundableForTest"
       ]
     },
     "D:\\MachineLearning\\XContracts\\node_modules\\@openzeppelin\\contracts\\proxy\\ERC1967\\ERC1967Upgrade.sol": {
@@ -3790,10 +3834,10 @@
         "IKeep3r"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\for-test\\peripherals\\Keep3rParametersForTest.sol": {
+    "D:\\MachineLearning\\XContracts\\contracts\\for-test\\peripherals\\DustCollectorForTest.sol": {
       "lastModificationDate": 1712005544061,
-      "contentHash": "ac3e28f327f692d7fd576342ecf074c6",
-      "sourceName": "contracts/for-test/peripherals/Keep3rParametersForTest.sol",
+      "contentHash": "48824ab0143af48c8a72fcc1f6f6809f",
+      "sourceName": "contracts/for-test/peripherals/DustCollectorForTest.sol",
       "solcConfig": {
         "version": "0.8.14",
         "settings": {
@@ -3825,19 +3869,19 @@
         }
       },
       "imports": [
-        "../../agency/peripherals/Keep3rParameters.sol"
+        "../../agency/peripherals/DustCollector.sol"
       ],
       "versionPragmas": [
         ">=0.8.4 <0.9.0"
       ],
       "artifacts": [
-        "Keep3rParametersForTest"
+        "DustCollectorForTest"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\for-test\\peripherals\\keepers\\Keep3rKeeperFundableForTest.sol": {
+    "D:\\MachineLearning\\XContracts\\contracts\\for-test\\peripherals\\GovernableForTest.sol": {
       "lastModificationDate": 1712005544061,
-      "contentHash": "bc1d37e0dca31484876092fc8d2bd838",
-      "sourceName": "contracts/for-test/peripherals/keepers/Keep3rKeeperFundableForTest.sol",
+      "contentHash": "008ea61642a2eb6722fe4e27602dbf54",
+      "sourceName": "contracts/for-test/peripherals/GovernableForTest.sol",
       "solcConfig": {
         "version": "0.8.14",
         "settings": {
@@ -3869,13 +3913,200 @@
         }
       },
       "imports": [
-        "../../../agency/peripherals/keepers/Keep3rKeeperFundable.sol"
+        "../../agency/peripherals/Governable.sol"
       ],
       "versionPragmas": [
         ">=0.8.4 <0.9.0"
       ],
       "artifacts": [
-        "Keep3rKeeperFundableForTest"
+        "GovernableForTest"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\agency\\UniV3PairManagerFactory.sol": {
+      "lastModificationDate": 1712005544045,
+      "contentHash": "c30f82c801574e81302b67ef1c09518c",
+      "sourceName": "contracts/agency/UniV3PairManagerFactory.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../interfaces/IPairManagerFactory.sol",
+        "./UniV3PairManager.sol",
+        "./peripherals/Governable.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "UniV3PairManagerFactory"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\IPairManagerFactory.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "5c73da2f18e1b938c290f9aaeea39659",
+      "sourceName": "contracts/interfaces/IPairManagerFactory.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./peripherals/IGovernable.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "IPairManagerFactory"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\agency\\UniV3PairManager.sol": {
+      "lastModificationDate": 1712196938814,
+      "contentHash": "4e194b9cd1bc3997332f672c7a10d6f5",
+      "sourceName": "contracts/agency/UniV3PairManager.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol",
+        "./libraries/LiquidityAmounts.sol",
+        "./libraries/PoolAddress.sol",
+        "./libraries/FixedPoint96.sol",
+        "./libraries/FullMath.sol",
+        "./libraries/TickMath.sol",
+        "../interfaces/external/IWeth9.sol",
+        "../interfaces/IUniV3PairManager.sol",
+        "./peripherals/Governable.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "UniV3PairManager"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\external\\IWeth9.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "793f67129dd9ff6055569cc2e8717e13",
+      "sourceName": "contracts/interfaces/external/IWeth9.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "IWeth9"
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\IUniV3PairManager.sol": {
@@ -3925,145 +4156,6 @@
         "IUniV3PairManager"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\agency\\libraries\\PoolAddress.sol": {
-      "lastModificationDate": 1712005544045,
-      "contentHash": "028db65fcb38ef4c95bcb125febdef7e",
-      "sourceName": "contracts/agency/libraries/PoolAddress.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "PoolAddress"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\IPairManager.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "2390457792965710a92c6352bf28b96d",
-      "sourceName": "contracts/interfaces/IPairManager.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "IPairManager"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\for-test\\UniV3PairManagerForTest.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "2a3fb91223f6b3e0e6978e96f75eb617",
-      "sourceName": "contracts/for-test/UniV3PairManagerForTest.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol",
-        "../agency/libraries/LiquidityAmounts.sol",
-        "../agency/libraries/PoolAddress.sol",
-        "../agency/libraries/FixedPoint96.sol",
-        "../agency/libraries/FullMath.sol",
-        "../agency/libraries/TickMath.sol",
-        "../agency/UniV3PairManager.sol",
-        "../interfaces/external/IWeth9.sol",
-        "../interfaces/IUniV3PairManager.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "UniV3PairManagerForTest"
-      ]
-    },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\libraries\\LiquidityAmounts.sol": {
       "lastModificationDate": 1712196938815,
       "contentHash": "731068bfc52e8cf67b07baaa9ed1e9ab",
@@ -4107,6 +4199,48 @@
       ],
       "artifacts": [
         "LiquidityAmounts"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\agency\\libraries\\PoolAddress.sol": {
+      "lastModificationDate": 1712005544045,
+      "contentHash": "028db65fcb38ef4c95bcb125febdef7e",
+      "sourceName": "contracts/agency/libraries/PoolAddress.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "PoolAddress"
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\libraries\\FixedPoint96.sol": {
@@ -4235,103 +4369,6 @@
         "TickMath"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\agency\\UniV3PairManager.sol": {
-      "lastModificationDate": 1712196938814,
-      "contentHash": "4e194b9cd1bc3997332f672c7a10d6f5",
-      "sourceName": "contracts/agency/UniV3PairManager.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol",
-        "./libraries/LiquidityAmounts.sol",
-        "./libraries/PoolAddress.sol",
-        "./libraries/FixedPoint96.sol",
-        "./libraries/FullMath.sol",
-        "./libraries/TickMath.sol",
-        "../interfaces/external/IWeth9.sol",
-        "../interfaces/IUniV3PairManager.sol",
-        "./peripherals/Governable.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "UniV3PairManager"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\external\\IWeth9.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "793f67129dd9ff6055569cc2e8717e13",
-      "sourceName": "contracts/interfaces/external/IWeth9.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "IWeth9"
-      ]
-    },
     "D:\\MachineLearning\\XContracts\\node_modules\\@uniswap\\v3-core\\contracts\\interfaces\\IUniswapV3Pool.sol": {
       "lastModificationDate": 1711628376581,
       "contentHash": "e6badd8268772b99e7ca397aff11a965",
@@ -4379,6 +4416,50 @@
       ],
       "artifacts": [
         "IUniswapV3Pool"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\IPairManager.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "2390457792965710a92c6352bf28b96d",
+      "sourceName": "contracts/interfaces/IPairManager.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "IPairManager"
       ]
     },
     "D:\\MachineLearning\\XContracts\\node_modules\\@uniswap\\v3-core\\contracts\\interfaces\\pool\\IUniswapV3PoolDerivedState.sol": {
@@ -4507,48 +4588,6 @@
         "IUniswapV3PoolState"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\node_modules\\@uniswap\\v3-core\\contracts\\interfaces\\pool\\IUniswapV3PoolOwnerActions.sol": {
-      "lastModificationDate": 1711628377295,
-      "contentHash": "1b06ecc79e75f836c446ccf286e671e4",
-      "sourceName": "@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolOwnerActions.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.5.0"
-      ],
-      "artifacts": [
-        "IUniswapV3PoolOwnerActions"
-      ]
-    },
     "D:\\MachineLearning\\XContracts\\node_modules\\@uniswap\\v3-core\\contracts\\interfaces\\pool\\IUniswapV3PoolEvents.sol": {
       "lastModificationDate": 1711628377148,
       "contentHash": "05abb59ec113db1046f7dadc78bb297b",
@@ -4591,6 +4630,48 @@
         "IUniswapV3PoolEvents"
       ]
     },
+    "D:\\MachineLearning\\XContracts\\node_modules\\@uniswap\\v3-core\\contracts\\interfaces\\pool\\IUniswapV3PoolOwnerActions.sol": {
+      "lastModificationDate": 1711628377295,
+      "contentHash": "1b06ecc79e75f836c446ccf286e671e4",
+      "sourceName": "@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolOwnerActions.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.5.0"
+      ],
+      "artifacts": [
+        "IUniswapV3PoolOwnerActions"
+      ]
+    },
     "D:\\MachineLearning\\XContracts\\node_modules\\@uniswap\\v3-core\\contracts\\interfaces\\pool\\IUniswapV3PoolActions.sol": {
       "lastModificationDate": 1711628376896,
       "contentHash": "83d338eb1394008c808a20ac7c5bab0c",
@@ -4631,6 +4712,59 @@
       ],
       "artifacts": [
         "IUniswapV3PoolActions"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\for-test\\UniV3PairManagerForTest.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "2a3fb91223f6b3e0e6978e96f75eb617",
+      "sourceName": "contracts/for-test/UniV3PairManagerForTest.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol",
+        "../agency/libraries/LiquidityAmounts.sol",
+        "../agency/libraries/PoolAddress.sol",
+        "../agency/libraries/FixedPoint96.sol",
+        "../agency/libraries/FullMath.sol",
+        "../agency/libraries/TickMath.sol",
+        "../agency/UniV3PairManager.sol",
+        "../interfaces/external/IWeth9.sol",
+        "../interfaces/IUniV3PairManager.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "UniV3PairManagerForTest"
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\for-test\\IUniswapV3PoolForTest.sol": {
@@ -4718,272 +4852,6 @@
       ],
       "artifacts": [
         "IERC20Minimal"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\agency\\UniV3PairManagerFactory.sol": {
-      "lastModificationDate": 1712005544045,
-      "contentHash": "c30f82c801574e81302b67ef1c09518c",
-      "sourceName": "contracts/agency/UniV3PairManagerFactory.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../interfaces/IPairManagerFactory.sol",
-        "./UniV3PairManager.sol",
-        "./peripherals/Governable.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "UniV3PairManagerFactory"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\interfaces\\IPairManagerFactory.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "5c73da2f18e1b938c290f9aaeea39659",
-      "sourceName": "contracts/interfaces/IPairManagerFactory.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./peripherals/IGovernable.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "IPairManagerFactory"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\for-test\\peripherals\\GovernableForTest.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "008ea61642a2eb6722fe4e27602dbf54",
-      "sourceName": "contracts/for-test/peripherals/GovernableForTest.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../../agency/peripherals/Governable.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "GovernableForTest"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\for-test\\peripherals\\Keep3rAccountanceForTest.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "f786e76eec567ddb29a43b1ed1f676db",
-      "sourceName": "contracts/for-test/peripherals/Keep3rAccountanceForTest.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../../agency/peripherals/Keep3rAccountance.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "Keep3rAccountanceForTest"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\for-test\\peripherals\\Keep3rDisputableForTest.sol": {
-      "lastModificationDate": 1712005544061,
-      "contentHash": "c141f5a298512a73f332132e0a210917",
-      "sourceName": "contracts/for-test/peripherals/Keep3rDisputableForTest.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../../agency/peripherals/Keep3rDisputable.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "Keep3rDisputableForTest"
-      ]
-    },
-    "D:\\MachineLearning\\XContracts\\contracts\\for-test\\peripherals\\keepers\\Keep3rKeeperDisputableForTest.sol": {
-      "lastModificationDate": 1712196938819,
-      "contentHash": "2d793287e2f03b385bcc2c347a45959b",
-      "sourceName": "contracts/for-test/peripherals/keepers/Keep3rKeeperDisputableForTest.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../../../agency/peripherals/keepers/Keep3rKeeperDisputable.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4 <0.9.0"
-      ],
-      "artifacts": [
-        "Keep3rKeeperDisputableForTest"
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\agency\\Keep3rHelperParameters.sol": {
@@ -5217,6 +5085,138 @@
       ],
       "artifacts": [
         "LiquidityAmountsForTest"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\for-test\\peripherals\\Keep3rParametersForTest.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "ac3e28f327f692d7fd576342ecf074c6",
+      "sourceName": "contracts/for-test/peripherals/Keep3rParametersForTest.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../../agency/peripherals/Keep3rParameters.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "Keep3rParametersForTest"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\for-test\\peripherals\\Keep3rDisputableForTest.sol": {
+      "lastModificationDate": 1712005544061,
+      "contentHash": "c141f5a298512a73f332132e0a210917",
+      "sourceName": "contracts/for-test/peripherals/Keep3rDisputableForTest.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../../agency/peripherals/Keep3rDisputable.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "Keep3rDisputableForTest"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\for-test\\peripherals\\keepers\\Keep3rKeeperDisputableForTest.sol": {
+      "lastModificationDate": 1712196938819,
+      "contentHash": "2d793287e2f03b385bcc2c347a45959b",
+      "sourceName": "contracts/for-test/peripherals/keepers/Keep3rKeeperDisputableForTest.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../../../agency/peripherals/keepers/Keep3rKeeperDisputable.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4 <0.9.0"
+      ],
+      "artifacts": [
+        "Keep3rKeeperDisputableForTest"
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\for-test\\peripherals\\jobs\\Keep3rJobDisputableForTest.sol": {
@@ -6224,10 +6224,10 @@
         "XdaoAgency"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundExpBurn.sol": {
-      "lastModificationDate": 1713398892631,
-      "contentHash": "7eae7ef5fd86cb6f0d1f320994ea80a9",
-      "sourceName": "contracts/research/CompoundExpBurn.sol",
+    "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleSharedLinearReward.sol": {
+      "lastModificationDate": 1713479503788,
+      "contentHash": "8c12ff6573969bfbbb473c0fc9961458",
+      "sourceName": "contracts/research/SimpleSharedLinearReward.sol",
       "solcConfig": {
         "version": "0.8.14",
         "settings": {
@@ -6269,13 +6269,13 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "CompoundExpBurn"
+        "SimpleSharedLinearReward"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundExpReward.sol": {
-      "lastModificationDate": 1713399021887,
-      "contentHash": "46a9ad166c4a6688bb2e27708145513c",
-      "sourceName": "contracts/research/CompoundExpReward.sol",
+    "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleInterestN.sol": {
+      "lastModificationDate": 1713509741601,
+      "contentHash": "6e0b46b0eda44bf7203908da344343cb",
+      "sourceName": "contracts/research/SimpleInterestN.sol",
       "solcConfig": {
         "version": "0.8.14",
         "settings": {
@@ -6317,13 +6317,13 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "CompoundExpReward"
+        "SimpleInterestN"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleExpBurn.sol": {
-      "lastModificationDate": 1713399021885,
-      "contentHash": "b2a8226d238b2bc52fbc36d4d2ef4d19",
-      "sourceName": "contracts/research/SimpleExpBurn.sol",
+    "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleInterestE.sol": {
+      "lastModificationDate": 1713479503700,
+      "contentHash": "9b06c6a90dbca64573a25457792f984a",
+      "sourceName": "contracts/research/SimpleInterestE.sol",
       "solcConfig": {
         "version": "0.8.14",
         "settings": {
@@ -6365,13 +6365,13 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "SimpleExpBurn"
+        "SimpleInterestE"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleExpReward.sol": {
-      "lastModificationDate": 1713399021885,
-      "contentHash": "3cb1ce11b69afc1714a3be1588f7147f",
-      "sourceName": "contracts/research/SimpleExpReward.sol",
+    "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleInterest.sol": {
+      "lastModificationDate": 1713479503660,
+      "contentHash": "4f1f07c7aacc1e536ccdf1cc900503cd",
+      "sourceName": "contracts/research/SimpleInterest.sol",
       "solcConfig": {
         "version": "0.8.14",
         "settings": {
@@ -6413,13 +6413,13 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "SimpleExpReward"
+        "SimpleInterest"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleLinearReward.sol": {
-      "lastModificationDate": 1713398931210,
-      "contentHash": "4ce3ad54d2b621d52c410919f6ca4a16",
-      "sourceName": "contracts/research/SimpleLinearReward.sol",
+    "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleBurnN.sol": {
+      "lastModificationDate": 1713479503616,
+      "contentHash": "2f193d833788c36001ea5a73cf606724",
+      "sourceName": "contracts/research/SimpleBurnN.sol",
       "solcConfig": {
         "version": "0.8.14",
         "settings": {
@@ -6461,13 +6461,13 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "SimpleLinearReward"
+        "SimpleBurnN"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleFixedReward.sol": {
-      "lastModificationDate": 1713399021885,
-      "contentHash": "99974b81a7375ccf1617a8671cfb4688",
-      "sourceName": "contracts/research/SimpleFixedReward.sol",
+    "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleBurnE.sol": {
+      "lastModificationDate": 1713479503573,
+      "contentHash": "2902c056801480e2d108a4f0184b64d5",
+      "sourceName": "contracts/research/SimpleBurnE.sol",
       "solcConfig": {
         "version": "0.8.14",
         "settings": {
@@ -6509,13 +6509,13 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "SimpleFixedReward"
+        "SimpleBurnE"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundExpBurnNovel.sol": {
-      "lastModificationDate": 1713399021887,
-      "contentHash": "a84f98a4b19bc2e476084aca661095a0",
-      "sourceName": "contracts/research/CompoundExpBurnNovel.sol",
+    "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleBurn.sol": {
+      "lastModificationDate": 1713479503532,
+      "contentHash": "4cd383e30a2954466f16547dcd58ee9d",
+      "sourceName": "contracts/research/SimpleBurn.sol",
       "solcConfig": {
         "version": "0.8.14",
         "settings": {
@@ -6557,13 +6557,13 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "CompoundExpBurnNovel"
+        "SimpleBurn"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundExpRewardNovel.sol": {
-      "lastModificationDate": 1713410070908,
-      "contentHash": "8d5ebc6fef3b5c2b841c62e82c7fce98",
-      "sourceName": "contracts/research/CompoundExpRewardNovel.sol",
+    "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundInterestN.sol": {
+      "lastModificationDate": 1713479503486,
+      "contentHash": "a8b8dc58e7ad600f0a840d467bed0270",
+      "sourceName": "contracts/research/CompoundInterestN.sol",
       "solcConfig": {
         "version": "0.8.14",
         "settings": {
@@ -6605,13 +6605,13 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "CompoundExpRewardNovel"
+        "CompoundInterestN"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleExpRewardNovel.sol": {
-      "lastModificationDate": 1713399021885,
-      "contentHash": "f0497b183ce399d120f90ef2d5e01788",
-      "sourceName": "contracts/research/SimpleExpRewardNovel.sol",
+    "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundInterestE.sol": {
+      "lastModificationDate": 1713479503442,
+      "contentHash": "869667ca160c8fc599773a57b8c048af",
+      "sourceName": "contracts/research/CompoundInterestE.sol",
       "solcConfig": {
         "version": "0.8.14",
         "settings": {
@@ -6653,13 +6653,13 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "SimpleExpRewardNovel"
+        "CompoundInterestE"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleFixedRewardNovel.sol": {
-      "lastModificationDate": 1713399400807,
-      "contentHash": "b3e06eac0c4f38b5b0c55253ad5d878b",
-      "sourceName": "contracts/research/SimpleFixedRewardNovel.sol",
+    "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundInterest.sol": {
+      "lastModificationDate": 1713479503383,
+      "contentHash": "a4ded648a7b1cb035291a8b27c9bd3f7",
+      "sourceName": "contracts/research/CompoundInterest.sol",
       "solcConfig": {
         "version": "0.8.14",
         "settings": {
@@ -6701,7 +6701,151 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "SimpleFixedRewardNovel"
+        "CompoundInterest"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundBurnN.sol": {
+      "lastModificationDate": 1713479503279,
+      "contentHash": "1f7801fbf848a7dde5e96a81fbd65b55",
+      "sourceName": "contracts/research/CompoundBurnN.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../libraries/math/SafeMath.sol",
+        "../libraries/math/AnalyticMath.sol",
+        "../libraries/math/IntegralMath.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "CompoundBurnN"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundBurnE.sol": {
+      "lastModificationDate": 1713479503201,
+      "contentHash": "efd247326f7ac747c47df29b6c7d5581",
+      "sourceName": "contracts/research/CompoundBurnE.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../libraries/math/SafeMath.sol",
+        "../libraries/math/AnalyticMath.sol",
+        "../libraries/math/IntegralMath.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "CompoundBurnE"
+      ]
+    },
+    "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundBurn.sol": {
+      "lastModificationDate": 1713479503123,
+      "contentHash": "a5e7740c39be5a2a3614bbfa627bb58d",
+      "sourceName": "contracts/research/CompoundBurn.sol",
+      "solcConfig": {
+        "version": "0.8.14",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../libraries/math/SafeMath.sol",
+        "../libraries/math/AnalyticMath.sol",
+        "../libraries/math/IntegralMath.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "CompoundBurn"
       ]
     }
   }

@@ -59,8 +59,8 @@ exports.deployResearchToken = async function (contract_name, deployer, analyticM
   return token;
 };
 
-exports.deploySimpleFixedReward = async function (deployer, analyticMath) {
-  const Token = await ethers.getContractFactory("SimpleFixedReward", {
+exports.deploySimpleSharedLinearReward = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("SimpleSharedLinearReward", {
     signer: deployer,
   });
   const token = await Token.connect(deployer).deploy(analyticMath);
@@ -77,8 +77,8 @@ exports.deploySimpleLinearReward = async function (deployer, analyticMath) {
   return token;
 };
 
-exports.deploySimpleExpReward = async function (deployer, analyticMath) {
-  const Token = await ethers.getContractFactory("SimpleExpReward", {
+exports.deploySimpleInterest = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("SimpleInterest", {
     signer: deployer,
   });
   const token = await Token.connect(deployer).deploy(analyticMath);
@@ -86,8 +86,8 @@ exports.deploySimpleExpReward = async function (deployer, analyticMath) {
   return token;
 };
 
-exports.deploySimpleExpBurn = async function (deployer, analyticMath) {
-  const Token = await ethers.getContractFactory("SimpleExpBurn", {
+exports.deploySimpleBurn = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("SimpleBurn", {
     signer: deployer,
   });
   const token = await Token.connect(deployer).deploy(analyticMath);
@@ -95,8 +95,8 @@ exports.deploySimpleExpBurn = async function (deployer, analyticMath) {
   return token;
 };
 
-exports.deployCompoundExpReward = async function (deployer, analyticMath) {
-  const Token = await ethers.getContractFactory("CompoundExpReward", {
+exports.deployCompoundInterest = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("CompoundInterest", {
     signer: deployer,
   });
   const token = await Token.connect(deployer).deploy(analyticMath);
@@ -104,8 +104,8 @@ exports.deployCompoundExpReward = async function (deployer, analyticMath) {
   return token;
 };
 
-exports.deployCompoundExpBurn = async function (deployer, analyticMath) {
-  const Token = await ethers.getContractFactory("CompoundExpBurn", {
+exports.deployCompoundBurn = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("CompoundBurn", {
     signer: deployer,
   });
   const token = await Token.connect(deployer).deploy(analyticMath);
@@ -113,8 +113,8 @@ exports.deployCompoundExpBurn = async function (deployer, analyticMath) {
   return token;
 };
 
-exports.deployCompoundExpBurnNovel = async function (deployer, analyticMath) {
-  const Token = await ethers.getContractFactory("CompoundExpBurnNovel", {
+exports.deployCompoundBurnN = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("CompoundBurnN", {
     signer: deployer,
   });
   const token = await Token.connect(deployer).deploy(analyticMath);
@@ -122,8 +122,8 @@ exports.deployCompoundExpBurnNovel = async function (deployer, analyticMath) {
   return token;
 };
 
-exports.deployCompoundExpRewardNovel = async function (deployer, analyticMath) {
-  const Token = await ethers.getContractFactory("CompoundExpRewardNovel", {
+exports.deployCompoundInterestN = async function (deployer, analyticMath) {
+  const Token = await ethers.getContractFactory("CompoundInterestN", {
     signer: deployer,
   });
   const token = await Token.connect(deployer).deploy(analyticMath);
