@@ -87,12 +87,12 @@ contract SimpleSharedLinearReward is Ownable {
     }
 
     function upadateWithTotalShare() public {
-        uint missings = block.number - initialBlock - latestBlock
+        uint missings = block.number - initialBlock - latestBlock;
         if (missings > 0) {
             uint reward = alpha * missings;
             rewardPool += reward;
             accRewardPerShare12 += reward * 1e12 / _totalSupply;
-            latestBlock = nowBlock;
+            latestBlock = block.number - initialBlock;
         }
     }
 
@@ -113,13 +113,13 @@ contract SimpleSharedLinearReward is Ownable {
 
     function _viewUserPendingReward(address user) internal view returns (uint) {
         uint standardPending = accRewardPerShare12 * _balances[user] / 1e12 - users[user].rewardDebt;
-        uint extraBlocks = block.number - initialBlock - latestBlock
+        uint extraBlocks = block.number - initialBlock - latestBlock;
         uint extraPending = alpha * extraBlocks * _balances[user] / _totalSupply;
         return (standardPending + extraPending);
     }
 
     function _viewTotalPendingReward() internal view returns (uint) {
-        uint extraBlocks = block.number - initialBlock - latestBlock
+        uint extraBlocks = block.number - initialBlock - latestBlock;
         uint extraPending = alpha * extraBlocks;
         return extraPending;
     }

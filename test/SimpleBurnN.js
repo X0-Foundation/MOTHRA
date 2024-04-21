@@ -2,10 +2,10 @@
 //=================== Paremeter Block that differentiate this testing script from others ======
 
 let CONTRACT = null;
-const CONTRACT_NAME = "CompoundBurnE";
-const CONTRACT_SYMBOL = "CEBNE";
-const minOneBlockSurvival = 0.98;
-const maxOneBlockSurvival = 1.00;
+const CONTRACT_NAME = "SimpleBurnN";
+const CONTRACT_SYMBOL = "SEBNN";
+const minOneBlockSurvival = 0.99;
+const maxOneBlockSurvival = 1.01;
 
 
 async function showTotalState() {
@@ -572,7 +572,7 @@ describe("====================== Stage 3: Random calls ======================\n"
         let count = 0; let window = 5;
         const thresholdX = 5;
 
-        const target = 10000;
+        const target = 15000;
         while (values.length < target) {
             rand = generateRandomInteger(0, functions.length - 1);
             report = await functions[rand]();

@@ -91,14 +91,14 @@ contract CompoundInterestE is Ownable {
     uint constant CYCLE = 10;
 
     function upadateWithTotalShare() public {
-        uint missings = block.number - initialBlock - latestBlock
+        uint missings = block.number - initialBlock - latestBlock;
         if (missings > 0) {
             (uint p, uint q) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missings, CYCLE);           
             uint pending = IntegralMath.mulDivF(_totalSupply, p, q) - _totalSupply;
             rewardPool += pending;
             // accRewardPerShare12 += (IntegralMath.mulDivF(1e12, p, q) - 1e12);
-            accRewardPerShare12 += (1e12 * p / q - 1e12);
-            latestBlock = nowBlock;
+            accRewardPerShare12 += (IntegralMath.mulDivC(1e12, p, q) - 1e12);
+            latestBlock = block.number - initialBlock;
         }
     }
 
@@ -122,14 +122,14 @@ contract CompoundInterestE is Ownable {
 
     function _viewUserPendingReward(address user) internal view returns (uint) {
         uint standardPending = IntegralMath.mulDivC(accRewardPerShare12, _balances[user], 1e12) - users[user].rewardDebt;
-        uint extraBlocks = block.number - initialBlock - latestBlock
+        uint extraBlocks = block.number - initialBlock - latestBlock;
         (uint p, uint q) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, extraBlocks, CYCLE);
         uint extraPending = IntegralMath.mulDivF(_balances[user], p, q) - _balances[user];
         return (standardPending + extraPending);
     }
 
     function _viewTotalPendingReward() internal view returns (uint) {
-        uint extraBlocks = block.number - initialBlock - latestBlock
+        uint extraBlocks = block.number - initialBlock - latestBlock;
         (uint p, uint q) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, extraBlocks, CYCLE);
         uint extraPending = IntegralMath.mulDivF(_totalSupply, p, q) - _totalSupply;
         return rewardPool + extraPending;

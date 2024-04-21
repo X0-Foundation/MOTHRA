@@ -2,10 +2,10 @@
 //=================== Paremeter Block that differentiate this testing script from others ======
 
 let CONTRACT = null;
-const CONTRACT_NAME = "SimpleBurnE";
-const CONTRACT_SYMBOL = "SEBNE";
-const minOneBlockSurvival = 0.99;
-const maxOneBlockSurvival = 1.01;
+const CONTRACT_NAME = "CompoundInterestE";
+const CONTRACT_SYMBOL = "CERWE";
+const minOneBlockSurvival = 1.00;
+const maxOneBlockSurvival = 1.02;
 
 
 async function showTotalState() {
@@ -24,7 +24,6 @@ async function showUserState(user) {
 }
 
 //==========================================================================================
-
 
 const { ethers, waffle, network, upgrades } = require("hardhat");
 const { expect, util } = require("chai");
@@ -572,7 +571,7 @@ describe("====================== Stage 3: Random calls ======================\n"
         let count = 0; let window = 5;
         const thresholdX = 5;
 
-        const target = 10000;
+        const target = 15000;
         while (values.length < target) {
             rand = generateRandomInteger(0, functions.length - 1);
             report = await functions[rand]();

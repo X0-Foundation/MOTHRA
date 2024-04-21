@@ -92,13 +92,13 @@ contract CompoundInterest is Ownable {
     uint constant CYCLE = 10;
 
     function upadateWithTotalShare() public {
-        uint missings = block.number - initialBlock - latestBlock
+        uint missings = block.number - initialBlock - latestBlock;
         if (missings > 0) {
             uint totalNetWorked = _totalSupply - rewardPool;
             (uint p, uint q) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missings, CYCLE);
             uint pending = IntegralMath.mulDivC(totalNetWorked, p, q) - totalNetWorked;
             rewardPool += pending;
-            latestBlock = nowBlock;
+            latestBlock = block.number - initialBlock;
         }
     }
 

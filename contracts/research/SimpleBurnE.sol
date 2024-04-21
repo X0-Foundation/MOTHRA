@@ -91,7 +91,7 @@ contract SimpleBurnE is Ownable {
     uint constant CYCLE = 10;
 
     function upadateWithTotalShare() public {
-        uint missings = block.number - initialBlock - latestBlock
+        uint missings = block.number - initialBlock - latestBlock;
         if (missings > 0) {
             (uint p, uint q) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missings, CYCLE);           
             uint pending = _totalSupply - IntegralMath.mulDivF(_totalSupply, p, q);
@@ -99,7 +99,7 @@ contract SimpleBurnE is Ownable {
             accRewardPerShare12 += (1e12 - IntegralMath.mulDivC(1e12, p, q));
             // Using this line, instead of the above, will lead to a Solidity panic in _changeUserShare: rewardPool -= standardPending.
             // accRewardPerShare12 += (1e12 - 1e12 * p / q);
-            latestBlock = nowBlock;
+            latestBlock = block.number - initialBlock;
         }
     }
 
@@ -120,14 +120,14 @@ contract SimpleBurnE is Ownable {
 
     function _viewUserPendingReward(address user) internal view returns (uint) {
         uint standardPending = IntegralMath.mulDivC(accRewardPerShare12, _balances[user], 1e12) - users[user].rewardDebt;
-        uint extraBlocks = block.number - initialBlock - latestBlock
+        uint extraBlocks = block.number - initialBlock - latestBlock;
         (uint p, uint q) = analyticMath.pow(MAGNIFIER + DecPerCycle, MAGNIFIER, extraBlocks, CYCLE);
         uint extraPending = IntegralMath.mulDivC(_balances[user], p, q) - _balances[user];
         return (standardPending + extraPending);
     }
 
     function _viewTotalPendingReward() internal view returns (uint) {
-        uint extraBlocks = block.number - initialBlock - latestBlock
+        uint extraBlocks = block.number - initialBlock - latestBlock;
         (uint p, uint q) = analyticMath.pow(MAGNIFIER + DecPerCycle, MAGNIFIER, extraBlocks, CYCLE);
         uint extraPending = IntegralMath.mulDivF(_totalSupply, p, q) - _totalSupply;
         return rewardPool + extraPending;
