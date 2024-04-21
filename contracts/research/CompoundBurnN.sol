@@ -93,11 +93,15 @@ contract CompoundBurnN is Ownable {
     function _changeUserShare(address user, uint amount, bool CreditNotDebit) internal {
         {
             latestNet -= _balances[user];
-            uint missingBlocks = block.number - initialBlock - latestBlock;
-            (uint p1, uint q1) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missingBlocks, CYCLE);           
-            missingBlocks = block.number - initialBlock - users[user].latestBlock;
-            (uint p2, uint q2) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missingBlocks, CYCLE);
-            VIRTUAL = IntegralMath.mulDivF(VIRTUAL, p1, q1) - IntegralMath.mulDivF(_balances[user], p2, q2);
+            uint missings = block.number - initialBlock - latestBlock;
+            (uint p1, uint q1) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missings, CYCLE);           
+            missings = block.number - initialBlock - users[user].latestBlock;
+            (uint p2, uint q2) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missings, CYCLE);
+            if (block.number % 2 == 0) {
+                VIRTUAL = _safeSubtract(IntegralMath.mulDivF(VIRTUAL, p1, q1), IntegralMath.mulDivC(_balances[user], p2, q2));
+            } else {
+                VIRTUAL = IntegralMath.mulDivC(VIRTUAL, p1, q1) - IntegralMath.mulDivF(_balances[user], p2, q2);
+            }
             latestBlock = block.number - initialBlock;
         }
 
@@ -123,17 +127,24 @@ contract CompoundBurnN is Ownable {
         }
     }
 
-    function _viewUserPendingReward(address user) internal view returns (uint) {
-        uint missingBlocks = block.number - initialBlock - users[user].latestBlock; // ============ cycle
-        (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missingBlocks, CYCLE);
-        uint pending = _balances[user] - IntegralMath.mulDivC(_balances[user], numerator, denominator);
-        return pending;
+    function _viewUserPendingReward(address user) internal view returns (uint pending) {
+        uint missings = block.number - initialBlock - users[user].latestBlock;
+        if (missings > 0) {
+            (uint p, uint q) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missings, CYCLE);
+            if (block.number % 2 == 0) {
+                pending = _balances[user] - IntegralMath.mulDivF(_balances[user], p, q);
+            } else {
+                pending = _safeSubtract(_balances[user], IntegralMath.mulDivC(_balances[user], p, q));
+            }
+        }
     }
 
-    function _viewTotalPendingReward() internal view returns (uint) {
-        uint missingBlocks = block.number - initialBlock - latestBlock;
-        (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missingBlocks, CYCLE);
-        return latestNet - IntegralMath.mulDivF(VIRTUAL, numerator, denominator);
+    function _viewTotalPendingReward() internal view returns (uint pending) {
+        uint missings = block.number - initialBlock - latestBlock;
+        if (missings > 0) {
+            (uint p, uint q) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missings, CYCLE);
+            pending = _safeSubtract(latestNet, IntegralMath.mulDivF(VIRTUAL, p, q));
+        }
     }
     
 

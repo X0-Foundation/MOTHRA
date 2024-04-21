@@ -95,8 +95,8 @@ contract SimpleSharedLinearRewardN is Ownable {
     function _changeUserShare(address user, uint amount, bool CreditNotDebit) internal {
         {
             latestNet -= _balances[user];
-            uint missingBlocksUser = block.number - users[user].latestBlock;
-            uint missingBlocksTotal = block.number - initialBlock - latestBlock;
+            uint missingsUser = block.number - users[user].latestBlock;
+            uint missingsTotal = block.number - initialBlock - latestBlock;
             uint oldBalance = _balances[user];
             
             latestBlock = block.number - initialBlock;
@@ -122,17 +122,17 @@ contract SimpleSharedLinearRewardN is Ownable {
 
             uint v;
             if (oldBalance <= _balances[user]) {
-                v = VIRTUAL + alpha * (_balances[u] - oldBalance) * missingBlocksUser; 
+                v = VIRTUAL + alpha * (_balances[u] - oldBalance) * missingsUser; 
             } else {
-                v = VIRTUAL - alpha * (oldBalance - _balances[user]) * missingBlocksUser;
+                v = VIRTUAL - alpha * (oldBalance - _balances[user]) * missingsUser;
             }
-            VIRTUAL = v * missingBlocksTotal;
+            VIRTUAL = v * missingsTotal;
         }
     }
 
     function _viewUserPendingReward(address user) internal view returns (uint) {
-        uint missingBlocks = block.number - initialBlock - users[user].latestBlock;
-        uint pending = alpha * missingBlocks * _balances[user] / _totalSupply;
+        uint missings = block.number - initialBlock - users[user].latestBlock;
+        uint pending = alpha * missings * _balances[user] / _totalSupply;
         return pending;
     }
 

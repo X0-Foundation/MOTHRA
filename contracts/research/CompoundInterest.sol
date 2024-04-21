@@ -53,6 +53,7 @@ contract CompoundInterest is Ownable {
     struct User {
         uint    rewardDebt;
         uint    reward;
+        uint    latestBlock;
     }
 
     uint public constant distCycle = 30;
@@ -92,25 +93,25 @@ contract CompoundInterest is Ownable {
 
     function upadateWithTotalShare() public {
         uint nowBlock = block.number - initialBlock;
-        uint missingBlocks = nowBlock - latestBlock;
-        if (missingBlocks > 0) {
-            (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missingBlocks, CYCLE);           
-            uint pending = IntegralMath.mulDivF(_totalSupply, numerator, denominator) - _totalSupply;
+        uint missings = nowBlock - latestBlock;
+        if (missings > 0) {
+            uint totalNetWorked = _totalSupply - rewardPool;
+            (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missings, CYCLE);
+            uint pending = IntegralMath.mulDivC(totalNetWorked, numerator, denominator) - totalNetWorked;
             rewardPool += pending;
-            // accRewardPerShare12 += (IntegralMath.mulDivF(1e12, numerator, denominator) - 1e12);
-            accRewardPerShare12 += (1e12 * numerator / denominator - 1e12);
             latestBlock = nowBlock;
         }
     }
 
     function _changeUserShare(address user, uint amount, bool CreditNotDebit) internal {
         upadateWithTotalShare();
-        uint standardPending = accRewardPerShare12 * _balances[user] / 1e12 - users[user].rewardDebt;
-        rewardPool -= standardPending;
-        // users[user].reward += standardPending;
-        // These two lines, replacing the above commented-out line, implement CompoundInterest.
-        _balances[user] += standardPending;
-        _totalSupply += standardPending;
+        uint pending = _viewUserPendingReward(user);
+        if (pending > 0) {
+            // console.log(rewardPool, pending);
+            rewardPool -= pending;
+            _balances[user] += pending;
+            _totalSupply += pending;
+        }
         if (CreditNotDebit) {
             _balances[user] += amount;
             _totalSupply += amount;
@@ -118,32 +119,36 @@ contract CompoundInterest is Ownable {
             _balances[user] -= amount;
             _totalSupply -= amount;            
         }
-        users[user].rewardDebt = accRewardPerShare12 * _balances[user] / 1e12;
+        users[user].latestBlock = block.number - initialBlock;
+        // _viewTotalPendingReward() == rewardPool
+        // _viewUserPendingReward(user) == 0
     }
 
     function _viewUserPendingReward(address user) internal view returns (uint) {
-        uint standardPending = accRewardPerShare12 * _balances[user] / 1e12 - users[user].rewardDebt;
-
-        uint nowBlock = block.number - initialBlock;
-        uint extraBlocks = nowBlock - latestBlock;
-        (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, extraBlocks, CYCLE);
-        uint extraPending = IntegralMath.mulDivF(_balances[user], numerator, denominator) - _balances[user];
-        return (standardPending + extraPending);
+        uint pending;
+        uint missings = block.number - initialBlock - users[user].latestBlock;
+        if (missings > 0) {
+            (uint p, uint q) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missings, CYCLE);
+            pending = IntegralMath.mulDivC(_balances[user], p, q) - _balances[user];
+        }
+        return pending;
     }
 
     function _viewTotalPendingReward() internal view returns (uint) {
-        uint nowBlock = block.number - initialBlock;
-        uint extraBlocks = nowBlock - latestBlock;
-        (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, extraBlocks, CYCLE);
-        uint extraPending = IntegralMath.mulDivF(_totalSupply, numerator, denominator) - _totalSupply;
-        return extraPending;
+        uint pending;
+        uint missings = block.number - initialBlock - latestBlock;
+        if (missings > 0) {
+            (uint p, uint q) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missings, CYCLE);
+            pending = IntegralMath.mulDivC(_totalSupply, p, q) - _totalSupply;
+        }
+        return rewardPool + pending;
     }
     
 
     function checkForConsistency() public view 
     returns(uint pending_collective, uint pending_marginal, uint abs_error, uint error_rate) {
 
-        pending_collective = _viewTotalPendingReward() + rewardPool;
+        pending_collective = _viewTotalPendingReward();
 
         pending_marginal += _viewUserPendingReward(owner());
         pending_marginal += _viewUserPendingReward(alice);

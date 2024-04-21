@@ -92,9 +92,9 @@ contract CompoundBurnE is Ownable {
 
     function upadateWithTotalShare() public {
         uint nowBlock = block.number - initialBlock;
-        uint missingBlocks = nowBlock - latestBlock;
-        if (missingBlocks > 0) {
-            (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missingBlocks, CYCLE);           
+        uint missings = nowBlock - latestBlock;
+        if (missings > 0) {
+            (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missings, CYCLE);           
             uint pending = _totalSupply - IntegralMath.mulDivC(_totalSupply, numerator, denominator);
             rewardPool += pending;
             accRewardPerShare12 += ( 1e12 - IntegralMath.mulDivC(1e12, numerator, denominator) );

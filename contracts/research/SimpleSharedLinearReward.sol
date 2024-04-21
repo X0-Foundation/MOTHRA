@@ -88,9 +88,9 @@ contract SimpleSharedLinearReward is Ownable {
 
     function upadateWithTotalShare() public {
         uint nowBlock = block.number - initialBlock;
-        uint missingBlocks = nowBlock - latestBlock;
-        if (missingBlocks > 0) {
-            uint reward = alpha * missingBlocks;
+        uint missings = nowBlock - latestBlock;
+        if (missings > 0) {
+            uint reward = alpha * missings;
             rewardPool += reward;
             accRewardPerShare12 += reward * 1e12 / _totalSupply;
             latestBlock = nowBlock;

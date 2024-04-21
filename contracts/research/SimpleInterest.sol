@@ -94,9 +94,9 @@ contract SimpleInterest is Ownable {
 
     function upadateWithTotalShare() public {
         uint nowBlock = block.number - initialBlock;
-        uint missingBlocks = nowBlock - latestBlock;
-        if (missingBlocks > 0) {
-            (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missingBlocks, CYCLE);           
+        uint missings = nowBlock - latestBlock;
+        if (missings > 0) {
+            (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missings, CYCLE);           
             uint pending = IntegralMath.mulDivC(_totalSupply, numerator, denominator) - _totalSupply;
             rewardPool += pending;
             // accRewardPerShare12 += (IntegralMath.mulDivF(1e12, numerator, denominator) - 1e12);
