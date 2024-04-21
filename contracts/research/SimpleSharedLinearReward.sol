@@ -26,7 +26,7 @@ contract SimpleSharedLinearReward is Ownable {
 
     uint8 public constant DECIMALS = 18;
     uint public constant INITIAL_SUPPLY = 10 ** (DECIMALS+8);
-    uint public constant MAX_SUPPLY = 1000 * INITIAL_SUPPLY;
+    uint public constant MAX_SUPPLY = 10 * INITIAL_SUPPLY;
 
     //==================== ERC20 core data ====================
     string private constant _name = "SimpleSharedLinearReward";
@@ -87,8 +87,7 @@ contract SimpleSharedLinearReward is Ownable {
     }
 
     function upadateWithTotalShare() public {
-        uint nowBlock = block.number - initialBlock;
-        uint missings = nowBlock - latestBlock;
+        uint missings = block.number - initialBlock - latestBlock
         if (missings > 0) {
             uint reward = alpha * missings;
             rewardPool += reward;
@@ -114,15 +113,13 @@ contract SimpleSharedLinearReward is Ownable {
 
     function _viewUserPendingReward(address user) internal view returns (uint) {
         uint standardPending = accRewardPerShare12 * _balances[user] / 1e12 - users[user].rewardDebt;
-        uint nowBlock = block.number - initialBlock;
-        uint extraBlocks = nowBlock - latestBlock;
+        uint extraBlocks = block.number - initialBlock - latestBlock
         uint extraPending = alpha * extraBlocks * _balances[user] / _totalSupply;
         return (standardPending + extraPending);
     }
 
     function _viewTotalPendingReward() internal view returns (uint) {
-        uint nowBlock = block.number - initialBlock;
-        uint extraBlocks = nowBlock - latestBlock;
+        uint extraBlocks = block.number - initialBlock - latestBlock
         uint extraPending = alpha * extraBlocks;
         return extraPending;
     }

@@ -83,8 +83,8 @@ interface IKeep3rParameters is IBaseErrors {
   /// @return _days The reward period in days
   // function rewardPeriodTime() external view returns (uint _days);
 
-  /// @notice The inflation period is the denominator used to regulate the emission of KP3R
-  /// @return _period The denominator used to regulate the emission of KP3R
+  /// @notice The inflation period is the q used to regulate the emission of KP3R
+  /// @return _period The q used to regulate the emission of KP3R
   // function inflationPeriod() external view returns (uint _period);
 
   /// @notice The fee to be sent to governance when a user adds liquidity to a job

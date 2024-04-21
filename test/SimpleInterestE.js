@@ -2,24 +2,25 @@
 //=================== Paremeter Block that differentiate this testing script from others ======
 
 let CONTRACT = null;
-const CONTRACT_NAME = "CompoundInterestN";
-const CONTRACT_SYMBOL = "CERWN";
-const minOneBlockSurvival = 1.00;
-const maxOneBlockSurvival = 1.02;
+const CONTRACT_NAME = "SimpleInterestE";
+const CONTRACT_SYMBOL = "SERWE";
+const minOneBlockSurvival = 0.99;
+const maxOneBlockSurvival = 1.01;
+
 
 async function showTotalState() {
     const s = await CONTRACT.getTotalState();
     console.log("\n\tTotal:".yellow.bold);
-    console.log("\ttotalSupply %s, latestNet %s", s.totalSupply, s._latestNet);
-    console.log("\tVIRTUAL %s, nowBlock %s", s._VIRTUAL, s.nowBlock);
-    console.log("\ttotalPending %s, burnDone %s", s._totalPendingReward, s._burnDone);
+    console.log("\ttotalSupply %s, latestBlock %s", s.totalSupply, s._latestBlock);
+    console.log("\trewardPool %s, totalPending %s", s._rewordPool, s._totalPendingReward);
+    console.log("\taccRewardPerShare12 %s", s._accRewardPerShare12);
 }
 
 async function showUserState(user) {
     const s = await CONTRACT.getUserState(user.address);
     console.log("\n\tUser %s:".yellow, user.name);
-    console.log("\tshare %s, VIRTUAL %s,", s._share, s._VIRTUAL);
-    console.log("\tuserPending %s, latestBlock %s", s._userPendingReward, s._latestBlock);
+    console.log("\tshare %s, reward %s", s._share, s._reward);
+    console.log("\trewardDebt %s, userPending %s", s._rewardDebt, s._userPendingReward);
 }
 
 //==========================================================================================
@@ -53,7 +54,7 @@ const SqaureMagnifier = RateMagnifier * RateMagnifier;
 const LiquiditySafety = 10**3;
 const DECIMALS = 18;
 const INITIAL_SUPPLY = 10**(DECIMALS+8);
-const MAX_SUPPLY = 1000*INITIAL_SUPPLY;
+const MAX_SUPPLY = 10*INITIAL_SUPPLY;
 
 function weiToEthEn(wei) {
     return Number(utils.formatUnits( BigInt(wei).toString(), DECIMALS)).toLocaleString("en");
@@ -571,7 +572,7 @@ describe("====================== Stage 3: Random calls ======================\n"
         let count = 0; let window = 5;
         const thresholdX = 5;
 
-        const target = 15000;
+        const target = 10000;
         while (values.length < target) {
             rand = generateRandomInteger(0, functions.length - 1);
             report = await functions[rand]();

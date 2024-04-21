@@ -30,7 +30,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     string private constant sForbidden = "Forbidden";
     string private constant sZeroAddress = "Zero address";
     string private constant sExceedsBalance = "Exceeds balance";
-    uint public constant override MAX_SUPPLY = 1000 * INITIAL_SUPPLY;
+    uint public constant override MAX_SUPPLY = 10 * INITIAL_SUPPLY;
     address constant zero_address = 0x0000000000000000000000000000000000000000;
 
     //====================
@@ -103,10 +103,10 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         decayRound = block.number / _user_burn.cycleBlocks - _user_burn.initialRound;
         uint missingRounds = decayRound - _user.latestRound;
         
-        (uint numerator, uint denominator) = analyticMath.pow(
+        (uint p, uint q) = analyticMath.pow(
             RateMagnifier - _user_burn.decayRate, RateMagnifier, missingRounds, uint(1)
             );
-        uint survive12 =  IntegralMath.mulDivC(uint(1e12), numerator, denominator); // Ceil for more survival, generouse burning
+        uint survive12 =  IntegralMath.mulDivC(uint(1e12), p, q); // Ceil for more survival, generouse burning
         decay12 = uint(1e12) - survive12;
 
         uint pending = _balances[account] * decay12 / uint(1e12);    // Dust: pendingBurn has positive dusts.
@@ -151,10 +151,10 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             {
                 user_burn.latestNet += _balances[account];
 
-                (uint numerator, uint denominator) = analyticMath.pow(
+                (uint p, uint q) = analyticMath.pow(
                     RateMagnifier, RateMagnifier - user_burn.decayRate, decayRound, uint(1)  // mind of order. minus sign...
                 );
-                uint user_VIRTUAL = IntegralMath.mulDivC(_balances[account], numerator, denominator); // Ceil for mode survival
+                uint user_VIRTUAL = IntegralMath.mulDivC(_balances[account], p, q); // Ceil for mode survival
                 Users[account].VIRTUAL = user_VIRTUAL;
                 user_burn.VIRTUAL += user_VIRTUAL;
                 Users[account].latestRound = decayRound;
@@ -177,15 +177,15 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
     function _burnPending() internal view returns(uint burnPending) {
         uint decayRound = _viewPulseRound(user_burn);
                      
-        (uint numerator, uint denominator) = analyticMath.pow(
+        (uint p, uint q) = analyticMath.pow(
             RateMagnifier - user_burn.decayRate, RateMagnifier,  decayRound, uint(1)
         );  // less than 1
 
         // Choose Ceil for more survival, and for making 1-gway-error to 0-gway-error in checkConsistency
         // Otherwise, 1 and 0 will give (1-0) / 1 == 100 % error.
-        uint survival = IntegralMath.mulDivC(user_burn.VIRTUAL, numerator, denominator);
+        uint survival = IntegralMath.mulDivC(user_burn.VIRTUAL, p, q);
         burnPending = _safeSubtract(user_burn.latestNet, survival);
-        // console.log("_burnPending. decayRound, numerator, denominator: ", decayRound, numerator, denominator);
+        // console.log("_burnPending. decayRound, p, q: ", decayRound, p, q);
         // console.log("_burnPending. user_burn.VIRTUAL, burnPending: ", user_burn.VIRTUAL, burnPending);
     }
 

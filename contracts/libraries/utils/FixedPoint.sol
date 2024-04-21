@@ -46,11 +46,11 @@ library FixedPoint {
         return uq144x112(z);
     }
 
-    // returns a UQ112x112 which represents the ratio of the numerator to the denominator
-    // equivalent to encode(numerator).div(denominator)
-    function fraction(uint112 numerator, uint112 denominator) internal pure returns (uq112x112 memory) {
-        require(denominator > 0, "FixedPoint: DIV_BY_ZERO");
-        return uq112x112((uint224(numerator) << RESOLUTION) / denominator);
+    // returns a UQ112x112 which represents the ratio of the p to the q
+    // equivalent to encode(p).div(q)
+    function fraction(uint112 p, uint112 q) internal pure returns (uq112x112 memory) {
+        require(q > 0, "FixedPoint: DIV_BY_ZERO");
+        return uq112x112((uint224(p) << RESOLUTION) / q);
     }
 
     // decode a UQ112x112 into a uint112 by truncating after the radix point

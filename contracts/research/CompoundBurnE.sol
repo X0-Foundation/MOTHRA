@@ -26,7 +26,7 @@ contract CompoundBurnE is Ownable {
 
     uint8 public constant DECIMALS = 18;
     uint public constant INITIAL_SUPPLY = 10 ** (DECIMALS+8);
-    uint public constant MAX_SUPPLY = 1000 * INITIAL_SUPPLY;
+    uint public constant MAX_SUPPLY = 10 * INITIAL_SUPPLY;
 
     //==================== ERC20 core data ====================
     string private constant _name = "CompoundBurnE";
@@ -91,15 +91,14 @@ contract CompoundBurnE is Ownable {
     uint constant CYCLE = 10;
 
     function upadateWithTotalShare() public {
-        uint nowBlock = block.number - initialBlock;
-        uint missings = nowBlock - latestBlock;
+        uint missings = block.number - initialBlock - latestBlock
         if (missings > 0) {
-            (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missings, CYCLE);           
-            uint pending = _totalSupply - IntegralMath.mulDivC(_totalSupply, numerator, denominator);
+            (uint p, uint q) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missings, CYCLE);           
+            uint pending = _totalSupply - IntegralMath.mulDivC(_totalSupply, p, q);
             rewardPool += pending;
-            accRewardPerShare12 += ( 1e12 - IntegralMath.mulDivC(1e12, numerator, denominator) );
+            accRewardPerShare12 += ( 1e12 - IntegralMath.mulDivC(1e12, p, q) );
             // Do NOT simplify the above line to the below, commented out, line. will lead a Solidity panic.      
-            // accRewardPerShare12 += ( 1e12 - 1e12 * numerator / denominator );
+            // accRewardPerShare12 += ( 1e12 - 1e12 * p / q );
             latestBlock = nowBlock;
         }
     }
@@ -124,26 +123,24 @@ contract CompoundBurnE is Ownable {
 
     function _viewUserPendingReward(address user) internal view returns (uint) {
         uint standardPending = IntegralMath.mulDivC(accRewardPerShare12, _balances[user], 1e12) - users[user].rewardDebt;
-        uint nowBlock = block.number - initialBlock;
-        uint extraBlocks = nowBlock - latestBlock;
-        (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, extraBlocks, CYCLE);
-        uint extraPending = _balances[user] - IntegralMath.mulDivC(_balances[user], numerator, denominator);
+        uint extraBlocks = block.number - initialBlock - latestBlock
+        (uint p, uint q) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, extraBlocks, CYCLE);
+        uint extraPending = _balances[user] - IntegralMath.mulDivC(_balances[user], p, q);
         return (standardPending + extraPending);
     }
 
     function _viewTotalPendingReward() internal view returns (uint) {
-        uint nowBlock = block.number - initialBlock;
-        uint extraBlocks = nowBlock - latestBlock;
-        (uint numerator, uint denominator) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, extraBlocks, CYCLE);
-        uint extraPending = _totalSupply - IntegralMath.mulDivC(_totalSupply, numerator, denominator);
-        return extraPending;
+        uint extraBlocks = block.number - initialBlock - latestBlock
+        (uint p, uint q) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, extraBlocks, CYCLE);
+        uint extraPending = _totalSupply - IntegralMath.mulDivC(_totalSupply, p, q);
+        return rewardPool + extraPending;
     }
     
 
     function checkForConsistency() public view 
     returns(uint pending_collective, uint pending_marginal, uint abs_error, uint error_rate) {
 
-        pending_collective = _viewTotalPendingReward() + rewardPool;
+        pending_collective = _viewTotalPendingReward();
 
         pending_marginal += _viewUserPendingReward(owner());
         pending_marginal += _viewUserPendingReward(alice);

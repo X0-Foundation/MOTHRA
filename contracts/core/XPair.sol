@@ -238,9 +238,9 @@ contract XPair is IXPair {
                 uint rootK = SafeMath.sqrt(uint(_reserve0).mul(_reserve1));
                 uint rootKLast = SafeMath.sqrt(_kLast);
                 if (rootK > rootKLast) {
-                    uint numerator = totalSupply.mul(rootK.sub(rootKLast));
-                    uint denominator = rootK.mul(3).add(rootKLast);
-                    uint liquidity = numerator / denominator;
+                    uint p = totalSupply.mul(rootK.sub(rootKLast));
+                    uint q = rootK.mul(3).add(rootKLast);
+                    uint liquidity = p / q;
                     if (liquidity > 0) _mint(feeTo, liquidity);
                 }
             }

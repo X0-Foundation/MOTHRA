@@ -26,7 +26,7 @@ contract CompoundBurnN is Ownable {
 
     uint8 public constant DECIMALS = 18;
     uint public constant INITIAL_SUPPLY = 10 ** (DECIMALS+8);
-    uint public constant MAX_SUPPLY = 1000 * INITIAL_SUPPLY;
+    uint public constant MAX_SUPPLY = 10 * INITIAL_SUPPLY;
 
     //==================== ERC20 core data ====================
     string private constant _name = "CompoundBurnN";
@@ -129,22 +129,22 @@ contract CompoundBurnN is Ownable {
 
     function _viewUserPendingReward(address user) internal view returns (uint pending) {
         uint missings = block.number - initialBlock - users[user].latestBlock;
-        if (missings > 0) {
+        // if (missings > 0) {
             (uint p, uint q) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missings, CYCLE);
             if (block.number % 2 == 0) {
                 pending = _balances[user] - IntegralMath.mulDivF(_balances[user], p, q);
             } else {
                 pending = _safeSubtract(_balances[user], IntegralMath.mulDivC(_balances[user], p, q));
             }
-        }
+        // }
     }
 
     function _viewTotalPendingReward() internal view returns (uint pending) {
         uint missings = block.number - initialBlock - latestBlock;
-        if (missings > 0) {
+        // if (missings > 0) {
             (uint p, uint q) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missings, CYCLE);
             pending = _safeSubtract(latestNet, IntegralMath.mulDivF(VIRTUAL, p, q));
-        }
+        // }
     }
     
 

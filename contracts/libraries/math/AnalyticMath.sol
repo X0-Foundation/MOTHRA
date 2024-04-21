@@ -11,8 +11,8 @@ contract AnalyticMath {
     uint internal constant FIXED_2 = 2 << MAX_PRECISION;
 
     // Auto-generated via 'PrintLn2ScalingFactors.py'
-    uint internal constant LN2_NUMERATOR   = 0x3f80fe03f80fe03f80fe03f80fe03f8;
-    uint internal constant LN2_DENOMINATOR = 0x5b9de1d10bf4103d647b0955897ba80;
+    uint internal constant LN2_p   = 0x3f80fe03f80fe03f80fe03f80fe03f8;
+    uint internal constant LN2_q = 0x5b9de1d10bf4103d647b0955897ba80;
 
     // Auto-generated via 'PrintOptimalThresholds.py'
     uint internal constant OPT_LOG_MAX_VAL = 0x15bf0a8b1457695355fb8ac404e7a79e4;
@@ -102,7 +102,7 @@ contract AnalyticMath {
             }
         }
 
-        return res * LN2_NUMERATOR / LN2_DENOMINATOR;
+        return res * LN2_p / LN2_q;
     }}
 
     /**

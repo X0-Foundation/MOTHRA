@@ -48,7 +48,7 @@ const {
     const LiquiditySafety = 10**3;
     const DECIMALS = 18;
     const INITIAL_SUPPLY = 10**(DECIMALS+8);
-    const MAX_SUPPLY = 1000*INITIAL_SUPPLY;
+    const MAX_SUPPLY = 10*INITIAL_SUPPLY;
 
 function weiToEthEn(wei) {
     return Number(utils.formatUnits( BigInt(wei).toString(), DECIMALS)).toLocaleString("en");

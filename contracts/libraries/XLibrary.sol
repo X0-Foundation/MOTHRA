@@ -73,9 +73,9 @@ library XLibrary {
         require(amountIn > 0, "XLibrary: INSUFFICIENT_INPUT_AMOUNT");
         require(reserveIn > 0 && reserveOut > 0, "XLibrary: INSUFFICIENT_LIQUIDITY");
         uint amountInWithFee = amountIn.mul(9983); // 0.17% for LP providers. Couples with Pair code.
-        uint numerator = amountInWithFee.mul(reserveOut);
-        uint denominator = reserveIn.mul(10000).add(amountInWithFee);
-        amountOut = numerator / denominator;
+        uint p = amountInWithFee.mul(reserveOut);
+        uint q = reserveIn.mul(10000).add(amountInWithFee);
+        amountOut = p / q;
     }
 
     // given an output amount of an asset and pair reserves, returns a required input amount of the other asset
@@ -86,9 +86,9 @@ library XLibrary {
     ) internal pure returns (uint amountIn) {
         require(amountOut > 0, "XLibrary: INSUFFICIENT_OUTPUT_AMOUNT");
         require(reserveIn > 0 && reserveOut > 0, "XLibrary: INSUFFICIENT_LIQUIDITY");
-        uint numerator = reserveIn.mul(amountOut).mul(10000);
-        uint denominator = reserveOut.sub(amountOut).mul(9983); // 0.17% for LP providers. Couples with Pair code.
-        amountIn = (numerator / denominator).add(1);
+        uint p = reserveIn.mul(amountOut).mul(10000);
+        uint q = reserveOut.sub(amountOut).mul(9983); // 0.17% for LP providers. Couples with Pair code.
+        amountIn = (p / q).add(1);
     }
 
     // performs chained getAmountOut calculations on any number of pairs

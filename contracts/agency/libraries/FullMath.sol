@@ -5,16 +5,16 @@ pragma solidity >=0.8.4 <0.9.0;
 /// @notice Facilitates multiplication and division that can have overflow of an intermediate value without any loss of precision
 /// @dev Handles "phantom overflow" i.e., allows multiplication and division where an intermediate value overflows 256 bits
 library FullMath {
-  /// @notice Calculates floor(a×b÷denominator) with full precision. Throws if result overflows a uint or denominator == 0
+  /// @notice Calculates floor(a×b÷q) with full precision. Throws if result overflows a uint or q == 0
   /// @param a The multiplicand
   /// @param b The multiplier
-  /// @param denominator The divisor
+  /// @param q The divisor
   /// @return result The 256-bit result
   /// @dev Credit to Remco Bloemen under MIT license https://xn--2-umb.com/21/muldiv
   function mulDiv(
     uint a,
     uint b,
-    uint denominator
+    uint q
   ) internal pure returns (uint result) {
     unchecked {
       // 512-bit multiply [prod1 prod0] = a * b
@@ -32,16 +32,16 @@ library FullMath {
 
       // Handle non-overflow cases, 256 by 256 division
       if (prod1 == 0) {
-        require(denominator > 0);
+        require(q > 0);
         assembly {
-          result := div(prod0, denominator)
+          result := div(prod0, q)
         }
         return result;
       }
 
       // Make sure the result is less than 2**256.
-      // Also prevents denominator == 0
-      require(denominator > prod1);
+      // Also prevents q == 0
+      require(q > prod1);
 
       ///////////////////////////////////////////////
       // 512 by 256 division.
@@ -51,7 +51,7 @@ library FullMath {
       // Compute remainder using mulmod
       uint remainder;
       assembly {
-        remainder := mulmod(a, b, denominator)
+        remainder := mulmod(a, b, q)
       }
       // Subtract 256 bit number from 512 bit number
       assembly {
@@ -59,13 +59,13 @@ library FullMath {
         prod0 := sub(prod0, remainder)
       }
 
-      // Factor powers of two out of denominator
-      // Compute largest power of two divisor of denominator.
+      // Factor powers of two out of q
+      // Compute largest power of two divisor of q.
       // Always >= 1.
-      uint twos = (~denominator + 1) & denominator;
-      // Divide denominator by power of two
+      uint twos = (~q + 1) & q;
+      // Divide q by power of two
       assembly {
-        denominator := div(denominator, twos)
+        q := div(q, twos)
       }
 
       // Divide [prod1 prod0] by the factors of two
@@ -80,24 +80,24 @@ library FullMath {
       }
       prod0 |= prod1 * twos;
 
-      // Invert denominator mod 2**256
-      // Now that denominator is an odd number, it has an inverse
-      // modulo 2**256 such that denominator * inv = 1 mod 2**256.
+      // Invert q mod 2**256
+      // Now that q is an odd number, it has an inverse
+      // modulo 2**256 such that q * inv = 1 mod 2**256.
       // Compute the inverse by starting with a seed that is correct
-      // correct for four bits. That is, denominator * inv = 1 mod 2**4
-      uint inv = (3 * denominator) ^ 2;
+      // correct for four bits. That is, q * inv = 1 mod 2**4
+      uint inv = (3 * q) ^ 2;
       // Now use Newton-Raphson iteration to improve the precision.
       // Thanks to Hensel's lifting lemma, this also works in modular
       // arithmetic, doubling the correct bits in each step.
-      inv *= 2 - denominator * inv; // inverse mod 2**8
-      inv *= 2 - denominator * inv; // inverse mod 2**16
-      inv *= 2 - denominator * inv; // inverse mod 2**32
-      inv *= 2 - denominator * inv; // inverse mod 2**64
-      inv *= 2 - denominator * inv; // inverse mod 2**128
-      inv *= 2 - denominator * inv; // inverse mod 2**256
+      inv *= 2 - q * inv; // inverse mod 2**8
+      inv *= 2 - q * inv; // inverse mod 2**16
+      inv *= 2 - q * inv; // inverse mod 2**32
+      inv *= 2 - q * inv; // inverse mod 2**64
+      inv *= 2 - q * inv; // inverse mod 2**128
+      inv *= 2 - q * inv; // inverse mod 2**256
 
       // Because the division is now exact we can divide by multiplying
-      // with the modular inverse of denominator. This will give us the
+      // with the modular inverse of q. This will give us the
       // correct result modulo 2**256. Since the precoditions guarantee
       // that the outcome is less than 2**256, this is the final result.
       // We don't need to compute the high bits of the result and prod1
@@ -107,19 +107,19 @@ library FullMath {
     }
   }
 
-  /// @notice Calculates ceil(a×b÷denominator) with full precision. Throws if result overflows a uint or denominator == 0
+  /// @notice Calculates ceil(a×b÷q) with full precision. Throws if result overflows a uint or q == 0
   /// @param a The multiplicand
   /// @param b The multiplier
-  /// @param denominator The divisor
+  /// @param q The divisor
   /// @return result The 256-bit result
   function mulDivRoundingUp(
     uint a,
     uint b,
-    uint denominator
+    uint q
   ) internal pure returns (uint result) {
     unchecked {
-      result = mulDiv(a, b, denominator);
-      if (mulmod(a, b, denominator) > 0) {
+      result = mulDiv(a, b, q);
+      if (mulmod(a, b, q) > 0) {
         require(result < type(uint).max);
         result++;
       }
