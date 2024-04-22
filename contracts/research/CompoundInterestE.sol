@@ -86,8 +86,8 @@ contract CompoundInterestE is Ownable {
         _userPendingReward = _viewUserPendingReward(user);
     }
 
-    uint constant MAGNIFIER = 10 ** 5;
-    uint constant IncPerCycle = 777;
+    uint constant MAGNIFIER = 10 ** 6;
+    uint constant IncPerCycle = 1422;
     uint constant CYCLE = 10;
 
     function upadateWithTotalShare() public {
@@ -105,7 +105,7 @@ contract CompoundInterestE is Ownable {
     function _changeUserShare(address user, uint amount, bool CreditNotDebit) internal {
         upadateWithTotalShare();
         uint standardPending = IntegralMath.mulDivC(accRewardPerShare12, _balances[user], 1e12) - users[user].rewardDebt;
-        rewardPool -= standardPending;
+        rewardPool = _safeSubtract(rewardPool, standardPending);
         // users[user].reward += standardPending;
         // These two lines, replacing the above commented-out line, implement CompoundInterest.
         _balances[user] += standardPending;

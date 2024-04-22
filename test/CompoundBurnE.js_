@@ -2,10 +2,10 @@
 //=================== Paremeter Block that differentiate this testing script from others ======
 
 let CONTRACT = null;
-const CONTRACT_NAME = "CompoundInterestE";
-const CONTRACT_SYMBOL = "CERWE";
-const minOneBlockSurvival = 1.00;
-const maxOneBlockSurvival = 1.02;
+const CONTRACT_NAME = "CompoundBurnE";
+const CONTRACT_SYMBOL = "CEBNE";
+const minOneBlockSurvival = 0.98;
+const maxOneBlockSurvival = 1.00;
 
 
 async function showTotalState() {
@@ -24,6 +24,7 @@ async function showUserState(user) {
 }
 
 //==========================================================================================
+
 
 const { ethers, waffle, network, upgrades } = require("hardhat");
 const { expect, util } = require("chai");
@@ -47,8 +48,8 @@ let symbol = null;
 let tx;
 
 // These constants come from IConstants.sol.
-const FeeMagnifierPower = 5;
-const RateMagnifier = 10 ** FeeMagnifierPower;
+const MagnifierPower = 6;
+const RateMagnifier = 10 ** MagnifierPower;
 const SqaureMagnifier = RateMagnifier * RateMagnifier;
 const LiquiditySafety = 10**3;
 const DECIMALS = 18;
@@ -585,6 +586,7 @@ describe("====================== Stage 3: Random calls ======================\n"
             if (values.length % 50 == 0 ) {
                 console.log(CONTRACT_NAME);
                 await checkConsistency();
+                console.log("\tConuntdown: %s", target - values.length);
             }
         }
         json = JSON.stringify(values);

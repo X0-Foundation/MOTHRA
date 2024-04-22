@@ -86,7 +86,7 @@ contract CompoundBurn is Ownable {
         _userPendingReward = _viewUserPendingReward(user);
     }
 
-    uint constant MAGNIFIER = 10 ** 5;
+    uint constant MAGNIFIER = 10 ** 6;
     uint constant DecPerCycle = 777;
     uint constant CYCLE = 10;
 

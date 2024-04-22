@@ -87,8 +87,8 @@ contract CompoundInterest is Ownable {
         _userPendingReward = _viewUserPendingReward(user);
     }
 
-    uint constant MAGNIFIER = 10 ** 5;
-    uint constant IncPerCycle = 777;
+    uint constant MAGNIFIER = 10 ** 6;
+    uint constant IncPerCycle = 1422;
     uint constant CYCLE = 10;
 
     function upadateWithTotalShare() public {

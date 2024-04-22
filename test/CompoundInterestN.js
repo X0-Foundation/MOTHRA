@@ -47,8 +47,8 @@ let symbol = null;
 let tx;
 
 // These constants come from IConstants.sol.
-const FeeMagnifierPower = 5;
-const RateMagnifier = 10 ** FeeMagnifierPower;
+const MagnifierPower = 6;
+const RateMagnifier = 10 ** MagnifierPower;
 const SqaureMagnifier = RateMagnifier * RateMagnifier;
 const LiquiditySafety = 10**3;
 const DECIMALS = 18;
@@ -551,7 +551,7 @@ describe("====================== Stage 3: Random calls ======================\n"
     
     const functions = [ transferRandom, transferRandom, transferRandom, transferRandom, transferRandom,
         transferRandom, transferRandom, transferRandom, transferRandom, transferRandom, transferRandom,
-         mintRandom, mintRandom, burnRandom, mintBlocksRandom ];
+         mintRandom, burnRandom, mintBlocksRandom ];
 
     async function writeStringToFile(path, data) {
         const fs = require('fs')
@@ -571,7 +571,7 @@ describe("====================== Stage 3: Random calls ======================\n"
         let count = 0; let window = 5;
         const thresholdX = 5;
 
-        const target = 15000;
+        const target = 40000;
         while (values.length < target) {
             rand = generateRandomInteger(0, functions.length - 1);
             report = await functions[rand]();
@@ -585,6 +585,7 @@ describe("====================== Stage 3: Random calls ======================\n"
             if (values.length % 50 == 0 ) {
                 console.log(CONTRACT_NAME);
                 await checkConsistency();
+                console.log("\tConuntdown: %s", target - values.length);
             }
         }
         json = JSON.stringify(values);

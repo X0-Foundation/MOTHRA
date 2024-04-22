@@ -83,8 +83,8 @@ contract SimpleInterestN is Ownable {
         _latestBlock = users[user].latestBlock;
     }
 
-    uint constant MAGNIFIER = 10 ** 5;
-    uint constant IncPerCycle = 777;
+    uint constant MAGNIFIER = 10 ** 6;
+    uint constant IncPerCycle = 1422;
     uint constant CYCLE = 10;
 
     uint latestNet; uint VIRTUAL; uint burnDone; uint latestBlock;
@@ -162,15 +162,12 @@ contract SimpleInterestN is Ownable {
         if (pending_collective < pending_marginal) {
             abs_error = pending_marginal - pending_collective;
             pending_max = pending_marginal;
-            console.log("check --- marginal greater");
 
         } else {
             abs_error = pending_collective - pending_marginal;
             pending_max = pending_collective;
             if (pending_collective > pending_marginal) {
-                console.log("check --- collective greater");
             } else {
-                console.log("check --- balanced");
             }
         }
 

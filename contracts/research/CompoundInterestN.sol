@@ -83,8 +83,8 @@ contract CompoundInterestN is Ownable {
         _latestBlock = users[user].latestBlock;
     }
 
-    uint constant MAGNIFIER = 10 ** 5;
-    uint constant IncPerCycle = 777;
+    uint constant MAGNIFIER = 10 ** 6;
+    uint constant IncPerCycle = 1422;
     uint constant CYCLE = 10;
 
     uint latestNet; uint VIRTUAL; uint burnDone; uint latestBlock;

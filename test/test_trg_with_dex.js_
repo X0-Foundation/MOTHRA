@@ -42,8 +42,8 @@ const {
     let tx;
     
     // These constants come from IConstants.sol.
-    const FeeMagnifierPower = 5;
-    const RateMagnifier = 10 ** FeeMagnifierPower;
+    const MagnifierPower = 6;
+    const RateMagnifier = 10 ** MagnifierPower;
     const SqaureMagnifier = RateMagnifier * RateMagnifier;
     const LiquiditySafety = 10**3;
     const DECIMALS = 18;

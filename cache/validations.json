@@ -136,6 +136,4400 @@
           "flat": false
         }
       },
+      "CompoundBurn": {
+        "src": "contracts\\research\\CompoundBurn.sol:18",
+        "version": {
+          "withMetadata": "07b8a294b9bad7c07d289fb1eae79b4affe68915a3a01b9c9f68e04d294c5e55",
+          "withoutMetadata": "b22e548cecc379e51bbc33fa6e818e0e2732111c9845d41cb2ef1886c3c14787",
+          "linkedWithoutMetadata": "b22e548cecc379e51bbc33fa6e818e0e2732111c9845d41cb2ef1886c3c14787"
+        },
+        "inherit": [
+          "Ownable",
+          "Context"
+        ],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "getTotalState()",
+          "getUserState(address)",
+          "upadateWithTotalShare()",
+          "checkForConsistency()",
+          "(address)",
+          "_decreaseAllowance(address,address,uint256)",
+          "name()",
+          "symbol()",
+          "decimals()",
+          "totalSupply()",
+          "balanceOf(address)",
+          "mint(address,uint256)",
+          "burn(address,uint256)",
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)",
+          "allowance(address,address)",
+          "approve(address,uint256)",
+          "increaseAllowance(address,uint256)",
+          "decreaseAllowance(address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "CompoundBurn",
+            "src": "contracts\\research\\CompoundBurn.sol:173"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "Ownable",
+              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
+            },
+            {
+              "label": "_allowances",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "CompoundBurn",
+              "src": "contracts\\research\\CompoundBurn.sol:35"
+            },
+            {
+              "label": "_balances",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "CompoundBurn",
+              "src": "contracts\\research\\CompoundBurn.sol:36"
+            },
+            {
+              "label": "_totalSupply",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "CompoundBurn",
+              "src": "contracts\\research\\CompoundBurn.sol:37"
+            },
+            {
+              "label": "initialBlock",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_uint256",
+              "contract": "CompoundBurn",
+              "src": "contracts\\research\\CompoundBurn.sol:60"
+            },
+            {
+              "label": "latestBlock",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_uint256",
+              "contract": "CompoundBurn",
+              "src": "contracts\\research\\CompoundBurn.sol:61"
+            },
+            {
+              "label": "rewardPool",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_uint256",
+              "contract": "CompoundBurn",
+              "src": "contracts\\research\\CompoundBurn.sol:62"
+            },
+            {
+              "label": "accRewardPerShare12",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_uint256",
+              "contract": "CompoundBurn",
+              "src": "contracts\\research\\CompoundBurn.sol:63"
+            },
+            {
+              "label": "users",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_mapping(t_address,t_struct(User)3404_storage)",
+              "contract": "CompoundBurn",
+              "src": "contracts\\research\\CompoundBurn.sol:64"
+            },
+            {
+              "label": "alice",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_address",
+              "contract": "CompoundBurn",
+              "src": "contracts\\research\\CompoundBurn.sol:67"
+            },
+            {
+              "label": "bob",
+              "offset": 0,
+              "slot": "10",
+              "type": "t_address",
+              "contract": "CompoundBurn",
+              "src": "contracts\\research\\CompoundBurn.sol:67"
+            },
+            {
+              "label": "carol",
+              "offset": 0,
+              "slot": "11",
+              "type": "t_address",
+              "contract": "CompoundBurn",
+              "src": "contracts\\research\\CompoundBurn.sol:67"
+            },
+            {
+              "label": "analyticMath",
+              "offset": 0,
+              "slot": "12",
+              "type": "t_contract(AnalyticMath)2365",
+              "contract": "CompoundBurn",
+              "src": "contracts\\research\\CompoundBurn.sol:171"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_contract(AnalyticMath)2365": {
+              "label": "contract AnalyticMath",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_struct(User)3404_storage)": {
+              "label": "mapping(address => struct CompoundBurn.User)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(User)3404_storage": {
+              "label": "struct CompoundBurn.User",
+              "members": [
+                {
+                  "label": "rewardDebt",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "reward",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "CompoundBurnE": {
+        "src": "contracts\\research\\CompoundBurnE.sol:18",
+        "version": {
+          "withMetadata": "3124734ae98734eb4d8f7c43a6fa84df5cb53a2d68cd95288a31f9ff013bc429",
+          "withoutMetadata": "9800f980657d988fada9756586257663b3ce93e735bc16d8946183b31a4e748a",
+          "linkedWithoutMetadata": "9800f980657d988fada9756586257663b3ce93e735bc16d8946183b31a4e748a"
+        },
+        "inherit": [
+          "Ownable",
+          "Context"
+        ],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "getTotalState()",
+          "getUserState(address)",
+          "upadateWithTotalShare()",
+          "checkForConsistency()",
+          "(address)",
+          "_decreaseAllowance(address,address,uint256)",
+          "name()",
+          "symbol()",
+          "decimals()",
+          "totalSupply()",
+          "balanceOf(address)",
+          "mint(address,uint256)",
+          "burn(address,uint256)",
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)",
+          "allowance(address,address)",
+          "approve(address,uint256)",
+          "increaseAllowance(address,uint256)",
+          "decreaseAllowance(address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "CompoundBurnE",
+            "src": "contracts\\research\\CompoundBurnE.sol:174"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "Ownable",
+              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
+            },
+            {
+              "label": "_allowances",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "CompoundBurnE",
+              "src": "contracts\\research\\CompoundBurnE.sol:35"
+            },
+            {
+              "label": "_balances",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "CompoundBurnE",
+              "src": "contracts\\research\\CompoundBurnE.sol:36"
+            },
+            {
+              "label": "_totalSupply",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "CompoundBurnE",
+              "src": "contracts\\research\\CompoundBurnE.sol:37"
+            },
+            {
+              "label": "initialBlock",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_uint256",
+              "contract": "CompoundBurnE",
+              "src": "contracts\\research\\CompoundBurnE.sol:60"
+            },
+            {
+              "label": "latestBlock",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_uint256",
+              "contract": "CompoundBurnE",
+              "src": "contracts\\research\\CompoundBurnE.sol:61"
+            },
+            {
+              "label": "rewardPool",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_uint256",
+              "contract": "CompoundBurnE",
+              "src": "contracts\\research\\CompoundBurnE.sol:62"
+            },
+            {
+              "label": "accRewardPerShare12",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_uint256",
+              "contract": "CompoundBurnE",
+              "src": "contracts\\research\\CompoundBurnE.sol:63"
+            },
+            {
+              "label": "users",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_mapping(t_address,t_struct(User)4526_storage)",
+              "contract": "CompoundBurnE",
+              "src": "contracts\\research\\CompoundBurnE.sol:64"
+            },
+            {
+              "label": "alice",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_address",
+              "contract": "CompoundBurnE",
+              "src": "contracts\\research\\CompoundBurnE.sol:67"
+            },
+            {
+              "label": "bob",
+              "offset": 0,
+              "slot": "10",
+              "type": "t_address",
+              "contract": "CompoundBurnE",
+              "src": "contracts\\research\\CompoundBurnE.sol:67"
+            },
+            {
+              "label": "carol",
+              "offset": 0,
+              "slot": "11",
+              "type": "t_address",
+              "contract": "CompoundBurnE",
+              "src": "contracts\\research\\CompoundBurnE.sol:67"
+            },
+            {
+              "label": "analyticMath",
+              "offset": 0,
+              "slot": "12",
+              "type": "t_contract(AnalyticMath)2365",
+              "contract": "CompoundBurnE",
+              "src": "contracts\\research\\CompoundBurnE.sol:172"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_contract(AnalyticMath)2365": {
+              "label": "contract AnalyticMath",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_struct(User)4526_storage)": {
+              "label": "mapping(address => struct CompoundBurnE.User)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(User)4526_storage": {
+              "label": "struct CompoundBurnE.User",
+              "members": [
+                {
+                  "label": "rewardDebt",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "reward",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "CompoundBurnN": {
+        "src": "contracts\\research\\CompoundBurnN.sol:18",
+        "version": {
+          "withMetadata": "1609d7512106ad52e986b2401d73e1122f88551c7ba6156175796c2019c70f38",
+          "withoutMetadata": "83cc4e5341ed81e73511fbab1c1956f4f12049b3785c4b865368fb507d113cb6",
+          "linkedWithoutMetadata": "83cc4e5341ed81e73511fbab1c1956f4f12049b3785c4b865368fb507d113cb6"
+        },
+        "inherit": [
+          "Ownable",
+          "Context"
+        ],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "getTotalState()",
+          "getUserState(address)",
+          "checkForConsistency()",
+          "(address)",
+          "_decreaseAllowance(address,address,uint256)",
+          "name()",
+          "symbol()",
+          "decimals()",
+          "totalSupply()",
+          "balanceOf(address)",
+          "mint(address,uint256)",
+          "burn(address,uint256)",
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)",
+          "allowance(address,address)",
+          "approve(address,uint256)",
+          "increaseAllowance(address,uint256)",
+          "decreaseAllowance(address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "CompoundBurnN",
+            "src": "contracts\\research\\CompoundBurnN.sol:186"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "Ownable",
+              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
+            },
+            {
+              "label": "_allowances",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:35"
+            },
+            {
+              "label": "_balances",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:36"
+            },
+            {
+              "label": "_totalSupply",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:37"
+            },
+            {
+              "label": "initialBlock",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_uint256",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:58"
+            },
+            {
+              "label": "users",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_mapping(t_address,t_struct(User)5651_storage)",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:59"
+            },
+            {
+              "label": "alice",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_address",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:62"
+            },
+            {
+              "label": "bob",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_address",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:62"
+            },
+            {
+              "label": "carol",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_address",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:62"
+            },
+            {
+              "label": "latestNet",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_uint256",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:90"
+            },
+            {
+              "label": "VIRTUAL",
+              "offset": 0,
+              "slot": "10",
+              "type": "t_uint256",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:90"
+            },
+            {
+              "label": "burnDone",
+              "offset": 0,
+              "slot": "11",
+              "type": "t_uint256",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:90"
+            },
+            {
+              "label": "latestBlock",
+              "offset": 0,
+              "slot": "12",
+              "type": "t_uint256",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:90"
+            },
+            {
+              "label": "analyticMath",
+              "offset": 0,
+              "slot": "13",
+              "type": "t_contract(AnalyticMath)2365",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:184"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_contract(AnalyticMath)2365": {
+              "label": "contract AnalyticMath",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_struct(User)5651_storage)": {
+              "label": "mapping(address => struct CompoundBurnN.User)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(User)5651_storage": {
+              "label": "struct CompoundBurnN.User",
+              "members": [
+                {
+                  "label": "reward",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "latestBlock",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "CompoundInterest": {
+        "src": "contracts\\research\\CompoundInterest.sol:18",
+        "version": {
+          "withMetadata": "795b0acaf43097752823631bf031e16cafe4a19aac66868e73447827d32e16c1",
+          "withoutMetadata": "bcde24045d35751f706b2d2e3003f62f81d64e0eb7709c7865e74b236c6d702e",
+          "linkedWithoutMetadata": "bcde24045d35751f706b2d2e3003f62f81d64e0eb7709c7865e74b236c6d702e"
+        },
+        "inherit": [
+          "Ownable",
+          "Context"
+        ],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "getTotalState()",
+          "getUserState(address)",
+          "upadateWithTotalShare()",
+          "checkForConsistency()",
+          "(address)",
+          "_decreaseAllowance(address,address,uint256)",
+          "name()",
+          "symbol()",
+          "decimals()",
+          "totalSupply()",
+          "balanceOf(address)",
+          "mint(address,uint256)",
+          "burn(address,uint256)",
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)",
+          "allowance(address,address)",
+          "approve(address,uint256)",
+          "increaseAllowance(address,uint256)",
+          "decreaseAllowance(address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "CompoundInterest",
+            "src": "contracts\\research\\CompoundInterest.sol:181"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "Ownable",
+              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
+            },
+            {
+              "label": "_allowances",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "CompoundInterest",
+              "src": "contracts\\research\\CompoundInterest.sol:35"
+            },
+            {
+              "label": "_balances",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "CompoundInterest",
+              "src": "contracts\\research\\CompoundInterest.sol:36"
+            },
+            {
+              "label": "_totalSupply",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "CompoundInterest",
+              "src": "contracts\\research\\CompoundInterest.sol:37"
+            },
+            {
+              "label": "initialBlock",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_uint256",
+              "contract": "CompoundInterest",
+              "src": "contracts\\research\\CompoundInterest.sol:61"
+            },
+            {
+              "label": "latestBlock",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_uint256",
+              "contract": "CompoundInterest",
+              "src": "contracts\\research\\CompoundInterest.sol:62"
+            },
+            {
+              "label": "rewardPool",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_uint256",
+              "contract": "CompoundInterest",
+              "src": "contracts\\research\\CompoundInterest.sol:63"
+            },
+            {
+              "label": "accRewardPerShare12",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_uint256",
+              "contract": "CompoundInterest",
+              "src": "contracts\\research\\CompoundInterest.sol:64"
+            },
+            {
+              "label": "users",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_mapping(t_address,t_struct(User)6841_storage)",
+              "contract": "CompoundInterest",
+              "src": "contracts\\research\\CompoundInterest.sol:65"
+            },
+            {
+              "label": "alice",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_address",
+              "contract": "CompoundInterest",
+              "src": "contracts\\research\\CompoundInterest.sol:68"
+            },
+            {
+              "label": "bob",
+              "offset": 0,
+              "slot": "10",
+              "type": "t_address",
+              "contract": "CompoundInterest",
+              "src": "contracts\\research\\CompoundInterest.sol:68"
+            },
+            {
+              "label": "carol",
+              "offset": 0,
+              "slot": "11",
+              "type": "t_address",
+              "contract": "CompoundInterest",
+              "src": "contracts\\research\\CompoundInterest.sol:68"
+            },
+            {
+              "label": "analyticMath",
+              "offset": 0,
+              "slot": "12",
+              "type": "t_contract(AnalyticMath)2365",
+              "contract": "CompoundInterest",
+              "src": "contracts\\research\\CompoundInterest.sol:179"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_contract(AnalyticMath)2365": {
+              "label": "contract AnalyticMath",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_struct(User)6841_storage)": {
+              "label": "mapping(address => struct CompoundInterest.User)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(User)6841_storage": {
+              "label": "struct CompoundInterest.User",
+              "members": [
+                {
+                  "label": "rewardDebt",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "reward",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                },
+                {
+                  "label": "latestBlock",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "2"
+                }
+              ],
+              "numberOfBytes": "96"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "CompoundInterestE": {
+        "src": "contracts\\research\\CompoundInterestE.sol:18",
+        "version": {
+          "withMetadata": "d74ffd99866362f1a3011a72e74b948c33483b7176698ef0b7f358407011a88a",
+          "withoutMetadata": "a2629664b1967b95c704aa0c742121fbfe96236db32a101eaa7985786cfce969",
+          "linkedWithoutMetadata": "a2629664b1967b95c704aa0c742121fbfe96236db32a101eaa7985786cfce969"
+        },
+        "inherit": [
+          "Ownable",
+          "Context"
+        ],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "getTotalState()",
+          "getUserState(address)",
+          "upadateWithTotalShare()",
+          "checkForConsistency()",
+          "(address)",
+          "_decreaseAllowance(address,address,uint256)",
+          "name()",
+          "symbol()",
+          "decimals()",
+          "totalSupply()",
+          "balanceOf(address)",
+          "mint(address,uint256)",
+          "burn(address,uint256)",
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)",
+          "allowance(address,address)",
+          "approve(address,uint256)",
+          "increaseAllowance(address,uint256)",
+          "decreaseAllowance(address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "CompoundInterestE",
+            "src": "contracts\\research\\CompoundInterestE.sol:173"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "Ownable",
+              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
+            },
+            {
+              "label": "_allowances",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:35"
+            },
+            {
+              "label": "_balances",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:36"
+            },
+            {
+              "label": "_totalSupply",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:37"
+            },
+            {
+              "label": "initialBlock",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_uint256",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:60"
+            },
+            {
+              "label": "latestBlock",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_uint256",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:61"
+            },
+            {
+              "label": "rewardPool",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_uint256",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:62"
+            },
+            {
+              "label": "accRewardPerShare12",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_uint256",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:63"
+            },
+            {
+              "label": "users",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_mapping(t_address,t_struct(User)7951_storage)",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:64"
+            },
+            {
+              "label": "alice",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_address",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:67"
+            },
+            {
+              "label": "bob",
+              "offset": 0,
+              "slot": "10",
+              "type": "t_address",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:67"
+            },
+            {
+              "label": "carol",
+              "offset": 0,
+              "slot": "11",
+              "type": "t_address",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:67"
+            },
+            {
+              "label": "analyticMath",
+              "offset": 0,
+              "slot": "12",
+              "type": "t_contract(AnalyticMath)2365",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:171"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_contract(AnalyticMath)2365": {
+              "label": "contract AnalyticMath",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_struct(User)7951_storage)": {
+              "label": "mapping(address => struct CompoundInterestE.User)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(User)7951_storage": {
+              "label": "struct CompoundInterestE.User",
+              "members": [
+                {
+                  "label": "rewardDebt",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "reward",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "CompoundInterestN": {
+        "src": "contracts\\research\\CompoundInterestN.sol:18",
+        "version": {
+          "withMetadata": "a18f4f9f27685b0b49a7189f478119a825ea874e87693ac95a039782651d5af2",
+          "withoutMetadata": "49d72a2a26627c675b4d62bae303f15f3d7f480a1dbc2ed10546c7f0e77e7f47",
+          "linkedWithoutMetadata": "49d72a2a26627c675b4d62bae303f15f3d7f480a1dbc2ed10546c7f0e77e7f47"
+        },
+        "inherit": [
+          "Ownable",
+          "Context"
+        ],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "getTotalState()",
+          "getUserState(address)",
+          "checkForConsistency()",
+          "(address)",
+          "_decreaseAllowance(address,address,uint256)",
+          "name()",
+          "symbol()",
+          "decimals()",
+          "totalSupply()",
+          "balanceOf(address)",
+          "mint(address,uint256)",
+          "burn(address,uint256)",
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)",
+          "allowance(address,address)",
+          "approve(address,uint256)",
+          "increaseAllowance(address,uint256)",
+          "decreaseAllowance(address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "CompoundInterestN",
+            "src": "contracts\\research\\CompoundInterestN.sol:189"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "Ownable",
+              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
+            },
+            {
+              "label": "_allowances",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "CompoundInterestN",
+              "src": "contracts\\research\\CompoundInterestN.sol:35"
+            },
+            {
+              "label": "_balances",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "CompoundInterestN",
+              "src": "contracts\\research\\CompoundInterestN.sol:36"
+            },
+            {
+              "label": "_totalSupply",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "CompoundInterestN",
+              "src": "contracts\\research\\CompoundInterestN.sol:37"
+            },
+            {
+              "label": "initialBlock",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_uint256",
+              "contract": "CompoundInterestN",
+              "src": "contracts\\research\\CompoundInterestN.sol:58"
+            },
+            {
+              "label": "users",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_mapping(t_address,t_struct(User)9079_storage)",
+              "contract": "CompoundInterestN",
+              "src": "contracts\\research\\CompoundInterestN.sol:59"
+            },
+            {
+              "label": "alice",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_address",
+              "contract": "CompoundInterestN",
+              "src": "contracts\\research\\CompoundInterestN.sol:62"
+            },
+            {
+              "label": "bob",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_address",
+              "contract": "CompoundInterestN",
+              "src": "contracts\\research\\CompoundInterestN.sol:62"
+            },
+            {
+              "label": "carol",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_address",
+              "contract": "CompoundInterestN",
+              "src": "contracts\\research\\CompoundInterestN.sol:62"
+            },
+            {
+              "label": "latestNet",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_uint256",
+              "contract": "CompoundInterestN",
+              "src": "contracts\\research\\CompoundInterestN.sol:90"
+            },
+            {
+              "label": "VIRTUAL",
+              "offset": 0,
+              "slot": "10",
+              "type": "t_uint256",
+              "contract": "CompoundInterestN",
+              "src": "contracts\\research\\CompoundInterestN.sol:90"
+            },
+            {
+              "label": "burnDone",
+              "offset": 0,
+              "slot": "11",
+              "type": "t_uint256",
+              "contract": "CompoundInterestN",
+              "src": "contracts\\research\\CompoundInterestN.sol:90"
+            },
+            {
+              "label": "latestBlock",
+              "offset": 0,
+              "slot": "12",
+              "type": "t_uint256",
+              "contract": "CompoundInterestN",
+              "src": "contracts\\research\\CompoundInterestN.sol:90"
+            },
+            {
+              "label": "analyticMath",
+              "offset": 0,
+              "slot": "13",
+              "type": "t_contract(AnalyticMath)2365",
+              "contract": "CompoundInterestN",
+              "src": "contracts\\research\\CompoundInterestN.sol:187"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_contract(AnalyticMath)2365": {
+              "label": "contract AnalyticMath",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_struct(User)9079_storage)": {
+              "label": "mapping(address => struct CompoundInterestN.User)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(User)9079_storage": {
+              "label": "struct CompoundInterestN.User",
+              "members": [
+                {
+                  "label": "reward",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "latestBlock",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "SimpleBurn": {
+        "src": "contracts\\research\\SimpleBurn.sol:18",
+        "version": {
+          "withMetadata": "554fd0badc711446ef7899da46ecc2dc7e572d1930429b2853872d8203296f67",
+          "withoutMetadata": "03f9c9b3da0668f46f616092f88ef5b6c13750a5181424e4c2aede63fc4b8375",
+          "linkedWithoutMetadata": "03f9c9b3da0668f46f616092f88ef5b6c13750a5181424e4c2aede63fc4b8375"
+        },
+        "inherit": [
+          "Ownable",
+          "Context"
+        ],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "getTotalState()",
+          "getUserState(address)",
+          "upadateWithTotalShare()",
+          "checkForConsistency()",
+          "(address)",
+          "_decreaseAllowance(address,address,uint256)",
+          "name()",
+          "symbol()",
+          "decimals()",
+          "totalSupply()",
+          "balanceOf(address)",
+          "mint(address,uint256)",
+          "burn(address,uint256)",
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)",
+          "allowance(address,address)",
+          "approve(address,uint256)",
+          "increaseAllowance(address,uint256)",
+          "decreaseAllowance(address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "SimpleBurn",
+            "src": "contracts\\research\\SimpleBurn.sol:171"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "Ownable",
+              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
+            },
+            {
+              "label": "_allowances",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "SimpleBurn",
+              "src": "contracts\\research\\SimpleBurn.sol:35"
+            },
+            {
+              "label": "_balances",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "SimpleBurn",
+              "src": "contracts\\research\\SimpleBurn.sol:36"
+            },
+            {
+              "label": "_totalSupply",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "SimpleBurn",
+              "src": "contracts\\research\\SimpleBurn.sol:37"
+            },
+            {
+              "label": "initialBlock",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_uint256",
+              "contract": "SimpleBurn",
+              "src": "contracts\\research\\SimpleBurn.sol:60"
+            },
+            {
+              "label": "latestBlock",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_uint256",
+              "contract": "SimpleBurn",
+              "src": "contracts\\research\\SimpleBurn.sol:61"
+            },
+            {
+              "label": "rewardPool",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_uint256",
+              "contract": "SimpleBurn",
+              "src": "contracts\\research\\SimpleBurn.sol:62"
+            },
+            {
+              "label": "accRewardPerShare12",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_uint256",
+              "contract": "SimpleBurn",
+              "src": "contracts\\research\\SimpleBurn.sol:63"
+            },
+            {
+              "label": "users",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_mapping(t_address,t_struct(User)10258_storage)",
+              "contract": "SimpleBurn",
+              "src": "contracts\\research\\SimpleBurn.sol:64"
+            },
+            {
+              "label": "alice",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_address",
+              "contract": "SimpleBurn",
+              "src": "contracts\\research\\SimpleBurn.sol:67"
+            },
+            {
+              "label": "bob",
+              "offset": 0,
+              "slot": "10",
+              "type": "t_address",
+              "contract": "SimpleBurn",
+              "src": "contracts\\research\\SimpleBurn.sol:67"
+            },
+            {
+              "label": "carol",
+              "offset": 0,
+              "slot": "11",
+              "type": "t_address",
+              "contract": "SimpleBurn",
+              "src": "contracts\\research\\SimpleBurn.sol:67"
+            },
+            {
+              "label": "analyticMath",
+              "offset": 0,
+              "slot": "12",
+              "type": "t_contract(AnalyticMath)2365",
+              "contract": "SimpleBurn",
+              "src": "contracts\\research\\SimpleBurn.sol:169"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_contract(AnalyticMath)2365": {
+              "label": "contract AnalyticMath",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_struct(User)10258_storage)": {
+              "label": "mapping(address => struct SimpleBurn.User)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(User)10258_storage": {
+              "label": "struct SimpleBurn.User",
+              "members": [
+                {
+                  "label": "rewardDebt",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "reward",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "SimpleBurnE": {
+        "src": "contracts\\research\\SimpleBurnE.sol:18",
+        "version": {
+          "withMetadata": "8892731b2f34e54afc012a1d6cc66903680840b5c878fdfae74d17a43a80fa70",
+          "withoutMetadata": "26a95aa9d600f8aac25ab1113134bc45fe0d5c4fce50602b030d939ba825c3d1",
+          "linkedWithoutMetadata": "26a95aa9d600f8aac25ab1113134bc45fe0d5c4fce50602b030d939ba825c3d1"
+        },
+        "inherit": [
+          "Ownable",
+          "Context"
+        ],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "getTotalState()",
+          "getUserState(address)",
+          "upadateWithTotalShare()",
+          "checkForConsistency()",
+          "(address)",
+          "_decreaseAllowance(address,address,uint256)",
+          "name()",
+          "symbol()",
+          "decimals()",
+          "totalSupply()",
+          "balanceOf(address)",
+          "mint(address,uint256)",
+          "burn(address,uint256)",
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)",
+          "allowance(address,address)",
+          "approve(address,uint256)",
+          "increaseAllowance(address,uint256)",
+          "decreaseAllowance(address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "SimpleBurnE",
+            "src": "contracts\\research\\SimpleBurnE.sol:171"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "Ownable",
+              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
+            },
+            {
+              "label": "_allowances",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "SimpleBurnE",
+              "src": "contracts\\research\\SimpleBurnE.sol:35"
+            },
+            {
+              "label": "_balances",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "SimpleBurnE",
+              "src": "contracts\\research\\SimpleBurnE.sol:36"
+            },
+            {
+              "label": "_totalSupply",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "SimpleBurnE",
+              "src": "contracts\\research\\SimpleBurnE.sol:37"
+            },
+            {
+              "label": "initialBlock",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_uint256",
+              "contract": "SimpleBurnE",
+              "src": "contracts\\research\\SimpleBurnE.sol:60"
+            },
+            {
+              "label": "latestBlock",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_uint256",
+              "contract": "SimpleBurnE",
+              "src": "contracts\\research\\SimpleBurnE.sol:61"
+            },
+            {
+              "label": "rewardPool",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_uint256",
+              "contract": "SimpleBurnE",
+              "src": "contracts\\research\\SimpleBurnE.sol:62"
+            },
+            {
+              "label": "accRewardPerShare12",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_uint256",
+              "contract": "SimpleBurnE",
+              "src": "contracts\\research\\SimpleBurnE.sol:63"
+            },
+            {
+              "label": "users",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_mapping(t_address,t_struct(User)11370_storage)",
+              "contract": "SimpleBurnE",
+              "src": "contracts\\research\\SimpleBurnE.sol:64"
+            },
+            {
+              "label": "alice",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_address",
+              "contract": "SimpleBurnE",
+              "src": "contracts\\research\\SimpleBurnE.sol:67"
+            },
+            {
+              "label": "bob",
+              "offset": 0,
+              "slot": "10",
+              "type": "t_address",
+              "contract": "SimpleBurnE",
+              "src": "contracts\\research\\SimpleBurnE.sol:67"
+            },
+            {
+              "label": "carol",
+              "offset": 0,
+              "slot": "11",
+              "type": "t_address",
+              "contract": "SimpleBurnE",
+              "src": "contracts\\research\\SimpleBurnE.sol:67"
+            },
+            {
+              "label": "analyticMath",
+              "offset": 0,
+              "slot": "12",
+              "type": "t_contract(AnalyticMath)2365",
+              "contract": "SimpleBurnE",
+              "src": "contracts\\research\\SimpleBurnE.sol:169"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_contract(AnalyticMath)2365": {
+              "label": "contract AnalyticMath",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_struct(User)11370_storage)": {
+              "label": "mapping(address => struct SimpleBurnE.User)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(User)11370_storage": {
+              "label": "struct SimpleBurnE.User",
+              "members": [
+                {
+                  "label": "rewardDebt",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "reward",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "SimpleBurnN": {
+        "src": "contracts\\research\\SimpleBurnN.sol:18",
+        "version": {
+          "withMetadata": "249619d1711ebad13486eff5bd39630fd3e416b4c4c86ecb78bbce7f365a70fc",
+          "withoutMetadata": "191e5ae004708c267991fea90ec20e3d1e9c3b2dc7b0d58bfb617609befb8ea4",
+          "linkedWithoutMetadata": "191e5ae004708c267991fea90ec20e3d1e9c3b2dc7b0d58bfb617609befb8ea4"
+        },
+        "inherit": [
+          "Ownable",
+          "Context"
+        ],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "getTotalState()",
+          "getUserState(address)",
+          "checkForConsistency()",
+          "(address)",
+          "_decreaseAllowance(address,address,uint256)",
+          "name()",
+          "symbol()",
+          "decimals()",
+          "totalSupply()",
+          "balanceOf(address)",
+          "mint(address,uint256)",
+          "burn(address,uint256)",
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)",
+          "allowance(address,address)",
+          "approve(address,uint256)",
+          "increaseAllowance(address,uint256)",
+          "decreaseAllowance(address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "SimpleBurnN",
+            "src": "contracts\\research\\SimpleBurnN.sol:186"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "Ownable",
+              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
+            },
+            {
+              "label": "_allowances",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:35"
+            },
+            {
+              "label": "_balances",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:36"
+            },
+            {
+              "label": "_totalSupply",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:37"
+            },
+            {
+              "label": "initialBlock",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_uint256",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:58"
+            },
+            {
+              "label": "users",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_mapping(t_address,t_struct(User)12485_storage)",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:59"
+            },
+            {
+              "label": "alice",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_address",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:62"
+            },
+            {
+              "label": "bob",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_address",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:62"
+            },
+            {
+              "label": "carol",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_address",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:62"
+            },
+            {
+              "label": "latestNet",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_uint256",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:90"
+            },
+            {
+              "label": "VIRTUAL",
+              "offset": 0,
+              "slot": "10",
+              "type": "t_uint256",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:90"
+            },
+            {
+              "label": "burnDone",
+              "offset": 0,
+              "slot": "11",
+              "type": "t_uint256",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:90"
+            },
+            {
+              "label": "latestBlock",
+              "offset": 0,
+              "slot": "12",
+              "type": "t_uint256",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:90"
+            },
+            {
+              "label": "analyticMath",
+              "offset": 0,
+              "slot": "13",
+              "type": "t_contract(AnalyticMath)2365",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:184"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_contract(AnalyticMath)2365": {
+              "label": "contract AnalyticMath",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_struct(User)12485_storage)": {
+              "label": "mapping(address => struct SimpleBurnN.User)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(User)12485_storage": {
+              "label": "struct SimpleBurnN.User",
+              "members": [
+                {
+                  "label": "reward",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "latestBlock",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "SimpleInterest": {
+        "src": "contracts\\research\\SimpleInterest.sol:20",
+        "version": {
+          "withMetadata": "809937a1232ce7c2af4bfaab30d41f972b6bfce0043b86393a63c9d21fe6e1f7",
+          "withoutMetadata": "93cef39ee34aab399784525582190e01864222bcc700dfde791fe2e429ef9c14",
+          "linkedWithoutMetadata": "93cef39ee34aab399784525582190e01864222bcc700dfde791fe2e429ef9c14"
+        },
+        "inherit": [
+          "Ownable",
+          "Context"
+        ],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "getTotalState()",
+          "getUserState(address)",
+          "upadateWithTotalShare()",
+          "checkForConsistency()",
+          "(address)",
+          "_decreaseAllowance(address,address,uint256)",
+          "name()",
+          "symbol()",
+          "decimals()",
+          "totalSupply()",
+          "balanceOf(address)",
+          "mint(address,uint256)",
+          "burn(address,uint256)",
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)",
+          "allowance(address,address)",
+          "approve(address,uint256)",
+          "increaseAllowance(address,uint256)",
+          "decreaseAllowance(address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "SimpleInterest",
+            "src": "contracts\\research\\SimpleInterest.sol:172"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "Ownable",
+              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
+            },
+            {
+              "label": "_allowances",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "SimpleInterest",
+              "src": "contracts\\research\\SimpleInterest.sol:37"
+            },
+            {
+              "label": "_balances",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "SimpleInterest",
+              "src": "contracts\\research\\SimpleInterest.sol:38"
+            },
+            {
+              "label": "_totalSupply",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "SimpleInterest",
+              "src": "contracts\\research\\SimpleInterest.sol:39"
+            },
+            {
+              "label": "initialBlock",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_uint256",
+              "contract": "SimpleInterest",
+              "src": "contracts\\research\\SimpleInterest.sol:62"
+            },
+            {
+              "label": "latestBlock",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_uint256",
+              "contract": "SimpleInterest",
+              "src": "contracts\\research\\SimpleInterest.sol:63"
+            },
+            {
+              "label": "rewardPool",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_uint256",
+              "contract": "SimpleInterest",
+              "src": "contracts\\research\\SimpleInterest.sol:64"
+            },
+            {
+              "label": "accRewardPerShare12",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_uint256",
+              "contract": "SimpleInterest",
+              "src": "contracts\\research\\SimpleInterest.sol:65"
+            },
+            {
+              "label": "users",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_mapping(t_address,t_struct(User)13667_storage)",
+              "contract": "SimpleInterest",
+              "src": "contracts\\research\\SimpleInterest.sol:66"
+            },
+            {
+              "label": "alice",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_address",
+              "contract": "SimpleInterest",
+              "src": "contracts\\research\\SimpleInterest.sol:69"
+            },
+            {
+              "label": "bob",
+              "offset": 0,
+              "slot": "10",
+              "type": "t_address",
+              "contract": "SimpleInterest",
+              "src": "contracts\\research\\SimpleInterest.sol:69"
+            },
+            {
+              "label": "carol",
+              "offset": 0,
+              "slot": "11",
+              "type": "t_address",
+              "contract": "SimpleInterest",
+              "src": "contracts\\research\\SimpleInterest.sol:69"
+            },
+            {
+              "label": "analyticMath",
+              "offset": 0,
+              "slot": "12",
+              "type": "t_contract(AnalyticMath)2365",
+              "contract": "SimpleInterest",
+              "src": "contracts\\research\\SimpleInterest.sol:170"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_contract(AnalyticMath)2365": {
+              "label": "contract AnalyticMath",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_struct(User)13667_storage)": {
+              "label": "mapping(address => struct SimpleInterest.User)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(User)13667_storage": {
+              "label": "struct SimpleInterest.User",
+              "members": [
+                {
+                  "label": "rewardDebt",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "reward",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "SimpleInterestE": {
+        "src": "contracts\\research\\SimpleInterestE.sol:20",
+        "version": {
+          "withMetadata": "7ecf3ef180598c519825c2e6d5750a9d6279a0c5c731308f63bda55282a88b65",
+          "withoutMetadata": "34c8fc210b6dfcc1e4b08e015908feeed5898fa946de37a6894ce10488b62ddb",
+          "linkedWithoutMetadata": "34c8fc210b6dfcc1e4b08e015908feeed5898fa946de37a6894ce10488b62ddb"
+        },
+        "inherit": [
+          "Ownable",
+          "Context"
+        ],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "getTotalState()",
+          "getUserState(address)",
+          "upadateWithTotalShare()",
+          "checkForConsistency()",
+          "(address)",
+          "_decreaseAllowance(address,address,uint256)",
+          "name()",
+          "symbol()",
+          "decimals()",
+          "totalSupply()",
+          "balanceOf(address)",
+          "mint(address,uint256)",
+          "burn(address,uint256)",
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)",
+          "allowance(address,address)",
+          "approve(address,uint256)",
+          "increaseAllowance(address,uint256)",
+          "decreaseAllowance(address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "SimpleInterestE",
+            "src": "contracts\\research\\SimpleInterestE.sol:172"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "Ownable",
+              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
+            },
+            {
+              "label": "_allowances",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:37"
+            },
+            {
+              "label": "_balances",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:38"
+            },
+            {
+              "label": "_totalSupply",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:39"
+            },
+            {
+              "label": "initialBlock",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_uint256",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:62"
+            },
+            {
+              "label": "latestBlock",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_uint256",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:63"
+            },
+            {
+              "label": "rewardPool",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_uint256",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:64"
+            },
+            {
+              "label": "accRewardPerShare12",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_uint256",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:65"
+            },
+            {
+              "label": "users",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_mapping(t_address,t_struct(User)14778_storage)",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:66"
+            },
+            {
+              "label": "alice",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_address",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:69"
+            },
+            {
+              "label": "bob",
+              "offset": 0,
+              "slot": "10",
+              "type": "t_address",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:69"
+            },
+            {
+              "label": "carol",
+              "offset": 0,
+              "slot": "11",
+              "type": "t_address",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:69"
+            },
+            {
+              "label": "analyticMath",
+              "offset": 0,
+              "slot": "12",
+              "type": "t_contract(AnalyticMath)2365",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:170"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_contract(AnalyticMath)2365": {
+              "label": "contract AnalyticMath",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_struct(User)14778_storage)": {
+              "label": "mapping(address => struct SimpleInterestE.User)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(User)14778_storage": {
+              "label": "struct SimpleInterestE.User",
+              "members": [
+                {
+                  "label": "rewardDebt",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "reward",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "SimpleInterestN": {
+        "src": "contracts\\research\\SimpleInterestN.sol:18",
+        "version": {
+          "withMetadata": "0e66a5af013ff5e15e5990171bf48b6c7da4b1247cff0745f95849bc2676ea61",
+          "withoutMetadata": "51a04f41b413759abe22a4755a98d7dba321af82f377d7b2d162bf0f3d43a9e1",
+          "linkedWithoutMetadata": "51a04f41b413759abe22a4755a98d7dba321af82f377d7b2d162bf0f3d43a9e1"
+        },
+        "inherit": [
+          "Ownable",
+          "Context"
+        ],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "getTotalState()",
+          "getUserState(address)",
+          "checkForConsistency()",
+          "(address)",
+          "_decreaseAllowance(address,address,uint256)",
+          "name()",
+          "symbol()",
+          "decimals()",
+          "totalSupply()",
+          "balanceOf(address)",
+          "mint(address,uint256)",
+          "burn(address,uint256)",
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)",
+          "allowance(address,address)",
+          "approve(address,uint256)",
+          "increaseAllowance(address,uint256)",
+          "decreaseAllowance(address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "SimpleInterestN",
+            "src": "contracts\\research\\SimpleInterestN.sol:186"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "Ownable",
+              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
+            },
+            {
+              "label": "_allowances",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:35"
+            },
+            {
+              "label": "_balances",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:36"
+            },
+            {
+              "label": "_totalSupply",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:37"
+            },
+            {
+              "label": "initialBlock",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_uint256",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:58"
+            },
+            {
+              "label": "users",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_mapping(t_address,t_struct(User)15896_storage)",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:59"
+            },
+            {
+              "label": "alice",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_address",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:62"
+            },
+            {
+              "label": "bob",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_address",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:62"
+            },
+            {
+              "label": "carol",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_address",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:62"
+            },
+            {
+              "label": "latestNet",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_uint256",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:90"
+            },
+            {
+              "label": "VIRTUAL",
+              "offset": 0,
+              "slot": "10",
+              "type": "t_uint256",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:90"
+            },
+            {
+              "label": "burnDone",
+              "offset": 0,
+              "slot": "11",
+              "type": "t_uint256",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:90"
+            },
+            {
+              "label": "latestBlock",
+              "offset": 0,
+              "slot": "12",
+              "type": "t_uint256",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:90"
+            },
+            {
+              "label": "analyticMath",
+              "offset": 0,
+              "slot": "13",
+              "type": "t_contract(AnalyticMath)2365",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:184"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_contract(AnalyticMath)2365": {
+              "label": "contract AnalyticMath",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_struct(User)15896_storage)": {
+              "label": "mapping(address => struct SimpleInterestN.User)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(User)15896_storage": {
+              "label": "struct SimpleInterestN.User",
+              "members": [
+                {
+                  "label": "reward",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "latestBlock",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "console": {
+        "src": "hardhat\\console.sol:4",
+        "version": {
+          "withMetadata": "c59feb9d1a58ddda41adb15b88d3a67652c0e38cceaa1d0bc70b548a1d5356e3",
+          "withoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db",
+          "linkedWithoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      }
+    },
+    {
+      "Ownable": {
+        "src": "@openzeppelin\\contracts\\access\\Ownable.sol:20",
+        "inherit": [
+          "Context"
+        ],
+        "libraries": [],
+        "methods": [
+          "owner()",
+          "renounceOwnership()",
+          "transferOwnership(address)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "Ownable",
+            "src": "@openzeppelin\\contracts\\access\\Ownable.sol:28"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "Ownable",
+              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "Context": {
+        "src": "@openzeppelin\\contracts\\utils\\Context.sol:16",
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
+      "AnalyticMath": {
+        "src": "contracts\\libraries\\math\\AnalyticMath.sol:6",
+        "version": {
+          "withMetadata": "a612a1679e1246e5c3d8d2f104accb37de255caafbe47399e18ff040f4d1e67d",
+          "withoutMetadata": "33afbc8134d61887653fcf12210920db3655c93a85020880abbd3aa4c2ec8e1f",
+          "linkedWithoutMetadata": "33afbc8134d61887653fcf12210920db3655c93a85020880abbd3aa4c2ec8e1f"
+        },
+        "inherit": [],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "init()",
+          "pow(uint256,uint256,uint256,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [
+            {
+              "label": "maxExpArray",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_array(t_uint256)128_storage",
+              "contract": "AnalyticMath",
+              "src": "contracts\\libraries\\math\\AnalyticMath.sol:21"
+            }
+          ],
+          "types": {
+            "t_array(t_uint256)128_storage": {
+              "label": "uint256[128]",
+              "numberOfBytes": "4096"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "IntegralMath": {
+        "src": "contracts\\libraries\\math\\IntegralMath.sol:6",
+        "version": {
+          "withMetadata": "e0ed2b5018db9102475a82450ba55729283382623751b459ca9162f6dc19280c",
+          "withoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db",
+          "linkedWithoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
+      "SafeMath": {
+        "src": "contracts\\libraries\\math\\SafeMath.sol:18",
+        "version": {
+          "withMetadata": "92a73055169e866386e9bf41b72493b46dad6b6d17fa9c41c330e38810304cab",
+          "withoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db",
+          "linkedWithoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
+      "CompoundInterestE": {
+        "src": "contracts\\research\\CompoundInterestE.sol:18",
+        "version": {
+          "withMetadata": "f448010646dc8bc530668a40a06c3fbf8e17633f0059d1c1c2d06af382d278c5",
+          "withoutMetadata": "9a08157f38ecb6572cc063f37dba1193b468f897550dc059611fa9aa58d001a5",
+          "linkedWithoutMetadata": "9a08157f38ecb6572cc063f37dba1193b468f897550dc059611fa9aa58d001a5"
+        },
+        "inherit": [
+          "Ownable",
+          "Context"
+        ],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "getTotalState()",
+          "getUserState(address)",
+          "upadateWithTotalShare()",
+          "checkForConsistency()",
+          "(address)",
+          "_decreaseAllowance(address,address,uint256)",
+          "name()",
+          "symbol()",
+          "decimals()",
+          "totalSupply()",
+          "balanceOf(address)",
+          "mint(address,uint256)",
+          "burn(address,uint256)",
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)",
+          "allowance(address,address)",
+          "approve(address,uint256)",
+          "increaseAllowance(address,uint256)",
+          "decreaseAllowance(address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "CompoundInterestE",
+            "src": "contracts\\research\\CompoundInterestE.sol:173"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "Ownable",
+              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
+            },
+            {
+              "label": "_allowances",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:35"
+            },
+            {
+              "label": "_balances",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:36"
+            },
+            {
+              "label": "_totalSupply",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:37"
+            },
+            {
+              "label": "initialBlock",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_uint256",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:60"
+            },
+            {
+              "label": "latestBlock",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_uint256",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:61"
+            },
+            {
+              "label": "rewardPool",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_uint256",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:62"
+            },
+            {
+              "label": "accRewardPerShare12",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_uint256",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:63"
+            },
+            {
+              "label": "users",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_mapping(t_address,t_struct(User)3404_storage)",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:64"
+            },
+            {
+              "label": "alice",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_address",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:67"
+            },
+            {
+              "label": "bob",
+              "offset": 0,
+              "slot": "10",
+              "type": "t_address",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:67"
+            },
+            {
+              "label": "carol",
+              "offset": 0,
+              "slot": "11",
+              "type": "t_address",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:67"
+            },
+            {
+              "label": "analyticMath",
+              "offset": 0,
+              "slot": "12",
+              "type": "t_contract(AnalyticMath)2365",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:171"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_contract(AnalyticMath)2365": {
+              "label": "contract AnalyticMath",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_struct(User)3404_storage)": {
+              "label": "mapping(address => struct CompoundInterestE.User)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(User)3404_storage": {
+              "label": "struct CompoundInterestE.User",
+              "members": [
+                {
+                  "label": "rewardDebt",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "reward",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "console": {
+        "src": "hardhat\\console.sol:4",
+        "version": {
+          "withMetadata": "c59feb9d1a58ddda41adb15b88d3a67652c0e38cceaa1d0bc70b548a1d5356e3",
+          "withoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db",
+          "linkedWithoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      }
+    },
+    {
+      "Ownable": {
+        "src": "@openzeppelin\\contracts\\access\\Ownable.sol:20",
+        "inherit": [
+          "Context"
+        ],
+        "libraries": [],
+        "methods": [
+          "owner()",
+          "renounceOwnership()",
+          "transferOwnership(address)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "Ownable",
+            "src": "@openzeppelin\\contracts\\access\\Ownable.sol:28"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "Ownable",
+              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "Context": {
+        "src": "@openzeppelin\\contracts\\utils\\Context.sol:16",
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
+      "AnalyticMath": {
+        "src": "contracts\\libraries\\math\\AnalyticMath.sol:6",
+        "version": {
+          "withMetadata": "a612a1679e1246e5c3d8d2f104accb37de255caafbe47399e18ff040f4d1e67d",
+          "withoutMetadata": "33afbc8134d61887653fcf12210920db3655c93a85020880abbd3aa4c2ec8e1f",
+          "linkedWithoutMetadata": "33afbc8134d61887653fcf12210920db3655c93a85020880abbd3aa4c2ec8e1f"
+        },
+        "inherit": [],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "init()",
+          "pow(uint256,uint256,uint256,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [
+            {
+              "label": "maxExpArray",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_array(t_uint256)128_storage",
+              "contract": "AnalyticMath",
+              "src": "contracts\\libraries\\math\\AnalyticMath.sol:21"
+            }
+          ],
+          "types": {
+            "t_array(t_uint256)128_storage": {
+              "label": "uint256[128]",
+              "numberOfBytes": "4096"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "IntegralMath": {
+        "src": "contracts\\libraries\\math\\IntegralMath.sol:6",
+        "version": {
+          "withMetadata": "e0ed2b5018db9102475a82450ba55729283382623751b459ca9162f6dc19280c",
+          "withoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db",
+          "linkedWithoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
+      "SafeMath": {
+        "src": "contracts\\libraries\\math\\SafeMath.sol:18",
+        "version": {
+          "withMetadata": "92a73055169e866386e9bf41b72493b46dad6b6d17fa9c41c330e38810304cab",
+          "withoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db",
+          "linkedWithoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
+      "CompoundInterestE": {
+        "src": "contracts\\research\\CompoundInterestE.sol:18",
+        "version": {
+          "withMetadata": "b22850354922ec1d5a44295d781ad8c53566d28b5abb011a7824f4e529416123",
+          "withoutMetadata": "5c91965a8fbaf934360f07198cbab5550e70952caad75ed2089329222e3a22a1",
+          "linkedWithoutMetadata": "5c91965a8fbaf934360f07198cbab5550e70952caad75ed2089329222e3a22a1"
+        },
+        "inherit": [
+          "Ownable",
+          "Context"
+        ],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "getTotalState()",
+          "getUserState(address)",
+          "upadateWithTotalShare()",
+          "checkForConsistency()",
+          "(address)",
+          "_decreaseAllowance(address,address,uint256)",
+          "name()",
+          "symbol()",
+          "decimals()",
+          "totalSupply()",
+          "balanceOf(address)",
+          "mint(address,uint256)",
+          "burn(address,uint256)",
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)",
+          "allowance(address,address)",
+          "approve(address,uint256)",
+          "increaseAllowance(address,uint256)",
+          "decreaseAllowance(address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "CompoundInterestE",
+            "src": "contracts\\research\\CompoundInterestE.sol:173"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "Ownable",
+              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
+            },
+            {
+              "label": "_allowances",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:35"
+            },
+            {
+              "label": "_balances",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:36"
+            },
+            {
+              "label": "_totalSupply",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:37"
+            },
+            {
+              "label": "initialBlock",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_uint256",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:60"
+            },
+            {
+              "label": "latestBlock",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_uint256",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:61"
+            },
+            {
+              "label": "rewardPool",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_uint256",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:62"
+            },
+            {
+              "label": "accRewardPerShare12",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_uint256",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:63"
+            },
+            {
+              "label": "users",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_mapping(t_address,t_struct(User)3404_storage)",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:64"
+            },
+            {
+              "label": "alice",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_address",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:67"
+            },
+            {
+              "label": "bob",
+              "offset": 0,
+              "slot": "10",
+              "type": "t_address",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:67"
+            },
+            {
+              "label": "carol",
+              "offset": 0,
+              "slot": "11",
+              "type": "t_address",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:67"
+            },
+            {
+              "label": "analyticMath",
+              "offset": 0,
+              "slot": "12",
+              "type": "t_contract(AnalyticMath)2365",
+              "contract": "CompoundInterestE",
+              "src": "contracts\\research\\CompoundInterestE.sol:171"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_contract(AnalyticMath)2365": {
+              "label": "contract AnalyticMath",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_struct(User)3404_storage)": {
+              "label": "mapping(address => struct CompoundInterestE.User)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(User)3404_storage": {
+              "label": "struct CompoundInterestE.User",
+              "members": [
+                {
+                  "label": "rewardDebt",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "reward",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "SimpleInterestE": {
+        "src": "contracts\\research\\SimpleInterestE.sol:20",
+        "version": {
+          "withMetadata": "c5889fa4558e998db1292098fe4e0b4c075e11ee5f3a7d9454ad17ae5fbfe0c6",
+          "withoutMetadata": "c1c9cfdd8a47aa7e18ebedd2193d5fefcbc6c655357c64367841ef6491dcc026",
+          "linkedWithoutMetadata": "c1c9cfdd8a47aa7e18ebedd2193d5fefcbc6c655357c64367841ef6491dcc026"
+        },
+        "inherit": [
+          "Ownable",
+          "Context"
+        ],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "getTotalState()",
+          "getUserState(address)",
+          "upadateWithTotalShare()",
+          "checkForConsistency()",
+          "(address)",
+          "_decreaseAllowance(address,address,uint256)",
+          "name()",
+          "symbol()",
+          "decimals()",
+          "totalSupply()",
+          "balanceOf(address)",
+          "mint(address,uint256)",
+          "burn(address,uint256)",
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)",
+          "allowance(address,address)",
+          "approve(address,uint256)",
+          "increaseAllowance(address,uint256)",
+          "decreaseAllowance(address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "SimpleInterestE",
+            "src": "contracts\\research\\SimpleInterestE.sol:172"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "Ownable",
+              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
+            },
+            {
+              "label": "_allowances",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:37"
+            },
+            {
+              "label": "_balances",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:38"
+            },
+            {
+              "label": "_totalSupply",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:39"
+            },
+            {
+              "label": "initialBlock",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_uint256",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:62"
+            },
+            {
+              "label": "latestBlock",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_uint256",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:63"
+            },
+            {
+              "label": "rewardPool",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_uint256",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:64"
+            },
+            {
+              "label": "accRewardPerShare12",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_uint256",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:65"
+            },
+            {
+              "label": "users",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_mapping(t_address,t_struct(User)4532_storage)",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:66"
+            },
+            {
+              "label": "alice",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_address",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:69"
+            },
+            {
+              "label": "bob",
+              "offset": 0,
+              "slot": "10",
+              "type": "t_address",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:69"
+            },
+            {
+              "label": "carol",
+              "offset": 0,
+              "slot": "11",
+              "type": "t_address",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:69"
+            },
+            {
+              "label": "analyticMath",
+              "offset": 0,
+              "slot": "12",
+              "type": "t_contract(AnalyticMath)2365",
+              "contract": "SimpleInterestE",
+              "src": "contracts\\research\\SimpleInterestE.sol:170"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_contract(AnalyticMath)2365": {
+              "label": "contract AnalyticMath",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_struct(User)4532_storage)": {
+              "label": "mapping(address => struct SimpleInterestE.User)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(User)4532_storage": {
+              "label": "struct SimpleInterestE.User",
+              "members": [
+                {
+                  "label": "rewardDebt",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "reward",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "console": {
+        "src": "hardhat\\console.sol:4",
+        "version": {
+          "withMetadata": "c59feb9d1a58ddda41adb15b88d3a67652c0e38cceaa1d0bc70b548a1d5356e3",
+          "withoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db",
+          "linkedWithoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      }
+    },
+    {
+      "Ownable": {
+        "src": "@openzeppelin\\contracts\\access\\Ownable.sol:20",
+        "inherit": [
+          "Context"
+        ],
+        "libraries": [],
+        "methods": [
+          "owner()",
+          "renounceOwnership()",
+          "transferOwnership(address)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "Ownable",
+            "src": "@openzeppelin\\contracts\\access\\Ownable.sol:28"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "Ownable",
+              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "Context": {
+        "src": "@openzeppelin\\contracts\\utils\\Context.sol:16",
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
+      "AnalyticMath": {
+        "src": "contracts\\libraries\\math\\AnalyticMath.sol:6",
+        "version": {
+          "withMetadata": "a612a1679e1246e5c3d8d2f104accb37de255caafbe47399e18ff040f4d1e67d",
+          "withoutMetadata": "33afbc8134d61887653fcf12210920db3655c93a85020880abbd3aa4c2ec8e1f",
+          "linkedWithoutMetadata": "33afbc8134d61887653fcf12210920db3655c93a85020880abbd3aa4c2ec8e1f"
+        },
+        "inherit": [],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "init()",
+          "pow(uint256,uint256,uint256,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [
+            {
+              "label": "maxExpArray",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_array(t_uint256)128_storage",
+              "contract": "AnalyticMath",
+              "src": "contracts\\libraries\\math\\AnalyticMath.sol:21"
+            }
+          ],
+          "types": {
+            "t_array(t_uint256)128_storage": {
+              "label": "uint256[128]",
+              "numberOfBytes": "4096"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "IntegralMath": {
+        "src": "contracts\\libraries\\math\\IntegralMath.sol:6",
+        "version": {
+          "withMetadata": "e0ed2b5018db9102475a82450ba55729283382623751b459ca9162f6dc19280c",
+          "withoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db",
+          "linkedWithoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
+      "SafeMath": {
+        "src": "contracts\\libraries\\math\\SafeMath.sol:18",
+        "version": {
+          "withMetadata": "92a73055169e866386e9bf41b72493b46dad6b6d17fa9c41c330e38810304cab",
+          "withoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db",
+          "linkedWithoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
+      "SimpleBurnN": {
+        "src": "contracts\\research\\SimpleBurnN.sol:18",
+        "version": {
+          "withMetadata": "9b8038bc3f277353113751490fab57c73bee4739d6f269f1b954996e73e397d0",
+          "withoutMetadata": "1992b8dfd14461a6541951c3c9acdd2935e8386883293355b2d0ae372ac4653d",
+          "linkedWithoutMetadata": "1992b8dfd14461a6541951c3c9acdd2935e8386883293355b2d0ae372ac4653d"
+        },
+        "inherit": [
+          "Ownable",
+          "Context"
+        ],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "getTotalState()",
+          "getUserState(address)",
+          "checkForConsistency()",
+          "(address)",
+          "_decreaseAllowance(address,address,uint256)",
+          "name()",
+          "symbol()",
+          "decimals()",
+          "totalSupply()",
+          "balanceOf(address)",
+          "mint(address,uint256)",
+          "burn(address,uint256)",
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)",
+          "allowance(address,address)",
+          "approve(address,uint256)",
+          "increaseAllowance(address,uint256)",
+          "decreaseAllowance(address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "SimpleBurnN",
+            "src": "contracts\\research\\SimpleBurnN.sol:186"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "Ownable",
+              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
+            },
+            {
+              "label": "_allowances",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:35"
+            },
+            {
+              "label": "_balances",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:36"
+            },
+            {
+              "label": "_totalSupply",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:37"
+            },
+            {
+              "label": "initialBlock",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_uint256",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:58"
+            },
+            {
+              "label": "users",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_mapping(t_address,t_struct(User)3404_storage)",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:59"
+            },
+            {
+              "label": "alice",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_address",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:62"
+            },
+            {
+              "label": "bob",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_address",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:62"
+            },
+            {
+              "label": "carol",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_address",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:62"
+            },
+            {
+              "label": "latestNet",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_uint256",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:90"
+            },
+            {
+              "label": "VIRTUAL",
+              "offset": 0,
+              "slot": "10",
+              "type": "t_uint256",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:90"
+            },
+            {
+              "label": "burnDone",
+              "offset": 0,
+              "slot": "11",
+              "type": "t_uint256",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:90"
+            },
+            {
+              "label": "latestBlock",
+              "offset": 0,
+              "slot": "12",
+              "type": "t_uint256",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:90"
+            },
+            {
+              "label": "analyticMath",
+              "offset": 0,
+              "slot": "13",
+              "type": "t_contract(AnalyticMath)2365",
+              "contract": "SimpleBurnN",
+              "src": "contracts\\research\\SimpleBurnN.sol:184"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_contract(AnalyticMath)2365": {
+              "label": "contract AnalyticMath",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_struct(User)3404_storage)": {
+              "label": "mapping(address => struct SimpleBurnN.User)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(User)3404_storage": {
+              "label": "struct SimpleBurnN.User",
+              "members": [
+                {
+                  "label": "reward",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "latestBlock",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "SimpleInterestN": {
+        "src": "contracts\\research\\SimpleInterestN.sol:18",
+        "version": {
+          "withMetadata": "6198c2df54802089aac917c7c9e45e019624db23000214de13a4fa2007c61ff9",
+          "withoutMetadata": "1fe0c613ea047ee81490e87eb5628a79f667ec03f4a747105fd9b8434b64e576",
+          "linkedWithoutMetadata": "1fe0c613ea047ee81490e87eb5628a79f667ec03f4a747105fd9b8434b64e576"
+        },
+        "inherit": [
+          "Ownable",
+          "Context"
+        ],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "getTotalState()",
+          "getUserState(address)",
+          "checkForConsistency()",
+          "(address)",
+          "_decreaseAllowance(address,address,uint256)",
+          "name()",
+          "symbol()",
+          "decimals()",
+          "totalSupply()",
+          "balanceOf(address)",
+          "mint(address,uint256)",
+          "burn(address,uint256)",
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)",
+          "allowance(address,address)",
+          "approve(address,uint256)",
+          "increaseAllowance(address,uint256)",
+          "decreaseAllowance(address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "SimpleInterestN",
+            "src": "contracts\\research\\SimpleInterestN.sol:186"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "Ownable",
+              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
+            },
+            {
+              "label": "_allowances",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:35"
+            },
+            {
+              "label": "_balances",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:36"
+            },
+            {
+              "label": "_totalSupply",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:37"
+            },
+            {
+              "label": "initialBlock",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_uint256",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:58"
+            },
+            {
+              "label": "users",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_mapping(t_address,t_struct(User)4586_storage)",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:59"
+            },
+            {
+              "label": "alice",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_address",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:62"
+            },
+            {
+              "label": "bob",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_address",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:62"
+            },
+            {
+              "label": "carol",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_address",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:62"
+            },
+            {
+              "label": "latestNet",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_uint256",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:90"
+            },
+            {
+              "label": "VIRTUAL",
+              "offset": 0,
+              "slot": "10",
+              "type": "t_uint256",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:90"
+            },
+            {
+              "label": "burnDone",
+              "offset": 0,
+              "slot": "11",
+              "type": "t_uint256",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:90"
+            },
+            {
+              "label": "latestBlock",
+              "offset": 0,
+              "slot": "12",
+              "type": "t_uint256",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:90"
+            },
+            {
+              "label": "analyticMath",
+              "offset": 0,
+              "slot": "13",
+              "type": "t_contract(AnalyticMath)2365",
+              "contract": "SimpleInterestN",
+              "src": "contracts\\research\\SimpleInterestN.sol:184"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_contract(AnalyticMath)2365": {
+              "label": "contract AnalyticMath",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_struct(User)4586_storage)": {
+              "label": "mapping(address => struct SimpleInterestN.User)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(User)4586_storage": {
+              "label": "struct SimpleInterestN.User",
+              "members": [
+                {
+                  "label": "reward",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "latestBlock",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "console": {
+        "src": "hardhat\\console.sol:4",
+        "version": {
+          "withMetadata": "c59feb9d1a58ddda41adb15b88d3a67652c0e38cceaa1d0bc70b548a1d5356e3",
+          "withoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db",
+          "linkedWithoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      }
+    },
+    {
+      "Ownable": {
+        "src": "@openzeppelin\\contracts\\access\\Ownable.sol:20",
+        "inherit": [
+          "Context"
+        ],
+        "libraries": [],
+        "methods": [
+          "owner()",
+          "renounceOwnership()",
+          "transferOwnership(address)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "Ownable",
+            "src": "@openzeppelin\\contracts\\access\\Ownable.sol:28"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "Ownable",
+              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "Context": {
+        "src": "@openzeppelin\\contracts\\utils\\Context.sol:16",
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
+      "AnalyticMath": {
+        "src": "contracts\\libraries\\math\\AnalyticMath.sol:6",
+        "version": {
+          "withMetadata": "a612a1679e1246e5c3d8d2f104accb37de255caafbe47399e18ff040f4d1e67d",
+          "withoutMetadata": "33afbc8134d61887653fcf12210920db3655c93a85020880abbd3aa4c2ec8e1f",
+          "linkedWithoutMetadata": "33afbc8134d61887653fcf12210920db3655c93a85020880abbd3aa4c2ec8e1f"
+        },
+        "inherit": [],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "init()",
+          "pow(uint256,uint256,uint256,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [
+            {
+              "label": "maxExpArray",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_array(t_uint256)128_storage",
+              "contract": "AnalyticMath",
+              "src": "contracts\\libraries\\math\\AnalyticMath.sol:21"
+            }
+          ],
+          "types": {
+            "t_array(t_uint256)128_storage": {
+              "label": "uint256[128]",
+              "numberOfBytes": "4096"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "IntegralMath": {
+        "src": "contracts\\libraries\\math\\IntegralMath.sol:6",
+        "version": {
+          "withMetadata": "e0ed2b5018db9102475a82450ba55729283382623751b459ca9162f6dc19280c",
+          "withoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db",
+          "linkedWithoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
+      "SafeMath": {
+        "src": "contracts\\libraries\\math\\SafeMath.sol:18",
+        "version": {
+          "withMetadata": "92a73055169e866386e9bf41b72493b46dad6b6d17fa9c41c330e38810304cab",
+          "withoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db",
+          "linkedWithoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
+      "CompoundBurnN": {
+        "src": "contracts\\research\\CompoundBurnN.sol:18",
+        "version": {
+          "withMetadata": "8fe009810efd38a6fa46119b040652af10d080d5cfcec0baa696146be48c6542",
+          "withoutMetadata": "05ef64cc1f954c53845a0ecd249706d42ed9ffa00356bf7f775eed4f973b4391",
+          "linkedWithoutMetadata": "05ef64cc1f954c53845a0ecd249706d42ed9ffa00356bf7f775eed4f973b4391"
+        },
+        "inherit": [
+          "Ownable",
+          "Context"
+        ],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "getTotalState()",
+          "getUserState(address)",
+          "checkForConsistency()",
+          "(address)",
+          "_decreaseAllowance(address,address,uint256)",
+          "name()",
+          "symbol()",
+          "decimals()",
+          "totalSupply()",
+          "balanceOf(address)",
+          "mint(address,uint256)",
+          "burn(address,uint256)",
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)",
+          "allowance(address,address)",
+          "approve(address,uint256)",
+          "increaseAllowance(address,uint256)",
+          "decreaseAllowance(address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "CompoundBurnN",
+            "src": "contracts\\research\\CompoundBurnN.sol:186"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "Ownable",
+              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
+            },
+            {
+              "label": "_allowances",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:35"
+            },
+            {
+              "label": "_balances",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:36"
+            },
+            {
+              "label": "_totalSupply",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:37"
+            },
+            {
+              "label": "initialBlock",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_uint256",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:58"
+            },
+            {
+              "label": "users",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_mapping(t_address,t_struct(User)3404_storage)",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:59"
+            },
+            {
+              "label": "alice",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_address",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:62"
+            },
+            {
+              "label": "bob",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_address",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:62"
+            },
+            {
+              "label": "carol",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_address",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:62"
+            },
+            {
+              "label": "latestNet",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_uint256",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:90"
+            },
+            {
+              "label": "VIRTUAL",
+              "offset": 0,
+              "slot": "10",
+              "type": "t_uint256",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:90"
+            },
+            {
+              "label": "burnDone",
+              "offset": 0,
+              "slot": "11",
+              "type": "t_uint256",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:90"
+            },
+            {
+              "label": "latestBlock",
+              "offset": 0,
+              "slot": "12",
+              "type": "t_uint256",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:90"
+            },
+            {
+              "label": "analyticMath",
+              "offset": 0,
+              "slot": "13",
+              "type": "t_contract(AnalyticMath)2365",
+              "contract": "CompoundBurnN",
+              "src": "contracts\\research\\CompoundBurnN.sol:184"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_contract(AnalyticMath)2365": {
+              "label": "contract AnalyticMath",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_struct(User)3404_storage)": {
+              "label": "mapping(address => struct CompoundBurnN.User)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(User)3404_storage": {
+              "label": "struct CompoundBurnN.User",
+              "members": [
+                {
+                  "label": "reward",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "latestBlock",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "console": {
+        "src": "hardhat\\console.sol:4",
+        "version": {
+          "withMetadata": "c59feb9d1a58ddda41adb15b88d3a67652c0e38cceaa1d0bc70b548a1d5356e3",
+          "withoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db",
+          "linkedWithoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      }
+    },
+    {
+      "Ownable": {
+        "src": "@openzeppelin\\contracts\\access\\Ownable.sol:20",
+        "inherit": [
+          "Context"
+        ],
+        "libraries": [],
+        "methods": [
+          "owner()",
+          "renounceOwnership()",
+          "transferOwnership(address)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "Ownable",
+            "src": "@openzeppelin\\contracts\\access\\Ownable.sol:28"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_owner",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "Ownable",
+              "src": "@openzeppelin\\contracts\\access\\Ownable.sol:21"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "Context": {
+        "src": "@openzeppelin\\contracts\\utils\\Context.sol:16",
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
+      "AnalyticMath": {
+        "src": "contracts\\libraries\\math\\AnalyticMath.sol:6",
+        "version": {
+          "withMetadata": "a612a1679e1246e5c3d8d2f104accb37de255caafbe47399e18ff040f4d1e67d",
+          "withoutMetadata": "33afbc8134d61887653fcf12210920db3655c93a85020880abbd3aa4c2ec8e1f",
+          "linkedWithoutMetadata": "33afbc8134d61887653fcf12210920db3655c93a85020880abbd3aa4c2ec8e1f"
+        },
+        "inherit": [],
+        "libraries": [
+          "IntegralMath"
+        ],
+        "methods": [
+          "init()",
+          "pow(uint256,uint256,uint256,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [
+            {
+              "label": "maxExpArray",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_array(t_uint256)128_storage",
+              "contract": "AnalyticMath",
+              "src": "contracts\\libraries\\math\\AnalyticMath.sol:21"
+            }
+          ],
+          "types": {
+            "t_array(t_uint256)128_storage": {
+              "label": "uint256[128]",
+              "numberOfBytes": "4096"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      },
+      "IntegralMath": {
+        "src": "contracts\\libraries\\math\\IntegralMath.sol:6",
+        "version": {
+          "withMetadata": "e0ed2b5018db9102475a82450ba55729283382623751b459ca9162f6dc19280c",
+          "withoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db",
+          "linkedWithoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
+      "SafeMath": {
+        "src": "contracts\\libraries\\math\\SafeMath.sol:18",
+        "version": {
+          "withMetadata": "92a73055169e866386e9bf41b72493b46dad6b6d17fa9c41c330e38810304cab",
+          "withoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db",
+          "linkedWithoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1",
+          "flat": false
+        }
+      },
       "CompoundInterestE": {
         "src": "contracts\\research\\CompoundInterestE.sol:18",
         "version": {
