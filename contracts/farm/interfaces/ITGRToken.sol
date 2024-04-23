@@ -14,17 +14,17 @@ interface ITGRToken is IERC20 {
         uint burnDone;
         uint latestRound;
         uint initialRound;
-        // [latestNet - VIRTUAL * (1-decayRate) ** nowRound] gives burnPending at any moment of time.
+        // [latestNet - magic * (1-decayRate) ** nowRound] gives burnPending at any moment of time.
         // This allows us not to call pulse_user_burn, if applied to user_burn.
-        // VIRTUAL is actually Virtual Latest Net Inverse Survival At Virtual LatestRound.
+        // magic is actually Virtual Latest Net Inverse Survival At Virtual LatestRound.
         // See User, TGRToken._changeBalance, TGRToken._burnPending for more.
         uint latestNet; // Sum{user} [balanceOf[user]]
-        uint VIRTUAL;   // Sum{user} [User.VIRTUAL]. 
+        uint magic;   // Sum{user} [User.magic]. 
     }
     struct User {
         uint latestRound;
         // See Pulse, TGRToken._changeBalance, TGRToken._burnPending for more.
-        uint VIRTUAL;   // LatestNet * exp(1-decayRate, user.latestRound). 
+        uint magic;   // LatestNet * exp(1-decayRate, user.latestRound). 
     }
 
     function MAX_SUPPLY() external view returns (uint);

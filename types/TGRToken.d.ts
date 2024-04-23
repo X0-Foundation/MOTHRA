@@ -581,7 +581,7 @@ export class TGRToken extends BaseContract {
         burnDone: BigNumber;
         latestRound: BigNumber;
         latestNet: BigNumber;
-        VIRTUAL: BigNumber;
+        magic: BigNumber;
         u_VIRTUAL: BigNumber;
         u_balances: BigNumber;
         u_pending: BigNumber;
@@ -623,7 +623,7 @@ export class TGRToken extends BaseContract {
         latestRound: BigNumber;
         initialRound: BigNumber;
         latestNet: BigNumber;
-        VIRTUAL: BigNumber;
+        magic: BigNumber;
       }
     >;
 
@@ -796,7 +796,7 @@ export class TGRToken extends BaseContract {
         latestRound: BigNumber;
         initialRound: BigNumber;
         latestNet: BigNumber;
-        VIRTUAL: BigNumber;
+        magic: BigNumber;
       }
     >;
 
@@ -824,7 +824,7 @@ export class TGRToken extends BaseContract {
         latestRound: BigNumber;
         initialRound: BigNumber;
         latestNet: BigNumber;
-        VIRTUAL: BigNumber;
+        magic: BigNumber;
       }
     >;
 
@@ -932,7 +932,7 @@ export class TGRToken extends BaseContract {
       burnDone: BigNumber;
       latestRound: BigNumber;
       latestNet: BigNumber;
-      VIRTUAL: BigNumber;
+      magic: BigNumber;
       u_VIRTUAL: BigNumber;
       u_balances: BigNumber;
       u_pending: BigNumber;
@@ -974,7 +974,7 @@ export class TGRToken extends BaseContract {
       latestRound: BigNumber;
       initialRound: BigNumber;
       latestNet: BigNumber;
-      VIRTUAL: BigNumber;
+      magic: BigNumber;
     }
   >;
 
@@ -1147,7 +1147,7 @@ export class TGRToken extends BaseContract {
       latestRound: BigNumber;
       initialRound: BigNumber;
       latestNet: BigNumber;
-      VIRTUAL: BigNumber;
+      magic: BigNumber;
     }
   >;
 
@@ -1175,7 +1175,7 @@ export class TGRToken extends BaseContract {
       latestRound: BigNumber;
       initialRound: BigNumber;
       latestNet: BigNumber;
-      VIRTUAL: BigNumber;
+      magic: BigNumber;
     }
   >;
 
@@ -1280,7 +1280,7 @@ export class TGRToken extends BaseContract {
         burnDone: BigNumber;
         latestRound: BigNumber;
         latestNet: BigNumber;
-        VIRTUAL: BigNumber;
+        magic: BigNumber;
         u_VIRTUAL: BigNumber;
         u_balances: BigNumber;
         u_pending: BigNumber;
@@ -1322,7 +1322,7 @@ export class TGRToken extends BaseContract {
         latestRound: BigNumber;
         initialRound: BigNumber;
         latestNet: BigNumber;
-        VIRTUAL: BigNumber;
+        magic: BigNumber;
       }
     >;
 
@@ -1482,7 +1482,7 @@ export class TGRToken extends BaseContract {
         latestRound: BigNumber;
         initialRound: BigNumber;
         latestNet: BigNumber;
-        VIRTUAL: BigNumber;
+        magic: BigNumber;
       }
     >;
 
@@ -1510,7 +1510,7 @@ export class TGRToken extends BaseContract {
         latestRound: BigNumber;
         initialRound: BigNumber;
         latestNet: BigNumber;
-        VIRTUAL: BigNumber;
+        magic: BigNumber;
       }
     >;
 

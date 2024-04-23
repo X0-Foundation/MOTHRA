@@ -2,8 +2,8 @@
 //=================== Paremeter Block that differentiate this testing script from others ======
 
 let CONTRACT = null;
-const CONTRACT_NAME = "SimpleBurn";
-const CONTRACT_SYMBOL = "SEBN";
+const CONTRACT_NAME = "SimpleInterest";
+const CONTRACT_SYMBOL = "SERW";
 const minOneBlockSurvival = 0.99;
 const maxOneBlockSurvival = 1.01;
 
@@ -572,7 +572,7 @@ describe("====================== Stage 3: Random calls ======================\n"
         let count = 0; let window = 5;
         const thresholdX = 5;
 
-        const target = 15000;
+        const target = 40000;
         while (values.length < target) {
             rand = generateRandomInteger(0, functions.length - 1);
             report = await functions[rand]();

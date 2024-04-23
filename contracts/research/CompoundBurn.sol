@@ -11,8 +11,8 @@ import "../libraries/math/IntegralMath.sol";
 import "hardhat/console.sol";
 
 //=====================================================================================
-// Compounding Exponential Burn.
-// _balances[user] += _balances[user] * (1 - ( 1 - burnRate ) ** blocks_passed )
+// Compounding Exponential Reward.
+// _balances[user] += _balances[user] * ( ( 1 + rewardRate ) ** blocks_passed - 1 )
 //=====================================================================================
 
 contract CompoundBurn is Ownable {
@@ -53,6 +53,7 @@ contract CompoundBurn is Ownable {
     struct User {
         uint    rewardDebt;
         uint    reward;
+        uint    latestBlock;
     }
 
     uint public constant distCycle = 30;
@@ -87,30 +88,30 @@ contract CompoundBurn is Ownable {
     }
 
     uint constant MAGNIFIER = 10 ** 6;
-    uint constant DecPerCycle = 777;
-    uint constant CYCLE = 10;
+    uint constant rate = 1422;
+    uint constant cycle = 10;
 
     function upadateWithTotalShare() public {
         uint missings = block.number - initialBlock - latestBlock;
         if (missings > 0) {
-            (uint p, uint q) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missings, CYCLE);           
-            uint pending = _totalSupply - IntegralMath.mulDivC(_totalSupply, p, q);
+            uint totalNetWorked = _totalSupply - rewardPool;
+            (uint p, uint q) = analyticMath.pow(MAGNIFIER - rate, MAGNIFIER, missings, cycle);
+            uint pending = totalNetWorked - IntegralMath.mulDivC(totalNetWorked, p, q);
             rewardPool += pending;
-            accRewardPerShare12 += ( 1e12 - IntegralMath.mulDivC(1e12, p, q) );
-            // Do NOT simplify the above line to the below, commented out, line. will lead a Solidity panic.      
-            // accRewardPerShare12 += ( 1e12 - 1e12 * p / q );
             latestBlock = block.number - initialBlock;
         }
     }
 
     function _changeUserShare(address user, uint amount, bool CreditNotDebit) internal {
         upadateWithTotalShare();
-        uint standardPending = accRewardPerShare12 * _balances[user] / 1e12 - users[user].rewardDebt;
-        rewardPool -= standardPending;
-        // users[user].reward += standardPending;
-        // These two lines, replacing the above commented-out line, implement CompoundInterest.
-        _balances[user] -= standardPending;
-        _totalSupply -= standardPending;
+        uint pending = _viewUserPendingReward(user);
+        if (pending > 0) {
+            rewardPool -= pending;
+            _balances[user] -= pending;
+            _totalSupply -= pending;
+        }
+        users[user].latestBlock = block.number - initialBlock;
+
         if (CreditNotDebit) {
             _balances[user] += amount;
             _totalSupply += amount;
@@ -118,23 +119,31 @@ contract CompoundBurn is Ownable {
             _balances[user] -= amount;
             _totalSupply -= amount;            
         }
-        users[user].rewardDebt = accRewardPerShare12 * _balances[user] / 1e12;
+        // _viewTotalPendingReward() == rewardPool
+        // _viewUserPendingReward(user) == 0
     }
 
     function _viewUserPendingReward(address user) internal view returns (uint) {
-        uint standardPending = accRewardPerShare12 * _balances[user] / 1e12 - users[user].rewardDebt;
-        uint extraBlocks = block.number - initialBlock - latestBlock;
-        (uint p, uint q) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, extraBlocks, CYCLE);
-        uint extraPending = _balances[user] - IntegralMath.mulDivC(_balances[user], p, q);
-        return (standardPending + extraPending);
+        uint pending;
+        uint missings = block.number - initialBlock - users[user].latestBlock;
+        if (missings > 0) {
+            (uint p, uint q) = analyticMath.pow(MAGNIFIER - rate, MAGNIFIER, missings, cycle);
+            pending = _balances[user] - IntegralMath.mulDivC(_balances[user], p, q);
+        }
+        return pending;
     }
 
     function _viewTotalPendingReward() internal view returns (uint) {
-        uint extraBlocks = block.number - initialBlock - latestBlock;
-        (uint p, uint q) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, extraBlocks, CYCLE);
-        uint extraPending = _totalSupply - IntegralMath.mulDivC(_totalSupply, p, q);
-        return rewardPool + extraPending;
-    }    
+        uint pending;
+        uint missings = block.number - initialBlock - latestBlock;
+        if (missings > 0) {
+            uint totalNetWorked = _totalSupply - rewardPool;
+            (uint p, uint q) = analyticMath.pow(MAGNIFIER - rate, MAGNIFIER, missings, cycle);
+            pending = totalNetWorked - IntegralMath.mulDivC(totalNetWorked, p, q);
+        }
+        return rewardPool + pending;
+    }
+    
 
     function checkForConsistency() public view 
     returns(uint pending_collective, uint pending_marginal, uint abs_error, uint error_rate) {
@@ -159,7 +168,7 @@ contract CompoundBurn is Ownable {
         }
 
         if (pending_max > 0) {
-            error_rate = 1e12 * abs_error/pending_max;
+            error_rate = 1e24 * abs_error/pending_max;
         }
 
         return (pending_collective, pending_marginal, abs_error, error_rate);

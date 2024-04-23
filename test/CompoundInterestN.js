@@ -18,7 +18,7 @@ async function showTotalState() {
 async function showUserState(user) {
     const s = await CONTRACT.getUserState(user.address);
     console.log("\n\tUser %s:".yellow, user.name);
-    console.log("\tshare %s, VIRTUAL %s,", s._share, s._VIRTUAL);
+    console.log("\tshare %s, magic %s,", s._share, s._VIRTUAL);
     console.log("\tuserPending %s, latestBlock %s", s._userPendingReward, s._latestBlock);
 }
 

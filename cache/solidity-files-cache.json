@@ -3136,8 +3136,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\farm\\interfaces\\ITGRToken.sol": {
-      "lastModificationDate": 1712619874529,
-      "contentHash": "9b2a2e1f04358d3bb3337f71235e8245",
+      "lastModificationDate": 1713822751665,
+      "contentHash": "58d622ec38b7dbafd91536781617f4dd",
       "sourceName": "contracts/farm/interfaces/ITGRToken.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -3417,8 +3417,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\farm\\TGRToken.sol": {
-      "lastModificationDate": 1713718998805,
-      "contentHash": "68bfd59cabdbe931c6e5a4dcf283e94d",
+      "lastModificationDate": 1713822751665,
+      "contentHash": "e12cf1592970078709b885cd7fbeaa9b",
       "sourceName": "contracts/farm/TGRToken.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6273,8 +6273,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleInterestN.sol": {
-      "lastModificationDate": 1713763931026,
-      "contentHash": "54bbbce3798567064be35aa876e4ecdd",
+      "lastModificationDate": 1713835579642,
+      "contentHash": "1a3e8ef5aa820d545190bc53a84dcd6b",
       "sourceName": "contracts/research/SimpleInterestN.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6320,57 +6320,9 @@
         "SimpleInterestN"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleInterestE.sol": {
-      "lastModificationDate": 1713763931026,
-      "contentHash": "77836748beea7896b433e379dc25018d",
-      "sourceName": "contracts/research/SimpleInterestE.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "../libraries/math/SafeMath.sol",
-        "../libraries/math/AnalyticMath.sol",
-        "../libraries/math/IntegralMath.sol",
-        "hardhat/console.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "SimpleInterestE"
-      ]
-    },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleInterest.sol": {
-      "lastModificationDate": 1713763931026,
-      "contentHash": "f4b5f88eb9dc213b9cf3042e7f019249",
+      "lastModificationDate": 1713835587674,
+      "contentHash": "a0086f79617d2d61f7737518c74397a5",
       "sourceName": "contracts/research/SimpleInterest.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6417,8 +6369,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleBurnN.sol": {
-      "lastModificationDate": 1713763907326,
-      "contentHash": "b2a0e3e8d958c75b4503253f2a3878be",
+      "lastModificationDate": 1713835587674,
+      "contentHash": "15b297ee16a3b3459312dabc3865956a",
       "sourceName": "contracts/research/SimpleBurnN.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6464,57 +6416,9 @@
         "SimpleBurnN"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleBurnE.sol": {
-      "lastModificationDate": 1713763907327,
-      "contentHash": "fe60f33b4839f1a74742af359bfa75c8",
-      "sourceName": "contracts/research/SimpleBurnE.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "../libraries/math/SafeMath.sol",
-        "../libraries/math/AnalyticMath.sol",
-        "../libraries/math/IntegralMath.sol",
-        "hardhat/console.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "SimpleBurnE"
-      ]
-    },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleBurn.sol": {
-      "lastModificationDate": 1713763907327,
-      "contentHash": "abdb16f6b9c6b0e56a637d68d970c769",
+      "lastModificationDate": 1713835587674,
+      "contentHash": "995ed638852e4c8950f5ceac8267e3d6",
       "sourceName": "contracts/research/SimpleBurn.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6561,8 +6465,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundInterestN.sol": {
-      "lastModificationDate": 1713763931024,
-      "contentHash": "04507cde367bdcf09fef478a9a49f874",
+      "lastModificationDate": 1713837405095,
+      "contentHash": "1fd4ade62497e2d26de99862f22dc554",
       "sourceName": "contracts/research/CompoundInterestN.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6608,57 +6512,9 @@
         "CompoundInterestN"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundInterestE.sol": {
-      "lastModificationDate": 1713763931026,
-      "contentHash": "e1075cec0368ba7796c8ff9a95ef927b",
-      "sourceName": "contracts/research/CompoundInterestE.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "../libraries/math/SafeMath.sol",
-        "../libraries/math/AnalyticMath.sol",
-        "../libraries/math/IntegralMath.sol",
-        "hardhat/console.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "CompoundInterestE"
-      ]
-    },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundInterest.sol": {
-      "lastModificationDate": 1713763931027,
-      "contentHash": "dbc609d8888a459fbcca75d3e3681558",
+      "lastModificationDate": 1713836399248,
+      "contentHash": "5901e6a0b0044822c9784d8ddfe17e35",
       "sourceName": "contracts/research/CompoundInterest.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6705,8 +6561,8 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundBurnN.sol": {
-      "lastModificationDate": 1713763907327,
-      "contentHash": "2cf69cad5f9de3692b8ecfbd7d6179b9",
+      "lastModificationDate": 1713825900265,
+      "contentHash": "d7e0afcb7cdad31b1f7d0be3b6d26a8b",
       "sourceName": "contracts/research/CompoundBurnN.sol",
       "solcConfig": {
         "version": "0.8.14",
@@ -6752,57 +6608,9 @@
         "CompoundBurnN"
       ]
     },
-    "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundBurnE.sol": {
-      "lastModificationDate": 1713763907327,
-      "contentHash": "1a0212250e59c9ecf2595cc8ccb8ba94",
-      "sourceName": "contracts/research/CompoundBurnE.sol",
-      "solcConfig": {
-        "version": "0.8.14",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "../libraries/math/SafeMath.sol",
-        "../libraries/math/AnalyticMath.sol",
-        "../libraries/math/IntegralMath.sol",
-        "hardhat/console.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "CompoundBurnE"
-      ]
-    },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundBurn.sol": {
-      "lastModificationDate": 1713763907328,
-      "contentHash": "69b9a203638628792eb1adbf1290bd63",
+      "lastModificationDate": 1713836613834,
+      "contentHash": "fbbe574f6529b62970e947ec70cf0a1d",
       "sourceName": "contracts/research/CompoundBurn.sol",
       "solcConfig": {
         "version": "0.8.14",

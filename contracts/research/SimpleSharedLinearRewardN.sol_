@@ -67,7 +67,7 @@ contract SimpleSharedLinearRewardN is Ownable {
     ) {
         totalSupply = _totalSupply;
         _latestNet = latestNet;
-        _VIRTUAL = VIRTUAL;
+        _VIRTUAL = magic;
         nowBlock = block.number - initialBlock;
         _totalPendingReward = _viewTotalPendingReward();
         _burnDone = burnDone;
@@ -85,11 +85,11 @@ contract SimpleSharedLinearRewardN is Ownable {
 
 
     uint public constant alpha = 10 ** 22;
-    uint constant MAGNIFIER = 10 ** 5;
-    uint constant IncPerCycle = 777;
-    uint constant CYCLE = 10;
+    uint constant denominator = 10 ** 5;
+    uint constant rate = 777;
+    uint constant cycle = 10;
 
-    uint latestNet; uint VIRTUAL; uint burnDone; uint latestBlock;
+    uint latestNet; uint magic; uint burnDone; uint latestBlock;
 
 
     function _changeUserShare(address user, uint amount, bool CreditNotDebit) internal {
@@ -122,11 +122,11 @@ contract SimpleSharedLinearRewardN is Ownable {
 
             uint v;
             if (oldBalance <= _balances[user]) {
-                v = VIRTUAL + alpha * (_balances[u] - oldBalance) * missingsUser; 
+                v = magic + alpha * (_balances[u] - oldBalance) * missingsUser; 
             } else {
-                v = VIRTUAL - alpha * (oldBalance - _balances[user]) * missingsUser;
+                v = magic - alpha * (oldBalance - _balances[user]) * missingsUser;
             }
-            VIRTUAL = v * missingsTotal;
+            magic = v * missingsTotal;
         }
     }
 
@@ -137,7 +137,7 @@ contract SimpleSharedLinearRewardN is Ownable {
     }
 
     function _viewTotalPendingReward() internal view returns (uint) {
-        uint pending = VIRTUAL / latestNet;
+        uint pending = magic / latestNet;
         return pending;
     }
     

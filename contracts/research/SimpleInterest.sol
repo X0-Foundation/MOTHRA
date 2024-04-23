@@ -53,8 +53,8 @@ contract SimpleInterest is Ownable {
     // Reward: We just handle with the reward quantity numericals here, not reward itself.
 
     struct User {
-        uint    rewardDebt;
         uint    reward;
+        uint    latestBlock;
     }
 
     uint public constant distCycle = 30;
@@ -74,7 +74,6 @@ contract SimpleInterest is Ownable {
     ) {
         totalSupply = _totalSupply;
         _latestBlock = latestBlock;
-        _accRewardPerShare12 = accRewardPerShare12;
         _rewordPool = rewardPool;
         _totalPendingReward = _viewTotalPendingReward();
     }
@@ -84,54 +83,53 @@ contract SimpleInterest is Ownable {
     ) {
         _share = _balances[user];
         _reward = users[user].reward;
-        _rewardDebt = users[user].rewardDebt;
         _userPendingReward = _viewUserPendingReward(user);
     }
 
-    uint constant MAGNIFIER = 10 ** 6;
-    uint constant IncPerCycle = 1422;
-    uint constant CYCLE = 10;
+    uint constant denominator = 10 ** 6;
+    uint constant rate = 1422;
+    uint constant cycle = 10;
 
     function upadateWithTotalShare() public {
         uint missings = block.number - initialBlock - latestBlock;
-        if (missings > 0) {
-            (uint p, uint q) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missings, CYCLE);           
-            uint pending = IntegralMath.mulDivC(_totalSupply, p, q) - _totalSupply;
+        if (missings > 0) {         
+            uint pending = _totalSupply * rate * missings / denominator / cycle;
             rewardPool += pending;
-            // accRewardPerShare12 += (IntegralMath.mulDivF(1e12, p, q) - 1e12);
-            accRewardPerShare12 += (1e12 * p / q - 1e12);
             latestBlock = block.number - initialBlock;
         }
     }
 
     function _changeUserShare(address user, uint amount, bool CreditNotDebit) internal {
         upadateWithTotalShare();
-        uint standardPending = accRewardPerShare12 * _balances[user] / 1e12 - users[user].rewardDebt;
-        rewardPool -= standardPending;
-        users[user].reward += standardPending;
+        uint pending = _viewUserPendingReward(user);
+        if (pending > 0) {  // save gas
+            rewardPool -= pending;
+            users[user].reward += pending;
+        }
+        users[user].latestBlock = block.number - initialBlock;
+
         if (CreditNotDebit) {
             _balances[user] += amount;
             _totalSupply += amount;
         } else {
             _balances[user] -= amount;
-            _totalSupply -= amount;            
+            _totalSupply -= amount;
         }
-        users[user].rewardDebt = accRewardPerShare12 * _balances[user] / 1e12;
     }
 
-    function _viewUserPendingReward(address user) internal view returns (uint) {
-        uint standardPending = accRewardPerShare12 * _balances[user] / 1e12 - users[user].rewardDebt;
-        uint extraBlocks = block.number - initialBlock - latestBlock;
-        (uint p, uint q) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, extraBlocks, CYCLE);
-        uint extraPending = IntegralMath.mulDivF(_balances[user], p, q) - _balances[user];
-        return (standardPending + extraPending);
+    function _viewUserPendingReward(address user) internal view returns (uint pending) {
+        uint missings = block.number - initialBlock - users[user].latestBlock;
+        if (missings > 0) {
+            pending = _balances[user] * rate * missings / denominator / cycle;
+        }
     }
 
-    function _viewTotalPendingReward() internal view returns (uint) {
-        uint extraBlocks = block.number - initialBlock - latestBlock;
-        (uint p, uint q) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, extraBlocks, CYCLE);
-        uint extraPending = IntegralMath.mulDivC(_totalSupply, p, q) - _totalSupply;
-        return rewardPool + extraPending;
+    function _viewTotalPendingReward() internal view returns (uint pending) {
+        pending = rewardPool;
+        uint missings = block.number - initialBlock - latestBlock;
+        if (missings > 0) {
+            pending += _totalSupply * rate * missings / denominator / cycle;
+        }
     }
     
 
@@ -149,16 +147,15 @@ contract SimpleInterest is Ownable {
         if (pending_collective < pending_marginal) {
             abs_error = pending_marginal - pending_collective;
             pending_max = pending_marginal;
-            // console.log("check --- marginal greater");
-
         } else {
             abs_error = pending_collective - pending_marginal;
             pending_max = pending_collective;
-            // console.log("check --- collective greater");
         }
 
         if (pending_max > 0) {
-            error_rate = 1e12 * abs_error/pending_max;
+            error_rate = 1e24 * abs_error/pending_max;
+        }   else {
+            console.log("pendig_max == 0");
         }
 
         return (pending_collective, pending_marginal, abs_error, error_rate);

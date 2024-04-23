@@ -67,7 +67,7 @@ contract CompoundInterestN is Ownable {
     ) {
         totalSupply = _totalSupply;
         _latestNet = latestNet;
-        _VIRTUAL = VIRTUAL;
+        _VIRTUAL = magic;
         nowBlock = block.number - initialBlock;
         _totalPendingReward = _viewTotalPendingReward();
         _burnDone = burnDone;
@@ -83,24 +83,24 @@ contract CompoundInterestN is Ownable {
         _latestBlock = users[user].latestBlock;
     }
 
-    uint constant MAGNIFIER = 10 ** 6;
-    uint constant IncPerCycle = 1422;
-    uint constant CYCLE = 10;
+    uint constant denominator = 10 ** 6;
+    uint constant rate = 1422;
+    uint constant cycle = 10;
 
-    uint latestNet; uint VIRTUAL; uint burnDone; uint latestBlock;
+    uint latestNet; uint magic; uint burnDone; uint latestBlock;
 
 
     function _changeUserShare(address user, uint amount, bool CreditNotDebit) internal {
         {
             latestNet -= _balances[user];
             uint missings = block.number - initialBlock - latestBlock;
-            (uint p1, uint q1) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missings, CYCLE);           
+            (uint p1, uint q1) = analyticMath.pow(denominator + rate, denominator, missings, cycle);           
             missings = block.number - initialBlock - users[user].latestBlock;
-            (uint p2, uint q2) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missings, CYCLE);
+            (uint p2, uint q2) = analyticMath.pow(denominator + rate, denominator, missings, cycle);
             if (block.number % 2 == 0) {
-                VIRTUAL = IntegralMath.mulDivC(VIRTUAL, p1, q1) - IntegralMath.mulDivF(_balances[user], p2, q2);
+                magic = IntegralMath.mulDivC(magic, p1, q1) - IntegralMath.mulDivF(_balances[user], p2, q2);
             } else {
-                VIRTUAL = _safeSubtract(IntegralMath.mulDivF(VIRTUAL, p1, q1), IntegralMath.mulDivC(_balances[user], p2, q2));
+                magic = _safeSubtract(IntegralMath.mulDivF(magic, p1, q1), IntegralMath.mulDivC(_balances[user], p2, q2));
             }
             latestBlock = block.number - initialBlock;
         }
@@ -123,14 +123,14 @@ contract CompoundInterestN is Ownable {
         {
             uint newBalance = _balances[user];
             latestNet += newBalance;
-            VIRTUAL += newBalance;
+            magic += newBalance;
         }
     }
 
     function _viewUserPendingReward(address user) internal view returns (uint pending) {
         uint missings = block.number - initialBlock - users[user].latestBlock;
-        // if (missings > 0) {
-            (uint p, uint q) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missings, CYCLE);
+        // if (missings > 0) {  // Keep this comment-out.
+            (uint p, uint q) = analyticMath.pow(denominator + rate, denominator, missings, cycle);
             if (block.number % 2 == 0) {
                 pending = _safeSubtract(IntegralMath.mulDivC(_balances[user], p, q), _balances[user]);
             } else {
@@ -142,8 +142,8 @@ contract CompoundInterestN is Ownable {
     function _viewTotalPendingReward() internal view returns (uint pending) {
         uint missings = block.number - initialBlock - latestBlock;
         // if (missings > 0) {
-            (uint p, uint q) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missings, CYCLE);
-            pending = _safeSubtract(IntegralMath.mulDivC(VIRTUAL, p, q), latestNet);
+            (uint p, uint q) = analyticMath.pow(denominator + rate, denominator, missings, cycle);
+            pending = _safeSubtract(IntegralMath.mulDivC(magic, p, q), latestNet);
         // }
     }
     

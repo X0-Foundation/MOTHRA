@@ -88,14 +88,14 @@ contract CompoundInterest is Ownable {
     }
 
     uint constant MAGNIFIER = 10 ** 6;
-    uint constant IncPerCycle = 1422;
-    uint constant CYCLE = 10;
+    uint constant rate = 1422;
+    uint constant cycle = 10;
 
     function upadateWithTotalShare() public {
         uint missings = block.number - initialBlock - latestBlock;
         if (missings > 0) {
-            uint totalNetWorked = _totalSupply - rewardPool;
-            (uint p, uint q) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missings, CYCLE);
+            uint totalNetWorked = _totalSupply + rewardPool;
+            (uint p, uint q) = analyticMath.pow(MAGNIFIER + rate, MAGNIFIER, missings, cycle);
             uint pending = IntegralMath.mulDivC(totalNetWorked, p, q) - totalNetWorked;
             rewardPool += pending;
             latestBlock = block.number - initialBlock;
@@ -127,7 +127,7 @@ contract CompoundInterest is Ownable {
         uint pending;
         uint missings = block.number - initialBlock - users[user].latestBlock;
         if (missings > 0) {
-            (uint p, uint q) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missings, CYCLE);
+            (uint p, uint q) = analyticMath.pow(MAGNIFIER + rate, MAGNIFIER, missings, cycle);
             pending = IntegralMath.mulDivC(_balances[user], p, q) - _balances[user];
         }
         return pending;
@@ -137,8 +137,9 @@ contract CompoundInterest is Ownable {
         uint pending;
         uint missings = block.number - initialBlock - latestBlock;
         if (missings > 0) {
-            (uint p, uint q) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missings, CYCLE);
-            pending = IntegralMath.mulDivC(_totalSupply, p, q) - _totalSupply;
+            uint totalNetWorked = _totalSupply + rewardPool;
+            (uint p, uint q) = analyticMath.pow(MAGNIFIER + rate, MAGNIFIER, missings, cycle);
+            pending = IntegralMath.mulDivC(totalNetWorked, p, q) - totalNetWorked;
         }
         return rewardPool + pending;
     }
@@ -167,7 +168,7 @@ contract CompoundInterest is Ownable {
         }
 
         if (pending_max > 0) {
-            error_rate = 1e12 * abs_error/pending_max;
+            error_rate = 1e24 * abs_error/pending_max;
         }
 
         return (pending_collective, pending_marginal, abs_error, error_rate);

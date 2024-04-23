@@ -296,13 +296,13 @@ async function showState(user) {
     console.log("\ttotalSupply %s, \
     \n\ttotal.burnPending %s, total.burnDone %s, \
     \n\ttotal.latestNet %s, \
-    \n\ttotal.VIRTUAL %s, user.VIRTUAL %s, \
+    \n\ttotal.magic %s, user.magic %s, \
     \n\tuser.balance %s, user.pending %s, \
     \n\tuser.latestDecayRound %s,".green,
     s.totalSupply, 
     s.burnPending, s.burnDone, 
     s.latestNet, 
-    s.VIRTUAL, s.u_VIRTUAL,
+    s.magic, s.u_VIRTUAL,
     s.u_balances, s.u_pending,
     s.u_latestDecayRound,
     );

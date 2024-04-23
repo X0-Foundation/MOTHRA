@@ -67,15 +67,15 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
 
     function getState(address user) external view returns (
         uint totalSupply, uint burnPending, uint burnDone, uint latestRound, 
-        uint latestNet, uint VIRTUAL, uint u_VIRTUAL, uint u_balances, uint u_pending, uint u_latestDecayRound
+        uint latestNet, uint magic, uint u_VIRTUAL, uint u_balances, uint u_pending, uint u_latestDecayRound
     ) {
         totalSupply = _totalSupply;
         burnPending = _burnPending();
         burnDone = user_burn.burnDone;
         latestRound = user_burn.latestRound;
         latestNet = user_burn.latestNet;
-        u_VIRTUAL = Users[user].VIRTUAL;
-        VIRTUAL = user_burn.VIRTUAL;
+        u_VIRTUAL = Users[user].magic;
+        magic = user_burn.magic;
         u_balances = _balances[user];
         (, u_pending) = _viewPending(user);
         u_latestDecayRound = Users[user].latestRound;
@@ -118,7 +118,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
             // _balances[account] didn't change since the previous call to this function.
             {
                 user_burn.latestNet = _safeSubtract(user_burn.latestNet, _balances[account]);   // subtract previously added value.
-                user_burn.VIRTUAL = _safeSubtract(user_burn.VIRTUAL, Users[account].VIRTUAL);   // subtract previously added value.
+                user_burn.magic = _safeSubtract(user_burn.magic, Users[account].magic);   // subtract previously added value.
             }
 
             // decayRound: the current round of decay.
@@ -155,8 +155,8 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
                     RateMagnifier, RateMagnifier - user_burn.decayRate, decayRound, uint(1)  // mind of order. minus sign...
                 );
                 uint user_VIRTUAL = IntegralMath.mulDivC(_balances[account], p, q); // Ceil for mode survival
-                Users[account].VIRTUAL = user_VIRTUAL;
-                user_burn.VIRTUAL += user_VIRTUAL;
+                Users[account].magic = user_VIRTUAL;
+                user_burn.magic += user_VIRTUAL;
                 Users[account].latestRound = decayRound;
             }
 
@@ -183,10 +183,10 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
 
         // Choose Ceil for more survival, and for making 1-gway-error to 0-gway-error in checkConsistency
         // Otherwise, 1 and 0 will give (1-0) / 1 == 100 % error.
-        uint survival = IntegralMath.mulDivC(user_burn.VIRTUAL, p, q);
+        uint survival = IntegralMath.mulDivC(user_burn.magic, p, q);
         burnPending = _safeSubtract(user_burn.latestNet, survival);
         // console.log("_burnPending. decayRound, p, q: ", decayRound, p, q);
-        // console.log("_burnPending. user_burn.VIRTUAL, burnPending: ", user_burn.VIRTUAL, burnPending);
+        // console.log("_burnPending. user_burn.magic, burnPending: ", user_burn.magic, burnPending);
     }
 
 
@@ -215,7 +215,7 @@ contract TGRToken is Node, Ownable, ITGRToken, SessionRegistrar, SessionFees, Se
         //     uint latestRound;
         //     uint initialRound;
         //     uint latestNet;
-        //     uint VIRTUAL;
+        //     uint magic;
         // }
 
         uint cycleBlocks = 30;   // small for test

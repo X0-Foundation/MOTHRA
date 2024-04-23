@@ -2,25 +2,24 @@
 //=================== Paremeter Block that differentiate this testing script from others ======
 
 let CONTRACT = null;
-const CONTRACT_NAME = "SimpleInterest";
-const CONTRACT_SYMBOL = "SERW";
+const CONTRACT_NAME = "SimpleInterestN";
+const CONTRACT_SYMBOL = "SERWN";
 const minOneBlockSurvival = 0.99;
 const maxOneBlockSurvival = 1.01;
-
 
 async function showTotalState() {
     const s = await CONTRACT.getTotalState();
     console.log("\n\tTotal:".yellow.bold);
-    console.log("\ttotalSupply %s, latestBlock %s", s.totalSupply, s._latestBlock);
-    console.log("\trewardPool %s, totalPending %s", s._rewordPool, s._totalPendingReward);
-    console.log("\taccRewardPerShare12 %s", s._accRewardPerShare12);
+    console.log("\ttotalSupply %s, latestNet %s", s.totalSupply, s._latestNet);
+    console.log("\tVIRTUAL %s, nowBlock %s", s._VIRTUAL, s.nowBlock);
+    console.log("\ttotalPending %s, burnDone %s", s._totalPendingReward, s._burnDone);
 }
 
 async function showUserState(user) {
     const s = await CONTRACT.getUserState(user.address);
     console.log("\n\tUser %s:".yellow, user.name);
-    console.log("\tshare %s, reward %s", s._share, s._reward);
-    console.log("\trewardDebt %s, userPending %s", s._rewardDebt, s._userPendingReward);
+    console.log("\tshare %s, magic %s,", s._share, s._VIRTUAL);
+    console.log("\tuserPending %s, latestBlock %s", s._userPendingReward, s._latestBlock);
 }
 
 //==========================================================================================
@@ -572,7 +571,7 @@ describe("====================== Stage 3: Random calls ======================\n"
         let count = 0; let window = 5;
         const thresholdX = 5;
 
-        const target = 15000;
+        const target = 40000;
         while (values.length < target) {
             rand = generateRandomInteger(0, functions.length - 1);
             report = await functions[rand]();

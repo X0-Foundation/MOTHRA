@@ -10,10 +10,12 @@ import "../libraries/math/IntegralMath.sol";
 
 import "hardhat/console.sol";
 
+
 //=====================================================================================
-// Simple Exponential Burn.
-// rewards[user] += _balances[user] * (1 - ( 1 - burnRate ) ** blocks_passed )
+// Simple Exponential Reward.
+// rewards[user] += _balances[user] * ( ( 1 + rewardRate ) ** blocks_passed - 1 )
 //=====================================================================================
+
 
 contract SimpleBurn is Ownable {
     // using SafeMath for uint;
@@ -51,8 +53,8 @@ contract SimpleBurn is Ownable {
     // Reward: We just handle with the reward quantity numericals here, not reward itself.
 
     struct User {
-        uint    rewardDebt;
         uint    reward;
+        uint    latestBlock;
     }
 
     uint public constant distCycle = 30;
@@ -72,7 +74,6 @@ contract SimpleBurn is Ownable {
     ) {
         totalSupply = _totalSupply;
         _latestBlock = latestBlock;
-        _accRewardPerShare12 = accRewardPerShare12;
         _rewordPool = rewardPool;
         _totalPendingReward = _viewTotalPendingReward();
     }
@@ -82,55 +83,52 @@ contract SimpleBurn is Ownable {
     ) {
         _share = _balances[user];
         _reward = users[user].reward;
-        _rewardDebt = users[user].rewardDebt;
         _userPendingReward = _viewUserPendingReward(user);
     }
 
-    uint constant MAGNIFIER = 10 ** 6;
-    uint constant DecPerCycle = 777;    // Burn % per cycle blocks. So reward means burn.
-    uint constant CYCLE = 10;
+    uint constant denominator = 10 ** 6;
+    uint constant rate = 1422;
+    uint constant cycle = 10;
 
     function upadateWithTotalShare() public {
         uint missings = block.number - initialBlock - latestBlock;
-        if (missings > 0) {
-            (uint p, uint q) = analyticMath.pow(MAGNIFIER - DecPerCycle, MAGNIFIER, missings, CYCLE);           
-            uint pending = _totalSupply - IntegralMath.mulDivF(_totalSupply, p, q);
+        if (missings > 0) {         
+            uint pending = _totalSupply * rate * missings / denominator / cycle;
             rewardPool += pending;
-            accRewardPerShare12 += (1e12 - IntegralMath.mulDivC(1e12, p, q));
-            // Using this line, instead of the above, will lead to a Solidity panic in _changeUserShare: rewardPool -= standardPending.
-            // accRewardPerShare12 += (1e12 - 1e12 * p / q);
             latestBlock = block.number - initialBlock;
         }
     }
 
     function _changeUserShare(address user, uint amount, bool CreditNotDebit) internal {
         upadateWithTotalShare();
-        uint standardPending = accRewardPerShare12 * _balances[user] / 1e12 - users[user].rewardDebt;
-        rewardPool -= standardPending;
-        users[user].reward += standardPending;
+        uint pending = _viewUserPendingReward(user);
+        if (pending > 0) {  // save gas
+            rewardPool -= pending;
+            users[user].reward += pending;
+        }
         if (CreditNotDebit) {
             _balances[user] += amount;
             _totalSupply += amount;
         } else {
             _balances[user] -= amount;
-            _totalSupply -= amount;            
+            _totalSupply -= amount;
         }
-        users[user].rewardDebt = accRewardPerShare12 * _balances[user] / 1e12;
+        users[user].latestBlock = block.number - initialBlock;
     }
 
-    function _viewUserPendingReward(address user) internal view returns (uint) {
-        uint standardPending = accRewardPerShare12 * _balances[user] / 1e12 - users[user].rewardDebt;
-        uint extraBlocks = block.number - initialBlock - latestBlock;
-        (uint p, uint q) = analyticMath.pow(MAGNIFIER + DecPerCycle, MAGNIFIER, extraBlocks, CYCLE);
-        uint extraPending = IntegralMath.mulDivC(_balances[user], p, q) - _balances[user];
-        return (standardPending + extraPending);
+    function _viewUserPendingReward(address user) internal view returns (uint pending) {
+        uint missings = block.number - initialBlock - users[user].latestBlock;
+        if (missings > 0) {
+            pending = _balances[user] * rate * missings / denominator / cycle;
+        }
     }
 
-    function _viewTotalPendingReward() internal view returns (uint) {
-        uint extraBlocks = block.number - initialBlock - latestBlock;
-        (uint p, uint q) = analyticMath.pow(MAGNIFIER + DecPerCycle, MAGNIFIER, extraBlocks, CYCLE);
-        uint extraPending = IntegralMath.mulDivF(_totalSupply, p, q) - _totalSupply;
-        return rewardPool + extraPending;
+    function _viewTotalPendingReward() internal view returns (uint pending) {
+        pending = rewardPool;
+        uint missings = block.number - initialBlock - latestBlock;
+        if (missings > 0) {
+            pending += _totalSupply * rate * missings / denominator / cycle;
+        }
     }
     
 
@@ -148,16 +146,15 @@ contract SimpleBurn is Ownable {
         if (pending_collective < pending_marginal) {
             abs_error = pending_marginal - pending_collective;
             pending_max = pending_marginal;
-            // console.log("check --- marginal greater");
-
         } else {
             abs_error = pending_collective - pending_marginal;
             pending_max = pending_collective;
-            // console.log("check --- collective greater");
         }
 
         if (pending_max > 0) {
-            error_rate = 1e12 * abs_error/pending_max;
+            error_rate = 1e24 * abs_error/pending_max;
+        }   else {
+            console.log("pendig_max == 0");
         }
 
         return (pending_collective, pending_marginal, abs_error, error_rate);
@@ -187,11 +184,11 @@ contract SimpleBurn is Ownable {
 //     //==================== ERC20 internal functions ====================
 
     function _totalNetSupply() internal view returns (uint) {
-        return _totalSupply;    // Note minus.
+        return _totalSupply;
     }
 
     function _netBalanceOf(address account) internal view returns (uint balance) {
-        return _balances[account]; // Note minus.
+        return _balances[account];
     }
 
     function _beforeTokenTransfer(address from, address to, uint amount) internal virtual {}

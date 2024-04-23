@@ -52,6 +52,7 @@ contract SimpleInterestN is Ownable {
 
     struct User {
         uint    reward;
+        uint    magic;
         uint    latestBlock;
     }
 
@@ -67,7 +68,7 @@ contract SimpleInterestN is Ownable {
     ) {
         totalSupply = _totalSupply;
         _latestNet = latestNet;
-        _VIRTUAL = VIRTUAL;
+        _VIRTUAL = magic;
         nowBlock = block.number - initialBlock;
         _totalPendingReward = _viewTotalPendingReward();
         _burnDone = burnDone;
@@ -83,25 +84,17 @@ contract SimpleInterestN is Ownable {
         _latestBlock = users[user].latestBlock;
     }
 
-    uint constant MAGNIFIER = 10 ** 6;
-    uint constant IncPerCycle = 1422;
-    uint constant CYCLE = 10;
+    uint constant denominator = 10 ** 6;
+    uint constant rate = 1422;
+    uint constant cycle = 10;
 
-    uint latestNet; uint VIRTUAL; uint burnDone; uint latestBlock;
+    uint latestNet; uint magic; uint burnDone; uint latestBlock;
 
 
     function _changeUserShare(address user, uint amount, bool CreditNotDebit) internal {
         {
             latestNet -= _balances[user];
-            uint missings = block.number - initialBlock - latestBlock;
-            (uint p1, uint q1) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missings, CYCLE);           
-            missings = block.number - initialBlock - users[user].latestBlock;
-            (uint p2, uint q2) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missings, CYCLE);
-            if (block.number % 2 == 0) {
-                VIRTUAL = IntegralMath.mulDivC(VIRTUAL, p1, q1) - IntegralMath.mulDivF(_balances[user], p2, q2);
-            } else {
-                VIRTUAL = _safeSubtract(IntegralMath.mulDivF(VIRTUAL, p1, q1), IntegralMath.mulDivC(_balances[user], p2, q2));
-            }
+            magic -= users[user].magic;
             latestBlock = block.number - initialBlock;
         }
 
@@ -123,31 +116,25 @@ contract SimpleInterestN is Ownable {
         {
             uint newBalance = _balances[user];
             latestNet += newBalance;
-            VIRTUAL += newBalance;
+            uint nowBlock = block.number - initialBlock;
+            uint userMagic = newBalance * nowBlock;
+            magic += userMagic;
+            users[user].magic = userMagic;
         }
     }
 
     function _viewUserPendingReward(address user) internal view returns (uint pending) {
         uint missings = block.number - initialBlock - users[user].latestBlock;
         // if (missings > 0) {
-            (uint p, uint q) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missings, CYCLE);
-            if (block.number % 2 == 0) {
-                pending = _safeSubtract(IntegralMath.mulDivC(_balances[user], p, q), _balances[user]);
-            } else {
-                pending = _safeSubtract(IntegralMath.mulDivF(_balances[user], p, q), _balances[user]);
-            }
+            pending = _balances[user] * rate * missings / denominator / cycle;
         // }
     }
 
     function _viewTotalPendingReward() internal view returns (uint pending) {
-        uint missings = block.number - initialBlock - latestBlock;
-        // if (missings > 0) {
-            (uint p, uint q) = analyticMath.pow(MAGNIFIER + IncPerCycle, MAGNIFIER, missings, CYCLE);
-            pending = _safeSubtract(IntegralMath.mulDivC(VIRTUAL, p, q), latestNet);
-        // }
+        uint nowBlock = block.number - initialBlock;
+        pending = (latestNet * nowBlock - magic) * rate / denominator / cycle;
     }
     
-
     function checkForConsistency() public view 
     returns(uint pending_collective, uint pending_marginal, uint abs_error, uint error_rate) {
 
@@ -166,13 +153,12 @@ contract SimpleInterestN is Ownable {
         } else {
             abs_error = pending_collective - pending_marginal;
             pending_max = pending_collective;
-            if (pending_collective > pending_marginal) {
-            } else {
-            }
         }
 
         if (pending_max > 0) {
             error_rate = 1e24 * abs_error/pending_max;
+        }   else {
+            console.log("pendig_max == 0");
         }
 
         return (pending_collective, pending_marginal, abs_error, error_rate);
