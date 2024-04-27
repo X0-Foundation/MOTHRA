@@ -6225,7 +6225,7 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleSharedLinearReward.sol": {
-      "lastModificationDate": 1713720070292,
+      "lastModificationDate": 1714232014099,
       "contentHash": "665a6c52d2c39cd2fd42fc380269b896",
       "sourceName": "contracts/research/SimpleSharedLinearReward.sol",
       "solcConfig": {
@@ -6273,7 +6273,7 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleInterestN.sol": {
-      "lastModificationDate": 1713835579642,
+      "lastModificationDate": 1714232014099,
       "contentHash": "1a3e8ef5aa820d545190bc53a84dcd6b",
       "sourceName": "contracts/research/SimpleInterestN.sol",
       "solcConfig": {
@@ -6321,7 +6321,7 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleInterest.sol": {
-      "lastModificationDate": 1713835587674,
+      "lastModificationDate": 1714232014098,
       "contentHash": "a0086f79617d2d61f7737518c74397a5",
       "sourceName": "contracts/research/SimpleInterest.sol",
       "solcConfig": {
@@ -6369,7 +6369,7 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleBurnN.sol": {
-      "lastModificationDate": 1713835587674,
+      "lastModificationDate": 1714232014098,
       "contentHash": "15b297ee16a3b3459312dabc3865956a",
       "sourceName": "contracts/research/SimpleBurnN.sol",
       "solcConfig": {
@@ -6417,7 +6417,7 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\SimpleBurn.sol": {
-      "lastModificationDate": 1713835587674,
+      "lastModificationDate": 1714232014098,
       "contentHash": "995ed638852e4c8950f5ceac8267e3d6",
       "sourceName": "contracts/research/SimpleBurn.sol",
       "solcConfig": {
@@ -6465,7 +6465,7 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundInterestN.sol": {
-      "lastModificationDate": 1713837405095,
+      "lastModificationDate": 1714232014097,
       "contentHash": "1fd4ade62497e2d26de99862f22dc554",
       "sourceName": "contracts/research/CompoundInterestN.sol",
       "solcConfig": {
@@ -6513,7 +6513,7 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundInterest.sol": {
-      "lastModificationDate": 1713836399248,
+      "lastModificationDate": 1714232014097,
       "contentHash": "5901e6a0b0044822c9784d8ddfe17e35",
       "sourceName": "contracts/research/CompoundInterest.sol",
       "solcConfig": {
@@ -6561,7 +6561,7 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundBurnN.sol": {
-      "lastModificationDate": 1713825900265,
+      "lastModificationDate": 1714232014097,
       "contentHash": "d7e0afcb7cdad31b1f7d0be3b6d26a8b",
       "sourceName": "contracts/research/CompoundBurnN.sol",
       "solcConfig": {
@@ -6609,7 +6609,7 @@
       ]
     },
     "D:\\MachineLearning\\XContracts\\contracts\\research\\CompoundBurn.sol": {
-      "lastModificationDate": 1713836613834,
+      "lastModificationDate": 1714232014097,
       "contentHash": "fbbe574f6529b62970e947ec70cf0a1d",
       "sourceName": "contracts/research/CompoundBurn.sol",
       "solcConfig": {
