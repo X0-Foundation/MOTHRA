@@ -52,3 +52,8 @@ Pls check if these assumptions are acceptable,
 @Ash
 11:24
 Different combinations of limits are also possible.
+
+
+
+Test:
+npx hardhat test
